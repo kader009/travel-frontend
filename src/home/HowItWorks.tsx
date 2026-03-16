@@ -13,7 +13,7 @@ const HowItWorks = () => {
         </div>
         <div className="grid gap-6 md:grid-cols-3">
           {/* Step 1 */}
-          <div className="group flex flex-col items-start text-left p-8 rounded-2xl bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
+          <div className="group flex flex-col items-start text-left p-8 rounded-2xl bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 shadow-xs transition-all hover:shadow-xl hover:-translate-y-1">
             <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform group-hover:rotate-6">
               <UserPlus className="w-8 h-8" />
             </div>

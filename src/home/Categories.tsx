@@ -1,23 +1,17 @@
 import Container from '../components/ui/Container';
-import {
-  Baby,
-  Footprints,
-  Heart,
-  User,
-  UserPlus,
-} from 'lucide-react';
+import { Baby, Footprints, Heart, User, UserPlus } from 'lucide-react';
 
-const categories = [
-  { name: 'Solo', icon: User, color: 'text-blue-500', bg: 'bg-blue-500/10' },
-  { name: 'Family', icon: Baby, color: 'text-orange-500', bg: 'bg-orange-500/10' },
-  { name: 'Friends', icon: UserPlus, color: 'text-green-500', bg: 'bg-green-500/10' },
-  { name: 'Couple', icon: Heart, color: 'text-pink-500', bg: 'bg-pink-500/10' },
-  { name: 'Alone', icon: Footprints, color: 'text-purple-500', bg: 'bg-purple-500/10' },
+const categoriesList = [
+  { name: 'Solo', icon: User },
+  { name: 'Family', icon: Baby },
+  { name: 'Friends', icon: UserPlus },
+  { name: 'Couple', icon: Heart },
+  { name: 'Alone', icon: Footprints },
 ];
 
 const Categories = () => {
   return (
-    <section className="py-12">
+    <section className="bg-accent/10 py-12 dark:bg-background-dark">
       <Container>
         <div className="mb-12 text-center">
           <h1 className="text-3xl font-black lg:text-5xl">Travel Categories</h1>
@@ -25,23 +19,17 @@ const Categories = () => {
             Choose your travel category to find compatible travel partners.
           </p>
         </div>
-        
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {categories.map((cat) => (
-            <div 
+
+        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
+          {categoriesList.map((cat) => (
+            <div
               key={cat.name}
-              className="group relative flex flex-col items-center p-8 rounded-2xl bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 transition-all hover:border-primary/50 hover:shadow-xl hover:-translate-y-2 overflow-hidden cursor-pointer"
+              className="flex items-center gap-2 rounded-full bg-white dark:bg-background-dark px-5 py-2 shadow-xs border border-primary/5 transition-transform hover:scale-105 cursor-pointer dark:border-primary/5"
             >
-              {/* Background Glow Effect on Hover */}
-              <div className={`absolute -right-8 -top-8 h-24 w-24 rounded-full ${cat.bg} opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:scale-[3] animate-pulse`}></div>
-              
-              <cat.icon className={`w-12 h-12 ${cat.color} mb-4 relative z-10 transition-transform duration-300 group-hover:scale-110`} />
-              
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white relative z-10">
+              <cat.icon className="w-5 h-5 text-primary" />
+              <span className="font-semibold text-slate-700 dark:text-slate-200">
                 {cat.name}
-              </h3>
-              
-              <div className="mt-4 h-1 w-0 bg-primary transition-all duration-300 group-hover:w-full rounded-full"></div>
+              </span>
             </div>
           ))}
         </div>

@@ -39,7 +39,7 @@ const Hero = () => {
           <div className="flex flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-12">
             <Link
               href="/find-buddy"
-              className="px-5 sm:px-10 flex h-12 sm:h-16 items-center justify-center rounded-full bg-primary text-[13px] sm:text-lg font-bold text-background-dark shadow-xl shadow-primary/30 transition-all hover:scale-105 active:scale-95 whitespace-nowrap"
+              className="px-5 sm:px-10 flex h-12 sm:h-16 items-center justify-center rounded-full bg-primary text-[13px] sm:text-lg font-bold text-background-dark hover:scale-105 active:scale-95 whitespace-nowrap"
             >
               Find Buddy
             </Link>
@@ -55,7 +55,7 @@ const Hero = () => {
 
       {/* Floating Card - Desktop Only */}
       <div className="absolute bottom-10 right-10 z-20 hidden lg:block">
-        <div className="rounded-2xl bg-white/80 p-6 backdrop-blur-xl dark:bg-background-dark/80 shadow-2xl border border-white/20">
+        <div className="rounded-2xl bg-white/80 p-6 backdrop-blur-xl dark:bg-background-dark/80 border border-white/20">
           <div className="flex items-center gap-4">
             <div className="h-12 w-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary">
               <Compass className="w-6 h-6" />

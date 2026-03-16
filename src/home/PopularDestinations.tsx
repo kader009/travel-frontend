@@ -23,7 +23,7 @@ const PopularDestinations = () => {
           </Link>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="group relative aspect-3/4 overflow-hidden rounded-xl shadow-lg">
+          <div className="group relative aspect-3/4 overflow-hidden rounded-xl shadow-xs">
             <img
               alt="Lush green landscape in Bali"
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
@@ -39,7 +39,7 @@ const PopularDestinations = () => {
               </div>
             </div>
           </div>
-          <div className="group relative aspect-3/4 overflow-hidden rounded-xl shadow-lg">
+          <div className="group relative aspect-3/4 overflow-hidden rounded-xl shadow-xs">
             <img
               alt="Eiffel Tower in Paris"
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
@@ -55,7 +55,7 @@ const PopularDestinations = () => {
               </div>
             </div>
           </div>
-          <div className="group relative aspect-3/4 overflow-hidden rounded-xl shadow-lg">
+          <div className="group relative aspect-3/4 overflow-hidden rounded-xl shadow-xs">
             <img
               alt="Traditional pagoda in Kyoto Japan"
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
@@ -71,7 +71,7 @@ const PopularDestinations = () => {
               </div>
             </div>
           </div>
-          <div className="group relative aspect-3/4 overflow-hidden rounded-xl shadow-lg">
+          <div className="group relative aspect-3/4 overflow-hidden rounded-xl shadow-xs">
             <img
               alt="Blue water and mountains in Swiss Alps"
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"

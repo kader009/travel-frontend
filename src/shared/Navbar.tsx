@@ -10,41 +10,63 @@ const Navbar = () => {
           <div className="flex h-10 w-10 items-center justify-center rounded bg-primary text-background-dark">
             <Compass className="w-6 h-6 font-bold" />
           </div>
-          <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+          <h1 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             TravelBuddy
-          </h2>
+          </h1>
         </Link>
-        <nav className="hidden md:flex items-center gap-8">
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-6">
           <Link
-            className="text-sm font-semibold hover:text-primary transition-colors"
-            href="/destinations"
+            className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
+            href="/"
           >
-            Destinations
+            Home
           </Link>
           <Link
-            className="text-sm font-semibold hover:text-primary transition-colors"
-            href="/how-it-works"
+            className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
+            href="/explore"
           >
-            How It Works
+            Explore Travelers
           </Link>
           <Link
-            className="text-sm font-semibold hover:text-primary transition-colors"
-            href="/community"
+            className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
+            href="/find-buddy"
           >
-            Community
+            Find Buddy
           </Link>
           <Link
-            className="text-sm font-semibold hover:text-primary transition-colors"
+            className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
+            href="/travel-plans"
+          >
+            My Plans
+          </Link>
+          <Link
+            className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
+            href="/about"
+          >
+            About us
+          </Link>
+          <Link
+            className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
             href="/pricing"
           >
             Pricing
           </Link>
         </nav>
+
+        {/* Auth Actions */}
         <div className="flex items-center gap-4">
-          <Link href="/login" className="hidden sm:block text-sm font-bold hover:text-primary">
+          <Link
+            href="/login"
+            className="hidden sm:block text-sm font-bold hover:text-primary"
+          >
             Login
           </Link>
-          <Link href="/signup" className="rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-background-dark shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+          <Link
+            href="/signup"
+            className="rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-background-dark hover:scale-105 transition-transform"
+          >
             Sign Up Free
           </Link>
         </div>
