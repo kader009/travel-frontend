@@ -9,11 +9,11 @@ const Hero = () => {
       {/* Background/Side Image Container */}
       <div className="relative lg:absolute top-0 right-0 w-full lg:w-1/2 h-[40vh] sm:h-[50vh] lg:h-full z-0 order-1 lg:order-0">
         <Image
-          alt="Stunning mountain lake landscape with a lone traveler"
+          alt="Two diverse travelers looking at a stunning mountain lake during golden hour"
           className="object-cover"
           fill
           priority
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmPbWZ5T8qVf-HXNiPgmVrRsPEbCJIL8kDj8PJNw45WIv3c293Em_ceP-RRD9q0nnt-RlW2ijhNmTpBiDHNytV7ImTsgZ0q6acaSXAsVSHKjo2-w0YSydXZSmhbWS5laf7k4-FOzFVQp7PDVPHxBZJI3rrYe_lNxzE5KI-bCCumV4kmou5r0CEKBtFEOvI_5IBnBPhJ2R7BWTjkf0wqK9CmqfiXCPWYRa04pMjWVJ4V0_LJqCsC6hiCP4rsQMXG2p8M6K6HMyTNw"
+          src="/hero-travel.png"
         />
         {/* Desktop Gradient Overlay */}
         <div className="absolute inset-0 bg-linear-to-r from-white via-white/50 to-transparent dark:from-background-dark dark:via-background-dark/50 hidden lg:block"></div>
@@ -36,18 +36,18 @@ const Hero = () => {
             companion.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12">
+          <div className="flex flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-12">
             <Link
               href="/find-buddy"
-              className="w-full sm:w-auto flex h-14 sm:h-16 items-center justify-center rounded-full bg-primary px-8 sm:px-10 text-base sm:text-lg font-bold text-background-dark shadow-xl shadow-primary/30 transition-all hover:scale-105 active:scale-95"
+              className="px-5 sm:px-10 flex h-12 sm:h-16 items-center justify-center rounded-full bg-primary text-[13px] sm:text-lg font-bold text-background-dark shadow-xl shadow-primary/30 transition-all hover:scale-105 active:scale-95 whitespace-nowrap"
             >
               Find Buddy
             </Link>
             <Link
               href="/create-plan"
-              className="w-full sm:w-auto flex h-14 sm:h-16 items-center justify-center rounded-full bg-white dark:bg-background-dark border-2 border-slate-200 dark:border-slate-700 px-8 sm:px-10 text-base sm:text-lg font-bold transition-all hover:bg-slate-50 dark:hover:bg-slate-700 active:scale-95 text-slate-900 dark:text-white"
+              className="px-5 sm:px-10 flex h-12 sm:h-16 items-center justify-center rounded-full bg-white dark:bg-background-dark border-2 border-slate-200 dark:border-slate-700 text-[13px] sm:text-lg font-bold transition-all hover:bg-slate-50 dark:hover:bg-slate-700 active:scale-95 text-slate-900 dark:text-white whitespace-nowrap"
             >
-              Create Travel Plan
+              Create Plan
             </Link>
           </div>
         </div>

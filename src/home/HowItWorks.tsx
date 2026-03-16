@@ -5,39 +5,44 @@ const HowItWorks = () => {
   return (
     <section className="py-12">
       <Container>
-        <div className="mb-16 text-center">
-          <h2 className="text-3xl font-black lg:text-5xl">How It Works</h2>
+        <div className="mb-12 text-center">
+          <h1 className="text-3xl font-black lg:text-5xl">Three Simple Steps to Adventure</h1>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
-            Three simple steps to start your next adventure with a new friend.
+            We take the stress out of finding compatible travel partners. Our platform <br/> ensuring you find people who share your rhythm.
           </p>
         </div>
-        <div className="grid gap-8 md:grid-cols-3">
-          <div className="group flex flex-col items-center text-center">
-            <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-xl bg-accent text-slate-900 transition-transform group-hover:scale-110">
-              <UserPlus className="w-10 h-10" />
+        <div className="grid gap-6 md:grid-cols-3">
+          {/* Step 1 */}
+          <div className="group flex flex-col items-start text-left p-8 rounded-2xl bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
+            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform group-hover:rotate-6">
+              <UserPlus className="w-8 h-8" />
             </div>
-            <h3 className="mb-2 text-xl font-bold">Create a Profile</h3>
-            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+            <h3 className="mb-3 text-2xl font-bold text-slate-900 dark:text-white">Create a Profile</h3>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
               Tell us about your travel style, favorite destinations, and bucket
               list interests.
             </p>
           </div>
-          <div className="group flex flex-col items-center text-center">
-            <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-xl bg-primary text-slate-900 transition-transform group-hover:scale-110">
-              <Map className="w-10 h-10" />
+
+          {/* Step 2 */}
+          <div className="group flex flex-col items-start text-left p-8 rounded-2xl bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
+            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform group-hover:rotate-6">
+              <Map className="w-8 h-8" />
             </div>
-            <h3 className="mb-2 text-xl font-bold">Find Destinations</h3>
-            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+            <h3 className="mb-3 text-2xl font-bold text-slate-900 dark:text-white">Find Destinations</h3>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
               Browse upcoming trips posted by others or share your own itinerary
               to find companions.
             </p>
           </div>
-          <div className="group flex flex-col items-center text-center">
-            <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-xl bg-accent text-slate-900 transition-transform group-hover:scale-110">
-              <MessageCircle className="w-10 h-10" />
+
+          {/* Step 3 */}
+          <div className="group flex flex-col items-start text-left p-8 rounded-2xl bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
+            <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform group-hover:rotate-6">
+              <MessageCircle className="w-8 h-8" />
             </div>
-            <h3 className="mb-2 text-xl font-bold">Connect & Go</h3>
-            <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+            <h3 className="mb-3 text-2xl font-bold text-slate-900 dark:text-white">Connect & Go</h3>
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
               Message potential buddies, plan the logistics, and hit the road
               safely.
             </p>
