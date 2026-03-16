@@ -36,7 +36,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${roboto.className} antialiased`}
+        className={`${roboto.className} bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased`}
       >
         <PersistProvider>
           <Navbar />

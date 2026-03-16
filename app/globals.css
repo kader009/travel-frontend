@@ -2,25 +2,41 @@
 
 @theme {
   --color-primary: #99e600;
-  --color-secondary: #f4a460;
+  --color-secondary: #d8f999;
+  --color-accent: #ccff66;
   --color-background-light: #f7f8f5;
-  --color-background-dark: #1c230f;
+  --color-background-dark: #121609;
+  --color-text-light: #0f172a; /* slate-900 */
+  --color-text-dark: #f8fafc;  /* slate-50 */
 }
 
 :root {
-  /* Primary Colors */
   --primary: #99e600;
-  --secondary: #f4a460;
-
-  /* Background Colors */
+  --secondary: #d8f999;
+  --accent: #ccff66;
   --background-light: #f7f8f5;
-  --background-dark: #1c230f;
+  --background-dark: #121609;
+  --text-light: #0f172a;
+  --text-dark: #f8fafc;
 }
 
-html,
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--background-light);
   color: var(--text-light);
+  overflow-x: hidden;
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+  .dark .glass {
+    @apply bg-background-dark/70 backdrop-blur-md border border-white/10 shadow-2xl;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,3 +46,4 @@ body {
     color: var(--text-dark);
   }
 }
+
