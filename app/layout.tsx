@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/src/shared/Navbar";
+import PersistProvider from "@/src/provider/PersistProvider";
+import Footer from "@/src/shared/Footer";
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -12,6 +15,9 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "Travel buddy",
   description: "Travel Buddy & Meetup Platform for everyone",
+  icons:{
+    icon: '/siteicon.png',
+  }
 };
 
 export default function RootLayout({
@@ -32,7 +38,11 @@ export default function RootLayout({
       <body
         className={`${roboto.className} antialiased`}
       >
-        {children}
+        <PersistProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </PersistProvider>
       </body>
     </html>
   );
