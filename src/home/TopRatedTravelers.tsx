@@ -1,9 +1,10 @@
+import Container from '../components/ui/Container';
 import { Star } from 'lucide-react';
 
 const TopRatedTravelers = () => {
   return (
     <section className="py-20">
-      <div className="mx-auto max-w-[1440px] px-6">
+      <Container>
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-black lg:text-5xl">
             Top Rated Travelers
@@ -66,7 +67,7 @@ const TopRatedTravelers = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

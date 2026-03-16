@@ -1,10 +1,10 @@
+import Container from '../components/ui/Container';
 import { Map, MessageCircle, UserPlus } from 'lucide-react';
-import React from 'react';
 
 const HowItWorks = () => {
   return (
-    <section className="px-6 py-20 lg:py-32">
-      <div className="mx-auto max-w-[1440px]">
+    <section className="py-20 lg:py-32">
+      <Container>
         <div className="mb-16 text-center">
           <h2 className="text-3xl font-black lg:text-5xl">How It Works</h2>
           <p className="mt-4 text-slate-600 dark:text-slate-400">
@@ -43,7 +43,7 @@ const HowItWorks = () => {
             </p>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };

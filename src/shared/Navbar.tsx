@@ -1,52 +1,54 @@
+import Link from 'next/link';
+import Container from '../components/ui/Container';
 import { Compass } from 'lucide-react';
 
 const Navbar = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-[1440px] items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-2">
+      <Container className="flex items-center justify-between py-4">
+        <Link href="/" className="flex items-center gap-2">
           <div className="flex h-10 w-10 items-center justify-center rounded bg-primary text-background-dark">
             <Compass className="w-6 h-6 font-bold" />
           </div>
           <h2 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             TravelBuddy
           </h2>
-        </div>
+        </Link>
         <nav className="hidden md:flex items-center gap-8">
-          <a
+          <Link
             className="text-sm font-semibold hover:text-primary transition-colors"
-            href="#"
+            href="/destinations"
           >
             Destinations
-          </a>
-          <a
+          </Link>
+          <Link
             className="text-sm font-semibold hover:text-primary transition-colors"
-            href="#"
+            href="/how-it-works"
           >
             How It Works
-          </a>
-          <a
+          </Link>
+          <Link
             className="text-sm font-semibold hover:text-primary transition-colors"
-            href="#"
+            href="/community"
           >
             Community
-          </a>
-          <a
+          </Link>
+          <Link
             className="text-sm font-semibold hover:text-primary transition-colors"
-            href="#"
+            href="/pricing"
           >
             Pricing
-          </a>
+          </Link>
         </nav>
         <div className="flex items-center gap-4">
-          <button className="hidden sm:block text-sm font-bold hover:text-primary">
+          <Link href="/login" className="hidden sm:block text-sm font-bold hover:text-primary">
             Login
-          </button>
-          <button className="rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-background-dark shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+          </Link>
+          <Link href="/signup" className="rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-background-dark shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
             Sign Up Free
-          </button>
+          </Link>
         </div>
-      </div>
+      </Container>
     </header>
   );
 };

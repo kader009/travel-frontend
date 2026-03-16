@@ -1,5 +1,6 @@
+import Link from 'next/link';
+import Container from '../components/ui/Container';
 import { Compass, Sparkles } from 'lucide-react';
-import React from 'react';
 
 const Hero = () => {
   return (
@@ -13,7 +14,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-linear-to-r from-white via-white/50 to-transparent dark:from-background-dark dark:via-background-dark/50 hidden lg:block"></div>
         <div className="absolute inset-0 bg-linear-to-t from-white via-transparent to-transparent dark:from-background-dark lg:hidden"></div>
       </div>
-      <div className="relative z-10 mx-auto max-w-[1440px] px-6 py-12 lg:py-24 w-full">
+      <Container className="relative z-10 py-12 lg:py-24">
         <div className="max-w-2xl">
           <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 border border-primary/20 px-4 py-1.5 text-xs font-black uppercase tracking-widest text-primary mb-8">
             <Sparkles className="w-4 h-4" />
@@ -31,12 +32,12 @@ const Hero = () => {
             companion.
           </p>
           <div className="flex flex-wrap gap-4 mb-12">
-            <button className="flex h-16 items-center justify-center rounded-full bg-primary px-10 text-lg font-bold text-background-dark shadow-xl shadow-primary/30 transition-all hover:scale-105 hover:shadow-primary/40 active:scale-95">
+            <Link href="/find-buddy" className="flex h-16 items-center justify-center rounded-full bg-primary px-10 text-lg font-bold text-background-dark shadow-xl shadow-primary/30 transition-all hover:scale-105 hover:shadow-primary/40 active:scale-95">
               Find Buddy
-            </button>
-            <button className="flex h-16 items-center justify-center rounded-full bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 px-10 text-lg font-bold transition-all hover:bg-slate-50 dark:hover:bg-slate-700 active:scale-95">
+            </Link>
+            <Link href="/create-plan" className="flex h-16 items-center justify-center rounded-full bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 px-10 text-lg font-bold transition-all hover:bg-slate-50 dark:hover:bg-slate-700 active:scale-95">
               Create Travel Plan
-            </button>
+            </Link>
           </div>
           <div className="flex items-center gap-6">
             <div className="flex -space-x-4">
@@ -69,7 +70,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
       <div className="absolute bottom-10 right-10 z-20 hidden lg:block">
         <div className="rounded-2xl bg-white/80 p-6 backdrop-blur-xl dark:bg-background-dark/80 shadow-2xl border border-white/20">
           <div className="flex items-center gap-4">

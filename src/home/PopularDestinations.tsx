@@ -1,10 +1,12 @@
+import Link from 'next/link';
+import Container from '../components/ui/Container';
 import { Users } from 'lucide-react';
 import React from 'react';
 
 const PopularDestinations = () => {
   return (
-    <section className="bg-slate-50 dark:bg-background-dark px-6 py-20">
-      <div className="mx-auto max-w-[1440px] px-6">
+    <section className="bg-slate-50 dark:bg-background-dark py-20">
+      <Container>
         <div className="mb-12 flex items-end justify-between">
           <div>
             <h2 className="text-3xl font-black lg:text-5xl">
@@ -14,9 +16,9 @@ const PopularDestinations = () => {
               Trending spots where people are looking for buddies right now.
             </p>
           </div>
-          <button className="hidden font-bold text-primary sm:block">
+          <Link href="/destinations" className="hidden font-bold text-primary sm:block">
             View All Destinations →
-          </button>
+          </Link>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <div className="group relative aspect-3/4 overflow-hidden rounded-xl shadow-lg">
@@ -84,7 +86,7 @@ const PopularDestinations = () => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 };
