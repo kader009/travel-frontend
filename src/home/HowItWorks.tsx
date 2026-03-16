@@ -3,7 +3,7 @@ import { Map, MessageCircle, UserPlus } from 'lucide-react';
 
 const HowItWorks = () => {
   return (
-    <section className="py-20 lg:py-32">
+    <section className="py-12">
       <Container>
         <div className="mb-16 text-center">
           <h2 className="text-3xl font-black lg:text-5xl">How It Works</h2>

@@ -89,7 +89,7 @@ const Footer = () => {
                   className="hover:text-primary transition-colors"
                   href="/how-it-works"
                 >
-                  How it Works
+                  About us
                 </Link>
               </li>
               <li>

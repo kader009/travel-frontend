@@ -3,7 +3,7 @@ import { Star } from 'lucide-react';
 
 const TopRatedTravelers = () => {
   return (
-    <section className="py-20">
+    <section className="py-12">
       <Container>
         <div className="mb-12 text-center">
           <h2 className="text-3xl font-black lg:text-5xl">
@@ -15,7 +15,7 @@ const TopRatedTravelers = () => {
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {/* Traveler 1 */}
-          <div className="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-slate-800 dark:bg-slate-900">
+          <div className="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-slate-800 dark:bg-background-dark">
             <img
               alt="Profile of male traveler Marco Rossi"
               className="h-20 w-20 rounded-full object-cover"
@@ -33,7 +33,7 @@ const TopRatedTravelers = () => {
             </div>
           </div>
           {/* Traveler 2 */}
-          <div className="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-slate-800 dark:bg-slate-900">
+          <div className="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-slate-800 dark:bg-background-dark">
             <img
               alt="Profile of female traveler Elena Vance"
               className="h-20 w-20 rounded-full object-cover"
@@ -49,7 +49,7 @@ const TopRatedTravelers = () => {
             </div>
           </div>
           {/* Traveler 3 */}
-          <div className="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-slate-800 dark:bg-slate-900">
+          <div className="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-6 shadow-sm transition-shadow hover:shadow-md dark:border-slate-800 dark:bg-background-dark">
             <img
               alt="Profile of young traveler Jordan Smith"
               className="h-20 w-20 rounded-full object-cover"

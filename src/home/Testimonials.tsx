@@ -3,14 +3,14 @@ import { Quote } from 'lucide-react';
 
 const Testimonials = () => {
   return (
-    <section className="bg-primary/5 py-20 lg:py-32">
+    <section className="py-12">
       <Container>
         <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
           <div>
-            <h2 className="text-4xl font-black lg:text-5xl">
+            <h1 className="text-4xl font-black lg:text-5xl">
               Voices of the <br />
               <span className="text-primary">Community</span>
-            </h2>
+            </h1>
             <p className="mt-6 text-lg text-slate-600 dark:text-slate-400">
               Hear from our travelers who found more than just a buddy—they
               found life-long friendships and unforgettable memories.
@@ -22,7 +22,7 @@ const Testimonials = () => {
             </div>
           </div>
           <div className="relative">
-            <div className="rounded-xl bg-white p-8 shadow-xl dark:bg-slate-900">
+            <div className="rounded-xl bg-white p-8 shadow-xl dark:bg-background-dark">
               <Quote className="w-12 h-12 text-primary/30" />
               <p className="mt-4 text-xl font-medium italic leading-relaxed text-slate-700 dark:text-slate-300">
                 "I was nervous about solo traveling to Vietnam, but I found

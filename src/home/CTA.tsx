@@ -3,7 +3,7 @@ import Container from '../components/ui/Container';
 
 const CTA = () => {
   return (
-    <Container className="py-20">
+    <Container className="py-12">
       <div className="relative overflow-hidden rounded-xl bg-background-dark px-8 py-16 text-center text-white lg:px-16 lg:py-24">
         <div className="absolute inset-0 bg-primary/10 opacity-50"></div>
         <div className="relative z-10 flex flex-col items-center">
@@ -18,7 +18,7 @@ const CTA = () => {
             <Link href="/signup" className="rounded-full bg-primary px-8 py-4 text-lg font-bold text-background-dark shadow-lg shadow-primary/20 transition-transform hover:scale-105">
               Get Started Now
             </Link>
-            <Link href="/trips" className="rounded-full border border-slate-700 bg-slate-800/50 px-8 py-4 text-lg font-bold backdrop-blur transition-colors hover:bg-slate-800">
+            <Link href="/trips" className="rounded-full border border-slate-700 bg-slate-800/50 px-8 py-4 text-lg font-bold backdrop-blur transition-colors hover:bg-slate-800 dark:bg-background-dark">
               Browse Trips
             </Link>
           </div>
