@@ -13,12 +13,6 @@ const Categories = () => {
   return (
     <section className="bg-accent/10 py-12 dark:bg-background-dark">
       <Container>
-        <div className="mb-12 text-center">
-          <h1 className="text-3xl font-black lg:text-5xl">Travel Categories</h1>
-          <p className="mt-4 text-slate-600 dark:text-slate-400">
-            Choose your travel category to find compatible travel partners.
-          </p>
-        </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
           {categoriesList.map((cat) => (

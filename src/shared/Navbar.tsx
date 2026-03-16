@@ -67,7 +67,7 @@ const Navbar = () => {
             href="/signup"
             className="rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-background-dark hover:scale-105 transition-transform"
           >
-            Sign Up Free
+            Sign Up
           </Link>
         </div>
       </Container>
