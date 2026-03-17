@@ -101,14 +101,6 @@ const Footer = () => {
                   Pricing
                 </Link>
               </li>
-              <li>
-                <Link
-                  className="hover:text-primary transition-colors"
-                  href="/community"
-                >
-                  Community
-                </Link>
-              </li>
             </ul>
           </div>
           <div>
