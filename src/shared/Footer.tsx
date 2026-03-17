@@ -2,10 +2,11 @@ import Link from 'next/link';
 import Container from '../components/ui/Container';
 import {
   Compass,
-  Globe,
-  Mail,
-  MessageSquare,
+  Facebook,
+  Instagram,
+  Linkedin,
   SendHorizontal,
+  Twitter,
 } from 'lucide-react';
 
 const Footer = () => {
@@ -30,19 +31,32 @@ const Footer = () => {
             </p>
             <div className="flex gap-4">
               <Link
-                className="text-slate-400 hover:text-primary"
-                href="/global"
+                className="text-slate-400 hover:text-primary transition-colors"
+                href="https://facebook.com"
+                target="_blank"
               >
-                <Globe className="w-5 h-5" />
-              </Link>
-              <Link className="text-slate-400 hover:text-primary" href="/chat">
-                <MessageSquare className="w-5 h-5" />
+                <Facebook className="w-5 h-5" />
               </Link>
               <Link
-                className="text-slate-400 hover:text-primary"
-                href="/contact"
+                className="text-slate-400 hover:text-primary transition-colors"
+                href="https://twitter.com"
+                target="_blank"
               >
-                <Mail className="w-5 h-5" />
+                <Twitter className="w-5 h-5" />
+              </Link>
+              <Link
+                className="text-slate-400 hover:text-primary transition-colors"
+                href="https://instagram.com"
+                target="_blank"
+              >
+                <Instagram className="w-5 h-5" />
+              </Link>
+              <Link
+                className="text-slate-400 hover:text-primary transition-colors"
+                href="https://linkedin.com"
+                target="_blank"
+              >
+                <Linkedin className="w-5 h-5" />
               </Link>
             </div>
           </div>

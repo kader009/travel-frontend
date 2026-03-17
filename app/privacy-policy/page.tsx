@@ -62,8 +62,8 @@ const PrivacyPolicy = () => {
               </h3>
               <p className="mb-4 text-slate-600 dark:text-slate-300">
                 We collect information that you provide directly to us when you
-                create an account, update your profile, or communicate with other
-                users:
+                create an account, update your profile, or communicate with
+                other users:
               </p>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <li className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
