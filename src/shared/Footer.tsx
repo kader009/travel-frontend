@@ -1,6 +1,12 @@
 import Link from 'next/link';
 import Container from '../components/ui/Container';
-import { Compass, Globe, Mail, MessageSquare, SendHorizontal } from 'lucide-react';
+import {
+  Compass,
+  Globe,
+  Mail,
+  MessageSquare,
+  SendHorizontal,
+} from 'lucide-react';
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -48,7 +54,7 @@ const Footer = () => {
               <li>
                 <Link
                   className="hover:text-primary transition-colors"
-                  href="/"
+                  href="/help-center"
                 >
                   Help center
                 </Link>
@@ -56,7 +62,7 @@ const Footer = () => {
               <li>
                 <Link
                   className="hover:text-primary transition-colors"
-                  href="/"
+                  href="/safety-tips"
                 >
                   Safety tips
                 </Link>
@@ -64,12 +70,11 @@ const Footer = () => {
               <li>
                 <Link
                   className="hover:text-primary transition-colors"
-                  href="/"
+                  href="/privacy-policy"
                 >
                   Privacy policy
                 </Link>
               </li>
-              
             </ul>
           </div>
           <div>

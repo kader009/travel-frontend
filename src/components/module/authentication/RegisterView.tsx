@@ -1,6 +1,6 @@
 'use client';
 
-import { Compass, Lock, Mail, ShieldCheck, User } from 'lucide-react';
+import { Compass, Lock, Mail, User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 

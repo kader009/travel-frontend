@@ -54,9 +54,9 @@ const Contact = () => {
       </section>
 
       {/* Contact Form & Info */}
-      <section className="py-12 bg-white/50 dark:bg-background-dark/30">
+      <section className="py-12 dark:bg-background-dark/30">
         <Container>
-          <div className="grid lg:grid-cols-3 gap-12">
+          <div className="grid lg:grid-cols-3 gap-8">
             {/* Contact Form */}
             <div className="lg:col-span-2 bg-white dark:bg-slate-900/50 p-8 rounded-xl shadow-sm border border-primary/5">
               <h3 className="text-2xl font-bold mb-8 flex items-center gap-3 text-slate-900 dark:text-white">
@@ -207,57 +207,6 @@ const Contact = () => {
                   </a>
                 </div>
               </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 lg:py-24">
-        <Container>
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4 text-slate-900 dark:text-white">
-                Frequently Asked Questions
-              </h2>
-              <p className="text-slate-600 dark:text-slate-400">
-                Quick answers to questions you might have about our platform.
-              </p>
-            </div>
-            <div className="space-y-4">
-              {[
-                {
-                  q: 'How do I verify my travel buddy?',
-                  a: 'Every member undergoes a multi-step verification process including ID checks and community vouching to ensure a safe traveling environment for everyone.',
-                },
-                {
-                  q: 'Is it free to join meetups?',
-                  a: 'Many community-organized meetups are free to join. Some premium events or curated group trips may have associated costs which are clearly listed in the event details.',
-                },
-                {
-                  q: 'Can I create my own travel group?',
-                  a: 'Absolutely! Once your profile is verified, you can create travel itineraries and invite others to join your adventure based on shared interests and destinations.',
-                },
-                {
-                  q: 'What if I need to cancel my attendance?',
-                  a: 'We encourage open communication. You can cancel your attendance through your dashboard. Please check the specific meetup policy for any refund details if it was a paid event.',
-                },
-              ].map((faq, index) => (
-                <div
-                  key={index}
-                  className="group bg-white dark:bg-slate-900/50 rounded-xl border border-primary/5 overflow-hidden"
-                >
-                  <button className="w-full flex items-center justify-between p-6 text-left">
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">
-                      {faq.q}
-                    </span>
-                    <ChevronDown className="text-primary w-5 h-5 group-hover:rotate-180 transition-transform" />
-                  </button>
-                  <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 text-sm">
-                    {faq.a}
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </Container>
