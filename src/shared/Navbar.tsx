@@ -25,15 +25,9 @@ const Navbar = () => {
           </Link>
           <Link
             className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
-            href="/explore"
+            href="/about"
           >
-            Explore Travelers
-          </Link>
-          <Link
-            className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
-            href="/find-buddy"
-          >
-            Find Buddy
+            About us
           </Link>
           <Link
             className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
@@ -43,9 +37,15 @@ const Navbar = () => {
           </Link>
           <Link
             className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
-            href="/about"
+            href="/find-buddy"
           >
-            About us
+            Find Buddy
+          </Link>
+          <Link
+            className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
+            href="/explore"
+          >
+            Explore Travelers
           </Link>
           <Link
             className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"

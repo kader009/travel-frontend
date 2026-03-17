@@ -42,41 +42,34 @@ const Footer = () => {
           </div>
           <div>
             <h3 className="mb-4 text-sm font-bold uppercase tracking-widest text-slate-900 dark:text-white">
-              Destinations
+              support
             </h3>
             <ul className="flex flex-col gap-2 text-sm text-slate-500 dark:text-slate-400">
               <li>
                 <Link
                   className="hover:text-primary transition-colors"
-                  href="/destinations/europe"
+                  href="/"
                 >
-                  Europe Trips
+                  Help center
                 </Link>
               </li>
               <li>
                 <Link
                   className="hover:text-primary transition-colors"
-                  href="/destinations/asia"
+                  href="/"
                 >
-                  Asia Adventure
+                  Safety tips
                 </Link>
               </li>
               <li>
                 <Link
                   className="hover:text-primary transition-colors"
-                  href="/destinations/americas"
+                  href="/"
                 >
-                  Americas Exploration
+                  Privacy policy
                 </Link>
               </li>
-              <li>
-                <Link
-                  className="hover:text-primary transition-colors"
-                  href="/destinations/africa"
-                >
-                  African Safaris
-                </Link>
-              </li>
+              
             </ul>
           </div>
           <div>
@@ -95,9 +88,9 @@ const Footer = () => {
               <li>
                 <Link
                   className="hover:text-primary transition-colors"
-                  href="/safety"
+                  href="/contact"
                 >
-                  Safety Guidelines
+                  contact us
                 </Link>
               </li>
               <li>
@@ -113,7 +106,7 @@ const Footer = () => {
                   className="hover:text-primary transition-colors"
                   href="/community"
                 >
-                  Community Forum
+                  Community
                 </Link>
               </li>
             </ul>
