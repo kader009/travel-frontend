@@ -1,7 +1,7 @@
 'use client';
 
 import Container from '@/src/components/ui/Container';
-import { Calendar, DollarSign, Edit2, Eye, Plus, Trash2 } from 'lucide-react';
+import { Calendar, DollarSign, Edit2, Eye, Plus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -122,7 +122,7 @@ const TravelPlans = () => {
                       <Eye className="w-4 h-4" />
                       Details
                     </Link>
-                    <button className="flex-1 flex items-center justify-center gap-2 py-3 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-900/10 dark:border-white/10 rounded-lg text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer active:scale-95">
+                    <button className="flex-1 flex items-center justify-center gap-2 py-3 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-900/10 dark:border-white/10 rounded-full text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer active:scale-95">
                       <Edit2 className="w-4 h-4" />
                       Edit
                     </button>

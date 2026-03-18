@@ -7,7 +7,7 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
       <Container className="flex items-center justify-between py-4">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded bg-primary text-background-dark">
+          <div className="flex h-8 w-8 items-center justify-center rounded bg-primary text-background-dark">
             <Compass className="w-6 h-6 font-bold" />
           </div>
           <h1 className="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
@@ -28,6 +28,12 @@ const Navbar = () => {
             href="/about"
           >
             About us
+          </Link>
+          <Link
+            className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
+            href="/dashboard"
+          >
+            Dashboard
           </Link>
           <Link
             className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
