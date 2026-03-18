@@ -99,7 +99,7 @@ const Footer = () => {
               <li>
                 <Link
                   className="hover:text-primary transition-colors"
-                  href="/how-it-works"
+                  href="/about"
                 >
                   About us
                 </Link>

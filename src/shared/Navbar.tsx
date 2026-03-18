@@ -33,13 +33,7 @@ const Navbar = () => {
             className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
             href="/travel-plans"
           >
-            My Plans
-          </Link>
-          <Link
-            className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
-            href="/find-buddy"
-          >
-            Find Buddy
+            Travel Plans
           </Link>
           <Link
             className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"

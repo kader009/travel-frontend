@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link';
 import { Home, MoveLeft } from 'lucide-react';
 import Container from '@/src/components/ui/Container';
@@ -20,14 +21,14 @@ export default function NotFound() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
             <Link
               href="/"
-              className="flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-lg font-bold text-background-dark shadow-xl shadow-primary/30 transition-all hover:scale-105 active:scale-95"
+              className="flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-lg font-bold text-background-dark shadow-xl transition-all hover:scale-105 active:scale-95"
             >
               <Home className="w-5 h-5" />
               Back to Home
             </Link>
             <button
               onClick={() => window.history.back()}
-              className="flex items-center gap-2 rounded-full bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 px-8 py-4 text-lg font-bold transition-all hover:bg-slate-50 dark:hover:bg-slate-700 active:scale-95 text-slate-900 dark:text-white"
+              className="flex items-center gap-2 rounded-full bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 px-8 py-4 text-lg font-bold transition-all hover:bg-slate-50 dark:hover:bg-slate-700 active:scale-95 text-slate-900 dark:text-white cursor-pointer"
             >
               <MoveLeft className="w-5 h-5" />
               Go Back
