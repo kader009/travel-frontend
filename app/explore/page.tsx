@@ -10,6 +10,7 @@ import {
   Users,
 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const travelers = [
   {
@@ -98,17 +99,46 @@ const ExplorePage = () => {
                 />
               </div>
             </div>
-            <div className="flex-1 flex items-center px-6 py-4 gap-4 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-slate-800">
-              <Calendar className="text-primary w-5 h-5" />
-              <div className="flex flex-col flex-1">
-                <span className="text-[10px] uppercase font-black text-slate-400 tracking-widest">
-                  When
-                </span>
-                <input
-                  className="w-full border-none focus:ring-0 bg-transparent p-0 text-slate-900 dark:text-white placeholder:text-slate-400 font-bold text-lg"
-                  placeholder="Add dates"
-                  type="text"
-                />
+            <div className="flex-1 lg:flex-initial flex flex-col sm:flex-row gap-0 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-slate-800">
+              <div
+                className="flex items-center px-6 py-4 gap-4 border-b sm:border-b-0 sm:border-r border-slate-100 dark:border-slate-800 flex-1 cursor-pointer group/date"
+                onClick={(e) => {
+                  const input = e.currentTarget.querySelector('input');
+                  if (input && 'showPicker' in input) {
+                    (input as any).showPicker();
+                  }
+                }}
+              >
+                <Calendar className="text-primary w-5 h-5 shrink-0 transition-transform group-hover/date:scale-110" />
+                <div className="flex flex-col flex-1">
+                  <span className="text-[10px] uppercase font-black text-slate-400 tracking-widest">
+                    Start Date
+                  </span>
+                  <input
+                    className="w-full border-none focus:ring-0 bg-transparent p-0 text-slate-900 dark:text-white font-bold text-lg cursor-pointer appearance-none [&::-webkit-calendar-picker-indicator]:hidden"
+                    type="date"
+                  />
+                </div>
+              </div>
+              <div
+                className="flex items-center px-6 py-4 gap-4 flex-1 cursor-pointer group/date"
+                onClick={(e) => {
+                  const input = e.currentTarget.querySelector('input');
+                  if (input && 'showPicker' in input) {
+                    (input as any).showPicker();
+                  }
+                }}
+              >
+                <Calendar className="text-primary w-5 h-5 shrink-0 transition-transform group-hover/date:scale-110" />
+                <div className="flex flex-col flex-1">
+                  <span className="text-[10px] uppercase font-black text-slate-400 tracking-widest">
+                    End Date
+                  </span>
+                  <input
+                    className="w-full border-none focus:ring-0 bg-transparent p-0 text-slate-900 dark:text-white font-bold text-lg cursor-pointer appearance-none [&::-webkit-calendar-picker-indicator]:hidden"
+                    type="date"
+                  />
+                </div>
               </div>
             </div>
             <div className="flex-1 flex items-center px-6 py-4 gap-4 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-slate-800">
@@ -199,9 +229,12 @@ const ExplorePage = () => {
                       {traveler.nextDates}
                     </span>
                   </div>
-                  <button className="w-full py-3.5 bg-slate-100 dark:bg-slate-800 hover:bg-primary hover:text-background-dark text-slate-700 dark:text-slate-200 text-sm font-black rounded-xl transition-all cursor-pointer shadow-xs active:scale-95 leading-none">
+                  <Link
+                    href={`/profile/${traveler.id}`}
+                    className="w-full py-3.5 bg-slate-100 dark:bg-slate-800 hover:bg-primary hover:text-background-dark text-slate-700 dark:text-slate-200 text-sm font-black rounded-full transition-all cursor-pointer shadow-xs active:scale-95 leading-none flex items-center justify-center"
+                  >
                     View Profile
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
