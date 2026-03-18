@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowRight, Eye, EyeOff, Lock, Mail, Plane } from 'lucide-react';
+import { ArrowRight, Eye, EyeOff, Loader2, Lock, Mail, Plane } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -32,24 +32,28 @@ const LoginView = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const [login] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
   const router = useRouter();
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
     try {
       const res = await login(data);
-      toast.success('Logged in successfully');
-      dispatch(
-        setUser({
-          user: res.data.user,
-          token: res.data.accessToken,
-          refreshToken: res.data.refreshToken,
-        }),
-      );
-      reset();
+      console.log(res)
+      if(res.data?.success){
 
-      router.push('/');
+        toast.success('Logged in successfully');
+        dispatch(
+          setUser({
+            user: res.data.data.user,
+            token: res.data.data.accessToken,
+            refreshToken: res.data.data.refreshToken,
+          }),
+        );
+        reset();
+  
+        // router.push('/');
+      }
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'data' in err) {
         const fetchError = err as FetchBaseQueryError;
@@ -184,11 +188,12 @@ const LoginView = () => {
             </div>
 
             <button
-              className="w-full py-4 bg-primary text-slate-900 font-bold rounded-full shadow-lg shadow-primary/20 hover:bg-primary/90 hover:scale-[1.01] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full py-4 bg-primary text-slate-900 font-bold rounded-full hover:bg-primary/90 hover:scale-[1.01] active:scale-95 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer"
               type="submit"
+              disabled={isLoading}
             >
-              Log In
-              <ArrowRight className="size-5" />
+              {isLoading ? 'Logging in...' : 'Log In'}
+              {isLoading ? <Loader2 className="size-5 animate-spin" /> : <ArrowRight className="size-5" />}
             </button>
           </form>
 

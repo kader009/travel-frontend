@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   }
 };
 
+import { Toaster } from 'sonner';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -39,6 +41,7 @@ export default function RootLayout({
         className={`${roboto.className} bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased`}
       >
         <PersistProvider>
+          <Toaster position="top-center" richColors />
           <Navbar />
           {children}
           <Footer />
