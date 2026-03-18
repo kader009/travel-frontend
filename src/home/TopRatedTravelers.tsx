@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Container from '../components/ui/Container';
 import { Star } from 'lucide-react';
 
@@ -16,11 +17,15 @@ const TopRatedTravelers = () => {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {/* Traveler 1 */}
           <div className="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-6 shadow-xs transition-shadow hover:shadow-sm dark:border-slate-800 dark:bg-background-dark">
-            <img
-              alt="Profile of male traveler Marco Rossi"
-              className="h-20 w-20 rounded-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyeUHWAZbVhr03u3r3BEi8bZSVFqkuUdidxVChoAlnh00Zt6T21j6jnOWAlBxNdnxw72UPqwWPAkG0i1hCe8Vzn5jB_MMrrCo2P98TZDjeoCfzltJavewa1NnBcqCHn71vuBz3u8wKJZk5mRgyAdhuAazP04xsU5zjB286lJpI-RFLUfjXiqmISf7EBJwmKuA5N80MXcoyu5af7ijEIkOcO87zWDezVFTgMyM6cDEGTVfWmgOyepgIwn1YgTBWKGd6_XKrim1FYQ"
-            />
+            <div className="relative h-20 w-20 shrink-0">
+              <Image
+                width={80}
+                height={80}
+                alt="Profile of male traveler Marco Rossi"
+                className="h-full w-full rounded-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyeUHWAZbVhr03u3r3BEi8bZSVFqkuUdidxVChoAlnh00Zt6T21j6jnOWAlBxNdnxw72UPqwWPAkG0i1hCe8Vzn5jB_MMrrCo2P98TZDjeoCfzltJavewa1NnBcqCHn71vuBz3u8wKJZk5mRgyAdhuAazP04xsU5zjB286lJpI-RFLUfjXiqmISf7EBJwmKuA5N80MXcoyu5af7ijEIkOcO87zWDezVFTgMyM6cDEGTVfWmgOyepgIwn1YgTBWKGd6_XKrim1FYQ"
+              />
+            </div>
             <div>
               <h4 className="text-lg font-bold">Marco Rossi</h4>
               <div className="flex items-center text-primary">
@@ -34,11 +39,15 @@ const TopRatedTravelers = () => {
           </div>
           {/* Traveler 2 */}
           <div className="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-6 shadow-xs transition-shadow hover:shadow-sm dark:border-slate-800 dark:bg-background-dark">
-            <img
-              alt="Profile of female traveler Elena Vance"
-              className="h-20 w-20 rounded-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5sgDqxfWCwhUyHqHrtESnEBoOKEJNKgdEaHVIu9CELcALGo8oCvTaaw6t6Lt26PH7zwg_Cn-ro4mWgQK2JcrxkBh1fTmuqDdjUa8kcIadamBnvseeXLst0ugfK9m7T0RNDR0xXlM8XXMr85UbCimSb18cNgacxFiJRffkh5HFk6Mg49mYlmwmMUZRcIm7hhlqK0JmvTPlPGcHBlXWBYo_qOq8peV9pehV6cikhPFgGchwGJsvdQjLWS1re3Ft4bj3v08tb841g"
-            />
+            <div className="relative h-20 w-20 shrink-0">
+              <Image
+                width={80}
+                height={80}
+                alt="Profile of female traveler Elena Vance"
+                className="h-full w-full rounded-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5sgDqxfWCwhUyHqHrtESnEBoOKEJNKgdEaHVIu9CELcALGo8oCvTaaw6t6Lt26PH7zwg_Cn-ro4mWgQK2JcrxkBh1fTmuqDdjUa8kcIadamBnvseeXLst0ugfK9m7T0RNDR0xXlM8XXMr85UbCimSb18cNgacxFiJRffkh5HFk6Mg49mYlmwmMUZRcIm7hhlqK0JmvTPlPGcHBlXWBYo_qOq8peV9pehV6cikhPFgGchwGJsvdQjLWS1re3Ft4bj3v08tb841g"
+              />
+            </div>
             <div>
               <h4 className="text-lg font-bold">Elena Vance</h4>
               <div className="flex items-center text-primary">
@@ -50,11 +59,15 @@ const TopRatedTravelers = () => {
           </div>
           {/* Traveler 3 */}
           <div className="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-6 shadow-xs transition-shadow hover:shadow-sm dark:border-slate-800 dark:bg-background-dark">
-            <img
-              alt="Profile of young traveler Jordan Smith"
-              className="h-20 w-20 rounded-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUcz1MN26gRU_lhwtVAiqHMer0-9QVGSpW3c4EkzaiNtp0uMzvPxqFZu4mjXtgdYs5JQYiLIkDEvIQ6vmyrQzZ3DUHrzRfxnolK5N4PBAuDOd_wlwDNhmdDArTktIT_3Uw2JfWhU3Nr8yhcAWALK8Tlq0zdZexFCygRIyTwBIRA0fTKZT1GE8X7bJwyffaeeKi7uOQEPcpdm9IMQ1c6zpUbNJfm-b_14pf4fsNXUF9ieQ-TD9F55pYNzslRNFIWtfr3f5ICLx8oQ"
-            />
+            <div className="relative h-20 w-20 shrink-0">
+              <Image
+                width={80}
+                height={80}
+                alt="Profile of young traveler Jordan Smith"
+                className="h-full w-full rounded-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUcz1MN26gRU_lhwtVAiqHMer0-9QVGSpW3c4EkzaiNtp0uMzvPxqFZu4mjXtgdYs5JQYiLIkDEvIQ6vmyrQzZ3DUHrzRfxnolK5N4PBAuDOd_wlwDNhmdDArTktIT_3Uw2JfWhU3Nr8yhcAWALK8Tlq0zdZexFCygRIyTwBIRA0fTKZT1GE8X7bJwyffaeeKi7uOQEPcpdm9IMQ1c6zpUbNJfm-b_14pf4fsNXUF9ieQ-TD9F55pYNzslRNFIWtfr3f5ICLx8oQ"
+              />
+            </div>
             <div>
               <h4 className="text-lg font-bold">Jordan Smith</h4>
               <div className="flex items-center text-primary">
