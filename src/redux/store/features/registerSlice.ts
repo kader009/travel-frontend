@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TUserRole } from '@/src/types/user';
 
 interface registerState {
   name: string;
   email: string;
   password: string;
   image: string;
-  role: string;
+  role: TUserRole | '';
 }
 
 const initialState: registerState = {
@@ -32,7 +33,7 @@ const registerSlice = createSlice({
     setImage(state, action: PayloadAction<string>) {
       state.image = action.payload;
     },
-    setRole(state, action: PayloadAction<string>) {
+    setRole(state, action: PayloadAction<TUserRole | ''>) {
       state.role = action.payload;
     },
   },

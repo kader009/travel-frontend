@@ -1,21 +1,9 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
-
-// User interface
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-  image?: string;
-  role: string;
-  status?: string;
-  createdAt?: string;
-  updatedAt?: string;
-  isDeleted?: boolean;
-}
+import { IUser } from '@/src/types/user';
 
 interface LoginResponse {
-  user: User;
+  user: IUser;
   token: string;
   refreshToken?: string;
   name?: string | null | undefined;
@@ -25,7 +13,7 @@ interface LoginResponse {
 }
 
 interface AuthState {
-  user: User | null;
+  user: IUser | null;
   token: string | null;
   refreshToken: string | null;
   loading: boolean;
@@ -46,7 +34,7 @@ interface ApiResponse {
   success: boolean;
   message?: string;
   data: {
-    user: User;
+    user: IUser;
     accessToken: string;
     refreshToken: string;
   };
@@ -64,7 +52,7 @@ export const loginUser = createAsyncThunk<
       credentials,
       {
         withCredentials: true,
-      }
+      },
     );
 
     const { user, accessToken, refreshToken } = response.data.data;

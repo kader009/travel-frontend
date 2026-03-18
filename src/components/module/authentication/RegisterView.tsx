@@ -1,10 +1,70 @@
 'use client';
 
-import { Compass, Lock, Mail, User } from 'lucide-react';
+import { useState } from 'react';
+import { Compass, Eye, EyeOff, Lock, Mail, User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useSignUpMutation } from '@/src/redux/store/api/endApi';
+import { useDispatch } from 'react-redux';
+import {
+  setName,
+  setEmail,
+  setPassword,
+  setImage,
+  setRole,
+} from '@/src/redux/store/features/registerSlice';
+import { TUserRole } from '@/src/types/user';
+import { toast } from 'sonner';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { SerializedError } from '@reduxjs/toolkit';
+
+import {
+  registerSchema,
+  RegisterFormValues,
+} from '@/src/validation/register.validation';
 
 const RegisterView = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      role: 'USER',
+    },
+  });
+
+  const [signUp] = useSignUpMutation();
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
+    try {
+      const res = await signUp(data);
+        toast.success('Registered successfully');
+        reset();
+        router.push('/login');
+    } catch (err: unknown) {
+      if (err && typeof err === 'object' && 'data' in err) {
+        const fetchError = err as FetchBaseQueryError;
+        const errorData = fetchError.data as { message?: string };
+        toast.error(
+          errorData?.message || 'Registration failed. Please try again.',
+        );
+      } else {
+        toast.error('Registration failed. Please try again.');
+      }
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-200px)] p-4 py-12">
       <div className="w-full max-w-[1000px] grid grid-cols-1 md:grid-cols-2 bg-white dark:bg-slate-900 rounded-xl overflow-hidden relative z-10 border border-slate-200 dark:border-slate-800">
@@ -55,7 +115,7 @@ const RegisterView = () => {
           </div>
 
           {/* Form */}
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
             {/* Full Name */}
             <div className="space-y-2">
               <label className="text-sm font-semibold ml-1 text-slate-700 dark:text-slate-300">
@@ -67,8 +127,16 @@ const RegisterView = () => {
                   className="w-full pl-12 pr-4 py-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
                   placeholder="Enter your full name"
                   type="text"
+                  {...register('name', {
+                    onChange: (e) => dispatch(setName(e.target.value)),
+                  })}
                 />
               </div>
+              {errors.name && (
+                <p className="text-xs text-red-500 font-bold ml-1">
+                  {errors.name.message}
+                </p>
+              )}
             </div>
 
             {/* Email */}
@@ -82,8 +150,16 @@ const RegisterView = () => {
                   className="w-full pl-12 pr-4 py-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
                   placeholder="example@mail.com"
                   type="email"
+                  {...register('email', {
+                    onChange: (e) => dispatch(setEmail(e.target.value)),
+                  })}
                 />
               </div>
+              {errors.email && (
+                <p className="text-xs text-red-500 font-bold ml-1">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             {/* Profile Image Link */}
@@ -97,8 +173,16 @@ const RegisterView = () => {
                   className="w-full pl-12 pr-4 py-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
                   placeholder="https://example.com/image.jpg"
                   type="url"
+                  {...register('image', {
+                    onChange: (e) => dispatch(setImage(e.target.value)),
+                  })}
                 />
               </div>
+              {errors.image && (
+                <p className="text-xs text-red-500 font-bold ml-1">
+                  {errors.image.message}
+                </p>
+              )}
             </div>
 
             {/* Role Selector */}
@@ -110,10 +194,12 @@ const RegisterView = () => {
                 <label className="relative flex items-center justify-center p-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all has-checked:border-primary has-checked:bg-primary/5">
                   <input
                     type="radio"
-                    name="role"
                     value="USER"
                     className="sr-only peer"
-                    defaultChecked
+                    {...register('role', {
+                      onChange: (e) =>
+                        dispatch(setRole(e.target.value as TUserRole)),
+                    })}
                   />
                   <span className="text-sm font-bold text-slate-600 dark:text-slate-400 peer-checked:text-primary">
                     Traveler
@@ -122,15 +208,23 @@ const RegisterView = () => {
                 <label className="relative flex items-center justify-center p-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all has-checked:border-primary has-checked:bg-primary/5">
                   <input
                     type="radio"
-                    name="role"
                     value="ADMIN"
                     className="sr-only peer"
+                    {...register('role', {
+                      onChange: (e) =>
+                        dispatch(setRole(e.target.value as TUserRole)),
+                    })}
                   />
                   <span className="text-sm font-bold text-slate-600 dark:text-slate-400 peer-checked:text-primary">
                     Provider
                   </span>
                 </label>
               </div>
+              {errors.role && (
+                <p className="text-xs text-red-500 font-bold ml-1">
+                  {errors.role.message}
+                </p>
+              )}
             </div>
 
             {/* Password */}
@@ -141,16 +235,35 @@ const RegisterView = () => {
               <div className="relative">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 size-5" />
                 <input
-                  className="w-full pl-12 pr-4 py-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
+                  className="w-full pl-12 pr-12 py-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
                   placeholder="••••••••"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
+                  {...register('password', {
+                    onChange: (e) => dispatch(setPassword(e.target.value)),
+                  })}
                 />
+                <button
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <EyeOff className="size-5" />
+                  ) : (
+                    <Eye className="size-5" />
+                  )}
+                </button>
               </div>
+              {errors.password && (
+                <p className="text-xs text-red-500 font-bold ml-1">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             {/* Submit Button */}
             <button
-              className="w-full py-4 bg-primary text-background-dark font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 active:scale-[0.98] transition-all cursor-pointer"
+              className="w-full py-4 bg-primary text-background-dark font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 active:scale-[0.98] transition-all cursor-pointer mt-2"
               type="submit"
             >
               Create Account

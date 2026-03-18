@@ -1,10 +1,66 @@
 'use client';
 
-import { ArrowRight, Eye, Lock, Mail, Plane } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, Eye, EyeOff, Lock, Mail, Plane } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useLoginMutation } from '@/src/redux/store/api/endApi';
+import { useDispatch } from 'react-redux';
+import { setUser } from '@/src/redux/store/features/userSlice';
+import { setEmail, setPassword } from '@/src/redux/store/features/loginSlice';
+import { toast } from 'sonner';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+
+import {
+  loginSchema,
+  LoginFormValues,
+} from '@/src/validation/login.validation';
 
 const LoginView = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const [login] = useLoginMutation();
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+    try {
+      const res = await login(data);
+      toast.success('Logged in successfully');
+      dispatch(
+        setUser({
+          user: res.data.user,
+          token: res.data.accessToken,
+          refreshToken: res.data.refreshToken,
+        }),
+      );
+      reset();
+
+      router.push('/');
+    } catch (err: unknown) {
+      if (err && typeof err === 'object' && 'data' in err) {
+        const fetchError = err as FetchBaseQueryError;
+        const errorData = fetchError.data as { message?: string };
+        toast.error(errorData?.message || 'Login failed. Please try again.');
+      } else {
+        toast.error('Login failed. Please try again.');
+      }
+    }
+  };
+
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-200px)] p-4 py-12">
       <div className="w-full max-w-[1000px] grid grid-cols-1 md:grid-cols-2 bg-white dark:bg-slate-900 rounded-xl overflow-hidden relative z-10 border border-slate-200 dark:border-slate-800">
@@ -55,7 +111,7 @@ const LoginView = () => {
           </div>
 
           {/* Form */}
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label
                 className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2"
@@ -70,8 +126,16 @@ const LoginView = () => {
                   id="email"
                   placeholder="alex@example.com"
                   type="email"
+                  {...register('email', {
+                    onChange: (e) => dispatch(setEmail(e.target.value)),
+                  })}
                 />
               </div>
+              {errors.email && (
+                <p className="text-xs text-red-500 mt-1 font-bold">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             <div>
@@ -95,15 +159,28 @@ const LoginView = () => {
                   className="w-full pl-10 pr-10 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
                   id="password"
                   placeholder="••••••••"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
+                  {...register('password', {
+                    onChange: (e) => dispatch(setPassword(e.target.value)),
+                  })}
                 />
                 <button
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
                   type="button"
+                  onClick={() => setShowPassword(!showPassword)}
                 >
-                  <Eye className="size-5" />
+                  {showPassword ? (
+                    <EyeOff className="size-5" />
+                  ) : (
+                    <Eye className="size-5" />
+                  )}
                 </button>
               </div>
+              {errors.password && (
+                <p className="text-xs text-red-500 mt-1 font-bold">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             <button
