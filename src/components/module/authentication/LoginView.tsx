@@ -37,31 +37,25 @@ const LoginView = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
-    try {
-      const res = await login(data);
-      console.log(res)
-      if(res.data?.success){
+    const res = await login(data);
 
-        toast.success('Logged in successfully');
-        dispatch(
-          setUser({
-            user: res.data.data.user,
-            token: res.data.data.accessToken,
-            refreshToken: res.data.data.refreshToken,
-          }),
-        );
-        reset();
-  
-        router.push('/');
-      }
-    } catch (err: unknown) {
-      if (err && typeof err === 'object' && 'data' in err) {
-        const fetchError = err as FetchBaseQueryError;
-        const errorData = fetchError.data as { message?: string };
-        toast.error(errorData?.message || 'Login failed. Please try again.');
-      } else {
-        toast.error('Login failed. Please try again.');
-      }
+    if (res.error) {
+      const errorData = (res.error as FetchBaseQueryError).data as { message?: string };
+      toast.error(errorData?.message || 'Login failed. Please try again.');
+      return;
+    }
+
+    if (res.data?.success) {
+      toast.success('Logged in successfully');
+      dispatch(
+        setUser({
+          user: res.data.data.user,
+          token: res.data.data.accessToken,
+          refreshToken: res.data.data.refreshToken,
+        }),
+      );
+      reset();
+      router.push('/');
     }
   };
 

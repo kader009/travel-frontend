@@ -46,24 +46,18 @@ const RegisterView = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
-    try {
-      const res = await signUp(data);
-      console.log(res)
-      if(res.data?.success){
-        toast.success('Registered successfully');
-        reset();
-        // router.push('/login');
-      }
-    } catch (err: unknown) {
-      if (err && typeof err === 'object' && 'data' in err) {
-        const fetchError = err as FetchBaseQueryError;
-        const errorData = fetchError.data as { message?: string };
-        toast.error(
-          errorData?.message || 'Registration failed. Please try again.',
-        );
-      } else {
-        toast.error('Registration failed. Please try again.');
-      }
+    const res = await signUp(data);
+
+    if (res.error) {
+      const errorData = (res.error as FetchBaseQueryError).data as { message?: string };
+      toast.error(errorData?.message || 'Registration failed. Please try again.');
+      return;
+    }
+
+    if (res.data?.success) {
+      toast.success('Registered successfully');
+      reset();
+      router.push('/login');
     }
   };
 
