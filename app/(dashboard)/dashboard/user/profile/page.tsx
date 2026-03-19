@@ -8,7 +8,6 @@ import {
   Edit, 
   Target, 
   Calendar, 
-  ArrowRight, 
   Globe, 
   Star,
   UserCircle
@@ -43,7 +42,7 @@ const UserProfilePage = () => {
             <MapPin className="size-4 text-primary" /> {user?.currentLocation || 'Lisbon, Portugal'}
           </p>
           <p className="mt-4 text-slate-600 dark:text-slate-300 text-sm leading-relaxed font-semibold">
-            {user?.bio || 'Digital Nomad & Adventure Seeker. On a mission to explore every hidden waterfall in the world. 🌍✈️'}
+            {user?.bio || 'Digital Nomad & Adventure Seeker. On a mission to explore every hidden waterfall in the world'}
           </p>
           <div className="grid grid-cols-3 w-full mt-8 border-t border-slate-100 dark:border-slate-800 pt-6">
             <div className="flex flex-col">

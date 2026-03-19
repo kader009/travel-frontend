@@ -10,7 +10,6 @@ const TravelApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // login route here
     login: build.mutation({
       query: (userInfo) => ({
         url: '/api/v1/auth/login',
@@ -19,11 +18,29 @@ const TravelApi = baseApi.injectEndpoints({
       }),
     }),
 
-    
+    getAllUsers: build.query({
+      query: () => {
+        return {
+          url: '/api/v1/users/admin/all-users',
+          method: 'GET',
+        };
+      },
+      providesTags: ['User'],
+    }),
+
+    deleteUser: build.mutation({
+      query: (id) => ({
+        url: `/api/v1/users/delete-user/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['User'],
+    }),
   }),
 });
 
 export const {
   useSignUpMutation,
-  useLoginMutation
+  useLoginMutation,
+  useGetAllUsersQuery,
+  useDeleteUserMutation,
 } = TravelApi;
