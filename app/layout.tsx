@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/src/shared/Navbar";
 import PersistProvider from "@/src/provider/PersistProvider";
-import Footer from "@/src/shared/Footer";
+import ConditionalLayout from "@/src/components/ui/ConditionalLayout";
+import { Toaster } from 'sonner';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -19,8 +19,6 @@ export const metadata: Metadata = {
     icon: '/siteicon.png',
   }
 };
-
-import { Toaster } from 'sonner';
 
 export default function RootLayout({
   children,
@@ -42,9 +40,7 @@ export default function RootLayout({
       >
         <PersistProvider>
           <Toaster position="top-center" richColors />
-          <Navbar />
-          {children}
-          <Footer />
+          <ConditionalLayout>{children}</ConditionalLayout>
         </PersistProvider>
       </body>
     </html>

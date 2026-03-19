@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowRight, Eye, EyeOff, Loader2, Lock, Mail, Plane } from 'lucide-react';
+import { ArrowRight, Eye, EyeOff, Loader2, Lock, Mail, Plane, ShieldCheck, UserRound } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -36,7 +36,7 @@ const LoginView = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+  const handleLogin = async (data: LoginFormValues) => {
     const res = await login(data);
 
     if (res.error) {
@@ -57,6 +57,22 @@ const LoginView = () => {
       reset();
       router.push('/');
     }
+  };
+
+  const quickLogin = async (role: 'user' | 'admin') => {
+    const email =
+      role === 'admin'
+        ? process.env.NEXT_PUBLIC_DEMO_ADMIN_EMAIL!
+        : process.env.NEXT_PUBLIC_DEMO_USER_EMAIL!;
+    const password =
+      role === 'admin'
+        ? process.env.NEXT_PUBLIC_DEMO_ADMIN_PASSWORD!
+        : process.env.NEXT_PUBLIC_DEMO_USER_PASSWORD!;
+    await handleLogin({ email, password });
+  };
+
+  const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+    await handleLogin(data);
   };
 
   return (
@@ -186,7 +202,34 @@ const LoginView = () => {
             </button>
           </form>
 
-          <div className="mt-8 text-center">
+          {/* Quick Login Buttons */}
+          <div className="mt-6">
+            <div className="relative flex items-center gap-3 mb-4">
+              <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700" />
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Quick Demo Login</span>
+              <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700" />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                disabled={isLoading}
+                onClick={() => quickLogin('user')}
+                className="py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary cursor-pointer active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
+              >
+                <UserRound className="size-4" /> Login as User
+              </button>
+              <button
+                type="button"
+                disabled={isLoading}
+                onClick={() => quickLogin('admin')}
+                className="py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary cursor-pointer active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
+              >
+                <ShieldCheck className="size-4" /> Login as Admin
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-6 text-center">
             <p className="text-sm text-slate-600 dark:text-slate-400">
               Don't have an account?{' '}
               <Link
