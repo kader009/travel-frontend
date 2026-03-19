@@ -52,7 +52,7 @@ const LoginView = () => {
         );
         reset();
   
-        // router.push('/');
+        router.push('/');
       }
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'data' in err) {
@@ -150,12 +150,7 @@ const LoginView = () => {
                 >
                   Password
                 </label>
-                <Link
-                  className="text-xs font-bold text-primary hover:underline"
-                  href="#"
-                >
-                  Forgot password?
-                </Link>
+                
               </div>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 size-5" />

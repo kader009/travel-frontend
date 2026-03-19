@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Compass, Eye, EyeOff, Lock, Mail, User } from 'lucide-react';
+import { Compass, Eye, EyeOff, Loader2, Lock, Mail, User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -20,7 +20,6 @@ import {
 import { TUserRole } from '@/src/types/user';
 import { toast } from 'sonner';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import { SerializedError } from '@reduxjs/toolkit';
 
 import {
   registerSchema,
@@ -38,20 +37,23 @@ const RegisterView = () => {
   } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      role: 'USER',
+      role: 'user',
     },
   });
 
-  const [signUp] = useSignUpMutation();
+  const [signUp, { isLoading }] = useSignUpMutation();
   const dispatch = useDispatch();
   const router = useRouter();
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
     try {
       const res = await signUp(data);
+      console.log(res)
+      if(res.data?.success){
         toast.success('Registered successfully');
         reset();
-        router.push('/login');
+        // router.push('/login');
+      }
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'data' in err) {
         const fetchError = err as FetchBaseQueryError;
@@ -194,7 +196,7 @@ const RegisterView = () => {
                 <label className="relative flex items-center justify-center p-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all has-checked:border-primary has-checked:bg-primary/5">
                   <input
                     type="radio"
-                    value="USER"
+                    value="user"
                     className="sr-only peer"
                     {...register('role', {
                       onChange: (e) =>
@@ -202,13 +204,13 @@ const RegisterView = () => {
                     })}
                   />
                   <span className="text-sm font-bold text-slate-600 dark:text-slate-400 peer-checked:text-primary">
-                    Traveler
+                    User
                   </span>
                 </label>
                 <label className="relative flex items-center justify-center p-4 rounded-xl border-2 border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all has-checked:border-primary has-checked:bg-primary/5">
                   <input
                     type="radio"
-                    value="ADMIN"
+                    value="admin"
                     className="sr-only peer"
                     {...register('role', {
                       onChange: (e) =>
@@ -216,7 +218,7 @@ const RegisterView = () => {
                     })}
                   />
                   <span className="text-sm font-bold text-slate-600 dark:text-slate-400 peer-checked:text-primary">
-                    Provider
+                    Admin
                   </span>
                 </label>
               </div>
@@ -263,10 +265,18 @@ const RegisterView = () => {
 
             {/* Submit Button */}
             <button
-              className="w-full py-4 bg-primary text-background-dark font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 active:scale-[0.98] transition-all cursor-pointer mt-2"
+              className="w-full py-4 bg-primary text-background-dark font-bold rounded-full shadow-primary/20 hover:shadow-primary/40 active:scale-[0.98] transition-all cursor-pointer mt-2 flex items-center justify-center gap-2"
               type="submit"
+              disabled={isLoading}
             >
-              Create Account
+              {isLoading ? (
+                <>
+                  <Loader2 className="size-5 animate-spin" />
+                  Creating Account...
+                </>
+              ) : (
+                'Create Account'
+              )}
             </button>
           </form>
 
