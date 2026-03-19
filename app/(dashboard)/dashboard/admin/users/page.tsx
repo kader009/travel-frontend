@@ -3,18 +3,30 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/src/redux/store/store';
-import { useGetAllUsersQuery, useDeleteUserMutation } from '@/src/redux/store/api/endApi';
-import { Users, Mail, Shield, UserCircle, Loader2, Search, Pencil, Trash2, AlertTriangle, X } from 'lucide-react';
+import { useGetAllUsersQuery, useDeleteUserMutation, useUpdateUserMutation } from '@/src/redux/store/api/endApi';
+import { Users, Mail, Shield, UserCircle, Loader2, Search, Pencil, Trash2, AlertTriangle, X, Camera, Check } from 'lucide-react';
 import { toast } from 'sonner';
-import { IUser } from '@/src/types/user';
+import { IUser, TUserRole } from '@/src/types/user';
 
 const ManageUsersPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // Delete States
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState<{ id: string, name: string } | null>(null);
   
+  // Edit States
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<IUser | null>(null);
+  const [editForm, setEditForm] = useState({
+    name: '',
+    role: '' as TUserRole,
+    image: '',
+  });
+
   const { data, isLoading, error: fetchError } = useGetAllUsersQuery(undefined);
   const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
+  const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
   const { user: currentUser } = useSelector((state: RootState) => state.user);
   
   const users = (data?.data as IUser[]) || [];
@@ -25,20 +37,17 @@ const ManageUsersPage = () => {
     user.email?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // --- DELETE HANDLERS ---
   const handleDeleteClick = (user: IUser) => {
-    // Prevent deleting self
     if (currentUser && user._id === currentUser._id) {
       toast.error('You cannot delete your own account');
       return;
     }
-
-    // Prevent deleting other admins
     if (user.role === 'admin') {
       toast.error('Admin users cannot be deleted');
       return;
     }
 
-    // Show confirmation toast
     toast(
       <div className="flex flex-col gap-2 p-1">
         <p className="font-black text-slate-900 dark:text-white uppercase tracking-tighter">Delete User?</p>
@@ -53,48 +62,75 @@ const ManageUsersPage = () => {
           onClick: () => {
             if (user._id) {
               setUserToDelete({ id: user._id, name: user.name });
-              setIsModalOpen(true);
+              setIsDeleteModalOpen(true);
             }
           },
         },
-        cancel: {
-          label: 'Cancel',
-          onClick: () => {},
-        },
+        cancel: { label: 'Cancel', onClick: () => {} },
       },
     );
   };
 
   const confirmDelete = async () => {
     if (!userToDelete) return;
-
     try {
       const res = await deleteUser(userToDelete.id).unwrap();
       if (res.success) {
         toast.success(`User "${userToDelete.name}" deleted successfully.`);
-        setIsModalOpen(false);
+        setIsDeleteModalOpen(false);
         setUserToDelete(null);
-      } else {
-        toast.error(res.message || "Failed to delete user.");
       }
     } catch (err: any) {
       toast.error(err?.data?.message || "An error occurred while deleting the user.");
     }
   };
 
+  // --- EDIT HANDLERS ---
+  const handleEditClick = (user: IUser) => {
+    setEditingUser(user);
+    setEditForm({
+      name: user.name || '',
+      role: user.role || 'user',
+      image: user.image || '',
+    });
+    setIsEditModalOpen(true);
+  };
+
+  const handleUpdate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingUser?._id) return;
+
+    try {
+      const res = await updateUser({
+        id: editingUser._id,
+        data: editForm,
+      }).unwrap();
+
+      if (res.success) {
+        toast.success("User updated successfully!");
+        setIsEditModalOpen(false);
+        setEditingUser(null);
+      }
+    } catch (err: any) {
+      toast.error(err?.data?.message || "Failed to update user.");
+    }
+  };
+
   return (
     <div className="space-y-8 animate-in fade-in duration-500 relative">
-      <div>
-        <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase">Manage Users</h1>
-        <p className="text-slate-500 dark:text-slate-400 mt-1 font-semibold">View and manage all registered users on the platform.</p>
-      </div>
+      <header className="flex justify-between items-end">
+        <div>
+          <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase">Manage Users</h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-1 font-semibold">View and manage all registered users on the platform.</p>
+        </div>
+      </header>
 
       <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
         <div className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <p className="font-black text-slate-900 dark:text-white uppercase tracking-tighter">Registered Users</p>
             <span className="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-black rounded-md">
-              {searchTerm ? filteredUsers.length : users.length} {searchTerm ? 'Matches' : 'Total'}
+              {searchTerm ? filteredUsers.length : users.length} Total
             </span>
           </div>
           <div className="relative w-full md:w-80">
@@ -118,17 +154,6 @@ const ManageUsersPage = () => {
           <div className="text-center py-16 text-rose-500">
             <Shield className="size-12 mx-auto mb-4 opacity-40" />
             <p className="font-black uppercase tracking-tight">Error loading users</p>
-            <p className="text-sm mt-1 opacity-70">Please check your permissions and try again.</p>
-          </div>
-        ) : filteredUsers.length === 0 ? (
-          <div className="text-center py-20 text-slate-400 dark:text-slate-600">
-            <Users className="size-14 mx-auto mb-5 opacity-20" />
-            <p className="font-black uppercase tracking-tighter text-lg">
-              {searchTerm ? 'No results found' : 'No users found'}
-            </p>
-            <p className="text-sm mt-1">
-              {searchTerm ? `No matches found for "${searchTerm}"` : 'New registered users will appear in this list.'}
-            </p>
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -146,44 +171,29 @@ const ManageUsersPage = () => {
                   <tr key={user._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group">
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-4">
-                        <div className="size-11 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden border border-slate-100 dark:border-slate-800 group-hover:border-primary/20 transition-all">
-                          {user.image ? (
-                            <img src={user.image} alt={user.name} className="size-full object-cover" />
-                          ) : (
-                            <UserCircle className="size-6 text-primary opacity-60" />
-                          )}
+                        <div className="size-11 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden border border-slate-100 dark:border-slate-800 group-hover:border-primary/20 transition-all shrink-0">
+                          {user.image ? <img src={user.image} alt={user.name} className="size-full object-cover" /> : <UserCircle className="size-6 text-primary opacity-60" />}
                         </div>
-                        <p className="font-black text-slate-900 dark:text-white text-sm tracking-tight">{user.name}</p>
+                        <p className="font-black text-slate-900 dark:text-white text-sm tracking-tight truncate max-w-[150px]">{user.name}</p>
                       </div>
                     </td>
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
                         <Mail className="size-3.5" />
-                        <span className="text-sm font-bold">{user.email}</span>
+                        <span className="text-sm font-bold truncate max-w-[200px]">{user.email}</span>
                       </div>
                     </td>
                     <td className="px-8 py-5">
-                      <span className={`px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-md border ${
-                        user.role === 'admin' 
-                          ? 'bg-amber-50 dark:bg-amber-900/20 text-amber-600 border-amber-200/50 dark:border-amber-800/50' 
-                          : 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 border-blue-200/50 dark:border-blue-800/50'
-                      }`}>
+                      <span className={`w-fit px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest rounded border ${user.role === 'admin' ? 'bg-amber-50 text-amber-600 border-amber-200/50' : 'bg-blue-50 text-blue-600 border-blue-200/50'}`}>
                         {user.role}
                       </span>
                     </td>
                     <td className="px-8 py-5 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <button 
-                          className="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-lg transition-all cursor-pointer group/edit" 
-                          title="Edit User"
-                        >
+                        <button onClick={() => handleEditClick(user)} className="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-lg transition-all cursor-pointer group/edit" title="Edit User">
                           <Pencil className="size-4 group-hover/edit:scale-110 transition-transform" />
                         </button>
-                        <button 
-                          onClick={() => handleDeleteClick(user)}
-                          className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition-all cursor-pointer group/delete disabled:opacity-50 disabled:cursor-not-allowed" 
-                          title={user._id === currentUser?._id ? "You cannot delete yourself" : (user.role === 'admin' ? "Admins cannot be deleted" : "Delete User")}
-                        >
+                        <button onClick={() => handleDeleteClick(user)} className="p-2 text-slate-400 hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition-all cursor-pointer group/delete" title="Delete User">
                           <Trash2 className="size-4 group-hover/delete:scale-110 transition-transform" />
                         </button>
                       </div>
@@ -196,53 +206,120 @@ const ManageUsersPage = () => {
         )}
       </div>
 
-      {/* Custom Confirmation Modal */}
-      {isModalOpen && (
+      {/* Edit User Modal */}
+      {isEditModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4 animate-in fade-in duration-300">
-          <div 
-            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
-            onClick={() => !isDeleting && setIsModalOpen(false)}
-          ></div>
-          <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-3xl p-8 shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300">
-            <button 
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-6 right-6 p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
-            >
-              <X className="size-5" />
-            </button>
-            <div className="flex flex-col items-center text-center">
-              <div className="size-20 rounded-full bg-rose-50 dark:bg-rose-900/20 flex items-center justify-center text-rose-500 mb-6">
-                <AlertTriangle className="size-10" strokeWidth={2.5} />
+          <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => !isUpdating && setIsEditModalOpen(false)}></div>
+          <div className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300">
+            <div className="bg-slate-50 dark:bg-slate-800/50 px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-primary/10 rounded-xl text-primary">
+                  <Pencil className="size-5" />
+                </div>
+                <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Edit Profile</h3>
               </div>
-              <h3 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-2">Confirm Delete</h3>
-              <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
-                Are you sure you want to delete <span className="font-black text-rose-500 underline underline-offset-4">{userToDelete?.name}</span>? 
-                This action is permanent and cannot be undone.
-              </p>
-              
-              <div className="grid grid-cols-2 gap-4 w-full mt-10">
+              <button 
+                onClick={() => setIsEditModalOpen(false)}
+                className="p-2 hover:bg-white dark:hover:bg-slate-700 rounded-xl text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
+              >
+                <X className="size-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleUpdate} className="p-8 space-y-6">
+              {/* Profile Image Section */}
+              <div className="flex flex-col items-center gap-4 mb-8">
+                <div className="relative group">
+                  <div className="size-24 rounded-full overflow-hidden border-4 border-slate-50 dark:border-slate-800 shadow-md">
+                    {editForm.image ? (
+                      <img src={editForm.image} alt="Preview" className="size-full object-cover" />
+                    ) : (
+                      <div className="size-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+                        <UserCircle className="size-10" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Camera className="text-white size-6" />
+                  </div>
+                </div>
+                <div className="w-full">
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Profile Image URL</label>
+                  <input 
+                    type="text" 
+                    value={editForm.image}
+                    onChange={(e) => setEditForm({...editForm, image: e.target.value})}
+                    placeholder="https://example.com/image.jpg"
+                    className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="md:col-span-2">
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Full Name</label>
+                  <input 
+                    type="text" 
+                    required
+                    value={editForm.name}
+                    onChange={(e) => setEditForm({...editForm, name: e.target.value})}
+                    className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all"
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Account Role</label>
+                  <select 
+                    value={editForm.role}
+                    onChange={(e) => setEditForm({...editForm, role: e.target.value as TUserRole})}
+                    className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-300 appearance-none cursor-pointer"
+                  >
+                    <option value="user">Traveler (User)</option>
+                    <option value="admin">Administrator (Admin)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="pt-4 flex gap-4">
                 <button 
-                  onClick={() => setIsModalOpen(false)}
-                  disabled={isDeleting}
-                  className="px-6 py-4 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-black rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-700 transition-all cursor-pointer uppercase tracking-widest text-xs disabled:opacity-50"
+                  type="button" 
+                  onClick={() => setIsEditModalOpen(false)}
+                  disabled={isUpdating}
+                  className="flex-1 px-6 py-4 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-black rounded-2xl hover:bg-slate-100 transition-all cursor-pointer uppercase tracking-widest text-xs"
                 >
-                  Cancel
+                  Discard
                 </button>
                 <button 
-                  onClick={confirmDelete}
-                  disabled={isDeleting}
-                  className="px-6 py-4 bg-rose-500 text-white font-black rounded-2xl hover:bg-rose-600 transition-all cursor-pointer shadow-lg shadow-rose-500/25 uppercase tracking-widest text-xs flex items-center justify-center gap-2 group disabled:opacity-70"
+                  type="submit" 
+                  disabled={isUpdating}
+                  className="flex-1 px-6 py-4 bg-primary text-slate-900 font-black rounded-2xl hover:bg-opacity-90 shadow-lg shadow-primary/20 transition-all cursor-pointer uppercase tracking-widest text-xs flex items-center justify-center gap-2 group"
                 >
-                  {isDeleting ? (
-                    <>
-                      <Loader2 className="size-4 animate-spin" />
-                      Deleting...
-                    </>
-                  ) : (
-                    'Delete User'
-                  )}
+                  {isUpdating ? <Loader2 className="size-4 animate-spin" /> : <Check className="size-4" strokeWidth={3} />}
+                  Save Changes
                 </button>
               </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {isDeleteModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 animate-in fade-in duration-300">
+          <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => !isDeleting && setIsDeleteModalOpen(false)}></div>
+          <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-3xl p-8 shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300 text-center">
+            <div className="size-20 rounded-full bg-rose-50 dark:bg-rose-900/20 flex items-center justify-center text-rose-500 mx-auto mb-6">
+              <AlertTriangle className="size-10" />
+            </div>
+            <h3 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-2">Final Confirmation</h3>
+            <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
+              Are you sure you want to permanently delete <span className="text-rose-500 font-black underline">{userToDelete?.name}</span>?
+            </p>
+            <div className="grid grid-cols-2 gap-4 mt-10">
+              <button onClick={() => setIsDeleteModalOpen(false)} disabled={isDeleting} className="px-6 py-4 bg-slate-50 dark:bg-slate-800 text-slate-500 font-black rounded-2xl hover:bg-slate-100 text-xs uppercase cursor-pointer">Cancel</button>
+              <button onClick={confirmDelete} disabled={isDeleting} className="px-6 py-4 bg-rose-500 text-white font-black rounded-2xl hover:bg-rose-600 shadow-lg shadow-rose-500/20 text-xs uppercase flex items-center justify-center gap-2 cursor-pointer">
+                {isDeleting ? <Loader2 className="size-4 animate-spin" /> : <Trash2 className="size-4" />} Delete
+              </button>
             </div>
           </div>
         </div>

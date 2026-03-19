@@ -35,6 +35,15 @@ const TravelApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+
+    updateUser: build.mutation({
+      query: ({ id, data }) => ({
+        url: `/api/v1/users/admin/update-user/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
   }),
 });
 
@@ -43,4 +52,5 @@ export const {
   useLoginMutation,
   useGetAllUsersQuery,
   useDeleteUserMutation,
+  useUpdateUserMutation,
 } = TravelApi;
