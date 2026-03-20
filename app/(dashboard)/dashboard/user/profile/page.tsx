@@ -161,13 +161,13 @@ const UserProfilePage = () => {
                 { country: "UAE", city: "Dubai", img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDO00sGwsR0QUl7MLmMO2KsRFQhudC5zkH5Uqu4R0ZHwaKMS76xDeyGkeZ5PDTCkiYizZMo7BM4ejBmgU2VLZTbGkW5S4PhCLFR_6pdOib4Kdh3IsUj1iTolAvJzFJYTkywQhBdhG1e8tB-BnoWN3nek1wuK0eidEV1RsmnFpPoc3LlzlpVh33iEYWRbvnFwRPWnOcWoUYuSpepwUxOZPZG0wP6Ul8SryJHo4GL3Ep1FBnB_D0LtM-BrT-Omh9kuT6u6QcBKwLx0g" },
               ].map((v) => (
                 <div key={v.city} className="flex flex-col gap-2 group cursor-pointer">
-                  <div className="aspect-[4/3] rounded-2xl overflow-hidden relative border border-slate-100 dark:border-slate-800 shadow-sm">
+                  <div className="aspect-4/3 rounded-2xl overflow-hidden relative border border-slate-100 dark:border-slate-800 shadow-sm">
                     <img
                       alt={v.city}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       src={v.img}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
                     <span className="absolute bottom-2 left-3 text-white font-black text-[10px] tracking-widest uppercase">{v.country}</span>
                   </div>
                 </div>
