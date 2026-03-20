@@ -80,6 +80,11 @@ const userSlice = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
     },
+    updateUserDetails: (state, action: PayloadAction<Partial<IUser>>) => {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload };
+      }
+    },
     logout: (state) => {
       state.user = null;
       state.token = null;
@@ -108,5 +113,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setToken, logout } = userSlice.actions;
+export const { setUser, setToken, updateUserDetails, logout } = userSlice.actions;
 export default userSlice.reducer;
