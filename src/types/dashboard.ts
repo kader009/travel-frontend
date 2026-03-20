@@ -5,3 +5,9 @@ export interface NavItem {
   label: string;
   icon: LucideIcon;
 }
+
+export interface IApiResponse<T> {
+  success: boolean;
+  message?: string;
+  data: T;
+}

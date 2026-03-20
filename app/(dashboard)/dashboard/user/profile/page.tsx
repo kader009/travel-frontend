@@ -1,6 +1,7 @@
 'use client';
 
 import { useSelector } from 'react-redux';
+import Image from 'next/image';
 import { RootState } from '@/src/redux/store/store';
 import { 
   CheckCircle, 
@@ -31,11 +32,12 @@ const UserProfilePage = () => {
         <aside className="lg:col-span-4 flex flex-col gap-6">
           <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 flex flex-col items-center text-center shadow-sm border border-slate-100 dark:border-slate-800">
             <div className="relative mb-6">
-              <div className="size-32 rounded-full overflow-hidden border-4 border-primary bg-primary/10 flex items-center justify-center">
+              <div className="size-32 rounded-full overflow-hidden border-4 border-primary bg-primary/10 flex items-center justify-center relative">
                 {user?.image ? (
-                  <img
-                    alt={user.name}
-                    className="w-full h-full object-cover"
+                  <Image
+                    alt={user.name || 'Profile'}
+                    fill
+                    className="object-cover"
                     src={user.image}
                   />
                 ) : (
@@ -109,10 +111,11 @@ const UserProfilePage = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 flex gap-5 border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-primary/5 transition-all cursor-pointer group">
-                <div className="size-16 rounded-xl bg-slate-200 overflow-hidden shrink-0 border border-slate-100 dark:border-slate-800">
-                  <img
+                <div className="size-16 rounded-xl bg-slate-200 overflow-hidden shrink-0 border border-slate-100 dark:border-slate-800 relative">
+                  <Image
                     alt="Italy"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4GOEMd8n703mdJ5jOY75ZXaEXgxD_vXScoCWTsNDS_n27R_GfRRbIA7Y2XrZI2R2LWfj2HY_mbiqb635W1ft4ZuHfvevRLxo_MsBaIzNSwPPpHvVk8XZRzR-z8cPprwu9dY_MXbW41TrsiYsLfxp_gnMtEXm9ZT_AnX-3rWIH_-A9mba8dag0DEUmT0ml-OACD2cXBxpWAc_kh9UH6IiT6qFlr2zXoRbAjRlsm8bi5Owo3H_uKoKNSgXcXf-B3dWEftkG4nau3g"
                   />
                 </div>
@@ -120,10 +123,11 @@ const UserProfilePage = () => {
                   <h4 className="font-black text-slate-900 dark:text-white leading-tight">Amalfi Coast, Italy</h4>
                   <p className="text-[11px] font-bold text-slate-400 mt-1 uppercase">Oct 12 - Oct 20, 2024</p>
                   <div className="flex mt-2.5 -space-x-2">
-                    <div className="size-6 rounded-full border-2 border-white dark:border-slate-900 bg-slate-300 overflow-hidden">
-                      <img
+                    <div className="size-6 rounded-full border-2 border-white dark:border-slate-900 bg-slate-300 overflow-hidden relative">
+                      <Image
                         alt="Companion"
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuABw5hNw0JNrVRXfoSs3_BXA9DrBnKZFVwWjOmiATQ2m5DR5HC3jEy50ZxxjV4VoV1coSAIMVb8ZwxiPW2Pd8BKE-wgW_i3ed41nnbIsaGu_9X80oI8Hh6tv0wky391b7vI11d373bnKgu9SjgXXpYQEUk-wkQ5FZhDBJ7C24AN9NuBsELxOqUzCM3gTnCW3zrJ2LmfCUX-GFWnF8pQxNBdiCwSjlzf1Zwy383vNxAwA50hxtLb5EgT4rXU1CaJbZwSahZXSrd03A"
                       />
                     </div>
@@ -133,11 +137,12 @@ const UserProfilePage = () => {
               </div>
 
               <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 flex gap-5 border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-primary/5 transition-all cursor-pointer group">
-                <div className="size-16 rounded-xl bg-slate-200 overflow-hidden shrink-0 border border-slate-100 dark:border-slate-800">
-                  <img
+                <div className="size-16 rounded-xl bg-slate-200 overflow-hidden shrink-0 border border-slate-100 dark:border-slate-800 relative">
+                  <Image
                     alt="Japan"
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLg4pddFgU2R_pBr7qhsapMPnqS8VdVj-akonq0zwBEqPoQ3alCsaHHD8mdVHZvq4qopFYrN-6nL8Vanxume44M9y4gtIqCY_9W8_Lq87bHHS1wHZPoz1aTn1IDEpsk_oG7Cr4KwF-lbct7pS-VFxZRp0wgh_Z5uNiHFz0BT4T7HyBVLRRi12SqElfjjV83Y6xaoRqi8lp1rX68ZvOjiEr0fIT1ChA1yGfuXCfdtPdLBCJJQ3Vuuhi38KH5DlgV0nN8yITC4RxSA"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLg4pddFgU2R_pBr7qhsapMPnqS8VdVj-akonq0zwBEqPoQ3alCsaHHD8mdVHZvq4qopFYrN-6nL8Vanxume44M9y4gtIqCY_9W8_Lq87bHHS1wHZPoz1aTn1IDEpsk_oG7Cr4KwF-lbct7pS-VFxZRp0wgh_Z5uNiHFz0BT4T7HyBVLRRi12SqElfjjV83Y6xaoRqi8lp1rX68ZvOjiEr0fIT1ChA1yGfuXCf-B3dWEftkG4nau3g"
                   />
                 </div>
                 <div className="flex flex-col justify-center">
@@ -162,9 +167,10 @@ const UserProfilePage = () => {
               ].map((v) => (
                 <div key={v.city} className="flex flex-col gap-2 group cursor-pointer">
                   <div className="aspect-4/3 rounded-2xl overflow-hidden relative border border-slate-100 dark:border-slate-800 shadow-sm">
-                    <img
+                    <Image
                       alt={v.city}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
                       src={v.img}
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
@@ -204,10 +210,11 @@ const UserProfilePage = () => {
               ].map((review) => (
                 <div key={review.name} className="bg-white dark:bg-slate-900 rounded-3xl p-7 border border-slate-100 dark:border-slate-800 shadow-sm hover:border-primary/20 transition-all">
                   <div className="flex items-center gap-3 mb-5">
-                    <div className="size-11 rounded-full overflow-hidden bg-slate-200 border-2 border-primary/10">
-                      <img
+                    <div className="size-11 rounded-full overflow-hidden bg-slate-200 border-2 border-primary/10 relative">
+                      <Image
                         alt={review.name}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
                         src={review.img}
                       />
                     </div>

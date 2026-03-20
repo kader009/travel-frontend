@@ -1,4 +1,6 @@
 import { baseApi } from './baseApi';
+import { ITravelPlan } from '@/src/types/travelPlan';
+import { IApiResponse } from '@/src/types/dashboard';
 
 const TravelApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -53,6 +55,23 @@ const TravelApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+
+    getMyTravelPlans: build.query<IApiResponse<ITravelPlan[]>, any>({
+      query: () => ({
+        url: '/api/v1/travel-plans/my-plans',
+        method: 'GET',
+      }),
+      providesTags: ['TravelPlan'],
+    }),
+
+    createTravelPlan: build.mutation<IApiResponse<ITravelPlan>, Partial<ITravelPlan>>({
+      query: (data) => ({
+        url: '/api/v1/travel-plans',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['TravelPlan'],
+    }),
   }),
 });
 
@@ -63,4 +82,6 @@ export const {
   useDeleteUserMutation,
   useUpdateUserMutation,
   useUpdateProfileMutation,
+  useGetMyTravelPlansQuery,
+  useCreateTravelPlanMutation,
 } = TravelApi;

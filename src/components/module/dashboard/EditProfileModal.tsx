@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
+import { profileSchema, ProfileFormValues } from '@/src/validation/profile.validation';
 import { 
   X, 
   User, 
@@ -21,21 +21,6 @@ import { useDispatch } from 'react-redux';
 import { updateUserDetails } from '@/src/redux/store/features/userSlice';
 import { useUpdateProfileMutation } from '@/src/redux/store/api/endApi';
 import { IUser } from '@/src/types/user';
-
-const profileSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  image: z.string().optional(),
-  bio: z.string().optional(),
-  currentLocation: z.string().optional(),
-  travelInterests: z.array(z.string()).optional(),
-  visitedCountries: z.array(z.string()).optional(),
-  coordinates: z.object({
-    lat: z.number(),
-    lng: z.number()
-  }).optional()
-});
-
-type ProfileFormValues = z.infer<typeof profileSchema>;
 
 interface EditProfileModalProps {
   user: IUser | null;
@@ -124,8 +109,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
         toast.success('Profile updated successfully!');
         onClose();
       }
-    } catch (error: any) {
-      toast.error(error?.data?.message || 'Failed to update profile');
+    } catch (error: unknown) {
+      const errorMessage = (error as { data?: { message?: string } })?.data?.message || 'Failed to update profile';
+      toast.error(errorMessage);
     }
   };
 
