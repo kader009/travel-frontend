@@ -84,7 +84,7 @@ const baseQueryWithReauth: BaseQueryFn<
 };
 
 export const baseApi = createApi({
-  reducerPath: 'trustedgeApi',
+  reducerPath: 'travelApi',
   baseQuery: baseQueryWithReauth,
   tagTypes: [
     'Review',

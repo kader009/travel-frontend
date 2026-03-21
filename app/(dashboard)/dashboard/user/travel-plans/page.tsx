@@ -1,16 +1,57 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Map, Plus, Loader2, RefreshCcw, AlertCircle } from 'lucide-react';
-import { useGetMyTravelPlansQuery } from '@/src/redux/store/api/endApi';
+import { Map, Plus, Loader2, RefreshCcw, AlertCircle, Trash2 } from 'lucide-react';
+import { useGetMyTravelPlansQuery, useDeleteTravelPlanMutation } from '@/src/redux/store/api/endApi';
 import CreateTravelPlanModal from '@/src/components/module/dashboard/CreateTravelPlanModal';
+import EditTravelPlanModal from '@/src/components/module/dashboard/EditTravelPlanModal';
 import TravelPlanCard from '@/src/components/module/dashboard/TravelPlanCard';
 import { ITravelPlan } from '@/src/types/travelPlan';
+import { toast } from 'sonner';
 
 const UserTravelPlansPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingPlan, setEditingPlan] = useState<ITravelPlan | null>(null);
+
   const { data: plansData, isLoading, isFetching, isError, refetch } = useGetMyTravelPlansQuery(undefined);
+  const [deleteTravelPlan] = useDeleteTravelPlanMutation();
   const plans = (plansData?.data as ITravelPlan[]) || [];
+
+  const handleEdit = (plan: ITravelPlan) => {
+    setEditingPlan(plan);
+    setIsEditModalOpen(true);
+  };
+
+  const handleDelete = async (id: string) => {
+    toast(
+      <div className="flex flex-col gap-2 p-1">
+        <p className="font-black text-slate-900 dark:text-white uppercase tracking-tighter flex items-center gap-2">
+          <Trash2 className="size-4 text-rose-500" strokeWidth={3} /> Delete Expedition?
+        </p>
+        <p className="text-xs text-slate-500 font-bold uppercase tracking-tight">
+          This will permanently remove this journey from your records.
+        </p>
+      </div>,
+      {
+        duration: 5000,
+        action: {
+          label: 'Delete Log',
+          onClick: async () => {
+            try {
+              const res = await deleteTravelPlan(id).unwrap();
+              if (res.success) {
+                toast.success('Expedition log deleted successfully.');
+              }
+            } catch (err: any) {
+              toast.error(err?.data?.message || 'Failed to delete expedition log.');
+            }
+          },
+        },
+        cancel: { label: 'Keep Log', onClick: () => {} },
+      },
+    );
+  };
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
@@ -47,6 +88,12 @@ const UserTravelPlansPage = () => {
         onClose={() => setIsModalOpen(false)} 
       />
 
+      <EditTravelPlanModal 
+        isOpen={isEditModalOpen} 
+        onClose={() => setIsEditModalOpen(false)} 
+        plan={editingPlan}
+      />
+
       {isError ? (
         <div className="bg-rose-50 dark:bg-rose-900/10 border border-rose-100 dark:border-rose-900/20 p-20 rounded-[2.5rem] text-center shadow-sm">
           <div className="size-16 rounded-full bg-rose-500/10 flex items-center justify-center mx-auto mb-6 text-rose-500">
@@ -71,7 +118,12 @@ const UserTravelPlansPage = () => {
       ) : plans.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {plans.map((plan: ITravelPlan, idx: number) => (
-            <TravelPlanCard key={plan._id || idx} plan={plan} />
+            <TravelPlanCard 
+              key={plan._id || idx} 
+              plan={plan} 
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       ) : (

@@ -9,16 +9,38 @@ import {
   Users, 
   Navigation, 
   DollarSign, 
-  FileText
+  FileText,
+  Pencil,
+  Trash2
 } from 'lucide-react';
 
 interface TravelPlanCardProps {
   plan: ITravelPlan;
+  onEdit: (plan: ITravelPlan) => void;
+  onDelete: (id: string) => void;
 }
 
-const TravelPlanCard: React.FC<TravelPlanCardProps> = ({ plan }) => {
+const TravelPlanCard: React.FC<TravelPlanCardProps> = ({ plan, onEdit, onDelete }) => {
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all overflow-hidden group">
+    <div className="bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all overflow-hidden group relative">
+      {/* Action Buttons */}
+      <div className="absolute top-4 right-4 z-10 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <button 
+          onClick={() => onEdit(plan)}
+          className="size-10 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md flex items-center justify-center text-slate-600 dark:text-slate-400 hover:text-primary transition-all shadow-xl border border-white/20 cursor-pointer active:scale-90"
+          title="Edit Plan"
+        >
+          <Pencil className="size-4" strokeWidth={3} />
+        </button>
+        <button 
+          onClick={() => onDelete(plan._id as string)}
+          className="size-10 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-md flex items-center justify-center text-slate-400 hover:text-rose-500 transition-all shadow-xl border border-white/20 cursor-pointer active:scale-90"
+          title="Delete Plan"
+        >
+          <Trash2 className="size-4" strokeWidth={3} />
+        </button>
+      </div>
+
       {/* Image Swiper / Preview */}
       <div className="relative aspect-16/10 overflow-hidden">
         {plan.images && plan.images.length > 0 ? (

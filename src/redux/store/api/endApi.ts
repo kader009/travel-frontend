@@ -1,10 +1,11 @@
 import { baseApi } from './baseApi';
 import { ITravelPlan } from '@/src/types/travelPlan';
 import { IApiResponse } from '@/src/types/dashboard';
+import { IUser } from '@/src/types/user';
 
 const TravelApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    signUp: build.mutation({
+    signUp: build.mutation<IApiResponse<IUser>, Partial<IUser>>({
       query: (userInfo) => ({
         url: '/api/v1/auth/register',
         method: 'POST',
@@ -12,7 +13,7 @@ const TravelApi = baseApi.injectEndpoints({
       }),
     }),
 
-    login: build.mutation({
+    login: build.mutation<IApiResponse<{ user: IUser; token: string }>, Partial<IUser>>({
       query: (userInfo) => ({
         url: '/api/v1/auth/login',
         method: 'POST',
@@ -20,7 +21,7 @@ const TravelApi = baseApi.injectEndpoints({
       }),
     }),
 
-    getAllUsers: build.query({
+    getAllUsers: build.query<IApiResponse<IUser[]>, void>({
       query: () => {
         return {
           url: '/api/v1/users/admin/all-users',
@@ -30,7 +31,7 @@ const TravelApi = baseApi.injectEndpoints({
       providesTags: ['User'],
     }),
 
-    deleteUser: build.mutation({
+    deleteUser: build.mutation<IApiResponse<IUser>, string>({
       query: (id) => ({
         url: `/api/v1/users/delete-user/${id}`,
         method: 'DELETE',
@@ -38,7 +39,7 @@ const TravelApi = baseApi.injectEndpoints({
       invalidatesTags: ['User'],
     }),
 
-    updateUser: build.mutation({
+    updateUser: build.mutation<IApiResponse<IUser>, { id: string; data: Partial<IUser> }>({
       query: ({ id, data }) => ({
         url: `/api/v1/users/admin/update-user/${id}`,
         method: 'PUT',
@@ -47,7 +48,7 @@ const TravelApi = baseApi.injectEndpoints({
       invalidatesTags: ['User'],
     }),
 
-    updateProfile: build.mutation({
+    updateProfile: build.mutation<IApiResponse<IUser>, Partial<IUser>>({
       query: (data) => ({
         url: '/api/v1/users/update-profile',
         method: 'PUT',
@@ -56,7 +57,7 @@ const TravelApi = baseApi.injectEndpoints({
       invalidatesTags: ['User'],
     }),
 
-    getMyTravelPlans: build.query<IApiResponse<ITravelPlan[]>, any>({
+    getMyTravelPlans: build.query<IApiResponse<ITravelPlan[]>, void>({
       query: () => ({
         url: '/api/v1/travel-plans/user/my-plans',
         method: 'GET',
@@ -78,6 +79,26 @@ const TravelApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'TravelPlan', id: 'LIST' }],
     }),
+
+    updateTravelPlan: build.mutation<IApiResponse<ITravelPlan>, { id: string; data: Partial<ITravelPlan> }>({
+      query: ({ id, data }) => ({
+        url: `/api/v1/travel-plans/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (result, error, { id }) => [
+        { type: 'TravelPlan', id },
+        { type: 'TravelPlan', id: 'LIST' },
+      ],
+    }),
+
+    deleteTravelPlan: build.mutation<IApiResponse<ITravelPlan>, string>({
+      query: (id) => ({
+        url: `/api/v1/travel-plans/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: [{ type: 'TravelPlan', id: 'LIST' }],
+    }),
   }),
 });
 
@@ -90,4 +111,6 @@ export const {
   useUpdateProfileMutation,
   useGetMyTravelPlansQuery,
   useCreateTravelPlanMutation,
+  useUpdateTravelPlanMutation,
+  useDeleteTravelPlanMutation,
 } = TravelApi;
