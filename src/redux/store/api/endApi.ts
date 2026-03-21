@@ -58,10 +58,16 @@ const TravelApi = baseApi.injectEndpoints({
 
     getMyTravelPlans: build.query<IApiResponse<ITravelPlan[]>, any>({
       query: () => ({
-        url: '/api/v1/travel-plans/my-plans',
+        url: '/api/v1/travel-plans/user/my-plans',
         method: 'GET',
       }),
-      providesTags: ['TravelPlan'],
+      providesTags: (result) =>
+        result?.data
+          ? [
+              ...result.data.map(({ _id }) => ({ type: 'TravelPlan' as const, id: _id })),
+              { type: 'TravelPlan', id: 'LIST' },
+            ]
+          : [{ type: 'TravelPlan', id: 'LIST' }],
     }),
 
     createTravelPlan: build.mutation<IApiResponse<ITravelPlan>, Partial<ITravelPlan>>({
@@ -70,7 +76,7 @@ const TravelApi = baseApi.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: ['TravelPlan'],
+      invalidatesTags: [{ type: 'TravelPlan', id: 'LIST' }],
     }),
   }),
 });

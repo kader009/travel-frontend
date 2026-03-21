@@ -14,10 +14,9 @@ import {
   Image as ImageIcon, 
   Trash2,
   Loader2,
-  Save,
   Navigation,
+  Search,
   DollarSign,
-  Plus
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useCreateTravelPlanMutation } from '@/src/redux/store/api/endApi';
@@ -30,6 +29,7 @@ interface CreateTravelPlanModalProps {
 const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({ isOpen, onClose }) => {
   const [createTravelPlan, { isLoading }] = useCreateTravelPlanMutation();
   const [newImageUrl, setNewImageUrl] = useState('');
+  const [isFetchingCoords, setIsFetchingCoords] = useState(false);
 
   const {
     register,
@@ -37,6 +37,7 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({ isOpen, o
     reset,
     watch,
     setValue,
+    getValues,
     formState: { errors }
   } = useForm<PlanFormValues>({
     resolver: zodResolver(planSchema),
@@ -70,6 +71,36 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({ isOpen, o
 
   const removeImage = (url: string) => {
     setValue('images', images.filter(i => i !== url));
+  };
+
+  const fetchCoords = async () => {
+    const destination = getValues('destination');
+    if (!destination || destination.trim().length < 3) {
+      toast.error('Please enter a valid destination name (at least 3 characters)');
+      return;
+    }
+
+    setIsFetchingCoords(true);
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(destination)}&limit=1`
+      );
+      if (!response.ok) throw new Error('API request failed');
+      const data = await response.json();
+
+      if (data && data.length > 0) {
+        const { lat, lon } = data[0];
+        setValue('coordinates.lat', parseFloat(lat));
+        setValue('coordinates.lng', parseFloat(lon));
+        toast.success(`Coordinates found for "${destination}"!`);
+      } else {
+        toast.error('Could not find coordinates for this destination');
+      }
+    } catch (error) {
+      toast.error('Error fetching data from map service');
+    } finally {
+      setIsFetchingCoords(false);
+    }
   };
 
   const onSubmit = async (data: PlanFormValues) => {
@@ -118,11 +149,32 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({ isOpen, o
                 <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-primary transition-colors flex items-center gap-2">
                   <MapPin className="size-3.5" strokeWidth={3} /> Destination
                 </label>
-                <input
-                  {...register('destination')}
-                  placeholder="e.g. Cox's Bazar, Bangladesh"
-                  className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white"
-                />
+                <div className="relative">
+                  <input
+                    {...register('destination')}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        fetchCoords();
+                      }
+                    }}
+                    placeholder="e.g. Cox's Bazar, Bangladesh"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl pl-5 pr-14 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white"
+                  />
+                  <button
+                    type="button"
+                    onClick={fetchCoords}
+                    disabled={isFetchingCoords}
+                    title="Find Coordinates"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 size-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all cursor-pointer active:scale-90 disabled:opacity-50 z-10"
+                  >
+                    {isFetchingCoords ? (
+                      <Loader2 className="size-4 animate-spin" />
+                    ) : (
+                      <Search className="size-4" strokeWidth={3} />
+                    )}
+                  </button>
+                </div>
                 {errors.destination && <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">{errors.destination.message}</p>}
               </div>
 
