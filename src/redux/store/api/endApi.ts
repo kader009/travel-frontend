@@ -2,6 +2,7 @@ import { baseApi } from './baseApi';
 import { ITravelPlan } from '@/src/types/travelPlan';
 import { IApiResponse } from '@/src/types/dashboard';
 import { IUser } from '@/src/types/user';
+import { IReview, IReviewResponse } from '@/src/types/review';
 
 const TravelApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -87,7 +88,7 @@ const TravelApi = baseApi.injectEndpoints({
         body: data,
       }),
       invalidatesTags: (result, error, { id }) => [
-        { type: 'TravelPlan', id },
+        { type: 'Review', id },
         { type: 'TravelPlan', id: 'LIST' },
       ],
     }),
@@ -98,6 +99,52 @@ const TravelApi = baseApi.injectEndpoints({
         method: 'DELETE',
       }),
       invalidatesTags: [{ type: 'TravelPlan', id: 'LIST' }],
+    }),
+
+    // --- REVIEWS ENDPOINTS ---
+    getReviewsForUser: build.query<IApiResponse<IReviewResponse>, string>({
+      query: (userId) => ({
+        url: `/api/v1/reviews/user/${userId}`,
+        method: 'GET',
+      }),
+      providesTags: ['Review'],
+    }),
+
+    getReviewDetails: build.query<IApiResponse<IReview>, string>({
+      query: (id) => ({
+        url: `/api/v1/reviews/${id}`,
+        method: 'GET',
+      }),
+      providesTags: (result, error, id) => [{ type: 'Review', id }],
+    }),
+
+    createReview: build.mutation<IApiResponse<IReview>, Partial<IReview>>({
+      query: (data) => ({
+        url: '/api/v1/reviews',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['Review'],
+    }),
+
+    updateReview: build.mutation<IApiResponse<IReview>, { id: string; data: Partial<IReview> }>({
+      query: ({ id, data }) => ({
+        url: `/api/v1/reviews/${id}`,
+        method: 'PUT',
+        body: data,
+      }),
+      invalidatesTags: (result, error, { id }) => [
+        { type: 'Review', id },
+        'Review',
+      ],
+    }),
+
+    deleteReview: build.mutation<IApiResponse<any>, string>({
+      query: (id) => ({
+        url: `/api/v1/reviews/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Review'],
     }),
   }),
 });
@@ -113,4 +160,9 @@ export const {
   useCreateTravelPlanMutation,
   useUpdateTravelPlanMutation,
   useDeleteTravelPlanMutation,
+  useGetReviewsForUserQuery,
+  useGetReviewDetailsQuery,
+  useCreateReviewMutation,
+  useUpdateReviewMutation,
+  useDeleteReviewMutation,
 } = TravelApi;
