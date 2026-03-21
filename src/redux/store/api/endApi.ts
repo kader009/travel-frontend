@@ -59,6 +59,28 @@ const TravelApi = baseApi.injectEndpoints({
       invalidatesTags: ['User'],
     }),
 
+    getAllTravelPlans: build.query<IApiResponse<ITravelPlan[]>, void>({
+      query: () => ({
+        url: '/api/v1/travel-plans',
+        method: 'GET',
+      }),
+      providesTags: (result) =>
+        result?.data
+          ? [
+              ...result.data.map(({ _id }) => ({ type: 'TravelPlan' as const, id: _id })),
+              { type: 'TravelPlan', id: 'LIST' },
+            ]
+          : [{ type: 'TravelPlan', id: 'LIST' }],
+    }),
+
+    getTravelPlanDetails: build.query<IApiResponse<ITravelPlan>, string>({
+      query: (id) => ({
+        url: `/api/v1/travel-plans/${id}`,
+        method: 'GET',
+      }),
+      providesTags: (result, error, id) => [{ type: 'TravelPlan', id }],
+    }),
+
     getMyTravelPlans: build.query<IApiResponse<ITravelPlan[]>, void>({
       query: () => ({
         url: '/api/v1/travel-plans/user/my-plans',
@@ -183,6 +205,8 @@ export const {
   useDeleteUserMutation,
   useUpdateUserMutation,
   useUpdateProfileMutation,
+  useGetAllTravelPlansQuery,
+  useGetTravelPlanDetailsQuery,
   useGetMyTravelPlansQuery,
   useCreateTravelPlanMutation,
   useUpdateTravelPlanMutation,

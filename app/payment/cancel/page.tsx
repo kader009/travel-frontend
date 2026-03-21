@@ -7,7 +7,7 @@ const PaymentCancelPage = () => {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-6">
       <div className="max-w-md w-full text-center space-y-8 animate-in zoom-in-95 duration-700">
-        <div className="size-24 bg-amber-500/10 rounded-[2rem] flex items-center justify-center text-amber-500 mx-auto">
+        <div className="size-24 bg-amber-500/10 rounded-4xl flex items-center justify-center text-amber-500 mx-auto">
           <MinusCircle className="size-12" strokeWidth={2.5} />
         </div>
         

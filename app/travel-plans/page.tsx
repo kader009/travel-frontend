@@ -1,50 +1,24 @@
 'use client';
 
 import Container from '@/src/components/ui/Container';
-import { Calendar, DollarSign, Edit2, Eye, Plus } from 'lucide-react';
-import Image from 'next/image';
+import { useGetAllTravelPlansQuery } from '@/src/redux/store/api/endApi';
+import { ITravelPlan } from '@/src/types/travelPlan';
+import {
+  Loader2,
+  Calendar,
+  DollarSign,
+  Edit2,
+  Eye,
+  Plus,
+  Compass,
+} from 'lucide-react';
 import Link from 'next/link';
-
-const plans = [
-  {
-    id: 1,
-    location: 'Tokyo, Japan',
-    date: 'Oct 12 - Oct 20, 2024',
-    budget: '$2,500',
-    type: 'Solo Trip',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuARoFi_s-xMqA6eL9c2NBW_N2xYBAxYtMY64nclMlu8M-sgpkjmoSERCDvkeyMibLHVT0-e-C9RPwnDNwITw0teYQeTLvB4tChVSduhBqNktXklQLcJLTdDy3isvKYcT7U-megHj98eRpPMI2oDQ00iRXOxd03daI2WrKS6be4skoX3_62OUYjsdiAbqkm8TSGo4byq8tQTF1AbzcuD2QEChBbUrqDHHB5GKAqw6P_OXUn2LKPQhN_bWlIxQjT7y0hx_C7kwx9p3A',
-  },
-  {
-    id: 2,
-    location: 'Venice, Italy',
-    date: 'Dec 22 - Jan 02, 2025',
-    budget: '$4,200',
-    type: 'Couples',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAUm50disLfGZ9BOzP7oc859q-4ZEnXjVTLSZDmBw5KxO0hWKYBIiCPqgSaWTF95oOu9y_NnrnT3EhAuyN_RGMdw0OH8vvjEGvezvaqmGaJerT7sg7g9jso6PB8bXQA-J4lLNjIU1vAy5Uc0uIKvKU5TgSZT3_YXNahSI4Gi4zZZNq7rRXs6XuX27JsMdgkj-o7ON2Jlw9mULtRZfMNjjxvgaWJfnCoPfGMSma16wwy4pVAA3mA_kfhteskNa2Mw-yCHRW209uDnw',
-  },
-  {
-    id: 3,
-    location: 'Bali, Indonesia',
-    date: 'Feb 15 - Feb 28, 2025',
-    budget: '$1,800',
-    type: 'Friends',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAkQS2DB0sXXoObUIkDFlhKK7Tlr9kvwTozZnqGqvEZuPxrNLghCEo1mYmLC5MgfopD2CjvntWBmzoFRcCOVGHRy8xIYGub7DyKaFZmouw3M3HiGtGBaFnFUEno7-4evzUj2pielRKziY5o0cVkB9UiSOXaepng2mZknch5G6xyqND_ZGwctFIW8V3qWmZKUIp7f5LxQE3P2EUYebeCyHM9yVDjbmYWIw8Hbq7B1Hefi8OjVxWgVKzn-3g38-omNJNTjCzsJWSfsg',
-  },
-  {
-    id: 4,
-    location: 'Swiss Alps',
-    date: 'Mar 05 - Mar 12, 2025',
-    budget: '$3,100',
-    type: 'Adventure',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuCHFiTMvRJOa0SCGCoM6C44xVSE0lZy8PjEv-fpAfkNN4kC7XWX4MrXe_R7lvO0SvP0Ge0VfMAhZ4tuaFCBPoOCQJ44DWS_O9a9PHQF47mJ_cHk-8wMjybxGwbdSf4_3juHHX_2qg21gzJZd7n28esVIU_Ow0GnY7NAHUsf71XPJzh29xCHP5Ju0z-9D_xYLlwgSp8lpfWpyy62vx2_lYQ8yw4fkdWAYtN9_NKj5UPZR-qLLNR03g2nQbHS9aq-1JVFRxah3UzK6Q',
-  },
-];
+import Image from 'next/image';
 
 const TravelPlans = () => {
+  const { data: plansData, isLoading, isError } = useGetAllTravelPlansQuery();
+  const plans = (plansData?.data as ITravelPlan[]) || [];
+
   return (
     <main className="min-h-screen py-10 bg-background-light dark:bg-background-dark">
       <Container>
@@ -52,85 +26,134 @@ const TravelPlans = () => {
           {/* Header Area */}
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h1 className="text-slate-900 dark:text-slate-100 text-3xl font-black leading-tight tracking-tight">
-                Travel Plans
+              <h1 className="text-slate-900 dark:text-slate-100 text-3xl font-black leading-tight tracking-tight uppercase">
+                Global Expeditions
               </h1>
-              <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-medium">
-                You have {plans.length} upcoming trips planned
+              <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-bold">
+                {isLoading
+                  ? 'Scanning horizons...'
+                  : `Discover ${plans.length} journeys shared by the community`}
               </p>
             </div>
-            <button className="flex items-center justify-center gap-2 px-6 py-3 bg-primary text-slate-900 rounded-full font-bold hover:scale-[1.02] transition-transform cursor-pointer active:scale-95">
-              <Plus className="w-5 h-5" />
-              <span>Add Plan</span>
-            </button>
+            <Link
+              href="/dashboard/user/travel-plans"
+              className="flex items-center justify-center gap-2 px-8 py-3 bg-primary text-slate-900 rounded-full font-black text-xs uppercase tracking-widest hover:scale-[1.02] transition-all cursor-pointer active:scale-95 shadow-lg shadow-primary/20"
+            >
+              <Plus className="w-4 h-4" strokeWidth={3} />
+              <span>Create Plan</span>
+            </Link>
           </div>
+
+          {/* Loading State */}
+          {isLoading && (
+            <div className="flex flex-col items-center justify-center py-24">
+              <Loader2 className="size-12 animate-spin text-primary mb-4" />
+              <p className="text-xs font-black text-slate-400 uppercase tracking-widest">
+                Retrieving expeditions...
+              </p>
+            </div>
+          )}
+
+          {/* Error State */}
+          {isError && (
+            <div className="bg-rose-500/10 border border-rose-500/20 p-8 rounded-4xl text-center">
+              <p className="text-rose-500 font-black uppercase tracking-widest text-xs">
+                Failed to fetch expeditions. Please check your link.
+              </p>
+            </div>
+          )}
 
           {/* Plan Cards Grid */}
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-            {plans.map((plan) => (
-              <div
-                key={plan.id}
-                className="flex flex-col sm:flex-row rounded-xl overflow-hidden bg-primary/5 dark:bg-primary/10 border border-primary/20 hover:shadow-xl transition-shadow group animate-in fade-in slide-in-from-bottom-4 duration-500"
-              >
-                {/* Image Container */}
-                <div className="w-full sm:w-64 h-64 sm:h-auto relative overflow-hidden shrink-0">
-                  <Image
-                    alt={plan.location}
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    fill
-                    src={plan.image}
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 to-transparent sm:hidden"></div>
-                  <div className="absolute bottom-4 left-4 sm:hidden">
-                    <span className="px-2 py-1 bg-primary text-slate-900 text-[10px] font-bold rounded uppercase tracking-widest">
-                      {plan.type}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content Area */}
-                <div className="flex-1 p-8 flex flex-col justify-between gap-6">
-                  <div>
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-slate-900 dark:text-white text-2xl font-bold group-hover:text-primary transition-colors">
-                        {plan.location}
-                      </h3>
-                      <span className="hidden sm:inline-block px-2 py-1 bg-white/50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 text-[10px] font-bold rounded uppercase tracking-widest border border-slate-900/10 dark:border-white/10">
-                        {plan.type}
+          {!isLoading && plans.length > 0 ? (
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+              {plans.map((plan) => (
+                <div
+                  key={plan._id}
+                  className="flex flex-col md:flex-row rounded-[2.5rem] overflow-hidden bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:shadow-2xl transition-all group animate-in fade-in slide-in-from-bottom-4 duration-500"
+                >
+                  {/* Image Container */}
+                  <div className="w-full md:w-72 h-72 md:h-auto relative overflow-hidden shrink-0">
+                    <Image
+                      alt={plan.destination}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      src={
+                        plan.images?.[0] ||
+                        'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=2070&auto=format&fit=crop'
+                      }
+                    />
+                    <div className="absolute top-6 left-6">
+                      <span className="px-4 py-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-slate-900 dark:text-white text-[10px] font-black rounded-full uppercase tracking-widest border border-slate-100/20">
+                        {plan.travelType}
                       </span>
                     </div>
-                    <div className="mt-4 flex flex-col gap-2 text-slate-700/80 dark:text-slate-400">
-                      <div className="flex items-center gap-3 text-base">
-                        <Calendar className="w-5 h-5 opacity-60 text-slate-900 dark:text-white" />
-                        <span>{plan.date}</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-base">
-                        <DollarSign className="w-5 h-5 opacity-60 text-slate-900 dark:text-white" />
-                        <span className="font-semibold text-slate-900 dark:text-white">
-                          Budget: {plan.budget}
-                        </span>
-                      </div>
-                    </div>
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex gap-3 mt-4">
-                    <Link
-                      href={`/travel-plans/${plan.id}`}
-                      className="flex-1 flex items-center justify-center gap-2 py-3 bg-primary text-slate-900 rounded-full text-sm font-bold hover:scale-[1.02] transition-all cursor-pointer active:scale-95 shadow-sm"
-                    >
-                      <Eye className="w-4 h-4" />
-                      Details
-                    </Link>
-                    <button className="flex-1 flex items-center justify-center gap-2 py-3 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-900/10 dark:border-white/10 rounded-full text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer active:scale-95">
-                      <Edit2 className="w-4 h-4" />
-                      Edit
-                    </button>
+                  {/* Content Area */}
+                  <div className="flex-1 p-8 flex flex-col justify-between gap-6">
+                    <div>
+                      <h3 className="text-slate-900 dark:text-white text-2xl font-black group-hover:text-primary transition-colors tracking-tight">
+                        {plan.destination}
+                      </h3>
+
+                      <div className="mt-6 space-y-3">
+                        <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
+                          <div className="size-8 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center">
+                            <Calendar className="w-4 h-4 opacity-70" />
+                          </div>
+                          <span className="text-xs font-bold uppercase tracking-tight">
+                            {new Date(plan.startDate).toLocaleDateString('en-US')} -{' '}
+                            {new Date(plan.endDate).toLocaleDateString('en-US')}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
+                          <div className="size-8 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center">
+                            <DollarSign className="w-4 h-4 opacity-70" />
+                          </div>
+                          <span className="text-xs font-bold uppercase tracking-tight">
+                            Budget:{' '}
+                            <span className="text-slate-900 dark:text-white">
+                              ${plan.budget?.min} - ${plan.budget?.max}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex gap-3">
+                      <Link
+                        href={`/travel-plans/${plan._id}`}
+                        className="flex-1 flex items-center justify-center gap-2 py-4 bg-primary text-slate-900 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:shadow-lg hover:shadow-primary/20 transition-all cursor-pointer active:scale-95"
+                      >
+                        <Eye className="w-4 h-4" strokeWidth={3} />
+                        Explore
+                      </Link>
+                      <Link
+                        href={`/dashboard/user/travel-plans`}
+                        className="flex-1 flex items-center justify-center gap-2 py-4 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-slate-700 transition-all cursor-pointer active:scale-95"
+                      >
+                        <Edit2 className="w-4 h-4" />
+                        Manage
+                      </Link>
+                    </div>
                   </div>
                 </div>
+              ))}
+            </div>
+          ) : (
+            !isLoading && (
+              <div className="py-24 text-center">
+                <Compass className="size-16 text-slate-200 dark:text-slate-800 mx-auto mb-6" />
+                <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+                  Horizon is Empty
+                </h3>
+                <p className="text-slate-400 text-sm font-bold mt-2">
+                  No expeditions have been shared yet. Be the first one!
+                </p>
               </div>
-            ))}
-          </div>
+            )
+          )}
         </section>
       </Container>
     </main>

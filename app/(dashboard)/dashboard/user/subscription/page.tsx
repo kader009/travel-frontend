@@ -82,7 +82,7 @@ const SubscriptionPage = () => {
               <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-slate-900 px-6 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl">Most Popular</span>
             )}
 
-            <div className={`size-16 rounded-[2rem] flex items-center justify-center mb-8 ${
+            <div className={`size-16 rounded-4xl flex items-center justify-center mb-8 ${
               plan.id === 'premium' ? 'bg-primary/10 text-primary' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
             }`}>
               <plan.icon className="size-8" strokeWidth={2.5} />
@@ -94,7 +94,7 @@ const SubscriptionPage = () => {
               <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">/ Quarterly</span>
             </div>
 
-            <ul className="space-y-4 mb-10 flex-grow">
+            <ul className="space-y-4 mb-10 grow">
               {plan.features.map((feature, i) => (
                 <li key={i} className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-400">
                   <div className="size-5 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">

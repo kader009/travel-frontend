@@ -129,7 +129,7 @@ const CreateReviewModal: React.FC<CreateReviewModalProps> = ({ isOpen, onClose }
               {...register('comment', { required: 'Please tell us about your experience' })}
               rows={4}
               placeholder="How was your trip with this traveler? Be detailed..."
-              className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-[2rem] px-6 py-5 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white resize-none"
+              className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-4xl px-6 py-5 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white resize-none"
             />
             {errors.comment && <p className="text-[10px] font-black text-rose-500 uppercase tracking-tight pl-2">{errors.comment.message}</p>}
           </div>

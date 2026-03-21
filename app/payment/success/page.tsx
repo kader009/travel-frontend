@@ -1,6 +1,5 @@
 'use client';
 
-import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { CheckCircle, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
 
@@ -8,9 +7,9 @@ const PaymentSuccessPage = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 flex items-center justify-center p-6">
       <div className="max-w-md w-full text-center space-y-8 animate-in zoom-in-95 duration-700">
-        <div className="relative mx-auto size-24 bg-emerald-500/10 rounded-[2rem] flex items-center justify-center text-emerald-500">
+        <div className="relative mx-auto size-24 bg-emerald-500/10 rounded-4xl flex items-center justify-center text-emerald-500">
           <CheckCircle className="size-12" strokeWidth={2.5} />
-          <div className="absolute inset-0 bg-emerald-500/20 rounded-[2rem] animate-ping" />
+          <div className="absolute inset-0 bg-emerald-500/20 rounded-4xl animate-ping" />
         </div>
         
         <div className="space-y-3">
