@@ -3,6 +3,7 @@ import { ITravelPlan } from '@/src/types/travelPlan';
 import { IApiResponse } from '@/src/types/dashboard';
 import { IUser } from '@/src/types/user';
 import { IReview, IReviewResponse } from '@/src/types/review';
+import { IPaymentInitRequest, IPaymentInitResponse, IPaymentHistory, IPaymentAnalytics } from '@/src/types/payment';
 
 const TravelApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -88,7 +89,7 @@ const TravelApi = baseApi.injectEndpoints({
         body: data,
       }),
       invalidatesTags: (result, error, { id }) => [
-        { type: 'Review', id },
+        { type: 'TravelPlan', id },
         { type: 'TravelPlan', id: 'LIST' },
       ],
     }),
@@ -146,6 +147,32 @@ const TravelApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Review'],
     }),
+
+    // --- PAYMENT & SUBSCRIPTION ENDPOINTS ---
+    initializeSubscription: build.mutation<IApiResponse<IPaymentInitResponse>, IPaymentInitRequest>({
+      query: (data) => ({
+        url: '/api/v1/payment/init',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['Payment'],
+    }),
+
+    getPaymentHistory: build.query<IApiResponse<IPaymentHistory[]>, void>({
+      query: () => ({
+        url: '/api/v1/payment/history',
+        method: 'GET',
+      }),
+      providesTags: ['Payment'],
+    }),
+
+    getPaymentAnalytics: build.query<IApiResponse<IPaymentAnalytics>, void>({
+      query: () => ({
+        url: '/api/v1/payment/analytics',
+        method: 'GET',
+      }),
+      providesTags: ['Payment'],
+    }),
   }),
 });
 
@@ -165,4 +192,7 @@ export const {
   useCreateReviewMutation,
   useUpdateReviewMutation,
   useDeleteReviewMutation,
+  useInitializeSubscriptionMutation,
+  useGetPaymentHistoryQuery,
+  useGetPaymentAnalyticsQuery,
 } = TravelApi;

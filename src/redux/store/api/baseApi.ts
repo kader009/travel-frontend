@@ -95,6 +95,7 @@ export const baseApi = createApi({
     'User',
     'Category',
     'TravelPlan',
+    'Payment',
   ],
   endpoints: () => ({}),
 });
