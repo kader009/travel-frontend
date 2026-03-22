@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Container from '@/src/components/ui/Container';
 import { useGetAllTravelPlansQuery } from '@/src/redux/store/api/endApi';
 import { ITravelPlan } from '@/src/types/travelPlan';
@@ -14,10 +15,32 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import CreateTravelPlanModal from '@/src/components/module/dashboard/CreateTravelPlanModal';
+import { useAppSelector } from '@/src/redux/hook';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 const TravelPlans = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: plansData, isLoading, isError } = useGetAllTravelPlansQuery();
   const plans = (plansData?.data as ITravelPlan[]) || [];
+  
+  const user = useAppSelector((state) => state.user.user);
+  const router = useRouter();
+
+  const handleCreatePlanClick = () => {
+    if (!user) {
+      toast.error('Authentication Required', {
+        description: 'Please login to create a travel plan.',
+        action: {
+          label: 'Login',
+          onClick: () => router.push('/login'),
+        },
+      });
+      return;
+    }
+    setIsModalOpen(true);
+  };
 
   return (
     <main className="min-h-screen py-10 bg-background-light dark:bg-background-dark">
@@ -35,13 +58,13 @@ const TravelPlans = () => {
                   : `Discover ${plans.length} journeys shared by the community`}
               </p>
             </div>
-            <Link
-              href="/dashboard/user/travel-plans"
+            <button
+              onClick={handleCreatePlanClick}
               className="flex items-center justify-center gap-2 px-8 py-3 bg-primary text-slate-900 rounded-full font-black text-xs uppercase tracking-widest hover:scale-[1.02] transition-all cursor-pointer active:scale-95 shadow-lg shadow-primary/20"
             >
               <Plus className="w-4 h-4" strokeWidth={3} />
               <span>Create Plan</span>
-            </Link>
+            </button>
           </div>
 
           {/* Loading State */}
@@ -156,6 +179,12 @@ const TravelPlans = () => {
           )}
         </section>
       </Container>
+
+      {/* Create Plan Modal */}
+      <CreateTravelPlanModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </main>
   );
 };
