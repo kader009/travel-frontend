@@ -4,6 +4,7 @@ import { IApiResponse } from '@/src/types/dashboard';
 import { IUser } from '@/src/types/user';
 import { IReview, IReviewResponse } from '@/src/types/review';
 import { IPaymentInitRequest, IPaymentInitResponse, IPaymentHistory, IPaymentAnalytics } from '@/src/types/payment';
+import { IJoinRequest, ICreateJoinRequest } from '@/src/types/joinRequest';
 
 const TravelApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -197,7 +198,7 @@ const TravelApi = baseApi.injectEndpoints({
     }),
 
     // --- JOIN REQUESTS ENDPOINTS ---
-    createJoinRequest: build.mutation<IApiResponse<any>, { travelPlan: string; message: string }>({
+    createJoinRequest: build.mutation<IApiResponse<IJoinRequest>, ICreateJoinRequest>({
       query: (data) => ({
         url: '/api/v1/join-requests',
         method: 'POST',
@@ -206,7 +207,7 @@ const TravelApi = baseApi.injectEndpoints({
       invalidatesTags: ['JoinRequest'],
     }),
 
-    getMyJoinRequests: build.query<IApiResponse<any[]>, void>({
+    getMyJoinRequests: build.query<IApiResponse<IJoinRequest[]>, void>({
       query: () => ({
         url: '/api/v1/join-requests/my-requests',
         method: 'GET',
@@ -214,7 +215,7 @@ const TravelApi = baseApi.injectEndpoints({
       providesTags: ['JoinRequest'],
     }),
 
-    getJoinRequestsForPlan: build.query<IApiResponse<any[]>, string>({
+    getJoinRequestsForPlan: build.query<IApiResponse<IJoinRequest[]>, string>({
       query: (planId) => ({
         url: `/api/v1/join-requests/plan/${planId}`,
         method: 'GET',
@@ -222,7 +223,7 @@ const TravelApi = baseApi.injectEndpoints({
       providesTags: ['JoinRequest'],
     }),
 
-    approveJoinRequest: build.mutation<IApiResponse<any>, string>({
+    approveJoinRequest: build.mutation<IApiResponse<IJoinRequest>, string>({
       query: (id) => ({
         url: `/api/v1/join-requests/${id}/approve`,
         method: 'PATCH',
@@ -230,7 +231,7 @@ const TravelApi = baseApi.injectEndpoints({
       invalidatesTags: ['JoinRequest'],
     }),
 
-    rejectJoinRequest: build.mutation<IApiResponse<any>, string>({
+    rejectJoinRequest: build.mutation<IApiResponse<IJoinRequest>, string>({
       query: (id) => ({
         url: `/api/v1/join-requests/${id}/reject`,
         method: 'PATCH',

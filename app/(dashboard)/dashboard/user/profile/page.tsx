@@ -14,10 +14,16 @@ import {
   UserCircle,
   Loader2,
   Compass,
+  MessageSquare,
 } from 'lucide-react';
 import { useState } from 'react';
 import EditProfileModal from '@/src/components/module/dashboard/EditProfileModal';
-import { useGetMyTravelPlansQuery } from '@/src/redux/store/api/endApi';
+import {
+  useGetMyTravelPlansQuery,
+  useGetReviewsForUserQuery,
+} from '@/src/redux/store/api/endApi';
+import { IReview } from '@/src/types/review';
+import { IUser } from '@/src/types/user';
 import Link from 'next/link';
 
 const UserProfilePage = () => {
@@ -26,14 +32,45 @@ const UserProfilePage = () => {
   const { data: plansData, isLoading: plansLoading } =
     useGetMyTravelPlansQuery();
 
+  // Fetch reviews for the current user
+  const { data: reviewsData, isLoading: reviewsLoading } =
+    useGetReviewsForUserQuery(user?._id || '', {
+      skip: !user?._id,
+    });
+
+  const reviewInfo = reviewsData?.data;
+  const reviews = reviewInfo?.reviews || [];
+  const averageRating = reviewInfo?.averageRating || 0;
+  const totalReviews = reviewInfo?.totalReviews || 0;
+
   const myPlans = plansData?.data || [];
-  // Sort by start date and show upcoming ones
   const upcomingPlans = [...myPlans]
     .filter((plan) => new Date(plan.startDate) >= new Date())
     .sort(
       (a, b) =>
         new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
     );
+
+  const getReviewer = (review: IReview): IUser | null => {
+    if (typeof review.reviewerId === 'string') return null;
+    return review.reviewerId;
+  };
+
+  const getRelativeTime = (dateStr?: string) => {
+    if (!dateStr) return '';
+    const now = new Date();
+    const date = new Date(dateStr);
+    const diffMs = now.getTime() - date.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    if (diffDays < 1) return 'Today';
+    if (diffDays === 1) return '1 day ago';
+    if (diffDays < 30) return `${diffDays} days ago`;
+    const diffMonths = Math.floor(diffDays / 30);
+    if (diffMonths === 1) return '1 month ago';
+    if (diffMonths < 12) return `${diffMonths} months ago`;
+    const diffYears = Math.floor(diffMonths / 12);
+    return diffYears === 1 ? '1 year ago' : `${diffYears} years ago`;
+  };
 
   return (
     <>
@@ -83,20 +120,24 @@ const UserProfilePage = () => {
             <div className="grid grid-cols-3 w-full mt-8 border-t border-slate-100 dark:border-slate-800 pt-6">
               <div className="flex flex-col">
                 <span className="text-lg font-black tracking-tight">
-                  {user?.visitedCountries?.length || '42'}
+                  {user?.visitedCountries?.length || '0'}
                 </span>
                 <span className="text-[10px] uppercase tracking-widest text-slate-400 font-black">
                   Countries
                 </span>
               </div>
               <div className="flex flex-col border-x border-slate-100 dark:border-slate-800">
-                <span className="text-lg font-black tracking-tight">128</span>
+                <span className="text-lg font-black tracking-tight">
+                  {myPlans.length}
+                </span>
                 <span className="text-[10px] uppercase tracking-widest text-slate-400 font-black">
-                  Buddies
+                  Plans
                 </span>
               </div>
               <div className="flex flex-col">
-                <span className="text-lg font-black tracking-tight">4.9</span>
+                <span className="text-lg font-black tracking-tight">
+                  {averageRating > 0 ? averageRating.toFixed(1) : '—'}
+                </span>
                 <span className="text-[10px] uppercase tracking-widest text-slate-400 font-black">
                   Rating
                 </span>
@@ -262,71 +303,100 @@ const UserProfilePage = () => {
             </div>
           </section>
 
+          {/* Dynamic Reviews Section */}
           <section>
             <div className="flex items-center justify-between mb-4 px-1">
               <h3 className="text-xl font-black flex items-center gap-2 text-slate-900 dark:text-white uppercase tracking-tight">
                 <Star className="size-5 text-primary" strokeWidth={3} /> Reviews
-                (48)
+                ({totalReviews})
               </h3>
-              <div className="flex items-center gap-1 text-primary">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Star
-                    key={i}
-                    className={`size-3.5 fill-primary text-primary`}
-                  />
-                ))}
-                <span className="text-sm font-black ml-1 text-slate-900 dark:text-white font-mono">
-                  4.9
-                </span>
-              </div>
+              {totalReviews > 0 && (
+                <div className="flex items-center gap-1 text-primary">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <Star
+                      key={i}
+                      className={`size-3.5 ${
+                        i <= Math.round(averageRating)
+                          ? 'fill-primary text-primary'
+                          : 'text-slate-200 dark:text-slate-700'
+                      }`}
+                    />
+                  ))}
+                  <span className="text-sm font-black ml-1 text-slate-900 dark:text-white font-mono">
+                    {averageRating.toFixed(1)}
+                  </span>
+                </div>
+              )}
             </div>
             <div className="flex flex-col gap-5 px-1">
-              {[
-                {
-                  name: 'Maria Silva',
-                  meta: 'Met in Lisbon • 2 months ago',
-                  img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBGg4IdBssWvk3UVy-PH4VZe_8TdIWUaaq-m8nSPOetsaEnC-y4qVz8TlgzJaHZ8xbCcceb2gfkLdQh222k0JXcuuxxdnIoMGzuSVbIKASSV60ZYySAezjDTkIMvFFQWyJEJViSo702GRJ6osoPGJ1BRe1ZDYbUrKrEzhPMoFt8JeRo6T1qcSxS6vU-cQ99NUofqU2stnhYl_HqUEgy9s79ORoCQFcfDGfrjFfHJBQNlyR_pLV6_UdEdP2W55pS9b4AcDWSZ_H9Kg',
-                  text: 'Alex is an incredible travel buddy! He knows all the best coffee spots in Lisbon and has some amazing stories from his time in Southeast Asia. Very respectful and organized traveler. Highly recommended!',
-                },
-                {
-                  name: 'David Kim',
-                  meta: 'Hiked in Madeira • 5 months ago',
-                  img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDEYIV2G-PKiV0cag_AdVLcpk8rREpHJLHhwLIP8eXj6fDmmIfRkvsuFOLAG8upHK2Faa8Mhaj8gNJvGYgkXVYzvmtMVmoPyRl5U_R9tTIovIWIDuxxJvkxfpXbfIrdMVq8iQbPhYR3dfMhb_rAvnOCHv1G45Jieyzla_0eO0VRe-e_BoAkSfzOIsKTxnWTIfHeBEqpA-fUGHSayaeogBvy9A-QMTdtej2-whYSY8-p0jhRy9zYjB4YwHD5sEoGLFI_wPVYhHM4ew',
-                  text: 'Super energetic and positive. We did a 3-day trek together and Alex kept the vibes high even when it rained. Great photographer too!',
-                },
-              ].map((review) => (
-                <div
-                  key={review.name}
-                  className="bg-white dark:bg-slate-900 rounded-3xl p-7 border border-slate-100 dark:border-slate-800 shadow-sm hover:border-primary/20 transition-all"
-                >
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="size-11 rounded-full overflow-hidden bg-slate-200 border-2 border-primary/10 relative">
-                      <Image
-                        alt={review.name}
-                        fill
-                        className="object-cover"
-                        src={review.img}
-                      />
-                    </div>
-                    <div>
-                      <h5 className="font-black text-slate-900 dark:text-white text-[15px]">
-                        {review.name}
-                      </h5>
-                      <p className="text-[11px] font-bold text-slate-400 uppercase tracking-tight">
-                        {review.meta}
-                      </p>
-                    </div>
-                    <div className="ml-auto flex gap-0.5 text-primary">
-                      {[1, 2, 3, 4, 5].map((i) => (
-                        <Star key={i} className="size-3 fill-primary" />
-                      ))}
-                    </div>
-                  </div>
-                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed italic font-bold">
-                    "{review.text}"
+              {reviewsLoading ? (
+                <div className="py-12 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800">
+                  <Loader2 className="size-8 animate-spin text-primary" />
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    Loading Reviews...
                   </p>
                 </div>
-              ))}
+              ) : reviews.length > 0 ? (
+                reviews.map((review: IReview) => {
+                  const reviewer = getReviewer(review);
+                  return (
+                    <div
+                      key={review._id}
+                      className="bg-white dark:bg-slate-900 rounded-3xl p-7 border border-slate-100 dark:border-slate-800 shadow-sm hover:border-primary/20 transition-all"
+                    >
+                      <div className="flex items-center gap-3 mb-5">
+                        <div className="size-11 rounded-full overflow-hidden bg-slate-200 border-2 border-primary/10 relative flex items-center justify-center">
+                          {reviewer?.image ? (
+                            <Image
+                              alt={reviewer.name || 'Reviewer'}
+                              fill
+                              className="object-cover"
+                              src={reviewer.image}
+                            />
+                          ) : (
+                            <span className="text-lg font-black text-slate-400">
+                              {reviewer?.name?.charAt(0)?.toUpperCase() || '?'}
+                            </span>
+                          )}
+                        </div>
+                        <div>
+                          <h5 className="font-black text-slate-900 dark:text-white text-[15px]">
+                            {reviewer?.name || 'Anonymous Traveler'}
+                          </h5>
+                          <p className="text-[11px] font-bold text-slate-400 uppercase tracking-tight">
+                            {getRelativeTime(review.createdAt)}
+                          </p>
+                        </div>
+                        <div className="ml-auto flex gap-0.5 text-primary">
+                          {[1, 2, 3, 4, 5].map((i) => (
+                            <Star
+                              key={i}
+                              className={`size-3 ${
+                                i <= review.rating
+                                  ? 'fill-primary text-primary'
+                                  : 'text-slate-200 dark:text-slate-700'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed italic font-bold">
+                        &quot;{review.comment}&quot;
+                      </p>
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="py-16 flex flex-col items-center text-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 border-dashed">
+                  <MessageSquare className="size-12 text-slate-200 dark:text-slate-800 mb-4" />
+                  <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight">
+                    No Reviews Yet
+                  </h4>
+                  <p className="text-slate-500 font-bold mt-2 max-w-xs">
+                    Reviews from fellow travelers will appear here.
+                  </p>
+                </div>
+              )}
             </div>
           </section>
         </div>

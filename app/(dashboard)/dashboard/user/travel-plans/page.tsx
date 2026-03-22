@@ -76,7 +76,7 @@ const UserTravelPlansPage = () => {
           </button>
           <button 
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center justify-center gap-2 px-8 py-3 bg-primary text-slate-900 font-black rounded-full text-[11px] uppercase tracking-widest hover:bg-opacity-90 active:scale-95 transition-all cursor-pointer shadow-lg shadow-primary/20"
+            className="flex items-center justify-center gap-2 px-8 py-3 bg-primary text-slate-900 font-black rounded-full text-[11px] uppercase tracking-widest hover:bg-opacity-90 active:scale-95 transition-all cursor-pointer"
           >
             <Plus className="size-4" strokeWidth={3} /> Add Plan
           </button>

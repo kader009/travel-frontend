@@ -55,10 +55,15 @@ const TravelPlanCard: React.FC<TravelPlanCardProps> = ({ plan, onEdit, onDelete 
             <MapPin className="size-12 text-slate-300 dark:text-slate-600" />
           </div>
         )}
-        <div className="absolute top-4 left-4">
+        <div className="absolute top-4 left-4 flex gap-2">
           <span className="px-3.5 py-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm border border-white/20">
             {plan.travelType}
           </span>
+          {(plan.endDate && new Date(plan.endDate) < new Date()) && (
+            <span className="px-3.5 py-1.5 bg-slate-900/90 dark:bg-slate-800/90 text-white backdrop-blur-md rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm border border-slate-700/50">
+              Completed
+            </span>
+          )}
         </div>
         <div className="absolute bottom-4 left-4 right-4">
           <div className="bg-slate-950/40 backdrop-blur-md p-4 rounded-2xl border border-white/10">

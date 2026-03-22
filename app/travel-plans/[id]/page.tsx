@@ -2,7 +2,12 @@
 
 import { useState } from 'react';
 import Container from '@/src/components/ui/Container';
-import { useGetTravelPlanDetailsQuery, useCreateJoinRequestMutation } from '@/src/redux/store/api/endApi';
+import {
+  useGetTravelPlanDetailsQuery,
+  useCreateJoinRequestMutation,
+  useGetMyJoinRequestsQuery,
+} from '@/src/redux/store/api/endApi';
+import { IJoinRequest } from '@/src/types/joinRequest';
 import { useParams, useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/src/redux/store/store';
@@ -30,7 +35,7 @@ const TravelPlanDetails = () => {
   const { user: currentUser } = useSelector((state: RootState) => state.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [requestMessage, setRequestMessage] = useState('');
-  
+
   const {
     data: planData,
     isLoading,
@@ -38,7 +43,21 @@ const TravelPlanDetails = () => {
   } = useGetTravelPlanDetailsQuery(id);
   const trip = planData?.data;
 
-  const [createJoinRequest, { isLoading: isJoining }] = useCreateJoinRequestMutation();
+  const [createJoinRequest, { isLoading: isJoining }] =
+    useCreateJoinRequestMutation();
+
+  // Fetch user's existing join requests to prevent duplicates
+  const { data: myRequestsData } = useGetMyJoinRequestsQuery(undefined, {
+    skip: !currentUser,
+  });
+  const hasAlreadyRequested =
+    myRequestsData?.data?.some((req: IJoinRequest) => {
+      const planId =
+        typeof req.travelPlan === 'string'
+          ? req.travelPlan
+          : req.travelPlan?._id;
+      return planId === id;
+    }) ?? false;
 
   const handleOpenModal = () => {
     if (!currentUser) {
@@ -55,6 +74,14 @@ const TravelPlanDetails = () => {
     if (trip?.user?._id === currentUser._id) {
       toast.error('Mission Conflict', {
         description: 'You are the commanding officer of this expedition.',
+      });
+      return;
+    }
+
+    if (hasAlreadyRequested) {
+      toast.error('Duplicate Request', {
+        description:
+          'You have already sent a join request for this expedition.',
       });
       return;
     }
@@ -142,6 +169,8 @@ const TravelPlanDetails = () => {
         )
       : 0;
 
+  const isPastPlan = trip.endDate ? new Date(trip.endDate) < new Date() : false;
+
   return (
     <main className="min-h-screen py-10">
       <Container>
@@ -219,10 +248,17 @@ const TravelPlanDetails = () => {
                     <span className="text-slate-400 text-[10px] font-black uppercase tracking-widest">
                       Operation Status
                     </span>
-                    <span className="font-black text-emerald-500 uppercase tracking-widest text-xs flex items-center gap-2">
-                      <div className="size-2 bg-emerald-500 rounded-full animate-ping"></div>{' '}
-                      Active
-                    </span>
+                    {isPastPlan ? (
+                      <span className="font-black text-slate-500 uppercase tracking-widest text-xs flex items-center gap-2">
+                        <div className="size-2 bg-slate-500 rounded-full"></div>{' '}
+                        Completed
+                      </span>
+                    ) : (
+                      <span className="font-black text-emerald-500 uppercase tracking-widest text-xs flex items-center gap-2">
+                        <div className="size-2 bg-emerald-500 rounded-full animate-ping"></div>{' '}
+                        Active
+                      </span>
+                    )}
                   </div>
                 </div>
               </section>
@@ -323,14 +359,28 @@ const TravelPlanDetails = () => {
 
               <div className="space-y-4 relative z-10">
                 {currentUser && trip?.user?._id === currentUser?._id ? (
-                  <Link 
+                  <Link
                     href="/dashboard/user/travel-plans"
                     className="w-full py-6 bg-primary text-slate-900 rounded-4xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-opacity-90 active:scale-95 transition-all flex items-center justify-center cursor-pointer"
                   >
                     Manage Expedition
                   </Link>
+                ) : isPastPlan ? (
+                  <button
+                    disabled
+                    className="w-full py-6 bg-slate-800 text-slate-500 rounded-4xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl cursor-not-allowed border border-slate-700/50"
+                  >
+                    Expedition Closed
+                  </button>
+                ) : hasAlreadyRequested ? (
+                  <button
+                    disabled
+                    className="w-full py-6 bg-slate-600 text-white/70 rounded-4xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl cursor-not-allowed"
+                  >
+                    ✓ Already Requested
+                  </button>
                 ) : (
-                  <button 
+                  <button
                     onClick={handleOpenModal}
                     className="w-full py-6 bg-slate-900 text-white rounded-4xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-slate-800 active:scale-95 transition-all cursor-pointer"
                   >
@@ -391,15 +441,15 @@ const TravelPlanDetails = () => {
       </Container>
       {/* Join Request Modal */}
       {isModalOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
           onClick={() => setIsModalOpen(false)}
         >
           {/* Backdrop */}
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300" />
-          
+
           {/* Modal */}
-          <div 
+          <div
             className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl animate-in zoom-in-95 fade-in duration-300 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >

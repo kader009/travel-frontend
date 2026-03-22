@@ -36,9 +36,11 @@ const ExplorePage = () => {
 
   allPlans.forEach((plan) => {
     // We assume the API populates 'user' or 'userId' (as IUser) object.
-    // If not, we skip.
+    // Skip if user is missing, or if the plan has already ended.
+    const isPastPlan = plan.endDate ? new Date(plan.endDate) < new Date() : false;
     const userObj = plan.user;
-    if (userObj && userObj._id) {
+    
+    if (userObj && userObj._id && !isPastPlan) {
       // Only add or update if it's the latest plan (upcoming)
       const existing = travelerMap.get(userObj._id);
       if (
