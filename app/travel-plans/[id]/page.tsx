@@ -387,6 +387,7 @@ const TravelPlanDetails = () => {
                     Join Request
                   </button>
                 )}
+
                 <p className="text-[9px] font-black uppercase tracking-widest opacity-40">
                   Verification Protocol Required
                 </p>

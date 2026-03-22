@@ -3,7 +3,12 @@ import { ITravelPlan } from '@/src/types/travelPlan';
 import { IApiResponse } from '@/src/types/dashboard';
 import { IUser } from '@/src/types/user';
 import { IReview, IReviewResponse } from '@/src/types/review';
-import { IPaymentInitRequest, IPaymentInitResponse, IPaymentHistory, IPaymentAnalytics } from '@/src/types/payment';
+import {
+  IPaymentInitRequest,
+  IPaymentInitResponse,
+  IPaymentHistory,
+  IPaymentAnalytics,
+} from '@/src/types/payment';
 import { IJoinRequest, ICreateJoinRequest } from '@/src/types/joinRequest';
 
 const TravelApi = baseApi.injectEndpoints({
@@ -16,7 +21,10 @@ const TravelApi = baseApi.injectEndpoints({
       }),
     }),
 
-    login: build.mutation<IApiResponse<{ user: IUser; token: string }>, Partial<IUser>>({
+    login: build.mutation<
+      IApiResponse<{ user: IUser; token: string }>,
+      Partial<IUser>
+    >({
       query: (userInfo) => ({
         url: '/api/v1/auth/login',
         method: 'POST',
@@ -42,7 +50,10 @@ const TravelApi = baseApi.injectEndpoints({
       invalidatesTags: ['User'],
     }),
 
-    updateUser: build.mutation<IApiResponse<IUser>, { id: string; data: Partial<IUser> }>({
+    updateUser: build.mutation<
+      IApiResponse<IUser>,
+      { id: string; data: Partial<IUser> }
+    >({
       query: ({ id, data }) => ({
         url: `/api/v1/users/admin/update-user/${id}`,
         method: 'PUT',
@@ -68,7 +79,10 @@ const TravelApi = baseApi.injectEndpoints({
       providesTags: (result) =>
         result?.data
           ? [
-              ...result.data.map(({ _id }) => ({ type: 'TravelPlan' as const, id: _id })),
+              ...result.data.map(({ _id }) => ({
+                type: 'TravelPlan' as const,
+                id: _id,
+              })),
               { type: 'TravelPlan', id: 'LIST' },
             ]
           : [{ type: 'TravelPlan', id: 'LIST' }],
@@ -76,17 +90,30 @@ const TravelApi = baseApi.injectEndpoints({
 
     getMatchedTravelPlans: build.query<
       IApiResponse<ITravelPlan[]>,
-      { destination?: string; startDate?: string; endDate?: string; travelType?: string; page?: number; limit?: number }
+      {
+        destination?: string;
+        startDate?: string;
+        endDate?: string;
+        travelType?: string;
+        page?: number;
+        limit?: number;
+      }
     >({
       query: (params) => {
         const queryParams = new URLSearchParams();
-        if (params.destination) queryParams.append('destination', params.destination);
+        if (params.destination)
+          queryParams.append('destination', params.destination);
         if (params.startDate) queryParams.append('startDate', params.startDate);
         if (params.endDate) queryParams.append('endDate', params.endDate);
-        if (params.travelType && params.travelType !== 'All Travelers' && params.travelType !== 'All') queryParams.append('travelType', params.travelType);
+        if (
+          params.travelType &&
+          params.travelType !== 'All Travelers' &&
+          params.travelType !== 'All'
+        )
+          queryParams.append('travelType', params.travelType);
         if (params.page) queryParams.append('page', params.page.toString());
         if (params.limit) queryParams.append('limit', params.limit.toString());
-        
+
         return {
           url: `/api/v1/travel-plans/match?${queryParams.toString()}`,
           method: 'GET',
@@ -111,13 +138,19 @@ const TravelApi = baseApi.injectEndpoints({
       providesTags: (result) =>
         result?.data
           ? [
-              ...result.data.map(({ _id }) => ({ type: 'TravelPlan' as const, id: _id })),
+              ...result.data.map(({ _id }) => ({
+                type: 'TravelPlan' as const,
+                id: _id,
+              })),
               { type: 'TravelPlan', id: 'LIST' },
             ]
           : [{ type: 'TravelPlan', id: 'LIST' }],
     }),
 
-    createTravelPlan: build.mutation<IApiResponse<ITravelPlan>, Partial<ITravelPlan>>({
+    createTravelPlan: build.mutation<
+      IApiResponse<ITravelPlan>,
+      Partial<ITravelPlan>
+    >({
       query: (data) => ({
         url: '/api/v1/travel-plans',
         method: 'POST',
@@ -126,7 +159,10 @@ const TravelApi = baseApi.injectEndpoints({
       invalidatesTags: [{ type: 'TravelPlan', id: 'LIST' }],
     }),
 
-    updateTravelPlan: build.mutation<IApiResponse<ITravelPlan>, { id: string; data: Partial<ITravelPlan> }>({
+    updateTravelPlan: build.mutation<
+      IApiResponse<ITravelPlan>,
+      { id: string; data: Partial<ITravelPlan> }
+    >({
       query: ({ id, data }) => ({
         url: `/api/v1/travel-plans/${id}`,
         method: 'PUT',
@@ -172,7 +208,10 @@ const TravelApi = baseApi.injectEndpoints({
       invalidatesTags: ['Review'],
     }),
 
-    updateReview: build.mutation<IApiResponse<IReview>, { id: string; data: Partial<IReview> }>({
+    updateReview: build.mutation<
+      IApiResponse<IReview>,
+      { id: string; data: Partial<IReview> }
+    >({
       query: ({ id, data }) => ({
         url: `/api/v1/reviews/${id}`,
         method: 'PUT',
@@ -193,7 +232,10 @@ const TravelApi = baseApi.injectEndpoints({
     }),
 
     // --- PAYMENT & SUBSCRIPTION ENDPOINTS ---
-    initializeSubscription: build.mutation<IApiResponse<IPaymentInitResponse>, IPaymentInitRequest>({
+    initializeSubscription: build.mutation<
+      IApiResponse<IPaymentInitResponse>,
+      IPaymentInitRequest
+    >({
       query: (data) => ({
         url: '/api/v1/payment/init',
         method: 'POST',
@@ -219,7 +261,10 @@ const TravelApi = baseApi.injectEndpoints({
     }),
 
     // --- JOIN REQUESTS ENDPOINTS ---
-    createJoinRequest: build.mutation<IApiResponse<IJoinRequest>, ICreateJoinRequest>({
+    createJoinRequest: build.mutation<
+      IApiResponse<IJoinRequest>,
+      ICreateJoinRequest
+    >({
       query: (data) => ({
         url: '/api/v1/join-requests',
         method: 'POST',
