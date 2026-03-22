@@ -12,7 +12,7 @@ import {
   Star,
   Users,
   Loader2,
-  Compass
+  Compass,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -35,15 +35,18 @@ const ExplorePage = () => {
   const travelerMap = new Map<string, { user: IUser; nextPlan: ITravelPlan }>();
 
   allPlans.forEach((plan) => {
-    // We assume the API populates 'user' or 'userId' (as IUser) object. 
+    // We assume the API populates 'user' or 'userId' (as IUser) object.
     // If not, we skip.
     const userObj = plan.user;
     if (userObj && userObj._id) {
-       // Only add or update if it's the latest plan (upcoming)
-       const existing = travelerMap.get(userObj._id);
-       if (!existing || new Date(plan.startDate) > new Date(existing.nextPlan.startDate)) {
-          travelerMap.set(userObj._id, { user: userObj, nextPlan: plan });
-       }
+      // Only add or update if it's the latest plan (upcoming)
+      const existing = travelerMap.get(userObj._id);
+      if (
+        !existing ||
+        new Date(plan.startDate) > new Date(existing.nextPlan.startDate)
+      ) {
+        travelerMap.set(userObj._id, { user: userObj, nextPlan: plan });
+      }
     }
   });
 
@@ -59,7 +62,8 @@ const ExplorePage = () => {
               Explore Travelers
             </h2>
             <p className="text-slate-500 dark:text-slate-400 mt-2 text-lg font-medium">
-              Connect with {isLoading ? '...' : travelers.length} explorers sharing their journeys.
+              Connect with {isLoading ? '...' : travelers.length} explorers
+              sharing their journeys.
             </p>
           </div>
 
@@ -79,9 +83,7 @@ const ExplorePage = () => {
               </div>
             </div>
             <div className="flex-1 lg:flex-initial flex flex-col sm:flex-row gap-0 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-slate-800">
-              <div
-                className="flex items-center px-6 py-4 gap-4 border-b sm:border-b-0 sm:border-r border-slate-100 dark:border-slate-800 flex-1 cursor-pointer group/date"
-              >
+              <div className="flex items-center px-6 py-4 gap-4 border-b sm:border-b-0 sm:border-r border-slate-100 dark:border-slate-800 flex-1 cursor-pointer group/date">
                 <Calendar className="text-primary w-5 h-5 shrink-0" />
                 <div className="flex flex-col flex-1">
                   <span className="text-[10px] uppercase font-black text-slate-400 tracking-widest">
@@ -93,9 +95,7 @@ const ExplorePage = () => {
                   />
                 </div>
               </div>
-              <div
-                className="flex items-center px-6 py-4 gap-4 flex-1 cursor-pointer group/date"
-              >
+              <div className="flex items-center px-6 py-4 gap-4 flex-1 cursor-pointer group/date">
                 <Calendar className="text-primary w-5 h-5 shrink-0" />
                 <div className="flex flex-col flex-1">
                   <span className="text-[10px] uppercase font-black text-slate-400 tracking-widest">
@@ -147,24 +147,33 @@ const ExplorePage = () => {
         {/* Loading State */}
         {isLoading && (
           <div className="py-24 flex flex-col items-center gap-4">
-             <Loader2 className="size-10 animate-spin text-primary" />
-             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 animate-pulse">Syncing Traveler Directory</p>
+            <Loader2 className="size-10 animate-spin text-primary" />
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 animate-pulse">
+              Syncing Traveler Directory
+            </p>
           </div>
         )}
 
         {/* Error State */}
         {isError && (
-           <div className="py-24 text-center bg-rose-500/10 border border-rose-500/20 rounded-[3rem] p-12">
-              <p className="text-rose-500 font-black uppercase tracking-widest text-xs">Failed to retrieve traveler uplink. Please retry later.</p>
-           </div>
+          <div className="py-24 text-center bg-rose-500/10 border border-rose-500/20 rounded-[3rem] p-12">
+            <p className="text-rose-500 font-black uppercase tracking-widest text-xs">
+              Failed to retrieve traveler uplink. Please retry later.
+            </p>
+          </div>
         )}
 
         {/* Empty State */}
         {!isLoading && !isError && travelers.length === 0 && (
           <div className="py-32 text-center">
-             <Compass className="size-20 text-slate-200 dark:text-slate-800 mx-auto mb-6" />
-             <h3 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">No Travelers Detected</h3>
-             <p className="text-slate-500 font-bold mt-2">The explorer network is currently silent. Be the first to start a journey!</p>
+            <Compass className="size-20 text-slate-200 dark:text-slate-800 mx-auto mb-6" />
+            <h3 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+              No Travelers Detected
+            </h3>
+            <p className="text-slate-500 font-bold mt-2">
+              The explorer network is currently silent. Be the first to start a
+              journey!
+            </p>
           </div>
         )}
 
@@ -181,7 +190,10 @@ const ExplorePage = () => {
                     alt={user.name}
                     className="object-cover group-hover:scale-110 transition-transform duration-1000"
                     fill
-                    src={user.image || 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1887&auto=format&fit=crop'}
+                    src={
+                      user.image ||
+                      'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1887&auto=format&fit=crop'
+                    }
                   />
                   <div className="absolute top-6 right-6 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-3 py-2 rounded-2xl flex items-center gap-2 shadow-2xl border border-white/20">
                     <Star className="text-primary w-4 h-4 fill-primary" />
@@ -190,17 +202,20 @@ const ExplorePage = () => {
                     </span>
                   </div>
                 </div>
-                <div className="p-8 flex flex-col flex-1">
-                  <div className="mb-6">
+                <div className="p-5 flex flex-col flex-1">
+                  <div className="mb-4">
                     <h3 className="text-2xl font-black text-slate-900 dark:text-white group-hover:text-primary transition-colors tracking-tight">
                       {user.name}
                     </h3>
                     {/* Location field removed as per user request */}
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-bold line-clamp-2 italic">
-                       "{user.bio || 'Explorer seeking new horizons and sharing global experiences.'}"
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-bold line-clamp-2">
+                      "
+                      {user.bio ||
+                        'Explorer seeking new horizons and sharing global experiences.'}
+                      "
                     </p>
                   </div>
-                  <div className="flex flex-wrap gap-2 mb-8">
+                  <div className="flex flex-wrap gap-2 mb-4">
                     {user.travelInterests?.slice(0, 3).map((tag, i) => (
                       <span
                         key={i}
@@ -208,24 +223,34 @@ const ExplorePage = () => {
                       >
                         {tag}
                       </span>
-                    )) || (
+                    )) ||
                       ['Hiking', 'Photography'].map((tag, i) => (
-                        <span key={i} className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-[9px] font-black rounded-full uppercase tracking-widest border border-slate-100 dark:border-slate-800">
-                           {tag}
+                        <span
+                          key={i}
+                          className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-[9px] font-black rounded-full uppercase tracking-widest border border-slate-100 dark:border-slate-800"
+                        >
+                          {tag}
                         </span>
-                      ))
-                    )}
+                      ))}
                   </div>
-                  <div className="mt-auto pt-8 border-t border-slate-50 dark:border-slate-800/50">
+                  <div className="mt-auto pt-5 border-t border-slate-50 dark:border-slate-800/50">
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">
                       Current Objective
                     </p>
-                    <div className="flex flex-col gap-1 mb-6">
+                    <div className="flex flex-col gap-1 mb-4">
                       <span className="text-base font-black text-slate-900 dark:text-slate-100 uppercase tracking-tight">
                         {nextPlan.destination}
                       </span>
                       <span className="text-[10px] font-black text-primary uppercase tracking-widest">
-                        {new Date(nextPlan.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} — {new Date(nextPlan.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                        {new Date(nextPlan.startDate).toLocaleDateString(
+                          'en-US',
+                          { month: 'short', day: 'numeric' },
+                        )}{' '}
+                        —{' '}
+                        {new Date(nextPlan.endDate).toLocaleDateString(
+                          'en-US',
+                          { month: 'short', day: 'numeric', year: 'numeric' },
+                        )}
                       </span>
                     </div>
                     <Link

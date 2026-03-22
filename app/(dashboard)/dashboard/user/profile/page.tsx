@@ -11,14 +11,25 @@ import {
   Calendar, 
   Globe, 
   Star,
-  UserCircle
+  UserCircle,
+  Loader2,
+  Compass
 } from 'lucide-react';
 import { useState } from 'react';
 import EditProfileModal from '@/src/components/module/dashboard/EditProfileModal';
+import { useGetMyTravelPlansQuery } from '@/src/redux/store/api/endApi';
+import Link from 'next/link';
 
 const UserProfilePage = () => {
   const { user } = useSelector((state: RootState) => state.user);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { data: plansData, isLoading: plansLoading } = useGetMyTravelPlansQuery();
+
+  const myPlans = plansData?.data || [];
+  // Sort by start date and show upcoming ones
+  const upcomingPlans = [...myPlans]
+    .filter(plan => new Date(plan.startDate) >= new Date())
+    .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
 
   return (
     <>
@@ -110,47 +121,44 @@ const UserProfilePage = () => {
               </h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 flex gap-5 border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-primary/5 transition-all cursor-pointer group">
-                <div className="size-16 rounded-xl bg-slate-200 overflow-hidden shrink-0 border border-slate-100 dark:border-slate-800 relative">
-                  <Image
-                    alt="Italy"
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4GOEMd8n703mdJ5jOY75ZXaEXgxD_vXScoCWTsNDS_n27R_GfRRbIA7Y2XrZI2R2LWfj2HY_mbiqb635W1ft4ZuHfvevRLxo_MsBaIzNSwPPpHvVk8XZRzR-z8cPprwu9dY_MXbW41TrsiYsLfxp_gnMtEXm9ZT_AnX-3rWIH_-A9mba8dag0DEUmT0ml-OACD2cXBxpWAc_kh9UH6IiT6qFlr2zXoRbAjRlsm8bi5Owo3H_uKoKNSgXcXf-B3dWEftkG4nau3g"
-                  />
+              {plansLoading ? (
+                <div className="col-span-full py-12 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800">
+                   <Loader2 className="size-8 animate-spin text-primary" />
+                   <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Retrieving Journeys...</p>
                 </div>
-                <div className="flex flex-col justify-center">
-                  <h4 className="font-black text-slate-900 dark:text-white leading-tight">Amalfi Coast, Italy</h4>
-                  <p className="text-[11px] font-bold text-slate-400 mt-1 uppercase">Oct 12 - Oct 20, 2024</p>
-                  <div className="flex mt-2.5 -space-x-2">
-                    <div className="size-6 rounded-full border-2 border-white dark:border-slate-900 bg-slate-300 overflow-hidden relative">
+              ) : upcomingPlans.length > 0 ? (
+                upcomingPlans.map((plan) => (
+                  <Link
+                    key={plan._id}
+                    href={`/travel-plans/${plan._id}`}
+                    className="bg-white dark:bg-slate-900 rounded-2xl p-5 flex gap-5 border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-primary/5 transition-all cursor-pointer group"
+                  >
+                    <div className="size-16 rounded-xl bg-slate-200 overflow-hidden shrink-0 border border-slate-100 dark:border-slate-800 relative">
                       <Image
-                        alt="Companion"
+                        alt={plan.destination}
                         fill
-                        className="object-cover"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuABw5hNw0JNrVRXfoSs3_BXA9DrBnKZFVwWjOmiATQ2m5DR5HC3jEy50ZxxjV4VoV1coSAIMVb8ZwxiPW2Pd8BKE-wgW_i3ed41nnbIsaGu_9X80oI8Hh6tv0wky391b7vI11d373bnKgu9SjgXXpYQEUk-wkQ5FZhDBJ7C24AN9NuBsELxOqUzCM3gTnCW3zrJ2LmfCUX-GFWnF8pQxNBdiCwSjlzf1Zwy383vNxAwA50hxtLb5EgT4rXU1CaJbZwSahZXSrd03A"
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        src={plan.images?.[0] || "https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=2070&auto=format&fit=crop"}
                       />
                     </div>
-                    <div className="size-6 rounded-full border-2 border-white dark:border-slate-900 bg-primary flex items-center justify-center text-[10px] font-black text-slate-900">+2</div>
-                  </div>
+                    <div className="flex flex-col justify-center">
+                      <h4 className="font-black text-slate-900 dark:text-white leading-tight capitalize">{plan.destination}</h4>
+                      <p className="text-[11px] font-bold text-slate-400 mt-1 uppercase">
+                        {new Date(plan.startDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(plan.endDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      </p>
+                      <span className="text-[10px] font-black text-primary mt-2.5 uppercase tracking-widest bg-primary/10 px-2 py-0.5 rounded w-fit border border-primary/10">
+                         {plan.travelType}
+                      </span>
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                <div className="col-span-full py-16 flex flex-col items-center text-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 border-dashed">
+                  <Compass className="size-12 text-slate-200 dark:text-slate-800 mb-4" />
+                  <p className="text-slate-500 font-bold max-w-xs px-4">No upcoming adventures planned yet. Start your next journey today!</p>
+                  <Link href="/explore" className="mt-4 text-[10px] font-black uppercase tracking-widest text-primary hover:underline">Find Buddies</Link>
                 </div>
-              </div>
-
-              <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 flex gap-5 border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-primary/5 transition-all cursor-pointer group">
-                <div className="size-16 rounded-xl bg-slate-200 overflow-hidden shrink-0 border border-slate-100 dark:border-slate-800 relative">
-                  <Image
-                    alt="Japan"
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLg4pddFgU2R_pBr7qhsapMPnqS8VdVj-akonq0zwBEqPoQ3alCsaHHD8mdVHZvq4qopFYrN-6nL8Vanxume44M9y4gtIqCY_9W8_Lq87bHHS1wHZPoz1aTn1IDEpsk_oG7Cr4KwF-lbct7pS-VFxZRp0wgh_Z5uNiHFz0BT4T7HyBVLRRi12SqElfjjV83Y6xaoRqi8lp1rX68ZvOjiEr0fIT1ChA1yGfuXCf-B3dWEftkG4nau3g"
-                  />
-                </div>
-                <div className="flex flex-col justify-center">
-                  <h4 className="font-black text-slate-900 dark:text-white leading-tight">Kyoto, Japan</h4>
-                  <p className="text-[11px] font-bold text-slate-400 mt-1 uppercase">Dec 01 - Dec 15, 2024</p>
-                  <span className="text-[10px] font-black text-primary mt-2.5 uppercase tracking-widest bg-primary/10 px-2 py-0.5 rounded w-fit border border-primary/10">Looking for buddy</span>
-                </div>
-              </div>
+              )}
             </div>
           </section>
 
