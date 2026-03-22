@@ -60,7 +60,7 @@ const TravelPlans = () => {
             </div>
             <button
               onClick={handleCreatePlanClick}
-              className="flex items-center justify-center gap-2 px-8 py-3 bg-primary text-slate-900 rounded-full font-black text-xs uppercase tracking-widest hover:scale-[1.02] transition-all cursor-pointer active:scale-95 shadow-lg shadow-primary/20"
+              className="flex items-center justify-center gap-2 px-8 py-3 bg-primary text-slate-900 rounded-full font-black text-xs uppercase tracking-widest hover:scale-[1.02] transition-all cursor-pointer active:scale-95"
             >
               <Plus className="w-4 h-4" strokeWidth={3} />
               <span>Create Plan</span>
@@ -115,7 +115,7 @@ const TravelPlans = () => {
                   {/* Content Area */}
                   <div className="flex-1 p-8 flex flex-col justify-between gap-6">
                     <div>
-                      <h3 className="text-slate-900 dark:text-white text-2xl font-black group-hover:text-primary transition-colors tracking-tight">
+                      <h3 className="text-slate-900 dark:text-white text-2xl font-black group-hover:text-primary transition-colors tracking-tight capitalize">
                         {plan.destination}
                       </h3>
 
@@ -147,14 +147,14 @@ const TravelPlans = () => {
                     <div className="flex gap-3">
                       <Link
                         href={`/travel-plans/${plan._id}`}
-                        className="flex-1 flex items-center justify-center gap-2 py-4 bg-primary text-slate-900 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:shadow-lg hover:shadow-primary/20 transition-all cursor-pointer active:scale-95"
+                        className="flex-1 flex items-center justify-center gap-2 py-4 bg-primary text-slate-900 rounded-full text-[10px] font-black uppercase tracking-widest hover:shadow-lg hover:shadow-primary/20 transition-all cursor-pointer active:scale-95"
                       >
                         <Eye className="w-4 h-4" strokeWidth={3} />
                         Explore
                       </Link>
                       <Link
                         href={`/dashboard/user/travel-plans`}
-                        className="flex-1 flex items-center justify-center gap-2 py-4 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-slate-700 transition-all cursor-pointer active:scale-95"
+                        className="flex-1 flex items-center justify-center gap-2 py-4 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-slate-700 transition-all cursor-pointer active:scale-95"
                       >
                         <Edit2 className="w-4 h-4" />
                         Manage

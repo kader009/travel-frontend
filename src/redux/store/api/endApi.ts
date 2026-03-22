@@ -195,6 +195,48 @@ const TravelApi = baseApi.injectEndpoints({
       }),
       providesTags: ['Payment'],
     }),
+
+    // --- JOIN REQUESTS ENDPOINTS ---
+    createJoinRequest: build.mutation<IApiResponse<any>, { travelPlan: string; message: string }>({
+      query: (data) => ({
+        url: '/api/v1/join-requests',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['JoinRequest'],
+    }),
+
+    getMyJoinRequests: build.query<IApiResponse<any[]>, void>({
+      query: () => ({
+        url: '/api/v1/join-requests/my-requests',
+        method: 'GET',
+      }),
+      providesTags: ['JoinRequest'],
+    }),
+
+    getJoinRequestsForPlan: build.query<IApiResponse<any[]>, string>({
+      query: (planId) => ({
+        url: `/api/v1/join-requests/plan/${planId}`,
+        method: 'GET',
+      }),
+      providesTags: ['JoinRequest'],
+    }),
+
+    approveJoinRequest: build.mutation<IApiResponse<any>, string>({
+      query: (id) => ({
+        url: `/api/v1/join-requests/${id}/approve`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['JoinRequest'],
+    }),
+
+    rejectJoinRequest: build.mutation<IApiResponse<any>, string>({
+      query: (id) => ({
+        url: `/api/v1/join-requests/${id}/reject`,
+        method: 'PATCH',
+      }),
+      invalidatesTags: ['JoinRequest'],
+    }),
   }),
 });
 
@@ -219,4 +261,9 @@ export const {
   useInitializeSubscriptionMutation,
   useGetPaymentHistoryQuery,
   useGetPaymentAnalyticsQuery,
+  useCreateJoinRequestMutation,
+  useGetMyJoinRequestsQuery,
+  useGetJoinRequestsForPlanQuery,
+  useApproveJoinRequestMutation,
+  useRejectJoinRequestMutation,
 } = TravelApi;

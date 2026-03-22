@@ -6,6 +6,7 @@ import {
   CreditCard,
   UserCircle,
   BarChart3,
+  Handshake,
 } from 'lucide-react';
 import { NavItem } from '../types/dashboard';
 
@@ -15,6 +16,7 @@ export const userLinks: NavItem[] = [
   { href: '/dashboard/user/travel-plans', label: 'My Travel Plans', icon: Map },
   { href: '/dashboard/user/matches', label: 'Matched Travelers', icon: Users },
   { href: '/dashboard/user/reviews', label: 'My Reviews', icon: Star },
+  { href: '/dashboard/user/join-requests', label: 'Join Requests', icon: Handshake },
   { href: '/dashboard/user/subscription', label: 'Subscription', icon: CreditCard },
 ];
 

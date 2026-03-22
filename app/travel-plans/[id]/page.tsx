@@ -1,8 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import Container from '@/src/components/ui/Container';
-import { useGetTravelPlanDetailsQuery } from '@/src/redux/store/api/endApi';
-import { useParams } from 'next/navigation';
+import { useGetTravelPlanDetailsQuery, useCreateJoinRequestMutation } from '@/src/redux/store/api/endApi';
+import { useParams, useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/src/redux/store/store';
+import { toast } from 'sonner';
 import {
   DollarSign,
   Info,
@@ -13,18 +17,80 @@ import {
   Navigation,
   Globe,
   Eye,
+  X,
+  Send,
 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const TravelPlanDetails = () => {
   const params = useParams();
+  const router = useRouter();
   const id = params.id as string;
+  const { user: currentUser } = useSelector((state: RootState) => state.user);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [requestMessage, setRequestMessage] = useState('');
+  
   const {
     data: planData,
     isLoading,
     isError,
   } = useGetTravelPlanDetailsQuery(id);
   const trip = planData?.data;
+
+  const [createJoinRequest, { isLoading: isJoining }] = useCreateJoinRequestMutation();
+
+  const handleOpenModal = () => {
+    if (!currentUser) {
+      toast.error('Identity required. Please sign in to join expeditions.', {
+        description: 'You need to be a verified traveler to request entry.',
+        action: {
+          label: 'Sign In',
+          onClick: () => router.push('/login'),
+        },
+      });
+      return;
+    }
+
+    if (trip?.user?._id === currentUser._id) {
+      toast.error('Mission Conflict', {
+        description: 'You are the commanding officer of this expedition.',
+      });
+      return;
+    }
+
+    setRequestMessage('');
+    setIsModalOpen(true);
+  };
+
+  const handleSubmitRequest = async () => {
+    if (!requestMessage.trim()) {
+      toast.error('Message Required', {
+        description: 'Please write a message for your join request.',
+      });
+      return;
+    }
+
+    try {
+      const res = await createJoinRequest({
+        travelPlan: id,
+        message: requestMessage.trim(),
+      }).unwrap();
+
+      if (res.success) {
+        toast.success('Request Transmitted', {
+          description: 'Your join request has been sent to the mission lead.',
+        });
+        setIsModalOpen(false);
+        setRequestMessage('');
+      }
+    } catch (err: unknown) {
+      const error = err as { data?: { message?: string } };
+      toast.error(error?.data?.message || 'Uplink Failed', {
+        description: 'Unable to transmit join request. Please try again later.',
+      });
+    }
+  };
 
   if (isLoading) {
     return (
@@ -77,12 +143,12 @@ const TravelPlanDetails = () => {
       : 0;
 
   return (
-    <main className="min-h-screen bg-background-light dark:bg-background-dark py-10">
+    <main className="min-h-screen py-10">
       <Container>
         {/* Navigation Breadcrumb removed for focus */}
 
         {/* Hero Section */}
-        <div className="relative w-full rounded-[3rem] overflow-hidden aspect-video lg:aspect-21/9 mb-10 group shadow-2xl border-4 border-white dark:border-slate-800 animate-in fade-in duration-1000">
+        <div className="relative w-full rounded-[3rem] overflow-hidden aspect-video lg:aspect-21/9 mb-10 group animate-in fade-in duration-1000">
           <Image
             alt={trip.destination}
             fill
@@ -101,7 +167,7 @@ const TravelPlanDetails = () => {
                   {trip.travelType} MISSION
                 </span>
               </div>
-              <div className="bg-white/10 backdrop-blur-xl border border-white/20 px-6 py-2 rounded-full flex items-center gap-2">
+              <div className="px-6 py-2 rounded-full flex items-center gap-2">
                 <Clock className="size-3.5 text-primary" />
                 <span className="text-white text-[10px] font-black uppercase tracking-widest">
                   {durationDays} DAY WINDOW
@@ -111,7 +177,7 @@ const TravelPlanDetails = () => {
             <h1 className="text-5xl lg:text-8xl font-black text-white mb-6 tracking-tighter leading-[0.9] uppercase drop-shadow-2xl max-w-4xl">
               {trip.destination}
             </h1>
-            <div className="flex items-center gap-4 text-primary font-black text-[10px] uppercase tracking-[0.4em] bg-black/40 backdrop-blur-md w-fit px-6 py-3 rounded-2xl border border-white/10">
+            <div className="flex items-center gap-4 text-primary font-black text-[10px] uppercase tracking-[0.4em] w-fit px-6 py-3 rounded-2xl border border-white/10">
               <MapPin className="size-4" strokeWidth={3} />
               {trip.coordinates?.lat?.toFixed(4) || '0.0000'} N /{' '}
               {trip.coordinates?.lng?.toFixed(4) || '0.0000'} E
@@ -189,7 +255,7 @@ const TravelPlanDetails = () => {
                 </h2>
                 <div className="h-px bg-slate-200 dark:bg-slate-800 grow"></div>
               </div>
-              <p className="text-3xl font-black text-slate-900 dark:text-white leading-[1.1] tracking-tight italic text-center max-w-3xl mx-auto opacity-90 underline decoration-primary decoration-4 underline-offset-8">
+              <p className="text-3xl font-black text-slate-900 dark:text-white leading-[1.1] tracking-tight text-center max-w-3xl mx-auto opacity-90 underline decoration-primary decoration-4 underline-offset-8">
                 "{trip.description}"
               </p>
             </section>
@@ -256,9 +322,21 @@ const TravelPlanDetails = () => {
               </p>
 
               <div className="space-y-4 relative z-10">
-                <button className="w-full py-6 bg-slate-900 text-white rounded-4xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-slate-800 active:scale-95 transition-all">
-                  Request Entry
-                </button>
+                {currentUser && trip?.user?._id === currentUser?._id ? (
+                  <Link 
+                    href="/dashboard/user/travel-plans"
+                    className="w-full py-6 bg-primary text-slate-900 rounded-4xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-opacity-90 active:scale-95 transition-all flex items-center justify-center cursor-pointer"
+                  >
+                    Manage Expedition
+                  </Link>
+                ) : (
+                  <button 
+                    onClick={handleOpenModal}
+                    className="w-full py-6 bg-slate-900 text-white rounded-4xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-slate-800 active:scale-95 transition-all cursor-pointer"
+                  >
+                    Join Request
+                  </button>
+                )}
                 <p className="text-[9px] font-black uppercase tracking-widest opacity-40">
                   Verification Protocol Required
                 </p>
@@ -311,6 +389,95 @@ const TravelPlanDetails = () => {
           </div>
         </div>
       </Container>
+      {/* Join Request Modal */}
+      {isModalOpen && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onClick={() => setIsModalOpen(false)}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300" />
+          
+          {/* Modal */}
+          <div 
+            className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl animate-in zoom-in-95 fade-in duration-300 overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="bg-slate-900 dark:bg-slate-800 p-8 pb-10 text-center relative">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-5 right-5 size-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="size-5 text-white" />
+              </button>
+              <div className="size-16 bg-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Send className="size-7 text-primary" strokeWidth={2.5} />
+              </div>
+              <h3 className="text-xl font-black text-white uppercase tracking-[0.15em]">
+                Join Request
+              </h3>
+              <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-2">
+                Send your request to the expedition lead
+              </p>
+            </div>
+
+            {/* Body */}
+            <div className="p-8 space-y-6">
+              {/* Plan ID - Read Only */}
+              <div>
+                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">
+                  Expedition ID
+                </label>
+                <div className="w-full px-5 py-4 bg-slate-100 dark:bg-slate-800 rounded-2xl text-sm font-bold text-slate-500 dark:text-slate-400 tracking-wide select-all cursor-default border border-slate-200 dark:border-slate-700">
+                  {id}
+                </div>
+              </div>
+
+              {/* Message */}
+              <div>
+                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">
+                  Your Message
+                </label>
+                <textarea
+                  value={requestMessage}
+                  onChange={(e) => setRequestMessage(e.target.value)}
+                  placeholder={`Hi! I'd love to join your trip to ${trip?.destination}. Let me know if there's room!`}
+                  rows={4}
+                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-300 dark:placeholder:text-slate-600 border border-slate-200 dark:border-slate-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="px-8 pb-8 flex gap-3">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="flex-1 py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-95 transition-all cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmitRequest}
+                disabled={isJoining || !requestMessage.trim()}
+                className="flex-1 py-4 bg-slate-900 dark:bg-primary text-white dark:text-slate-900 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 dark:hover:bg-primary/90 active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2"
+              >
+                {isJoining ? (
+                  <>
+                    <Loader2 className="size-4 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="size-4" />
+                    Send Request
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 };
