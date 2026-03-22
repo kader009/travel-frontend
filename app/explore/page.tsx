@@ -1,7 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import Container from '@/src/components/ui/Container';
-import { useGetAllTravelPlansQuery } from '@/src/redux/store/api/endApi';
+import { useGetMatchedTravelPlansQuery } from '@/src/redux/store/api/endApi';
 import { ITravelPlan } from '@/src/types/travelPlan';
 import { IUser } from '@/src/types/user';
 import {
@@ -28,7 +29,13 @@ const interests = [
 ];
 
 const ExplorePage = () => {
-  const { data: plansData, isLoading, isError } = useGetAllTravelPlansQuery();
+  const [searchParams, setSearchParams] = useState<Record<string, string>>({});
+  const [destination, setDestination] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [travelType, setTravelType] = useState('All');
+
+  const { data: plansData, isLoading, isError } = useGetMatchedTravelPlansQuery(searchParams);
   const allPlans = (plansData?.data as ITravelPlan[]) || [];
 
   // Group plans by user to find unique travelers
@@ -55,7 +62,7 @@ const ExplorePage = () => {
   const travelers = Array.from(travelerMap.values());
 
   return (
-    <main className="min-h-screen bg-background-light dark:bg-background-dark py-12">
+    <main className="min-h-screen bg-background-light dark:bg-background-dark py-10">
       <Container>
         {/* Search & Filter Section */}
         <div className="mb-12">
@@ -81,6 +88,8 @@ const ExplorePage = () => {
                   className="w-full border-none focus:ring-0 bg-transparent p-0 text-slate-900 dark:text-white placeholder:text-slate-400 font-bold text-lg"
                   placeholder="Where to?"
                   type="text"
+                  value={destination}
+                  onChange={(e) => setDestination(e.target.value)}
                 />
               </div>
             </div>
@@ -92,8 +101,11 @@ const ExplorePage = () => {
                     Start Date
                   </span>
                   <input
-                    className="w-full border-none focus:ring-0 bg-transparent p-0 text-slate-900 dark:text-white font-bold text-lg cursor-pointer"
+                    className="w-full border-none focus:ring-0 bg-transparent p-0 text-slate-900 dark:text-white font-bold text-lg cursor-pointer [&::-webkit-calendar-picker-indicator]:hidden"
                     type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    onClick={(e) => (e.target as any).showPicker?.()}
                   />
                 </div>
               </div>
@@ -104,8 +116,11 @@ const ExplorePage = () => {
                     End Date
                   </span>
                   <input
-                    className="w-full border-none focus:ring-0 bg-transparent p-0 text-slate-900 dark:text-white font-bold text-lg cursor-pointer"
+                    className="w-full border-none focus:ring-0 bg-transparent p-0 text-slate-900 dark:text-white font-bold text-lg cursor-pointer [&::-webkit-calendar-picker-indicator]:hidden"
                     type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    onClick={(e) => (e.target as any).showPicker?.()}
                   />
                 </div>
               </div>
@@ -116,18 +131,32 @@ const ExplorePage = () => {
                 <span className="text-[10px] uppercase font-black text-slate-400 tracking-widest">
                   Travel Type
                 </span>
-                <select className="w-full border-none focus:ring-0 bg-transparent p-0 text-slate-900 dark:text-white font-bold text-lg appearance-none cursor-pointer">
-                  <option>Solo</option>
-                  <option>Family</option>
-                  <option>Friends</option>
-                  <option>Couple</option>
-                  <option>Group</option>
-                  <option>Business</option>
+                <select 
+                  className="w-full border-none focus:ring-0 bg-transparent p-0 text-slate-900 dark:text-white font-bold text-lg appearance-none cursor-pointer"
+                  value={travelType}
+                  onChange={(e) => setTravelType(e.target.value)}
+                >
+                  <option value="All">All Types</option>
+                  <option value="Solo">Solo</option>
+                  <option value="Family">Family</option>
+                  <option value="Friends">Friends</option>
+                  <option value="Couple">Couple</option>
+                  <option value="Alone">Alone</option>
                 </select>
               </div>
             </div>
             <div className="lg:w-auto p-1">
-              <button className="w-full lg:w-16 h-16 bg-slate-900 dark:bg-primary text-white dark:text-slate-900 rounded-xl flex items-center justify-center transition-all group cursor-pointer shadow-lg shadow-primary/20 hover:scale-105 active:scale-95">
+              <button 
+                onClick={() => {
+                  const params: Record<string, string> = {};
+                  if (destination) params.destination = destination;
+                  if (startDate) params.startDate = startDate;
+                  if (endDate) params.endDate = endDate;
+                  if (travelType !== 'All') params.travelType = travelType;
+                  setSearchParams(params);
+                }}
+                className="w-full lg:w-16 h-16 bg-slate-900 dark:bg-primary text-white dark:text-slate-900 rounded-xl flex items-center justify-center transition-all group cursor-pointer hover:scale-105 active:scale-95"
+              >
                 <Search className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </button>
             </div>
@@ -257,7 +286,7 @@ const ExplorePage = () => {
                     </div>
                     <Link
                       href={`/travel-plans/${nextPlan._id}`}
-                      className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[10px] font-black uppercase tracking-[0.2em] rounded-2xl transition-all cursor-pointer shadow-xl active:scale-95 flex items-center justify-center hover:bg-primary hover:text-slate-900"
+                      className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[10px] font-black uppercase tracking-[0.2em] rounded-full transition-all cursor-pointer active:scale-95 flex items-center justify-center hover:bg-primary hover:text-slate-900"
                     >
                       Intercept Profile
                     </Link>

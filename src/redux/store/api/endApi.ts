@@ -74,6 +74,27 @@ const TravelApi = baseApi.injectEndpoints({
           : [{ type: 'TravelPlan', id: 'LIST' }],
     }),
 
+    getMatchedTravelPlans: build.query<
+      IApiResponse<ITravelPlan[]>,
+      { destination?: string; startDate?: string; endDate?: string; travelType?: string; page?: number; limit?: number }
+    >({
+      query: (params) => {
+        const queryParams = new URLSearchParams();
+        if (params.destination) queryParams.append('destination', params.destination);
+        if (params.startDate) queryParams.append('startDate', params.startDate);
+        if (params.endDate) queryParams.append('endDate', params.endDate);
+        if (params.travelType && params.travelType !== 'All Travelers' && params.travelType !== 'All') queryParams.append('travelType', params.travelType);
+        if (params.page) queryParams.append('page', params.page.toString());
+        if (params.limit) queryParams.append('limit', params.limit.toString());
+        
+        return {
+          url: `/api/v1/travel-plans/match?${queryParams.toString()}`,
+          method: 'GET',
+        };
+      },
+      providesTags: ['TravelPlan'],
+    }),
+
     getTravelPlanDetails: build.query<IApiResponse<ITravelPlan>, string>({
       query: (id) => ({
         url: `/api/v1/travel-plans/${id}`,
@@ -249,6 +270,7 @@ export const {
   useUpdateUserMutation,
   useUpdateProfileMutation,
   useGetAllTravelPlansQuery,
+  useGetMatchedTravelPlansQuery,
   useGetTravelPlanDetailsQuery,
   useGetMyTravelPlansQuery,
   useCreateTravelPlanMutation,

@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { LogOut, Compass, X, UserCircle } from 'lucide-react';
 import { userLinks, adminLinks } from '@/src/data/dashboard';
 import { NavItem } from '@/src/types/dashboard';
+import { toast } from 'sonner';
 
 interface Props {
   open: boolean;
@@ -25,6 +26,9 @@ const DashboardSidebar = ({ open, onClose }: Props) => {
 
   const handleLogout = () => {
     dispatch(logout());
+    toast.success('Disconnected', {
+      description: 'You have been safely logged out of the network.',
+    });
     router.push('/login');
   };
 

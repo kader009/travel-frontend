@@ -9,6 +9,7 @@ import { useState, useRef, useEffect } from 'react';
 import { logout } from '../redux/store/features/userSlice';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { toast } from 'sonner';
 
 const Navbar = () => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -33,6 +34,9 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(logout());
     setIsDropdownOpen(false);
+    toast.success('Disconnected', {
+      description: 'You have been safely logged out of the network.',
+    });
     router.push('/login');
   };
 
