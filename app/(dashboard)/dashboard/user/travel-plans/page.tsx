@@ -43,7 +43,8 @@ const UserTravelPlansPage = () => {
               if (response.success) {
                 toast.success('Travel plan deleted successfully.');
               }
-            } catch (error: any) {
+            } catch (err: unknown) {
+              const error = err as { data?: { message?: string } };
               toast.error(error?.data?.message || 'Failed to delete travel plan.');
             }
           },
@@ -101,7 +102,7 @@ const UserTravelPlansPage = () => {
           </div>
           <h2 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Error Retrieving logs</h2>
           <p className="text-slate-400 text-sm mt-2 font-bold max-w-xs mx-auto mb-8">
-            We're having trouble connecting to your expedition database.
+            We&apos;re having trouble connecting to your expedition database.
           </p>
           <button 
             onClick={() => refetch()} 

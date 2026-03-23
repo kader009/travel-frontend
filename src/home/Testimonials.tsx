@@ -78,7 +78,7 @@ const Testimonials = () => {
                   <div className="h-full rounded-xl bg-white p-8 shadow-xs dark:bg-background-dark border border-slate-100 dark:border-slate-800 transition-all duration-300">
                     <Quote className="w-12 h-12 text-primary/30" />
                     <p className="mt-4 text-xl font-medium italic leading-relaxed text-slate-700 dark:text-slate-300">
-                      "{item.text}"
+                      &quot;{item.text}&quot;
                     </p>
                     <div className="mt-8 flex items-center gap-4">
                       <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full border border-slate-100 dark:border-slate-800">

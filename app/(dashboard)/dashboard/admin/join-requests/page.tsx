@@ -20,8 +20,6 @@ import {
   UserCheck,
   UserX,
   MapPin,
-  Search,
-  MessageSquare
 } from 'lucide-react';
 import Image from 'next/image';
 import { toast } from 'sonner';
@@ -61,7 +59,8 @@ const PlanRequests = ({
       if (response.success) {
         toast.success(`Request ${action === 'approve' ? 'Approved' : 'Rejected'} successfully`);
       }
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as { data?: { message?: string } };
       toast.error(error?.data?.message || 'Unable to update request status');
     } finally {
       setProcessingId(null);
@@ -73,7 +72,7 @@ const PlanRequests = ({
       {/* Plan Header */}
       <div className="flex items-center gap-3 px-2">
         <div className="size-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
-          {planImage ? <img src={planImage} alt={planName} className="size-full object-cover" /> : <MapPin className="size-5 text-slate-300" />}
+          {planImage ? <Image src={planImage} alt={planName} width={40} height={40} className="size-full object-cover" /> : <MapPin className="size-5 text-slate-300" />}
         </div>
         <div>
           <h3 className="font-black text-slate-900 dark:text-white text-sm uppercase tracking-tight">{planName}</h3>
@@ -86,7 +85,7 @@ const PlanRequests = ({
         {requests.map((request: IJoinRequest) => (
           <div key={request._id} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-5 rounded-3xl flex flex-col md:flex-row items-start md:items-center gap-5 group hover:border-primary/20 transition-all shadow-sm">
             <div className="size-14 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
-              {request.user?.image ? <img src={request.user.image} alt="User" className="size-full object-cover" /> : <span className="text-xl font-black text-slate-300">{request.user?.name?.charAt(0) || '?'}</span>}
+              {request.user?.image ? <Image src={request.user.image} alt="User" width={56} height={56} className="size-full object-cover" /> : <span className="text-xl font-black text-slate-300">{request.user?.name?.charAt(0) || '?'}</span>}
             </div>
 
             <div className="flex-1 min-w-0">
@@ -180,7 +179,7 @@ const AdminJoinRequestsPage = () => {
                 return (
                   <div key={request._id} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-3xl flex flex-col md:flex-row items-start md:items-center gap-6 group hover:border-primary/20 transition-all shadow-sm">
                     <div className="size-16 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-100 dark:border-slate-800">
-                      {plan?.images?.[0] ? <img src={plan.images[0]} alt="Plan" className="size-full object-cover" /> : <PlaneTakeoff className="size-8 text-slate-200" />}
+                      {plan?.images?.[0] ? <Image src={plan.images[0]} alt="Plan" width={64} height={64} className="size-full object-cover" /> : <PlaneTakeoff className="size-8 text-slate-200" />}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">

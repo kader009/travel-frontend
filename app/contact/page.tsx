@@ -28,7 +28,7 @@ const Contact = () => {
                 Connect With Us
               </div>
               <h1 className="text-5xl lg:text-6xl font-black leading-tight tracking-tight text-slate-900 dark:text-white">
-                We'd Love to <span className="text-primary">Hear From You</span>
+                We&apos;d Love to <span className="text-primary">Hear From You</span>
               </h1>
               <p className="text-lg text-slate-600 dark:text-slate-400 max-w-lg">
                 Have questions about finding your next travel companion? Our

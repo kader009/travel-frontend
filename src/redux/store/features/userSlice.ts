@@ -14,11 +14,11 @@ const initialState: AuthState = {
 };
 
 // API Response interface (specific to login)
-interface IAuthApiResponse extends IApiResponse<{
+type IAuthApiResponse = IApiResponse<{
   user: IUser;
   accessToken: string;
   refreshToken: string;
-}> {}
+}>;
 
 // Async thunk for login
 export const loginUser = createAsyncThunk<

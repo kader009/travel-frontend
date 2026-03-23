@@ -80,8 +80,9 @@ const ManageUsersPage = () => {
         setIsDeleteModalOpen(false);
         setUserToDelete(null);
       }
-    } catch (err: any) {
-      toast.error(err?.data?.message || "An error occurred while deleting the user.");
+    } catch (err: unknown) {
+      const error = err as { data?: { message?: string } };
+      toast.error(error?.data?.message || "An error occurred while deleting the user.");
     }
   };
 
@@ -111,8 +112,9 @@ const ManageUsersPage = () => {
         setIsEditModalOpen(false);
         setEditingUser(null);
       }
-    } catch (err: any) {
-      toast.error(err?.data?.message || "Failed to update user.");
+    } catch (err: unknown) {
+      const error = err as { data?: { message?: string } };
+      toast.error(error?.data?.message || "Failed to update user.");
     }
   };
 

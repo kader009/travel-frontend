@@ -105,7 +105,7 @@ const ExplorePage = () => {
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    onClick={(e) => (e.target as any).showPicker?.()}
+                    onClick={(e) => (e.target as HTMLInputElement).showPicker?.()}
                   />
                 </div>
               </div>
@@ -120,7 +120,7 @@ const ExplorePage = () => {
                     type="date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    onClick={(e) => (e.target as any).showPicker?.()}
+                    onClick={(e) => (e.target as HTMLInputElement).showPicker?.()}
                   />
                 </div>
               </div>
@@ -240,10 +240,10 @@ const ExplorePage = () => {
                     </h3>
                     {/* Location field removed as per user request */}
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-bold line-clamp-2">
-                      "
+                      &quot;
                       {user.bio ||
                         'Explorer seeking new horizons and sharing global experiences.'}
-                      "
+                      &quot;
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-2 mb-4">

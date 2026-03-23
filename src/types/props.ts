@@ -16,7 +16,7 @@ export interface EditProfileModalProps {
 }
 
 export interface EditTravelPlanModalProps {
-  plan: ITravelPlan;
+  plan: ITravelPlan | null;
   isOpen: boolean;
   onClose: () => void;
 }

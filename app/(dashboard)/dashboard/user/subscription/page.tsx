@@ -24,10 +24,11 @@ const SubscriptionPage = () => {
     try {
       const res = await initPayment({ plan }).unwrap();
       if (res.success && res.data?.paymentUrl) {
-        window.location.href = res.data.paymentUrl; // Redirect to SSLCommerz
+        window.location.assign(res.data.paymentUrl); // Redirect to SSLCommerz
       }
-    } catch (err: any) {
-      toast.error(err?.data?.message || 'Failed to initialize payment');
+    } catch (err: unknown) {
+      const error = err as { data?: { message?: string } };
+      toast.error(error?.data?.message || 'Failed to initialize payment');
     }
   };
 
@@ -106,7 +107,7 @@ const SubscriptionPage = () => {
             </ul>
 
             <button
-              onClick={() => handleSubscribe(plan.id as any)}
+              onClick={() => handleSubscribe(plan.id as 'basic' | 'premium' | 'enterprise')}
               disabled={isInitializing}
               className={`w-full py-5 rounded-3xl font-black text-[11px] uppercase tracking-[0.2em] transition-all active:scale-95 flex items-center justify-center gap-2 border-none cursor-pointer ${
                 plan.popular 

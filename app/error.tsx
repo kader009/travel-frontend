@@ -30,7 +30,8 @@ export default function Error({
             Something went wrong!
           </h1>
           <p className="text-lg leading-7 text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
-            We encountered an unexpected turbulence during your journey. Don't worry, our team has been notified.
+            We encountered an unexpected turbulence during your journey.
+            Don&apos;t worry, our team has been notified.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
             <button

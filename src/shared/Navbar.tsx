@@ -115,7 +115,7 @@ const Navbar = () => {
                     {user.name?.charAt(0).toUpperCase()}
                   </div>
                 )}
-                <span className="text-sm font-bold truncate max-w-[100px]">
+                <span className="text-sm font-bold truncate max-w-25">
                   {user.name}
                 </span>
               </button>

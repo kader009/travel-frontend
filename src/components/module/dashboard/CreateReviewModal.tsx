@@ -70,7 +70,8 @@ const CreateReviewModal: React.FC<
         reset();
         onClose();
       }
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as { data?: { message?: string } };
       toast.error(error?.data?.message || 'Failed to submit review');
     }
   };

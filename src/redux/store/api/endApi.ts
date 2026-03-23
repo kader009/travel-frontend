@@ -248,7 +248,7 @@ const TravelApi = baseApi.injectEndpoints({
       ],
     }),
 
-    deleteReview: build.mutation<IApiResponse<any>, string>({
+    deleteReview: build.mutation<IApiResponse<unknown>, string>({
       query: (id) => ({
         url: `/api/v1/reviews/${id}`,
         method: 'DELETE',

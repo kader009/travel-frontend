@@ -16,6 +16,7 @@ import {
   Compass,
 } from 'lucide-react';
 import { IReview } from '@/src/types/review';
+import { IUser } from '@/src/types/user';
 import { useState } from 'react';
 import CreateReviewModal from '@/src/components/module/dashboard/CreateReviewModal';
 
@@ -24,11 +25,11 @@ const ReviewCard = ({ review }: { review: IReview }) => (
     <div className="flex justify-between items-start mb-4">
       <div className="flex gap-3 items-center">
         <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black text-sm">
-          {(review.reviewer as any)?.name?.charAt(0) || 'U'}
+          {(review.reviewer as IUser)?.name?.charAt(0) || 'U'}
         </div>
         <div>
           <h4 className="font-black text-slate-900 dark:text-white text-sm uppercase tracking-tight">
-            {(review.reviewer as any)?.name || 'Anonymous Traveler'}
+            {(review.reviewer as IUser)?.name || 'Anonymous Traveler'}
           </h4>
           <div className="flex gap-0.5 mt-0.5">
             {[...Array(5)].map((_, i) => (
@@ -48,7 +49,7 @@ const ReviewCard = ({ review }: { review: IReview }) => (
       </span>
     </div>
     <p className="text-sm text-slate-600 dark:text-slate-300 font-bold leading-relaxed italic">
-      "{review.comment}"
+      &quot;{review.comment}&quot;
     </p>
   </div>
 );

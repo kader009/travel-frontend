@@ -1,7 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowRight, Eye, EyeOff, Loader2, Lock, Mail, Plane, ShieldCheck, UserRound } from 'lucide-react';
+import {
+  ArrowRight,
+  Eye,
+  EyeOff,
+  Loader2,
+  Lock,
+  Mail,
+  Plane,
+  ShieldCheck,
+  UserRound,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -38,14 +48,18 @@ const LoginView = () => {
     const res = await login(data);
 
     if (res.error) {
-      const errorData = (res.error as FetchBaseQueryError).data as { message?: string };
+      const errorData = (res.error as FetchBaseQueryError).data as {
+        message?: string;
+      };
       toast.error(errorData?.message || 'Login failed. Please try again.');
       return;
     }
 
     if (res.data?.success) {
       const userRole = res.data.data.user.role;
-      toast.success(`${userRole.charAt(0).toUpperCase() + userRole.slice(1)} logged in successfully`);
+      toast.success(
+        `${userRole.charAt(0).toUpperCase() + userRole.slice(1)} logged in successfully`,
+      );
       dispatch(
         setUser({
           user: res.data.data.user,
@@ -76,7 +90,7 @@ const LoginView = () => {
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-200px)] p-4 py-12">
-      <div className="w-full max-w-[1000px] grid grid-cols-1 md:grid-cols-2 bg-white dark:bg-slate-900 rounded-xl overflow-hidden relative z-10 border border-slate-200 dark:border-slate-800">
+      <div className="w-full max-w-250 grid grid-cols-1 md:grid-cols-2 bg-white dark:bg-slate-900 rounded-xl overflow-hidden relative z-10 border border-slate-200 dark:border-slate-800">
         {/* Left Side: Visual/Branding (Hidden on mobile) */}
         <div className="hidden md:block relative overflow-hidden bg-slate-100 dark:bg-slate-800">
           <div className="absolute inset-0">
@@ -159,7 +173,6 @@ const LoginView = () => {
                 >
                   Password
                 </label>
-                
               </div>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 size-5" />
@@ -197,7 +210,11 @@ const LoginView = () => {
               disabled={isLoading}
             >
               {isLoading ? 'Logging in...' : 'Log In'}
-              {isLoading ? <Loader2 className="size-5 animate-spin" /> : <ArrowRight className="size-5" />}
+              {isLoading ? (
+                <Loader2 className="size-5 animate-spin" />
+              ) : (
+                <ArrowRight className="size-5" />
+              )}
             </button>
           </form>
 
@@ -205,7 +222,9 @@ const LoginView = () => {
           <div className="mt-6">
             <div className="relative flex items-center gap-3 mb-4">
               <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700" />
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">Quick Demo Login</span>
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">
+                Quick Demo Login
+              </span>
               <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700" />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -230,7 +249,7 @@ const LoginView = () => {
 
           <div className="mt-6 text-center">
             <p className="text-sm text-slate-600 dark:text-slate-400">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <Link
                 className="font-bold text-primary hover:underline"
                 href="/register"

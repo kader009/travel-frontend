@@ -25,7 +25,8 @@ const PricingPage = () => {
               Find your tribe anywhere in the world.
             </h1>
             <p className="text-slate-600 dark:text-slate-400 text-lg font-medium mb-8">
-              Choose a plan that fits your travel style. From casual weekenders to <br />
+              Choose a plan that fits your travel style. From casual weekenders
+              to <br />
               global digital nomads.
             </p>
           </div>
@@ -245,8 +246,8 @@ const PricingPage = () => {
               </h2>
               <p className="text-slate-400">
                 All members go through a verification process. Your data and
-                payments are encrypted and protected by enterprise-grade security
-                standards.
+                payments are encrypted and protected by enterprise-grade
+                security standards.
               </p>
               <div className="flex gap-6 mt-4">
                 <div className="flex items-center gap-2 text-white text-xs font-bold uppercase tracking-wider">
@@ -290,8 +291,8 @@ const PricingPage = () => {
               </h4>
               <p className="text-slate-600 dark:text-slate-400 text-sm">
                 Meetups are organized by community members. However, we have a
-                "Travel Buddy Certified" badge for meetups that follow our safety
-                and quality guidelines.
+                &quot;Travel Buddy Certified&quot; badge for meetups that follow
+                our safety and quality guidelines.
               </p>
             </div>
             <div className="flex flex-col gap-2">

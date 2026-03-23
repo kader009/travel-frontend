@@ -101,7 +101,8 @@ const AdminTravelPlansPage = () => {
         setIsDeleteModalOpen(false);
         setPlanToDelete(null);
       }
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as { data?: { message?: string } };
       toast.error(
         error?.data?.message || 'An error occurred while deleting the plan.',
       );
@@ -138,7 +139,8 @@ const AdminTravelPlansPage = () => {
         setIsEditModalOpen(false);
         setEditingPlan(null);
       }
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as { data?: { message?: string } };
       toast.error(error?.data?.message || 'Failed to update travel plan.');
     }
   };

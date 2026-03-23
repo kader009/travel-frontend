@@ -153,7 +153,8 @@ const TravelPlanDetails = () => {
         toast.success('Review Transmitted', { description: 'Your feedback has been recorded.' });
         dispatch(resetReview());
       }
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as { data?: { message?: string } };
       toast.error(error?.data?.message || 'Uplink Failed');
     }
   };
@@ -331,7 +332,7 @@ const TravelPlanDetails = () => {
                 <div className="h-px bg-slate-200 dark:bg-slate-800 grow"></div>
               </div>
               <p className="text-3xl font-black text-slate-900 dark:text-white leading-[1.1] tracking-tight text-center max-w-3xl mx-auto opacity-90 underline decoration-primary decoration-4 underline-offset-8">
-                "{trip.description}"
+                &quot;{trip.description}&quot;
               </p>
             </section>
 

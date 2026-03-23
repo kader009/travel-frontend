@@ -9,19 +9,15 @@ import {
 } from '@/src/redux/store/api/endApi';
 import {
   Star,
-  MessageSquare,
-  Shield,
   Loader2,
   Search,
   Trash2,
   Pencil,
-  Plus,
-  Compass,
   User,
-  AlertTriangle,
   Check,
   X,
 } from 'lucide-react';
+import Image from 'next/image';
 import { toast } from 'sonner';
 import { IReview } from '@/src/types/review';
 import { IUser } from '@/src/types/user';
@@ -47,7 +43,7 @@ const AdminReviewsPage = () => {
     });
 
   // Mutations
-  const [deleteReview, { isLoading: isDeleting }] = useDeleteReviewMutation();
+  const [deleteReview] = useDeleteReviewMutation();
   const [updateReview, { isLoading: isUpdating }] = useUpdateReviewMutation();
 
   const users = (usersData?.data as IUser[]) || [];
@@ -79,8 +75,9 @@ const AdminReviewsPage = () => {
             try {
               const res = await deleteReview(id).unwrap();
               if (res.success) toast.success('Review deleted successfully');
-            } catch (err: any) {
-              toast.error(err?.data?.message || 'Failed to delete review');
+            } catch (err: unknown) {
+              const error = err as { data?: { message?: string } };
+              toast.error(error?.data?.message || 'Failed to delete review');
             }
           },
         },
@@ -110,8 +107,9 @@ const AdminReviewsPage = () => {
         toast.success('Review updated successfully');
         setIsEditModalOpen(false);
       }
-    } catch (err: any) {
-      toast.error(err?.data?.message || 'Failed to update review');
+    } catch (err: unknown) {
+      const error = err as { data?: { message?: string } };
+      toast.error(error?.data?.message || 'Failed to update review');
     }
   };
 
@@ -148,7 +146,7 @@ const AdminReviewsPage = () => {
               />
             </div>
 
-            <div className="space-y-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+            <div className="space-y-2 max-h-100 overflow-y-auto pr-2 custom-scrollbar">
               {isUsersLoading ? (
                 <div className="py-10 flex justify-center">
                   <Loader2 className="size-6 animate-spin text-primary" />
@@ -164,9 +162,11 @@ const AdminReviewsPage = () => {
                       className={`size-8 rounded-full flex items-center justify-center overflow-hidden font-black text-xs ${selectedUserId === user._id ? 'bg-white/20' : 'bg-primary/10 text-primary'}`}
                     >
                       {user.image ? (
-                        <img
+                        <Image
                           src={user.image}
-                          alt={user.name}
+                          alt={user.name || 'User'}
+                          width={32}
+                          height={32}
                           className="size-full object-cover"
                         />
                       ) : (
@@ -243,19 +243,21 @@ const AdminReviewsPage = () => {
                       <div className="flex justify-between items-start mb-4">
                         <div className="flex gap-3 items-center">
                           <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden text-primary font-black text-sm">
-                            {(review.reviewer as any)?.image ? (
-                              <img
-                                src={(review.reviewer as any).image}
+                            {(review.reviewer as IUser)?.image ? (
+                              <Image
+                                src={(review.reviewer as IUser).image as string}
                                 alt="Reviewer"
+                                width={40}
+                                height={40}
                                 className="size-full object-cover"
                               />
                             ) : (
-                              (review.reviewer as any)?.name?.charAt(0) || 'U'
+                              (review.reviewer as IUser)?.name?.charAt(0) || 'U'
                             )}
                           </div>
                           <div>
                             <h4 className="font-black text-slate-900 dark:text-white text-xs uppercase tracking-tight">
-                              {(review.reviewer as any)?.name || 'Anonymous'}
+                              {(review.reviewer as IUser)?.name || 'Anonymous'}
                             </h4>
                             <div className="flex gap-0.5 mt-0.5">
                               {[...Array(5)].map((_, i) => (

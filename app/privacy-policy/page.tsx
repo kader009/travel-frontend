@@ -118,7 +118,7 @@ const PrivacyPolicy = () => {
                     alerts.
                   </li>
                   <li>
-                    Improving our platform's functionality through anonymized
+                    Improving our platform&apos;s functionality through anonymized
                     analytics.
                   </li>
                 </ul>

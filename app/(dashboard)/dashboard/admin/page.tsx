@@ -19,6 +19,7 @@ import {
   Globe,
   Activity
 } from 'lucide-react';
+import Image from 'next/image';
 import { 
   XAxis, 
   YAxis, 
@@ -37,12 +38,13 @@ const AdminOverviewPage = () => {
   const { data: plansData, isLoading: isPlansLoading } = useGetAllTravelPlansAdminQuery(undefined);
   const { data: analyticsData, isLoading: isAnalyticsLoading } = useGetPaymentAnalyticsQuery(undefined);
 
-  const users = Array.isArray(usersData?.data) ? (usersData?.data as IUser[]) : [];
-  const plans = Array.isArray(plansData?.data) ? (plansData?.data as ITravelPlan[]) : [];
   const analytics = analyticsData?.data;
 
   // Derive Stats
   const stats = useMemo(() => {
+    const users = Array.isArray(usersData?.data) ? (usersData?.data as IUser[]) : [];
+    const plans = Array.isArray(plansData?.data) ? (plansData?.data as ITravelPlan[]) : [];
+
     const now = new Date();
     const thirtyDaysAgo = new Date(now.getTime() - (30 * 24 * 60 * 60 * 1000));
     const sixtyDaysAgo = new Date(now.getTime() - (60 * 24 * 60 * 60 * 1000));
@@ -106,7 +108,7 @@ const AdminOverviewPage = () => {
       revenueGrowth: (analytics?.monthlyGrowth || 0).toFixed(1),
       chartData: monthlyActivityData
     };
-  }, [users, plans, analytics]);
+  }, [usersData, plansData, analytics]);
 
   const isLoading = isUsersLoading || isPlansLoading || isAnalyticsLoading;
 
@@ -255,7 +257,7 @@ const AdminOverviewPage = () => {
               <div key={index} className="flex items-center gap-4">
                 <div className="size-12 rounded-xl bg-slate-100 dark:bg-slate-800 shrink-0 overflow-hidden border border-slate-100 dark:border-slate-700 flex items-center justify-center relative">
                    {destination.image ? (
-                     <img src={destination.image} alt={destination.name} className="size-full object-cover" />
+                     <Image src={destination.image} alt={destination.name} width={48} height={48} className="size-full object-cover" />
                    ) : (
                      <Globe className="size-5 text-slate-300" />
                    )}
@@ -283,7 +285,7 @@ const AdminOverviewPage = () => {
           <div className="flex -space-x-3">
             {stats.recentUsers.map((recentUser, index) => (
               <div key={index} className="size-9 rounded-full border-2 border-white dark:border-slate-900 bg-slate-200 dark:bg-slate-800 overflow-hidden">
-                {recentUser.image ? <img src={recentUser.image} alt="User" className="size-full object-cover" /> : <UserCircle className="size-full text-slate-300" />}
+                {recentUser.image ? <Image src={recentUser.image} alt="User" width={36} height={36} className="size-full object-cover" /> : <UserCircle className="size-full text-slate-300" />}
               </div>
             ))}
             {stats.totalUsers > 4 && <div className="size-9 rounded-full border-2 border-white dark:border-slate-900 bg-primary text-slate-900 text-[10px] font-black flex items-center justify-center uppercase">+{stats.totalUsers - 4}</div>}
@@ -293,7 +295,7 @@ const AdminOverviewPage = () => {
           {stats.recentUsers.map((userProfile, index) => (
             <div key={index} className="p-4 rounded-3xl border border-slate-100 dark:border-slate-800 flex items-center gap-4 hover:border-primary/20 transition-all group">
               <div className="size-12 rounded-full bg-slate-50 dark:bg-slate-800 overflow-hidden shrink-0 border border-slate-100 dark:border-slate-700 group-hover:scale-105 transition-transform">
-                {userProfile.image ? <img src={userProfile.image} alt={userProfile.name} className="size-full object-cover" /> : <UserCircle className="size-full text-slate-300" />}
+                {userProfile.image ? <Image src={userProfile.image} alt={userProfile.name} width={48} height={48} className="size-full object-cover" /> : <UserCircle className="size-full text-slate-300" />}
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-black text-sm text-slate-900 dark:text-white truncate tracking-tight">{userProfile.name || 'Anonymous'}</p>

@@ -71,13 +71,13 @@ const AboutPage = () => {
                 Our Mission
               </h2>
               <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-400">
-                We believe that the best part of traveling isn't just the
+                We believe that the best part of traveling isn&apos;t just the
                 destination, but the people you share it with. Our mission is to
                 bridge the gap between solo wanderlust and shared experiences by
                 connecting compatible travelers worldwide.
               </p>
               <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-400">
-                Whether you're looking for someone to split the cost of a road
+                Whether you&apos;re looking for someone to split the cost of a road
                 trip or a local to show you the hidden gems of their city, we
                 make it safe and easy to find your tribe.
               </p>
@@ -102,9 +102,9 @@ const AboutPage = () => {
               The Story
             </h2>
             <p className="text-xl text-slate-600 dark:text-slate-400 leading-relaxed italic max-w-4xl mx-auto">
-              "It started with a missed train in Florence and a conversation
+              &quot;It started with a missed train in Florence and a conversation
               with a fellow traveler that turned into a month-long backpacking
-              trip across Europe."
+              trip across Europe.&quot;
             </p>
           </div>
           <div className="grid lg:grid-cols-3 gap-8">
@@ -126,7 +126,7 @@ const AboutPage = () => {
               <h3 className="text-xl font-bold mb-3">The Vision</h3>
               <p className="text-slate-600 dark:text-slate-400">
                 The goal was simple: create a platform where safety meets
-                spontaneity. A place where "strangers" become travel partners in
+                spontaneity. A place where &quot;strangers&quot; become travel partners in
                 minutes.
               </p>
             </div>
@@ -272,7 +272,7 @@ const AboutPage = () => {
                 Our Global Footprint
               </h2>
               <p className="text-lg font-medium opacity-80 leading-relaxed">
-                Since our launch, we've helped thousands of people find their
+                Since our launch, we&apos;ve helped thousands of people find their
                 travel soulmates. From climbing Kilimanjaro to exploring the
                 food stalls of Bangkok, our community is everywhere.
               </p>

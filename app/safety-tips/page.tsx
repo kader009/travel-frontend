@@ -23,7 +23,7 @@ const SafetyTips = () => {
       {/* Hero Banner */}
       <section className="py-8 md:py-12">
         <Container>
-          <div className="relative overflow-hidden rounded-xl bg-linear-to-br from-primary via-secondary to-accent p-8 md:p-12 min-h-[320px] flex flex-col justify-center">
+          <div className="relative overflow-hidden rounded-xl bg-linear-to-br from-primary via-secondary to-accent p-8 md:p-12 min-h-80 flex flex-col justify-center">
             <div className="relative z-10 max-w-2xl">
               <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-sm font-bold text-background-dark mb-4 uppercase tracking-wider">
                 Safety First
@@ -38,7 +38,7 @@ const SafetyTips = () => {
               </p>
             </div>
             <div className="absolute right-0 bottom-0 top-0 hidden lg:flex items-center justify-end pr-12">
-              <ShieldCheck className="w-[200px] h-[200px] text-white/30 select-none" />
+              <ShieldCheck className="w-50 h-50 text-white/30 select-none" />
             </div>
           </div>
         </Container>
@@ -64,8 +64,8 @@ const SafetyTips = () => {
                 Verify Profiles
               </h3>
               <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                Look for the "Identity Verified" badge and read reviews from
-                previous travel companions before committing.
+                Look for the &quot;Identity Verified&quot; badge and read
+                reviews from previous travel companions before committing.
               </p>
             </div>
             <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-primary/5 hover:border-primary/30 transition-all group">
@@ -88,8 +88,8 @@ const SafetyTips = () => {
                 Stay on Platform
               </h3>
               <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                Communicate through the Travel Buddy chat until you've met in
-                person and feel comfortable moving elsewhere.
+                Communicate through the Travel Buddy chat until you&apos;ve met
+                in person and feel comfortable moving elsewhere.
               </p>
             </div>
           </div>

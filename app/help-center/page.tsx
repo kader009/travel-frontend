@@ -211,8 +211,8 @@ const HelpCenter = () => {
             <div className="relative z-10">
               <h2 className="text-3xl font-bold mb-4">Still need help?</h2>
               <p className="text-slate-400 mb-8 max-w-lg mx-auto">
-                Can't find what you're looking for? Our support team and
-                community are here to support your journey.
+                Can&apos;t find what you&apos;re looking for? Our support team
+                and community are here to support your journey.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button className="w-full sm:w-auto bg-primary text-background-dark font-bold py-4 px-10 rounded-full hover:bg-secondary transition-colors">
