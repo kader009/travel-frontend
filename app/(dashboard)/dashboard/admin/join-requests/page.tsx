@@ -54,15 +54,15 @@ const PlanRequests = ({
   const handleAction = async (id: string, action: 'approve' | 'reject') => {
     setProcessingId(id);
     try {
-      const res = action === 'approve' 
+      const response = action === 'approve' 
         ? await approveRequest(id).unwrap() 
         : await rejectRequest(id).unwrap();
 
-      if (res.success) {
+      if (response.success) {
         toast.success(`Request ${action === 'approve' ? 'Approved' : 'Rejected'} successfully`);
       }
-    } catch (err: any) {
-      toast.error(err?.data?.message || 'Unable to update request status');
+    } catch (error: any) {
+      toast.error(error?.data?.message || 'Unable to update request status');
     } finally {
       setProcessingId(null);
     }
@@ -83,35 +83,35 @@ const PlanRequests = ({
 
       {/* Requests List */}
       <div className="space-y-3">
-        {requests.map((req: IJoinRequest) => (
-          <div key={req._id} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-5 rounded-3xl flex flex-col md:flex-row items-start md:items-center gap-5 group hover:border-primary/20 transition-all shadow-sm">
+        {requests.map((request: IJoinRequest) => (
+          <div key={request._id} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-5 rounded-3xl flex flex-col md:flex-row items-start md:items-center gap-5 group hover:border-primary/20 transition-all shadow-sm">
             <div className="size-14 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
-              {req.user?.image ? <img src={req.user.image} alt="User" className="size-full object-cover" /> : <span className="text-xl font-black text-slate-300">{req.user?.name?.charAt(0) || '?'}</span>}
+              {request.user?.image ? <img src={request.user.image} alt="User" className="size-full object-cover" /> : <span className="text-xl font-black text-slate-300">{request.user?.name?.charAt(0) || '?'}</span>}
             </div>
 
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
-                <h4 className="font-black text-slate-900 dark:text-white tracking-tight truncate">{req.user?.name || 'Unknown'}</h4>
+                <h4 className="font-black text-slate-900 dark:text-white tracking-tight truncate">{request.user?.name || 'Unknown'}</h4>
                 <ChevronRight className="size-4 text-slate-300" />
               </div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">{req.user?.email}</p>
-              {req.message && <p className="text-slate-500 text-xs font-bold line-clamp-2 italic">&quot;{req.message}&quot;</p>}
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">{request.user?.email}</p>
+              {request.message && <p className="text-slate-500 text-xs font-bold line-clamp-2 italic">&quot;{request.message}&quot;</p>}
             </div>
 
             <div className="flex items-center gap-3 w-full md:w-auto mt-4 md:mt-0">
-              {req.status === 'pending' ? (
+              {request.status === 'pending' ? (
                 <>
-                  <button onClick={() => handleAction(req._id, 'approve')} disabled={processingId === req._id} className="flex-1 md:flex-none px-5 py-3 bg-emerald-500 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-emerald-600 transition-all disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2">
-                     {processingId === req._id ? <Loader2 className="size-3.5 animate-spin" /> : <UserCheck className="size-3.5" />} Approve
+                  <button onClick={() => handleAction(request._id, 'approve')} disabled={processingId === request._id} className="flex-1 md:flex-none px-5 py-3 bg-emerald-500 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-emerald-600 transition-all disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2">
+                     {processingId === request._id ? <Loader2 className="size-3.5 animate-spin" /> : <UserCheck className="size-3.5" />} Approve
                   </button>
-                  <button onClick={() => handleAction(req._id, 'reject')} disabled={processingId === req._id} className="flex-1 md:flex-none px-5 py-3 bg-rose-500 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-rose-600 transition-all disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2">
-                    {processingId === req._id ? <Loader2 className="size-3.5 animate-spin" /> : <UserX className="size-3.5" />} Reject
+                  <button onClick={() => handleAction(request._id, 'reject')} disabled={processingId === request._id} className="flex-1 md:flex-none px-5 py-3 bg-rose-500 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-rose-600 transition-all disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2">
+                    {processingId === request._id ? <Loader2 className="size-3.5 animate-spin" /> : <UserX className="size-3.5" />} Reject
                   </button>
                 </>
               ) : (
-                <div className={`px-4 py-2.5 rounded-full flex items-center gap-2 border ${req.status === 'approved' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' : 'bg-rose-500/10 border-rose-500/20 text-rose-500'}`}>
-                  {req.status === 'approved' ? <CheckCircle2 className="size-3.5" /> : <XCircle className="size-3.5" />}
-                  <span className="text-[10px] font-black uppercase tracking-widest">{req.status}</span>
+                <div className={`px-4 py-2.5 rounded-full flex items-center gap-2 border ${request.status === 'approved' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' : 'bg-rose-500/10 border-rose-500/20 text-rose-500'}`}>
+                  {request.status === 'approved' ? <CheckCircle2 className="size-3.5" /> : <XCircle className="size-3.5" />}
+                  <span className="text-[10px] font-black uppercase tracking-widest">{request.status}</span>
                 </div>
               )}
             </div>
@@ -175,10 +175,10 @@ const AdminJoinRequestsPage = () => {
             </div>
           ) : sentRequests.length > 0 ? (
             <div className="grid grid-cols-1 gap-4">
-              {sentRequests.map((req: IJoinRequest) => {
-                const plan = typeof req.travelPlan === 'string' ? null : req.travelPlan;
+              {sentRequests.map((request: IJoinRequest) => {
+                const plan = typeof request.travelPlan === 'string' ? null : request.travelPlan;
                 return (
-                  <div key={req._id} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-3xl flex flex-col md:flex-row items-start md:items-center gap-6 group hover:border-primary/20 transition-all shadow-sm">
+                  <div key={request._id} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-3xl flex flex-col md:flex-row items-start md:items-center gap-6 group hover:border-primary/20 transition-all shadow-sm">
                     <div className="size-16 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-100 dark:border-slate-800">
                       {plan?.images?.[0] ? <img src={plan.images[0]} alt="Plan" className="size-full object-cover" /> : <PlaneTakeoff className="size-8 text-slate-200" />}
                     </div>
@@ -187,11 +187,11 @@ const AdminJoinRequestsPage = () => {
                         <h3 className="font-black text-slate-900 dark:text-white uppercase tracking-tight truncate">{plan?.destination || 'Classified'}</h3>
                         <ChevronRight className="size-4 text-slate-300" />
                       </div>
-                      <p className="text-slate-500 text-xs font-bold line-clamp-2 italic">&quot;{req.message}&quot;</p>
+                      <p className="text-slate-500 text-xs font-bold line-clamp-2 italic">&quot;{request.message}&quot;</p>
                     </div>
-                    <div className={`px-4 py-2 rounded-full flex items-center gap-2 border ${req.status === 'pending' ? 'bg-amber-500/10 border-amber-500/20 text-amber-500' : req.status === 'approved' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' : 'bg-rose-500/10 border-rose-500/20 text-rose-500'}`}>
-                      {req.status === 'pending' ? <Clock className="size-3.5" /> : req.status === 'approved' ? <CheckCircle2 className="size-3.5" /> : <XCircle className="size-3.5" />}
-                      <span className="text-[10px] font-black uppercase tracking-widest">{req.status}</span>
+                    <div className={`px-4 py-2 rounded-full flex items-center gap-2 border ${request.status === 'pending' ? 'bg-amber-500/10 border-amber-500/20 text-amber-500' : request.status === 'approved' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' : 'bg-rose-500/10 border-rose-500/20 text-rose-500'}`}>
+                      {request.status === 'pending' ? <Clock className="size-3.5" /> : request.status === 'approved' ? <CheckCircle2 className="size-3.5" /> : <XCircle className="size-3.5" />}
+                      <span className="text-[10px] font-black uppercase tracking-widest">{request.status}</span>
                     </div>
                   </div>
                 );

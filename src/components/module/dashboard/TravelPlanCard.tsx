@@ -14,11 +14,7 @@ import {
   Trash2
 } from 'lucide-react';
 
-interface TravelPlanCardProps {
-  plan: ITravelPlan;
-  onEdit: (plan: ITravelPlan) => void;
-  onDelete: (id: string) => void;
-}
+import { TravelPlanCardProps } from '@/src/types/props';
 
 const TravelPlanCard: React.FC<TravelPlanCardProps> = ({ plan, onEdit, onDelete }) => {
   return (

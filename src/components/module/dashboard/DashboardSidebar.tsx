@@ -11,12 +11,9 @@ import { userLinks, adminLinks } from '@/src/data/dashboard';
 import { NavItem } from '@/src/types/dashboard';
 import { toast } from 'sonner';
 
-interface Props {
-  open: boolean;
-  onClose: () => void;
-}
+import { DashboardSidebarProps } from '@/src/types/props';
 
-const DashboardSidebar = ({ open, onClose }: Props) => {
+const DashboardSidebar = ({ open, onClose }: DashboardSidebarProps) => {
   const pathname = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();

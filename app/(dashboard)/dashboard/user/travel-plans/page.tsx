@@ -39,12 +39,12 @@ const UserTravelPlansPage = () => {
           label: 'Delete Log',
           onClick: async () => {
             try {
-              const res = await deleteTravelPlan(id).unwrap();
-              if (res.success) {
-                toast.success('Expedition log deleted successfully.');
+              const response = await deleteTravelPlan(id).unwrap();
+              if (response.success) {
+                toast.success('Travel plan deleted successfully.');
               }
-            } catch (err: any) {
-              toast.error(err?.data?.message || 'Failed to delete expedition log.');
+            } catch (error: any) {
+              toast.error(error?.data?.message || 'Failed to delete travel plan.');
             }
           },
         },

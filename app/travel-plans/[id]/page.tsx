@@ -99,21 +99,21 @@ const TravelPlanDetails = () => {
     }
 
     try {
-      const res = await createJoinRequest({
+      const response = await createJoinRequest({
         travelPlan: id,
         message: requestMessage.trim(),
       }).unwrap();
 
-      if (res.success) {
+      if (response.success) {
         toast.success('Request Transmitted', {
           description: 'Your join request has been sent to the mission lead.',
         });
         setIsModalOpen(false);
         setRequestMessage('');
       }
-    } catch (err: unknown) {
-      const error = err as { data?: { message?: string } };
-      toast.error(error?.data?.message || 'Uplink Failed', {
+    } catch (error: unknown) {
+      const err = error as { data?: { message?: string } };
+      toast.error(err?.data?.message || 'Uplink Failed', {
         description: 'Unable to transmit join request. Please try again later.',
       });
     }

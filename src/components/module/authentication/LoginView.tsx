@@ -15,10 +15,8 @@ import { setEmail, setPassword } from '@/src/redux/store/features/loginSlice';
 import { toast } from 'sonner';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-import {
-  loginSchema,
-  LoginFormValues,
-} from '@/src/validation/login.validation';
+import { loginSchema } from '@/src/validation/login.validation';
+import { LoginFormValues } from '@/src/types/forms';
 
 const LoginView = () => {
   const [showPassword, setShowPassword] = useState(false);

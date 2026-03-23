@@ -17,5 +17,3 @@ export const planSchema = z.object({
   }),
   images: z.array(z.string().url('Invalid image URL')).min(1, 'At least one image is required')
 });
-
-export type PlanFormValues = z.infer<typeof planSchema>;

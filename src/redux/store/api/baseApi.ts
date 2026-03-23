@@ -6,6 +6,7 @@ import type {
 } from '@reduxjs/toolkit/query';
 import { logout, setToken } from '@/src/redux/store/features/userSlice';
 import { Mutex } from 'async-mutex';
+import { RefreshResponse } from '@/src/types/auth';
 
 // Create a new mutex to prevent multiple simultaneous refresh calls
 const mutex = new Mutex();
@@ -22,14 +23,6 @@ const baseQuery = fetchBaseQuery({
     return headers;
   },
 });
-
-interface RefreshResponse {
-  success: boolean;
-  message: string;
-  data: {
-    accessToken: string;
-  };
-}
 
 const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,

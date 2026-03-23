@@ -8,16 +8,8 @@ import { useCreateReviewMutation } from '@/src/redux/store/api/endApi';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/src/redux/store/store';
 
-interface CreateReviewModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-interface ReviewFormValues {
-  userId: string;
-  rating: number;
-  comment: string;
-}
+import { CreateReviewModalProps } from '@/src/types/props';
+import { ReviewFormValues } from '@/src/types/forms';
 
 const CreateReviewModal: React.FC<CreateReviewModalProps> = ({ isOpen, onClose }) => {
   const { user: currentUser } = useSelector((state: RootState) => state.user);

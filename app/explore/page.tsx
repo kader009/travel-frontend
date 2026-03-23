@@ -164,9 +164,9 @@ const ExplorePage = () => {
 
           {/* Quick Interest Tags */}
           <div className="flex flex-wrap gap-3 mt-8 overflow-x-auto pb-4 custom-scrollbar">
-            {interests.map((interest, index) => (
+            {interests.map((interest, interestIndex) => (
               <span
-                key={index}
+                key={interestIndex}
                 className={`px-5 py-2.5 rounded-full text-[10px] uppercase tracking-widest font-black transition-all cursor-pointer shadow-xs ${interest === 'All Travelers' ? 'bg-primary text-slate-900' : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-primary hover:text-primary'}`}
               >
                 {interest}
@@ -247,20 +247,20 @@ const ExplorePage = () => {
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {user.travelInterests?.slice(0, 3).map((tag, i) => (
+                    {user.travelInterests?.slice(0, 3).map((interestTag, interestIndex) => (
                       <span
-                        key={i}
+                        key={interestIndex}
                         className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-[9px] font-black rounded-full uppercase tracking-widest border border-slate-100 dark:border-slate-800"
                       >
-                        {tag}
+                        {interestTag}
                       </span>
                     )) ||
-                      ['Hiking', 'Photography'].map((tag, i) => (
+                      ['Hiking', 'Photography'].map((interestTag, interestIndex) => (
                         <span
-                          key={i}
+                          key={interestIndex}
                           className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-[9px] font-black rounded-full uppercase tracking-widest border border-slate-100 dark:border-slate-800"
                         >
-                          {tag}
+                          {interestTag}
                         </span>
                       ))}
                   </div>

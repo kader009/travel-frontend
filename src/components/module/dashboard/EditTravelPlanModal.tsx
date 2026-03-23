@@ -4,7 +4,8 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { planSchema, PlanFormValues } from '@/src/validation/travelPlan.validation';
+import { planSchema } from '@/src/validation/travelPlan.validation';
+import { PlanFormValues } from '@/src/types/forms';
 import { 
   X, 
   MapPin, 
@@ -23,12 +24,7 @@ import {
 import { toast } from 'sonner';
 import { useUpdateTravelPlanMutation } from '@/src/redux/store/api/endApi';
 import { ITravelPlan } from '@/src/types/travelPlan';
-
-interface EditTravelPlanModalProps {
-  plan: ITravelPlan | null;
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { EditTravelPlanModalProps } from '@/src/types/props';
 
 const EditTravelPlanModal: React.FC<EditTravelPlanModalProps> = ({ plan, isOpen, onClose }) => {
   const [updateTravelPlan, { isLoading }] = useUpdateTravelPlanMutation();

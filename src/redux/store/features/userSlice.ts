@@ -1,24 +1,8 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { IUser } from '@/src/types/user';
-
-interface LoginResponse {
-  user: IUser;
-  token: string;
-  refreshToken?: string;
-  name?: string | null | undefined;
-  email?: string | null;
-  image?: string | null;
-  role?: string;
-}
-
-interface AuthState {
-  user: IUser | null;
-  token: string | null;
-  refreshToken: string | null;
-  loading: boolean;
-  error: string | null;
-}
+import { AuthState, LoginResponse } from '@/src/types/auth';
+import { IApiResponse } from '@/src/types/dashboard';
 
 // Initial state (no localStorage used)
 const initialState: AuthState = {
@@ -29,16 +13,12 @@ const initialState: AuthState = {
   error: null,
 };
 
-// API Response interface
-interface ApiResponse {
-  success: boolean;
-  message?: string;
-  data: {
-    user: IUser;
-    accessToken: string;
-    refreshToken: string;
-  };
-}
+// API Response interface (specific to login)
+interface IAuthApiResponse extends IApiResponse<{
+  user: IUser;
+  accessToken: string;
+  refreshToken: string;
+}> {}
 
 // Async thunk for login
 export const loginUser = createAsyncThunk<
@@ -47,8 +27,8 @@ export const loginUser = createAsyncThunk<
   { rejectValue: string }
 >('user/login', async (credentials, { rejectWithValue }) => {
   try {
-    const response = await axios.post<ApiResponse>(
-      'https://travel-backend-phi-six.vercel.app/api/v1/auth/login',
+    const response = await axios.post<IAuthApiResponse>(
+      `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/auth/login`,
       credentials,
       {
         withCredentials: true,

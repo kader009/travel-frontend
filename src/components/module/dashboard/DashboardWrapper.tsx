@@ -7,11 +7,9 @@ import { RootState } from '@/src/redux/store/store';
 import DashboardSidebar from '@/src/components/module/dashboard/DashboardSidebar';
 import { Menu } from 'lucide-react';
 
-interface Props {
-  children: React.ReactNode;
-}
+import { DashboardWrapperProps } from '@/src/types/props';
 
-const DashboardWrapper = ({ children }: Props) => {
+const DashboardWrapper = ({ children }: DashboardWrapperProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user } = useSelector((state: RootState) => state.user);
   const router = useRouter();

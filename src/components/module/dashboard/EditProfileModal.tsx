@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { profileSchema, ProfileFormValues } from '@/src/validation/profile.validation';
+import { profileSchema } from '@/src/validation/profile.validation';
+import { ProfileFormValues } from '@/src/types/forms';
 import { 
   X, 
   User, 
@@ -22,11 +23,7 @@ import { updateUserDetails } from '@/src/redux/store/features/userSlice';
 import { useUpdateProfileMutation } from '@/src/redux/store/api/endApi';
 import { IUser } from '@/src/types/user';
 
-interface EditProfileModalProps {
-  user: IUser | null;
-  isOpen: boolean;
-  onClose: () => void;
-}
+import { EditProfileModalProps } from '@/src/types/props';
 
 const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClose }) => {
   const dispatch = useDispatch();

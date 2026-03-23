@@ -21,10 +21,8 @@ import { TUserRole } from '@/src/types/user';
 import { toast } from 'sonner';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-import {
-  registerSchema,
-  RegisterFormValues,
-} from '@/src/validation/register.validation';
+import { registerSchema } from '@/src/validation/register.validation';
+import { RegisterFormValues } from '@/src/types/forms';
 
 const RegisterView = () => {
   const [showPassword, setShowPassword] = useState(false);

@@ -47,8 +47,8 @@ const UserProfilePage = () => {
   const upcomingPlans = [...myPlans]
     .filter((plan) => new Date(plan.startDate) >= new Date())
     .sort(
-      (a, b) =>
-        new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
+      (planA, planB) =>
+        new Date(planA.startDate).getTime() - new Date(planB.startDate).getTime(),
     );
 
   const getReviewer = (review: IReview): IUser | null => {
@@ -281,21 +281,21 @@ const UserProfilePage = () => {
                   city: 'Dubai',
                   img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDO00sGwsR0QUl7MLmMO2KsRFQhudC5zkH5Uqu4R0ZHwaKMS76xDeyGkeZ5PDTCkiYizZMo7BM4ejBmgU2VLZTbGkW5S4PhCLFR_6pdOib4Kdh3IsUj1iTolAvJzFJYTkywQhBdhG1e8tB-BnoWN3nek1wuK0eidEV1RsmnFpPoc3LlzlpVh33iEYWRbvnFwRPWnOcWoUYuSpepwUxOZPZG0wP6Ul8SryJHo4GL3Ep1FBnB_D0LtM-BrT-Omh9kuT6u6QcBKwLx0g',
                 },
-              ].map((v) => (
+              ].map((visitedCity) => (
                 <div
-                  key={v.city}
+                  key={visitedCity.city}
                   className="flex flex-col gap-2 group cursor-pointer"
                 >
                   <div className="aspect-4/3 rounded-2xl overflow-hidden relative border border-slate-100 dark:border-slate-800 shadow-sm">
                     <Image
-                      alt={v.city}
+                      alt={visitedCity.city}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      src={v.img}
+                      src={visitedCity.img}
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
                     <span className="absolute bottom-2 left-3 text-white font-black text-[10px] tracking-widest uppercase">
-                      {v.country}
+                      {visitedCity.country}
                     </span>
                   </div>
                 </div>
@@ -312,11 +312,11 @@ const UserProfilePage = () => {
               </h3>
               {totalReviews > 0 && (
                 <div className="flex items-center gap-1 text-primary">
-                  {[1, 2, 3, 4, 5].map((i) => (
+                  {[1, 2, 3, 4, 5].map((starIndex) => (
                     <Star
-                      key={i}
+                      key={starIndex}
                       className={`size-3.5 ${
-                        i <= Math.round(averageRating)
+                        starIndex <= Math.round(averageRating)
                           ? 'fill-primary text-primary'
                           : 'text-slate-200 dark:text-slate-700'
                       }`}
@@ -368,11 +368,11 @@ const UserProfilePage = () => {
                           </p>
                         </div>
                         <div className="ml-auto flex gap-0.5 text-primary">
-                          {[1, 2, 3, 4, 5].map((i) => (
+                          {[1, 2, 3, 4, 5].map((starRating) => (
                             <Star
-                              key={i}
+                              key={starRating}
                               className={`size-3 ${
-                                i <= review.rating
+                                starRating <= review.rating
                                   ? 'fill-primary text-primary'
                                   : 'text-slate-200 dark:text-slate-700'
                               }`}

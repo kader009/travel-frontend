@@ -8,5 +8,3 @@ export const registerSchema = z.object({
   role: z.enum(['user', 'admin']),
 });
 
-export type RegisterFormValues = z.infer<typeof registerSchema>;
-
