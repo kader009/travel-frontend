@@ -243,19 +243,19 @@ const AdminReviewsPage = () => {
                       <div className="flex justify-between items-start mb-4">
                         <div className="flex gap-3 items-center">
                           <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden text-primary font-black text-sm">
-                            {(review.reviewerId as any)?.image ? (
+                            {(review.reviewer as any)?.image ? (
                               <img
-                                src={(review.reviewerId as any).image}
+                                src={(review.reviewer as any).image}
                                 alt="Reviewer"
                                 className="size-full object-cover"
                               />
                             ) : (
-                              (review.reviewerId as any)?.name?.charAt(0) || 'U'
+                              (review.reviewer as any)?.name?.charAt(0) || 'U'
                             )}
                           </div>
                           <div>
                             <h4 className="font-black text-slate-900 dark:text-white text-xs uppercase tracking-tight">
-                              {(review.reviewerId as any)?.name || 'Anonymous'}
+                              {(review.reviewer as any)?.name || 'Anonymous'}
                             </h4>
                             <div className="flex gap-0.5 mt-0.5">
                               {[...Array(5)].map((_, i) => (

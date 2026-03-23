@@ -52,8 +52,8 @@ const UserProfilePage = () => {
     );
 
   const getReviewer = (review: IReview): IUser | null => {
-    if (typeof review.reviewerId === 'string') return null;
-    return review.reviewerId;
+    if (typeof review.reviewer === 'string') return null;
+    return review.reviewer as IUser;
   };
 
   const getRelativeTime = (dateStr?: string) => {

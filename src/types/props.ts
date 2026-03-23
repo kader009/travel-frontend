@@ -27,7 +27,7 @@ export interface CreateTravelPlanModalProps {
 }
 
 export interface CreateReviewModalProps {
-  planId: string;
+  planId?: string;
   isOpen: boolean;
   onClose: () => void;
 }

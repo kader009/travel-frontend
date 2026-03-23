@@ -10,7 +10,8 @@ export type LoginFormValues = z.infer<typeof loginSchema>;
 export type PlanFormValues = z.infer<typeof planSchema>;
 
 export interface ReviewFormValues {
-  userId: string;
+  reviewee: string;
   rating: number;
   comment: string;
+  travelPlan: string;
 }

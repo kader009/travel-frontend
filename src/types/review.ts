@@ -2,11 +2,11 @@ import { IUser } from './user';
 
 export interface IReview {
   _id?: string;
-  reviewerId: string | IUser;
-  userId: string | IUser; // The user being reviewed
+  reviewer: string | IUser;
+  reviewee: string | IUser; // The user being reviewed
   rating: number;
   comment: string;
-  tripId?: string; // Optional: reference to a travel plan
+  travelPlan: string; // reference to a travel plan
   isDeleted?: boolean;
   createdAt?: string;
   updatedAt?: string;

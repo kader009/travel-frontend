@@ -14,12 +14,14 @@ import { baseApi } from './api/baseApi';
 import userReducer from '@/src/redux/store/features/userSlice';
 import loginReducer from '@/src/redux/store/features/loginSlice';
 import registerReducer from '@/src/redux/store/features/registerSlice';
+import reviewReducer from '@/src/redux/store/features/reviewSlice';
 
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
   user: userReducer,
   login: loginReducer,
   register: registerReducer,
+  review: reviewReducer,
 });
 
 const persistConfig = {
