@@ -22,7 +22,7 @@ const TravelApi = baseApi.injectEndpoints({
     }),
 
     login: build.mutation<
-      IApiResponse<{ user: IUser; token: string }>,
+      IApiResponse<{ user: IUser; accessToken: string; refreshToken: string }>,
       Partial<IUser>
     >({
       query: (userInfo) => ({
