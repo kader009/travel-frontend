@@ -21,16 +21,16 @@ const Hero = () => {
         <div className="absolute inset-0 bg-linear-to-t from-white via-transparent to-transparent dark:from-background-dark lg:hidden"></div>
       </div>
 
-      <Container className="relative z-10 py-12 sm:py-20 lg:py-24 order-2 lg:order-0">
+      <Container className="relative z-10 py-12 order-2 lg:order-0">
         <div className="max-w-2xl text-center lg:text-left">
-          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-black leading-[1.1] sm:leading-[0.95] tracking text-slate-900 dark:text-white mb-6 sm:mb-8">
+          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-black leading-[1.1] sm:leading-[0.95] tracking text-slate-900 dark:text-white mb-6">
             Find Your Perfect <br />
             <span className="bg-linear-to-r from-primary to-green-600 bg-clip-text text-transparent">
               Travel Buddy
             </span>
           </h1>
 
-          <p className="max-w-lg mx-auto lg:mx-0 text-lg sm:text-xl leading-relaxed text-slate-600 dark:text-slate-400 mb-8 sm:mb-10">
+          <p className="max-w-lg mx-auto lg:mx-0 text-lg sm:text-xl leading-relaxed text-slate-600 dark:text-slate-400 mb-8">
             Connect with like-minded adventurers, share experiences, and explore
             the world together. Your next great journey starts with the right
             companion.

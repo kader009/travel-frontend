@@ -5,7 +5,6 @@ import {
   Star,
   CreditCard,
   UserCircle,
-  BarChart3,
   Handshake,
 } from 'lucide-react';
 import { NavItem } from '../types/dashboard';
@@ -24,7 +23,7 @@ export const adminLinks: NavItem[] = [
   { href: '/dashboard/admin', label: 'Overview', icon: LayoutDashboard },
   { href: '/dashboard/admin/users', label: 'Manage Users', icon: Users },
   { href: '/dashboard/admin/travel-plans', label: 'Manage Travel Plans', icon: Map },
+  { href: '/dashboard/admin/join-requests', label: 'Join Requests', icon: Handshake },
   { href: '/dashboard/admin/reviews', label: 'Manage Reviews', icon: Star },
   { href: '/dashboard/admin/subscriptions', label: 'Subscriptions', icon: CreditCard },
-  { href: '/dashboard/admin/analytics', label: 'Analytics', icon: BarChart3 },
 ];

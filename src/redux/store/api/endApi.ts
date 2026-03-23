@@ -182,6 +182,31 @@ const TravelApi = baseApi.injectEndpoints({
       invalidatesTags: [{ type: 'TravelPlan', id: 'LIST' }],
     }),
 
+    getAllTravelPlansAdmin: build.query<IApiResponse<ITravelPlan[]>, void>({
+      query: () => ({
+        url: '/api/v1/travel-plans/admin/all',
+        method: 'GET',
+      }),
+      providesTags: (result) =>
+        result?.data
+          ? [
+              ...result.data.map(({ _id }) => ({
+                type: 'TravelPlan' as const,
+                id: _id,
+              })),
+              { type: 'TravelPlan', id: 'LIST' },
+            ]
+          : [{ type: 'TravelPlan', id: 'LIST' }],
+    }),
+
+    deleteTravelPlanAdmin: build.mutation<IApiResponse<ITravelPlan>, string>({
+      query: (id) => ({
+        url: `/api/v1/travel-plans/admin/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: [{ type: 'TravelPlan', id: 'LIST' }],
+    }),
+
     // --- REVIEWS ENDPOINTS ---
     getReviewsForUser: build.query<IApiResponse<IReviewResponse>, string>({
       query: (userId) => ({
@@ -321,6 +346,8 @@ export const {
   useCreateTravelPlanMutation,
   useUpdateTravelPlanMutation,
   useDeleteTravelPlanMutation,
+  useGetAllTravelPlansAdminQuery,
+  useDeleteTravelPlanAdminMutation,
   useGetReviewsForUserQuery,
   useGetReviewDetailsQuery,
   useCreateReviewMutation,

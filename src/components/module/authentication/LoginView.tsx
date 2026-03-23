@@ -46,7 +46,8 @@ const LoginView = () => {
     }
 
     if (res.data?.success) {
-      toast.success('Logged in successfully');
+      const userRole = res.data.data.user.role;
+      toast.success(`${userRole.charAt(0).toUpperCase() + userRole.slice(1)} logged in successfully`);
       dispatch(
         setUser({
           user: res.data.data.user,
