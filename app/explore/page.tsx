@@ -35,7 +35,11 @@ const ExplorePage = () => {
   const [endDate, setEndDate] = useState('');
   const [travelType, setTravelType] = useState('All');
 
-  const { data: plansData, isLoading, isError } = useGetMatchedTravelPlansQuery(searchParams);
+  const {
+    data: plansData,
+    isLoading,
+    isError,
+  } = useGetMatchedTravelPlansQuery(searchParams);
   const allPlans = (plansData?.data as ITravelPlan[]) || [];
 
   // Group plans by user to find unique travelers
@@ -44,9 +48,11 @@ const ExplorePage = () => {
   allPlans.forEach((plan) => {
     // We assume the API populates 'user' or 'userId' (as IUser) object.
     // Skip if user is missing, or if the plan has already ended.
-    const isPastPlan = plan.endDate ? new Date(plan.endDate) < new Date() : false;
+    const isPastPlan = plan.endDate
+      ? new Date(plan.endDate) < new Date()
+      : false;
     const userObj = plan.user;
-    
+
     if (userObj && userObj._id && !isPastPlan) {
       // Only add or update if it's the latest plan (upcoming)
       const existing = travelerMap.get(userObj._id);
@@ -105,7 +111,9 @@ const ExplorePage = () => {
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    onClick={(e) => (e.target as HTMLInputElement).showPicker?.()}
+                    onClick={(e) =>
+                      (e.target as HTMLInputElement).showPicker?.()
+                    }
                   />
                 </div>
               </div>
@@ -120,7 +128,9 @@ const ExplorePage = () => {
                     type="date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    onClick={(e) => (e.target as HTMLInputElement).showPicker?.()}
+                    onClick={(e) =>
+                      (e.target as HTMLInputElement).showPicker?.()
+                    }
                   />
                 </div>
               </div>
@@ -131,7 +141,7 @@ const ExplorePage = () => {
                 <span className="text-[10px] uppercase font-black text-slate-400 tracking-widest">
                   Travel Type
                 </span>
-                <select 
+                <select
                   className="w-full border-none focus:ring-0 bg-transparent p-0 text-slate-900 dark:text-white font-bold text-lg appearance-none cursor-pointer"
                   value={travelType}
                   onChange={(e) => setTravelType(e.target.value)}
@@ -146,7 +156,7 @@ const ExplorePage = () => {
               </div>
             </div>
             <div className="lg:w-auto p-1">
-              <button 
+              <button
                 onClick={() => {
                   const params: Record<string, string> = {};
                   if (destination) params.destination = destination;
@@ -240,29 +250,31 @@ const ExplorePage = () => {
                     </h3>
                     {/* Location field removed as per user request */}
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-bold line-clamp-2">
-                      &quot;
                       {user.bio ||
-                        'Explorer seeking new horizons and sharing global experiences.'}
-                      &quot;
+                        'Explorer seeking new horizons and sharing global experiences.'}{' '}
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {user.travelInterests?.slice(0, 3).map((interestTag, interestIndex) => (
-                      <span
-                        key={interestIndex}
-                        className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-[9px] font-black rounded-full uppercase tracking-widest border border-slate-100 dark:border-slate-800"
-                      >
-                        {interestTag}
-                      </span>
-                    )) ||
-                      ['Hiking', 'Photography'].map((interestTag, interestIndex) => (
+                    {user.travelInterests
+                      ?.slice(0, 3)
+                      .map((interestTag, interestIndex) => (
                         <span
                           key={interestIndex}
                           className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-[9px] font-black rounded-full uppercase tracking-widest border border-slate-100 dark:border-slate-800"
                         >
                           {interestTag}
                         </span>
-                      ))}
+                      )) ||
+                      ['Hiking', 'Photography'].map(
+                        (interestTag, interestIndex) => (
+                          <span
+                            key={interestIndex}
+                            className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-[9px] font-black rounded-full uppercase tracking-widest border border-slate-100 dark:border-slate-800"
+                          >
+                            {interestTag}
+                          </span>
+                        ),
+                      )}
                   </div>
                   <div className="mt-auto pt-5 border-t border-slate-50 dark:border-slate-800/50">
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">

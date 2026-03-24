@@ -216,6 +216,30 @@ const TravelApi = baseApi.injectEndpoints({
       providesTags: ['Review'],
     }),
 
+    getReviewsGiven: build.query<IApiResponse<IReview[]>, void>({
+      query: () => ({
+        url: '/api/v1/reviews/given',
+        method: 'GET',
+      }),
+      providesTags: ['Review'],
+    }),
+
+    getReviewsReceived: build.query<IApiResponse<IReview[]>, void>({
+      query: () => ({
+        url: '/api/v1/reviews/received',
+        method: 'GET',
+      }),
+      providesTags: ['Review'],
+    }),
+
+    getReviewsByUser: build.query<IApiResponse<IReview[]>, string>({
+      query: (userId) => ({
+        url: `/api/v1/reviews/reviewer/${userId}`,
+        method: 'GET',
+      }),
+      providesTags: ['Review'],
+    }),
+
     getReviewDetails: build.query<IApiResponse<IReview>, string>({
       query: (id) => ({
         url: `/api/v1/reviews/${id}`,
@@ -349,6 +373,9 @@ export const {
   useGetAllTravelPlansAdminQuery,
   useDeleteTravelPlanAdminMutation,
   useGetReviewsForUserQuery,
+  useGetReviewsGivenQuery,
+  useGetReviewsReceivedQuery,
+  useGetReviewsByUserQuery,
   useGetReviewDetailsQuery,
   useCreateReviewMutation,
   useUpdateReviewMutation,
