@@ -6,13 +6,13 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { planSchema } from '@/src/validation/travelPlan.validation';
 import { PlanFormValues } from '@/src/types/forms';
-import { 
-  X, 
-  MapPin, 
-  Calendar, 
-  Users, 
-  FileText, 
-  Image as ImageIcon, 
+import {
+  X,
+  MapPin,
+  Calendar,
+  Users,
+  FileText,
+  Image as ImageIcon,
   Trash2,
   Loader2,
   Navigation,
@@ -23,7 +23,10 @@ import { toast } from 'sonner';
 import { useCreateTravelPlanMutation } from '@/src/redux/store/api/endApi';
 import { CreateTravelPlanModalProps } from '@/src/types/props';
 
-const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({ isOpen, onClose }) => {
+const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({
+  isOpen,
+  onClose,
+}) => {
   const [createTravelPlan, { isLoading }] = useCreateTravelPlanMutation();
   const [newImageUrl, setNewImageUrl] = useState('');
   const [isFetchingCoords, setIsFetchingCoords] = useState(false);
@@ -35,7 +38,7 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({ isOpen, o
     watch,
     setValue,
     getValues,
-    formState: { errors }
+    formState: { errors },
   } = useForm<PlanFormValues>({
     resolver: zodResolver(planSchema),
     defaultValues: {
@@ -47,8 +50,8 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({ isOpen, o
       description: '',
       itinerary: '',
       coordinates: { lat: 0, lng: 0 },
-      images: []
-    }
+      images: [],
+    },
   });
 
   const images = watch('images') || [];
@@ -60,27 +63,33 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({ isOpen, o
         new URL(trimmed); // Validate URL
         setValue('images', [...images, trimmed]);
         setNewImageUrl('');
-      } catch (e) {
-        toast.error('Invalid image URL');
+      } catch (error: unknown) {
+        const err = error as Error;
+        toast.error(err.message || 'Invalid image URL');
       }
     }
   };
 
   const removeImage = (url: string) => {
-    setValue('images', images.filter(i => i !== url));
+    setValue(
+      'images',
+      images.filter((i) => i !== url),
+    );
   };
 
   const fetchCoords = async () => {
     const destination = getValues('destination');
     if (!destination || destination.trim().length < 3) {
-      toast.error('Please enter a valid destination name (at least 3 characters)');
+      toast.error(
+        'Please enter a valid destination name (at least 3 characters)',
+      );
       return;
     }
 
     setIsFetchingCoords(true);
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(destination)}&limit=1`
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(destination)}&limit=1`,
       );
       if (!response.ok) throw new Error('API request failed');
       const data = await response.json();
@@ -93,8 +102,9 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({ isOpen, o
       } else {
         toast.error('Could not find coordinates for this destination');
       }
-    } catch (error) {
-      toast.error('Error fetching data from map service');
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      toast.error(error?.message || 'Error fetching data from map service');
     } finally {
       setIsFetchingCoords(false);
     }
@@ -109,7 +119,9 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({ isOpen, o
         onClose();
       }
     } catch (error: unknown) {
-      const errorMessage = (error as { data?: { message?: string } })?.data?.message || 'Failed to create travel plan';
+      const errorMessage =
+        (error as { data?: { message?: string } })?.data?.message ||
+        'Failed to create travel plan';
       toast.error(errorMessage);
     }
   };
@@ -119,17 +131,16 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({ isOpen, o
   return (
     <div className="fixed inset-0 z-9999 flex items-center justify-center p-0 md:p-4">
       {/* Backdrop */}
-      <div 
+      <div
         className="fixed inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity duration-300"
         onClick={onClose}
       />
-      
+
       {/* Modal Content */}
       <div className="relative w-full max-w-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden bg-white dark:bg-slate-900 rounded-none md:rounded-[2.5rem] shadow-2xl border-none md:border md:border-white/20 dark:md:border-slate-800 animate-in fade-in zoom-in duration-300 transition-all flex flex-col">
-        
         {/* Header - Just Close Button */}
         <div className="sticky top-0 z-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl px-8 py-4 flex items-center justify-end shrink-0">
-          <button 
+          <button
             onClick={onClose}
             className="size-10 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center transition-all group cursor-pointer active:scale-90"
           >
@@ -139,197 +150,223 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({ isOpen, o
 
         {/* Scrollable Body */}
         <div className="overflow-y-auto p-8 custom-scrollbar">
-          <form id="create-plan-form" onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-              
-              {/* Destination Section */}
+          <form
+            id="create-plan-form"
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-8"
+          >
+            {/* Destination Section */}
+            <div className="space-y-2 group">
+              <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-primary transition-colors flex items-center gap-2">
+                <MapPin className="size-3.5" strokeWidth={3} /> Destination
+              </label>
+              <div className="relative">
+                <input
+                  {...register('destination')}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      fetchCoords();
+                    }
+                  }}
+                  placeholder="e.g. Cox's Bazar, Bangladesh"
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl pl-5 pr-14 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white"
+                />
+                <button
+                  type="button"
+                  onClick={fetchCoords}
+                  disabled={isFetchingCoords}
+                  title="Find Coordinates"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 size-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all cursor-pointer active:scale-90 disabled:opacity-50 z-10"
+                >
+                  {isFetchingCoords ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : (
+                    <Search className="size-4" strokeWidth={3} />
+                  )}
+                </button>
+              </div>
+              {errors.destination && (
+                <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">
+                  {errors.destination.message}
+                </p>
+              )}
+            </div>
+
+            {/* Dates & Budget Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2 group">
                 <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-primary transition-colors flex items-center gap-2">
-                  <MapPin className="size-3.5" strokeWidth={3} /> Destination
+                  <Calendar className="size-3.5" strokeWidth={3} /> Dates
                 </label>
-                <div className="relative">
+                <div className="grid grid-cols-2 gap-3">
                   <input
-                    {...register('destination')}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        e.preventDefault();
-                        fetchCoords();
-                      }
-                    }}
-                    placeholder="e.g. Cox's Bazar, Bangladesh"
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl pl-5 pr-14 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white"
+                    type="date"
+                    {...register('startDate')}
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
                   />
-                  <button
-                    type="button"
-                    onClick={fetchCoords}
-                    disabled={isFetchingCoords}
-                    title="Find Coordinates"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 size-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-slate-900 transition-all cursor-pointer active:scale-90 disabled:opacity-50 z-10"
-                  >
-                    {isFetchingCoords ? (
-                      <Loader2 className="size-4 animate-spin" />
-                    ) : (
-                      <Search className="size-4" strokeWidth={3} />
-                    )}
-                  </button>
-                </div>
-                {errors.destination && <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">{errors.destination.message}</p>}
-              </div>
-
-              {/* Dates & Budget Section */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2 group">
-                  <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-primary transition-colors flex items-center gap-2">
-                    <Calendar className="size-3.5" strokeWidth={3} /> Dates
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <input
-                      type="date"
-                      {...register('startDate')}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
-                    />
-                    <input
-                      type="date"
-                      {...register('endDate')}
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2 group">
-                  <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-primary transition-colors flex items-center gap-2">
-                    <DollarSign className="size-3.5" strokeWidth={3} /> Budget Range
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <input
-                      type="number"
-                      {...register('budget.min', { valueAsNumber: true })}
-                      placeholder="Min"
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
-                    />
-                    <input
-                      type="number"
-                      {...register('budget.max', { valueAsNumber: true })}
-                      placeholder="Max"
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Travel Type & Coordinates Section */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2 group">
-                  <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-primary transition-colors flex items-center gap-2">
-                    <Users className="size-3.5" strokeWidth={3} /> Travel Type
-                  </label>
-                  <select
-                    {...register('travelType')}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white appearance-none cursor-pointer"
-                  >
-                    <option value="Friends">Friends</option>
-                    <option value="Solo">Solo</option>
-                    <option value="Family">Family</option>
-                    <option value="Couple">Couple</option>
-                    <option value="Group">Group</option>
-                    <option value="Business">Business</option>
-                  </select>
-                </div>
-
-                <div className="space-y-2 group">
-                  <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
-                    <Navigation className="size-3.5" strokeWidth={3} /> Coordinates
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <input
-                      type="number"
-                      step="any"
-                      {...register('coordinates.lat', { valueAsNumber: true })}
-                      placeholder="Lat"
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
-                    />
-                    <input
-                      type="number"
-                      step="any"
-                      {...register('coordinates.lng', { valueAsNumber: true })}
-                      placeholder="Lng"
-                      className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Description & Itinerary Section */}
-              <div className="space-y-6">
-                <div className="space-y-2 group">
-                  <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-primary transition-colors flex items-center gap-2">
-                    <FileText className="size-3.5" strokeWidth={3} /> Description
-                  </label>
-                  <textarea
-                    {...register('description')}
-                    placeholder="Tell us about the plan..."
-                    rows={3}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white resize-none"
+                  <input
+                    type="date"
+                    {...register('endDate')}
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
                   />
-                  {errors.description && <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">{errors.description.message}</p>}
-                </div>
-
-                <div className="space-y-2 group">
-                  <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-primary transition-colors flex items-center gap-2">
-                    <FileText className="size-3.5" strokeWidth={3} /> Itinerary
-                  </label>
-                  <textarea
-                    {...register('itinerary')}
-                    placeholder="Day-by-day activities..."
-                    rows={4}
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white resize-none"
-                  />
-                  {errors.itinerary && <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">{errors.itinerary.message}</p>}
                 </div>
               </div>
 
-              {/* Images Section */}
-              <div className="space-y-4">
+              <div className="space-y-2 group">
+                <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-primary transition-colors flex items-center gap-2">
+                  <DollarSign className="size-3.5" strokeWidth={3} /> Budget
+                  Range
+                </label>
+                <div className="grid grid-cols-2 gap-3">
+                  <input
+                    type="number"
+                    {...register('budget.min', { valueAsNumber: true })}
+                    placeholder="Min"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
+                  />
+                  <input
+                    type="number"
+                    {...register('budget.max', { valueAsNumber: true })}
+                    placeholder="Max"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Travel Type & Coordinates Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2 group">
+                <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-primary transition-colors flex items-center gap-2">
+                  <Users className="size-3.5" strokeWidth={3} /> Travel Type
+                </label>
+                <select
+                  {...register('travelType')}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white appearance-none cursor-pointer"
+                >
+                  <option value="Friends">Friends</option>
+                  <option value="Solo">Solo</option>
+                  <option value="Family">Family</option>
+                  <option value="Couple">Couple</option>
+                  <option value="Group">Alone</option>
+                </select>
+              </div>
+
+              <div className="space-y-2 group">
                 <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
-                  <ImageIcon className="size-3.5" strokeWidth={3} /> Visual Memories (URLs)
+                  <Navigation className="size-3.5" strokeWidth={3} />{' '}
+                  Coordinates
                 </label>
-                <div className="flex flex-wrap gap-3 mb-4">
-                  {images.map((url, idx) => (
-                    <div key={idx} className="relative group shrink-0 size-20">
-                      <Image 
-                        src={url} 
-                        alt="Preview" 
-                        fill
-                        className="rounded-2xl object-cover border-2 border-slate-100 dark:border-slate-800 shadow-sm" 
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => removeImage(url)}
-                        className="absolute -top-1.5 -right-1.5 z-10 size-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
-                      >
-                        <Trash2 className="size-3" strokeWidth={3} />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex gap-2">
+                <div className="grid grid-cols-2 gap-3">
                   <input
-                    value={newImageUrl}
-                    onChange={(e) => setNewImageUrl(e.target.value)}
-                    onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addImage(); } }}
-                    placeholder="Paste image URL here..."
-                    className="flex-1 bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-3 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
+                    type="number"
+                    step="any"
+                    {...register('coordinates.lat', { valueAsNumber: true })}
+                    placeholder="Lat"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
                   />
-                  <button
-                    type="button"
-                    onClick={addImage}
-                    className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all cursor-pointer shadow-sm"
-                  >
-                    Append
-                  </button>
+                  <input
+                    type="number"
+                    step="any"
+                    {...register('coordinates.lng', { valueAsNumber: true })}
+                    placeholder="Lng"
+                    className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
+                  />
                 </div>
-                {errors.images && <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">{errors.images.message}</p>}
               </div>
-            </form>
+            </div>
+
+            {/* Description & Itinerary Section */}
+            <div className="space-y-6">
+              <div className="space-y-2 group">
+                <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-primary transition-colors flex items-center gap-2">
+                  <FileText className="size-3.5" strokeWidth={3} /> Description
+                </label>
+                <textarea
+                  {...register('description')}
+                  placeholder="Tell us about the plan..."
+                  rows={3}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white resize-none"
+                />
+                {errors.description && (
+                  <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">
+                    {errors.description.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="space-y-2 group">
+                <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-primary transition-colors flex items-center gap-2">
+                  <FileText className="size-3.5" strokeWidth={3} /> Itinerary
+                </label>
+                <textarea
+                  {...register('itinerary')}
+                  placeholder="Day-by-day activities..."
+                  rows={4}
+                  className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white resize-none"
+                />
+                {errors.itinerary && (
+                  <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">
+                    {errors.itinerary.message}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Images Section */}
+            <div className="space-y-4">
+              <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
+                <ImageIcon className="size-3.5" strokeWidth={3} /> Visual
+                Memories (URLs)
+              </label>
+              <div className="flex flex-wrap gap-3 mb-4">
+                {images.map((url, idx) => (
+                  <div key={idx} className="relative group shrink-0 size-20">
+                    <Image
+                      src={url}
+                      alt="Preview"
+                      fill
+                      className="rounded-2xl object-cover border-2 border-slate-100 dark:border-slate-800 shadow-sm"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => removeImage(url)}
+                      className="absolute -top-1.5 -right-1.5 z-10 size-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                    >
+                      <Trash2 className="size-3" strokeWidth={3} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <input
+                  value={newImageUrl}
+                  onChange={(e) => setNewImageUrl(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      addImage();
+                    }
+                  }}
+                  placeholder="Paste image URL here..."
+                  className="flex-1 bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-3 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
+                />
+                <button
+                  type="button"
+                  onClick={addImage}
+                  className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:opacity-90 active:scale-95 transition-all cursor-pointer shadow-sm"
+                >
+                  Append
+                </button>
+              </div>
+              {errors.images && (
+                <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">
+                  {errors.images.message}
+                </p>
+              )}
+            </div>
+          </form>
         </div>
 
         {/* Footer Actions */}
@@ -350,9 +387,7 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({ isOpen, o
             {isLoading ? (
               <Loader2 className="size-4 animate-spin" />
             ) : (
-              <>
-                Create Travel Plan
-              </>
+              <>Create Travel Plan</>
             )}
           </button>
         </div>

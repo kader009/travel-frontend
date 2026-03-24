@@ -12,7 +12,11 @@ import {
   Compass,
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { useCreateReviewMutation } from '@/src/redux/store/api/endApi';
+import {
+  useCreateReviewMutation,
+  useGetAllUsersQuery,
+  useGetAllTravelPlansQuery,
+} from '@/src/redux/store/api/endApi';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/src/redux/store/store';
 
@@ -25,6 +29,14 @@ const CreateReviewModal: React.FC<
   const { user: currentUser } = useSelector((state: RootState) => state.user);
   const [createReview, { isLoading }] = useCreateReviewMutation();
   const [hoverRating, setHoverRating] = useState(0);
+
+  // Fetch users and travel plans for selection
+  const { data: usersData } = useGetAllUsersQuery(undefined);
+  const { data: plansData } = useGetAllTravelPlansQuery(undefined);
+
+  const users = (usersData?.data as Array<{ _id: string; name: string }>) || [];
+  const plans =
+    (plansData?.data as Array<{ _id: string; destination: string }>) || [];
 
   const {
     register,
@@ -58,6 +70,20 @@ const CreateReviewModal: React.FC<
 
   const onSubmit = async (data: ReviewFormValues) => {
     if (!currentUser?._id) return;
+
+    // Validate required fields
+    if (!data.reviewee) {
+      toast.error('Please select a traveler');
+      return;
+    }
+    if (!data.travelPlan) {
+      toast.error('Please select an expedition');
+      return;
+    }
+    if (!data.comment || data.comment.trim().length < 5) {
+      toast.error('Comment must be at least 5 characters');
+      return;
+    }
 
     try {
       const result = await createReview({
@@ -108,13 +134,19 @@ const CreateReviewModal: React.FC<
           {/* Target User ID */}
           <div className="space-y-2 group">
             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
-              <User className="size-3" /> Traveler ID
+              <User className="size-3" /> Select Traveler
             </label>
-            <input
-              {...register('reviewee', { required: 'Traveler ID is required' })}
-              placeholder="Paste the unique ID of the traveler..."
+            <select
+              {...register('reviewee', { required: 'Traveler is required' })}
               className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
-            />
+            >
+              <option value="">Choose a traveler...</option>
+              {users.map((user) => (
+                <option key={user._id} value={user._id}>
+                  {user.name}
+                </option>
+              ))}
+            </select>
             {errors.reviewee && (
               <p className="text-[10px] font-black text-rose-500 uppercase tracking-tight pl-2">
                 {errors.reviewee.message}
@@ -125,15 +157,21 @@ const CreateReviewModal: React.FC<
           {/* Travel Plan ID */}
           <div className="space-y-2 group">
             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
-              <Compass className="size-3" /> Expedition ID
+              <Compass className="size-3" /> Select Expedition
             </label>
-            <input
+            <select
               {...register('travelPlan', {
-                required: 'Expedition ID is required',
+                required: 'Expedition is required',
               })}
-              placeholder="Paste the travel plan/expedition ID..."
               className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
-            />
+            >
+              <option value="">Choose an expedition...</option>
+              {plans.map((plan) => (
+                <option key={plan._id} value={plan._id}>
+                  {plan.destination}
+                </option>
+              ))}
+            </select>
             {errors.travelPlan && (
               <p className="text-[10px] font-black text-rose-500 uppercase tracking-tight pl-2">
                 {errors.travelPlan.message}

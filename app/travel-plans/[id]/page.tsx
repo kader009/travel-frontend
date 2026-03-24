@@ -13,10 +13,10 @@ import { useParams, useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/src/redux/store/store';
 import { toast } from 'sonner';
-import { 
-  setRating, 
-  setComment, 
-  resetReview 
+import {
+  setRating,
+  setComment,
+  resetReview,
 } from '@/src/redux/store/features/reviewSlice';
 import {
   DollarSign,
@@ -40,9 +40,11 @@ const TravelPlanDetails = () => {
   const router = useRouter();
   const id = params.id as string;
   const { user: currentUser } = useSelector((state: RootState) => state.user);
-  const { rating: reviewRating, comment: reviewComment } = useSelector((state: RootState) => state.review);
+  const { rating: reviewRating, comment: reviewComment } = useSelector(
+    (state: RootState) => state.review,
+  );
   const dispatch = useDispatch();
-  
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [requestMessage, setRequestMessage] = useState('');
 
@@ -132,25 +134,45 @@ const TravelPlanDetails = () => {
 
   const handleSubmitReview = async () => {
     if (!currentUser) {
-      toast.error('Identity required', { description: 'Sign in to review travelers.' });
+      toast.error('Identity required', {
+        description: 'Sign in to review travelers.',
+      });
       return;
     }
     if (reviewComment.trim().length < 10) {
-      toast.error('Evaluation required', { description: 'Your debriefing must be at least 10 characters long.' });
+      toast.error('Evaluation required', {
+        description: 'Your debriefing must be at least 10 characters long.',
+      });
+      return;
+    }
+
+    // Get reviewee ID - try multiple field names
+    const revieweeId =
+      typeof trip?.user === 'string'
+        ? trip.user
+        : trip?.user?._id || trip?.userId;
+
+    if (!revieweeId) {
+      toast.error('Travel plan creator not found', {
+        description:
+          'Unable to identify the traveler. Please refresh and try again.',
+      });
       return;
     }
 
     try {
       const response = await createReview({
         reviewer: currentUser?._id as string,
-        reviewee: trip?.user?._id as string,
+        reviewee: revieweeId as string,
         rating: reviewRating,
         comment: reviewComment.trim(),
-        travelPlan: id
+        travelPlan: id,
       }).unwrap();
 
       if (response.success) {
-        toast.success('Review Transmitted', { description: 'Your feedback has been recorded.' });
+        toast.success('Review Transmitted', {
+          description: 'Your feedback has been recorded.',
+        });
         dispatch(resetReview());
       }
     } catch (err: unknown) {
@@ -479,14 +501,14 @@ const TravelPlanDetails = () => {
             </section>
           </div>
         </div>
-        
+
         {/* Review Section */}
         <section className="mt-20 max-w-4xl mx-auto w-full">
           <div className="bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 p-10 lg:p-16 shadow-sm hover:shadow-2xl transition-all">
             <h3 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-10">
               Transmit Evaluation
             </h3>
-            
+
             <div className="space-y-10">
               {/* Rating Component */}
               <div className="space-y-4">

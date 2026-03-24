@@ -47,8 +47,9 @@ const AdminReviewsPage = () => {
   const [updateReview, { isLoading: isUpdating }] = useUpdateReviewMutation();
 
   const users = (usersData?.data as IUser[]) || [];
-  const reviews = reviewsData?.data?.reviews || [];
-  const averageRating = reviewsData?.data?.averageRating || 0;
+  const reviews = Array.isArray(reviewsData?.data) ? reviewsData.data : [];
+  const averageRating =
+    (reviewsData as unknown as { averageRating?: number })?.averageRating || 0;
 
   // Filter users for selection
   const filteredUsers = users.filter(
@@ -272,20 +273,20 @@ const AdminReviewsPage = () => {
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => handleEditClick(review)}
-                            className="p-2 text-slate-300 hover:text-primary hover:bg-primary/10 rounded-lg transition-all"
+                            className="p-2 text-slate-300 hover:text-primary hover:bg-primary/10 rounded-lg transition-all cursor-pointer"
                           >
                             <Pencil className="size-3.5" />
                           </button>
                           <button
                             onClick={() => handleDelete(review._id || '')}
-                            className="p-2 text-slate-300 hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition-all"
+                            className="p-2 text-slate-300 hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition-all cursor-pointer"
                           >
                             <Trash2 className="size-3.5" />
                           </button>
                         </div>
                       </div>
-                      <p className="text-xs text-slate-600 dark:text-slate-400 font-bold leading-relaxed italic">
-                        &quot;{review.comment}&quot;
+                      <p className="text-xs text-slate-600 dark:text-slate-400 font-bold leading-relaxed">
+                        {review.comment}
                       </p>
                     </div>
                   ))
