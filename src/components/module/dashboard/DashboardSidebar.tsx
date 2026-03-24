@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -63,8 +64,6 @@ const DashboardSidebar = ({ open, onClose }: DashboardSidebarProps) => {
           </button>
         </div>
 
-
-
         {/* Nav Links */}
         <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
           {links.map(({ href, label, icon: Icon }) => {
@@ -95,16 +94,25 @@ const DashboardSidebar = ({ open, onClose }: DashboardSidebarProps) => {
             <div className="flex items-center gap-3 px-4 py-3 mb-2 rounded-xl bg-slate-50 dark:bg-slate-800">
               <div className="size-9 rounded-full bg-primary/20 flex items-center justify-center shrink-0 overflow-hidden">
                 {user.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={user.image} alt={user.name} className="size-9 object-cover rounded-full" />
+                  <Image
+                    src={user.image}
+                    alt={user.name}
+                    width={36}
+                    height={36}
+                    className="size-9 object-cover rounded-full"
+                  />
                 ) : (
                   <UserCircle className="size-5 text-primary" />
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-bold text-slate-900 dark:text-white truncate">{user.name}</p>
+                <p className="text-sm font-bold text-slate-900 dark:text-white truncate">
+                  {user.name}
+                </p>
                 <div className="flex items-center gap-2">
-                  <p className="text-[10px] text-slate-400 truncate max-w-[100px]">{user.email}</p>
+                  <p className="text-[10px] text-slate-400 truncate max-w-25">
+                    {user.email}
+                  </p>
                   <span className="text-[9px] font-black uppercase tracking-tighter bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded leading-none shrink-0 border border-slate-300 dark:border-slate-600">
                     {user.role}
                   </span>

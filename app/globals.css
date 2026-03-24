@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+/* Import Swiper styles */
+@import 'swiper/css';
+@import 'swiper/css/pagination';
+
 @theme {
   --color-primary: #99e600;
   --color-secondary: #d8f999;
@@ -7,7 +11,7 @@
   --color-background-light: #f7f8f5;
   --color-background-dark: #121609;
   --color-text-light: #0f172a; /* slate-900 */
-  --color-text-dark: #f8fafc;  /* slate-50 */
+  --color-text-dark: #f8fafc; /* slate-50 */
 }
 
 :root {
@@ -46,4 +50,3 @@ body {
     color: var(--text-dark);
   }
 }
-

@@ -383,7 +383,7 @@ const TravelPlanDetails = () => {
                   {trip.images.slice(1).map((img, i) => (
                     <div
                       key={i}
-                      className="group relative rounded-[3rem] overflow-hidden aspect-square md:aspect-auto md:h-[400px] border-8 border-white dark:border-slate-800 shadow-2xl"
+                      className="group relative rounded-[3rem] overflow-hidden aspect-square md:aspect-auto md:h-100 border-8 border-white dark:border-slate-800 shadow-2xl"
                     >
                       <Image
                         fill
@@ -544,7 +544,7 @@ const TravelPlanDetails = () => {
                 <textarea
                   value={reviewComment}
                   onChange={(e) => dispatch(setComment(e.target.value))}
-                  className="w-full rounded-3xl border-2 border-slate-50 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 p-6 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-lg font-bold placeholder:text-slate-400 dark:placeholder:text-slate-600 resize-none min-h-[200px]"
+                  className="w-full rounded-3xl border-2 border-slate-50 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 p-6 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-lg font-bold placeholder:text-slate-400 dark:placeholder:text-slate-600 resize-none min-h-50"
                   placeholder={`Tell others about your mission experience with ${trip?.user?.name || 'this traveler'}...`}
                 />
               </div>

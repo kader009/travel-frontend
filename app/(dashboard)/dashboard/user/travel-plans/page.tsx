@@ -60,7 +60,7 @@ const UserTravelPlansPage = () => {
         <div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight">My Travel Plans</h1>
           <div className="flex items-center gap-2 mt-1">
-            <span className="text-slate-500 dark:text-slate-400 text-sm font-bold truncate max-w-[200px] sm:max-w-none">Manage your upcoming and past adventures.</span>
+            <span className="text-slate-500 dark:text-slate-400 text-sm font-bold truncate max-w-50 sm:max-w-none">Manage your upcoming and past adventures.</span>
             {!isLoading && !isError && (
               <span className="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-black rounded-md shrink-0">{plans.length} Logs</span>
             )}

@@ -13,7 +13,6 @@ export const userLinks: NavItem[] = [
   { href: '/dashboard/user', label: 'Overview', icon: LayoutDashboard },
   { href: '/dashboard/user/profile', label: 'My Profile', icon: UserCircle },
   { href: '/dashboard/user/travel-plans', label: 'My Travel Plans', icon: Map },
-  { href: '/dashboard/user/matches', label: 'Matched Travelers', icon: Users },
   { href: '/dashboard/user/reviews', label: 'My Reviews', icon: Star },
   { href: '/dashboard/user/join-requests', label: 'Join Requests', icon: Handshake },
   { href: '/dashboard/user/subscription', label: 'Subscription', icon: CreditCard },

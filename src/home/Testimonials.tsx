@@ -7,10 +7,6 @@ import { Quote } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-
 const testimonials = [
   {
     id: 1,
@@ -69,7 +65,7 @@ const Testimonials = () => {
               modules={[Autoplay, Pagination]}
               spaceBetween={30}
               slidesPerView={1}
-              autoplay={{ delay: 4000, disableOnInteraction: false }}
+              autoplay={{ delay: 5000, disableOnInteraction: false }}
               onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
               className="testimonial-swiper p-6! -m-6"
             >
