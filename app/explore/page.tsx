@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Container from '@/src/components/ui/Container';
-import { useGetMatchedTravelPlansQuery } from '@/src/redux/store/api/endApi';
+import { useGetAllTravelPlansQuery } from '@/src/redux/store/api/endApi';
 import { ITravelPlan } from '@/src/types/travelPlan';
 import { IUser } from '@/src/types/user';
 import {
@@ -18,42 +18,54 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 
-const interests = [
-  'All Travelers',
-  'Hiking',
-  'Food Photography',
-  'Backpacking',
-  'Luxury Stay',
-  'Surfing',
-  'Digital Nomad',
-];
-
 const ExplorePage = () => {
-  const [searchParams, setSearchParams] = useState<Record<string, string>>({});
   const [destination, setDestination] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [travelType, setTravelType] = useState('All');
 
+  // Fetch all travel plans
   const {
     data: plansData,
     isLoading,
     isError,
-  } = useGetMatchedTravelPlansQuery(searchParams);
-  const allPlans = (plansData?.data as ITravelPlan[]) || [];
+  } = useGetAllTravelPlansQuery(undefined);
+
+  let allPlans = (plansData?.data as ITravelPlan[]) || [];
+
+  // Apply client-side filters
+  if (destination || startDate || endDate || travelType !== 'All') {
+    allPlans = allPlans.filter((plan) => {
+      const matchDestination =
+        !destination ||
+        plan.destination.toLowerCase().includes(destination.toLowerCase());
+
+      const matchStartDate =
+        !startDate || new Date(plan.startDate) >= new Date(startDate);
+
+      const matchEndDate =
+        !endDate || new Date(plan.endDate) <= new Date(endDate);
+
+      const matchTravelType =
+        travelType === 'All' || plan.travelType === travelType;
+
+      return (
+        matchDestination && matchStartDate && matchEndDate && matchTravelType
+      );
+    });
+  }
 
   // Group plans by user to find unique travelers
   const travelerMap = new Map<string, { user: IUser; nextPlan: ITravelPlan }>();
 
   allPlans.forEach((plan) => {
-    // We assume the API populates 'user' or 'userId' (as IUser) object.
     // Skip if user is missing, or if the plan has already ended.
     const isPastPlan = plan.endDate
       ? new Date(plan.endDate) < new Date()
       : false;
     const userObj = plan.user;
 
-    if (userObj && userObj._id && !isPastPlan) {
+    if (userObj && typeof userObj !== 'string' && userObj._id && !isPastPlan) {
       // Only add or update if it's the latest plan (upcoming)
       const existing = travelerMap.get(userObj._id);
       if (
@@ -66,6 +78,10 @@ const ExplorePage = () => {
   });
 
   const travelers = Array.from(travelerMap.values());
+
+  console.log('All Plans:', allPlans.length);
+  console.log('Travelers:', travelers.length);
+  console.log('Travelers data:', travelers);
 
   return (
     <main className="min-h-screen bg-background-light dark:bg-background-dark py-10">
@@ -157,31 +173,13 @@ const ExplorePage = () => {
             </div>
             <div className="lg:w-auto p-1">
               <button
-                onClick={() => {
-                  const params: Record<string, string> = {};
-                  if (destination) params.destination = destination;
-                  if (startDate) params.startDate = startDate;
-                  if (endDate) params.endDate = endDate;
-                  if (travelType !== 'All') params.travelType = travelType;
-                  setSearchParams(params);
-                }}
+                type="button"
                 className="w-full lg:w-16 h-16 bg-slate-900 dark:bg-primary text-white dark:text-slate-900 rounded-xl flex items-center justify-center transition-all group cursor-pointer hover:scale-105 active:scale-95"
+                title="Search filters apply automatically"
               >
                 <Search className="w-6 h-6 group-hover:scale-110 transition-transform" />
               </button>
             </div>
-          </div>
-
-          {/* Quick Interest Tags */}
-          <div className="flex flex-wrap gap-3 mt-8 overflow-x-auto pb-4 custom-scrollbar">
-            {interests.map((interest, interestIndex) => (
-              <span
-                key={interestIndex}
-                className={`px-5 py-2.5 rounded-full text-[10px] uppercase tracking-widest font-black transition-all cursor-pointer shadow-xs ${interest === 'All Travelers' ? 'bg-primary text-slate-900' : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-primary hover:text-primary'}`}
-              >
-                {interest}
-              </span>
-            ))}
           </div>
         </div>
 

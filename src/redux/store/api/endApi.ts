@@ -73,7 +73,7 @@ const TravelApi = baseApi.injectEndpoints({
 
     getAllTravelPlans: build.query<IApiResponse<ITravelPlan[]>, void>({
       query: () => ({
-        url: '/api/v1/travel-plans',
+        url: '/api/v1/travel-plans?populate=user',
         method: 'GET',
       }),
       providesTags: (result) =>
