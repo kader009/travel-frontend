@@ -79,10 +79,6 @@ const ExplorePage = () => {
 
   const travelers = Array.from(travelerMap.values());
 
-  console.log('All Plans:', allPlans.length);
-  console.log('Travelers:', travelers.length);
-  console.log('Travelers data:', travelers);
-
   return (
     <main className="min-h-screen bg-background-light dark:bg-background-dark py-10">
       <Container>

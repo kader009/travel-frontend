@@ -48,8 +48,18 @@ const UserProfilePage = () => {
     .filter((plan) => new Date(plan.startDate) >= new Date())
     .sort(
       (planA, planB) =>
-        new Date(planA.startDate).getTime() - new Date(planB.startDate).getTime(),
+        new Date(planA.startDate).getTime() -
+        new Date(planB.startDate).getTime(),
     );
+
+  // Get completed plans for "Recently Visited"
+  const completedPlans = [...myPlans]
+    .filter((plan) => new Date(plan.endDate) < new Date())
+    .sort(
+      (planA, planB) =>
+        new Date(planB.endDate).getTime() - new Date(planA.endDate).getTime(),
+    )
+    .slice(0, 4); // Show last 4 completed trips
 
   const getReviewer = (review: IReview): IUser | null => {
     if (typeof review.reviewer === 'string') return null;
@@ -259,48 +269,44 @@ const UserProfilePage = () => {
               <Globe className="size-5 text-primary" strokeWidth={3} /> Recently
               Visited
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-1">
-              {[
-                {
-                  country: 'France',
-                  city: 'Paris',
-                  img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBIumrjc8oHIR8cO1JC3rnv_3jtcwd5yveCB4bDRXRo8VJCN3t2wZ6iWkVfegcBs-5pP1vvMnkQ2AdaBXb05j7WFKJEL96KYfjRyvRtZ5pfJylnURsBV_ZFFBg81PbG4KCjEr8yFFPimDNKrFBgwfo271OJ1fr0RQfKAGlJEgRoJ7OArVgecEvGuByOwgM3tqLpaN2OOsdtoAcg4fVrLnKD-Fg7OD7Js5ODW-laO-1KmX5bbU-IopW8k97jpcYZi-yN_XnJcWJ6-A',
-                },
-                {
-                  country: 'Indonesia',
-                  city: 'Bali',
-                  img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAueTz_dARtS6902OuK9QQpK_lGbb3zIrfTILehiK8F1qrliZiKubw7MqxSHk4N532jwarcvCFtaSDMIV6N2mxiGyLtBmvoLUG7eU69UdaSVD9bNfiqog9r9uvDvPVDEdpCpsfMOOlUN_n0Fg-CwM3n47GADEh3VME3whNJAiBQ-kpEOp1WtT7hij56PoelY1P2grsUyccQTEyL6LrU6yv4rQ2dRWf6F-6Hi9dhVtfHEzkwKKTm9ZQU--f8posH_hE9H--2_HXxRA',
-                },
-                {
-                  country: 'Morocco',
-                  city: 'Marrakech',
-                  img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBc0j0PM54YjRwX0Sgx1Qecdu2Dj0g5XmCQii5hyRXsC0V3gNCY6gSNSrYsNnWcXLtv-ZY71KEoSkrgbaa3gd1tZ-qq3ar8yEVKYZpQTKeermxqbt88N9veF4iOWcb_PuGlkrV4-vQl_wmJxPC4gi_v3mM5yYA8WeCbFsk8AytQyJUoHmg6u9fAIRjoT0Nuxc2RhM4LXLLG9RRLYWvwtBaz0VToI4qc55OW2gL_bK-phS1uF41kM8tivk6EbtqzXuaCUWOkzadhMA',
-                },
-                {
-                  country: 'UAE',
-                  city: 'Dubai',
-                  img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDO00sGwsR0QUl7MLmMO2KsRFQhudC5zkH5Uqu4R0ZHwaKMS76xDeyGkeZ5PDTCkiYizZMo7BM4ejBmgU2VLZTbGkW5S4PhCLFR_6pdOib4Kdh3IsUj1iTolAvJzFJYTkywQhBdhG1e8tB-BnoWN3nek1wuK0eidEV1RsmnFpPoc3LlzlpVh33iEYWRbvnFwRPWnOcWoUYuSpepwUxOZPZG0wP6Ul8SryJHo4GL3Ep1FBnB_D0LtM-BrT-Omh9kuT6u6QcBKwLx0g',
-                },
-              ].map((visitedCity) => (
-                <div
-                  key={visitedCity.city}
-                  className="flex flex-col gap-2 group cursor-pointer"
-                >
-                  <div className="aspect-4/3 rounded-2xl overflow-hidden relative border border-slate-100 dark:border-slate-800 shadow-sm">
-                    <Image
-                      alt={visitedCity.city}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                      src={visitedCity.img}
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
-                    <span className="absolute bottom-2 left-3 text-white font-black text-[10px] tracking-widest uppercase">
-                      {visitedCity.country}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {completedPlans.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-1">
+                {completedPlans.map((plan) => (
+                  <Link
+                    key={plan._id}
+                    href={`/travel-plans/${plan._id}`}
+                    className="flex flex-col gap-2 group cursor-pointer"
+                  >
+                    <div className="aspect-4/3 rounded-2xl overflow-hidden relative border border-slate-100 dark:border-slate-800 shadow-sm">
+                      <Image
+                        alt={plan.destination}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        src={
+                          plan.images?.[0] ||
+                          'https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=2070&auto=format&fit=crop'
+                        }
+                      />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                      <span className="absolute bottom-2 left-3 text-white font-black text-[10px] tracking-widest uppercase">
+                        {plan.destination}
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="py-16 flex flex-col items-center text-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 border-dashed px-1">
+                <Compass className="size-12 text-slate-200 dark:text-slate-800 mb-4" />
+                <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight">
+                  No Completed Trips Yet
+                </h4>
+                <p className="text-slate-500 font-bold mt-2 max-w-xs">
+                  Your visited destinations will appear here once you complete a
+                  journey.
+                </p>
+              </div>
+            )}
           </section>
 
           {/* Dynamic Reviews Section */}
