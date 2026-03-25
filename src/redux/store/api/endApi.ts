@@ -240,6 +240,18 @@ const TravelApi = baseApi.injectEndpoints({
       providesTags: ['Review'],
     }),
 
+    getLatestReviews: build.query<IApiResponse<IReview[]>, { limit?: number }>({
+      query: (params) => {
+        const queryParams = new URLSearchParams();
+        if (params.limit) queryParams.append('limit', params.limit.toString());
+        return {
+          url: `/api/v1/reviews/latest?${queryParams.toString()}`,
+          method: 'GET',
+        };
+      },
+      providesTags: ['Review'],
+    }),
+
     getReviewsGiven: build.query<IApiResponse<IReview[]>, void>({
       query: () => ({
         url: '/api/v1/reviews/given',
@@ -398,6 +410,7 @@ export const {
   useDeleteTravelPlanAdminMutation,
   useGetReviewsForUserQuery,
   useGetAllReviewStatsQuery,
+  useGetLatestReviewsQuery,
   useGetReviewsGivenQuery,
   useGetReviewsReceivedQuery,
   useGetReviewsByUserQuery,

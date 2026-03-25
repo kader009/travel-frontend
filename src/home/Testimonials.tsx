@@ -3,39 +3,50 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Container from '../components/ui/Container';
-import { Quote } from 'lucide-react';
+import { Quote, Loader2 } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from 'swiper/modules';
-
-const testimonials = [
-  {
-    id: 1,
-    text: "I was nervous about solo traveling to Vietnam, but I found Sarah through TravelBuddy. We spent 3 weeks exploring together and now we're planning our next trip to Iceland! Best decision ever.",
-    author: 'Lisa K.',
-    role: 'Explorer from Canada',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAgvuEi-gwVHx-LkT2B57zZIbhbFRNXyGGLBGHP9WvwIb414-NSJkxIdQgVODcgLWROYzpRGk0GcB7Udp4nyrZ4YXRi10CqGyXSH0jtEpI5EYcybyUt-3qVKm0J0frIUe26G6u_hEgJGAnRjj2HFV7a1mZVK_jMMhDwlpLqwRqlQtaArdukDTfdBfCW1O82G8P2H13RXeZGgj7epx7_PfieNR460UKIrSTnqgazZ8C6mT98m0BIpFAS3zLpa5tgAGAk0O9tWSUOyA',
-  },
-  {
-    id: 2,
-    text: "Finding hiking partners used to be a challenge. Now, I simply post my itinerary and connect with people who share my pace. It's made my mountain adventures much safer and more fun!",
-    author: 'David M.',
-    role: 'Hiker from Germany',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuAyeUHWAZbVhr03u3r3BEi8bZSVFqkuUdidxVChoAlnh00Zt6T21j6jnOWAlBxNdnxw72UPqwWPAkG0i1hCe8Vzn5jB_MMrrCo2P98TZDjeoCfzltJavewa1NnBcqCHn71vuBz3u8wKJZk5mRgyAdhuAazP04xsU5zjB286lJpI-RFLUfjXiqmISf7EBJwmKuA5N80MXcoyu5af7ijEIkOcO87zWDezVFTgMyM6cDEGTVfWmgOyepgIwn1YgTBWKGd6_XKrim1FYQ',
-  },
-  {
-    id: 3,
-    text: "Architecture trips are best when shared. I met three fellow enthusiasts through the community, and we did a marvelous tour of Kyoto's temples together. Life-long memories made.",
-    author: 'Yuki T.',
-    role: 'Artist from Japan',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBUcz1MN26gRU_lhwtVAiqHMer0-9QVGSpW3c4EkzaiNtp0uMzvPxqFZu4mjXtgdYs5JQYiLIkDEvIQ6vmyrQzZ3DUHrzRfxnolK5N4PBAuDOd_wlwDNhmdDArTktIT_3Uw2JfWhU3Nr8yhcAWALK8Tlq0zdZexFCygRIyTwBIRA0fTKZT1GE8X7bJwyffaeeKi7uOQEPcpdm9IMQ1c6zpUbNJfm-b_14pf4fsNXUF9ieQ-TD9F55pYNzslRNFIWtfr3f5ICLx8oQ',
-  },
-];
+import { useGetLatestReviewsQuery } from '@/src/redux/store/api/endApi';
+import { IReview } from '@/src/types/review';
 
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const { data: reviewsData, isLoading } = useGetLatestReviewsQuery({
+    limit: 3,
+  });
+
+  const testimonials = (reviewsData?.data || []).map((review: IReview) => {
+    const destination =
+      typeof review.travelPlan === 'string'
+        ? 'Somewhere'
+        : review.travelPlan?.destination || 'Somewhere';
+    return {
+      id: review._id,
+      text: review.comment,
+      author:
+        typeof review.reviewer === 'string'
+          ? 'Anonymous'
+          : review.reviewer?.name || 'Anonymous',
+      role: `Traveled to ${destination}`,
+      image:
+        typeof review.reviewer === 'string'
+          ? 'https://api.dicebear.com/7.x/avataaars/svg?seed=user'
+          : review.reviewer?.image ||
+            'https://api.dicebear.com/7.x/avataaars/svg?seed=user',
+    };
+  });
+
+  if (isLoading) {
+    return (
+      <section className="py-12">
+        <Container>
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="size-8 animate-spin text-primary" />
+          </div>
+        </Container>
+      </section>
+    );
+  }
 
   return (
     <section className="py-12">

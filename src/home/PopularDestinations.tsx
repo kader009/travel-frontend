@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import Container from '../components/ui/Container';
 import { Users, Loader2 } from 'lucide-react';
 import { useGetAllTravelPlansQuery } from '@/src/redux/store/api/endApi';
+import { ITravelPlan } from '@/src/types/travelPlan';
 
 const PopularDestinations = () => {
   const { data: plansData, isLoading } = useGetAllTravelPlansQuery(undefined);
@@ -12,10 +13,7 @@ const PopularDestinations = () => {
   const destinations = useMemo(() => {
     if (!plansData?.data) return [];
 
-    const plans = plansData.data as Array<{
-      destination: string;
-      images?: string[];
-    }>;
+    const plans = plansData.data as ITravelPlan[];
 
     // Group by destination and count
     const destinationMap = new Map<string, { count: number; image?: string }>();

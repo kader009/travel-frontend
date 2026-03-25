@@ -12,11 +12,15 @@ const TopRatedTravelers = () => {
   // Get top 3 rated travelers
   const topTravelers = (reviewStatsData?.data || [])
     .filter((stat) => stat.averageRating > 0)
-    .sort((a, b) => {
-      if (b.averageRating !== a.averageRating) {
-        return b.averageRating - a.averageRating;
+    .sort((currentTravelerStat, nextTravelerStat) => {
+      if (
+        nextTravelerStat.averageRating !== currentTravelerStat.averageRating
+      ) {
+        return (
+          nextTravelerStat.averageRating - currentTravelerStat.averageRating
+        );
       }
-      return b.totalReviews - a.totalReviews;
+      return nextTravelerStat.totalReviews - currentTravelerStat.totalReviews;
     })
     .slice(0, 3);
 
@@ -75,7 +79,9 @@ const TopRatedTravelers = () => {
                     {traveler.totalReviews === 1 ? 'review' : 'reviews'})
                   </span>
                 </div>
-                <p className="text-sm text-slate-500 mt-1">{traveler.user.email}</p>
+                <p className="text-sm text-slate-500 mt-1">
+                  {traveler.user.email}
+                </p>
               </div>
             </div>
           ))}
