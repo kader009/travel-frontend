@@ -216,6 +216,30 @@ const TravelApi = baseApi.injectEndpoints({
       providesTags: ['Review'],
     }),
 
+    getAllReviewStats: build.query<
+      IApiResponse<
+        Array<{
+          user: IUser;
+          totalReviews: number;
+          averageRating: number;
+          ratingBreakdown: {
+            five: number;
+            four: number;
+            three: number;
+            two: number;
+            one: number;
+          };
+        }>
+      >,
+      void
+    >({
+      query: () => ({
+        url: '/api/v1/reviews/all-stats',
+        method: 'GET',
+      }),
+      providesTags: ['Review'],
+    }),
+
     getReviewsGiven: build.query<IApiResponse<IReview[]>, void>({
       query: () => ({
         url: '/api/v1/reviews/given',
@@ -373,6 +397,7 @@ export const {
   useGetAllTravelPlansAdminQuery,
   useDeleteTravelPlanAdminMutation,
   useGetReviewsForUserQuery,
+  useGetAllReviewStatsQuery,
   useGetReviewsGivenQuery,
   useGetReviewsReceivedQuery,
   useGetReviewsByUserQuery,
