@@ -1,10 +1,17 @@
 export interface IPaymentInitRequest {
-  plan: 'basic' | 'premium' | 'enterprise';
+  planType: 'monthly' | 'yearly';
   amount?: number;
+  successUrl?: string;
+  failUrl?: string;
+  cancelUrl?: string;
 }
 
 export interface IPaymentInitResponse {
-  paymentUrl: string;
+  success: boolean;
+  data: {
+    GatewayPageURL: string;
+    tranId: string;
+  };
 }
 
 export interface IPaymentHistory {
@@ -12,17 +19,16 @@ export interface IPaymentHistory {
   transactionId: string;
   amount: number;
   currency: string;
-  status: 'PENDING' | 'VALID' | 'FAILED' | 'CANCELLED';
-  plan: string;
+  status: 'pending' | 'paid' | 'failed' | 'cancelled';
+  planType: 'monthly' | 'yearly';
   createdAt: string;
 }
 
 export interface IPaymentAnalytics {
   totalEarnings: number;
   planBreakdown: {
-    basic: number;
-    premium: number;
-    enterprise: number;
+    monthly: number;
+    yearly: number;
   };
   monthlyGrowth: number;
 }

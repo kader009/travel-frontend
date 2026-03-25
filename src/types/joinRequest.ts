@@ -5,7 +5,8 @@ export type TJoinRequestStatus = 'pending' | 'approved' | 'rejected';
 
 export interface IJoinRequest {
   _id: string;
-  user?: IUser;
+  requester: IUser; // The user who sent the join request
+  user?: IUser; // Legacy field (optional)
   travelPlan: string | ITravelPlan;
   message: string;
   status: TJoinRequestStatus;
