@@ -6,10 +6,7 @@ export interface IPaymentInitRequest {
   cancelUrl?: string;
 }
 
-export interface IPaymentInitResponse {
-  GatewayPageURL: string;
-  tranId: string;
-}
+export type IPaymentInitResponse = string;
 
 export interface IPaymentHistory {
   _id: string;
@@ -21,11 +18,30 @@ export interface IPaymentHistory {
   createdAt: string;
 }
 
+export interface IPlanBreakdown {
+  _id: 'monthly' | 'yearly';
+  count: number;
+  totalEarned: number;
+}
+
+export interface IRecentPayment {
+  _id: string;
+  transactionId: string;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+    image?: string;
+  };
+  planType: 'monthly' | 'yearly';
+  amount: number;
+  currency: string;
+  status: 'pending' | 'paid' | 'failed' | 'cancelled';
+  createdAt: string;
+}
+
 export interface IPaymentAnalytics {
   totalEarnings: number;
-  planBreakdown: {
-    monthly: number;
-    yearly: number;
-  };
-  monthlyGrowth: number;
+  planBreakdown: IPlanBreakdown[];
+  recentPayments: IRecentPayment[];
 }

@@ -105,7 +105,7 @@ const AdminOverviewPage = () => {
       recentUsers,
       popularDestinations,
       totalRevenue: analytics?.totalEarnings || 0,
-      revenueGrowth: (analytics?.monthlyGrowth || 0).toFixed(1),
+      revenueGrowth: "0.0",
       chartData: monthlyActivityData
     };
   }, [usersData, plansData, analytics]);

@@ -34,8 +34,8 @@ const SubscriptionPage = () => {
         failUrl: `${baseUrl}/payment/fail`,
         cancelUrl: `${baseUrl}/payment/cancel`,
       }).unwrap();
-      if (res.success && res.data?.GatewayPageURL) {
-        window.location.assign(res.data.GatewayPageURL); // Redirect to SSLCommerz
+      if (res.success && res.data && typeof res.data === 'string') {
+        window.location.assign(res.data); // Redirect to SSLCommerz
       }
     } catch (err: unknown) {
       const error = err as { data?: { message?: string } };
