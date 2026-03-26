@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import {
   X,
   Star,
@@ -43,7 +43,7 @@ const CreateReviewModal: React.FC<
     handleSubmit,
     reset,
     setValue,
-    watch,
+    control,
     formState: { errors },
   } = useForm<ReviewFormValues>({
     defaultValues: {
@@ -66,7 +66,7 @@ const CreateReviewModal: React.FC<
     }
   }, [isOpen, planId, reset]);
 
-  const rating = watch('rating');
+  const rating = useWatch({ control, name: 'rating' });
 
   const onSubmit = async (data: ReviewFormValues) => {
     if (!currentUser?._id) return;

@@ -23,7 +23,6 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useUpdateTravelPlanMutation } from '@/src/redux/store/api/endApi';
-import { ITravelPlan } from '@/src/types/travelPlan';
 import { EditTravelPlanModalProps } from '@/src/types/props';
 
 const EditTravelPlanModal: React.FC<EditTravelPlanModalProps> = ({ plan, isOpen, onClose }) => {
@@ -79,7 +78,7 @@ const EditTravelPlanModal: React.FC<EditTravelPlanModalProps> = ({ plan, isOpen,
         new URL(trimmed); // Validate URL
         setValue('images', [...images, trimmed]);
         setNewImageUrl('');
-      } catch (e) {
+      } catch {
         toast.error('Invalid image URL');
       }
     }
@@ -112,7 +111,7 @@ const EditTravelPlanModal: React.FC<EditTravelPlanModalProps> = ({ plan, isOpen,
       } else {
         toast.error('Could not find coordinates for this destination');
       }
-    } catch (error) {
+    } catch {
       toast.error('Error fetching data from map service');
     } finally {
       setIsFetchingCoords(false);

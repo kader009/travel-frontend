@@ -2,11 +2,9 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { ITravelPlan } from '@/src/types/travelPlan';
 import { 
   MapPin, 
   Calendar, 
-  Users, 
   Navigation, 
   DollarSign, 
   FileText,

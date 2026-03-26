@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { profileSchema } from '@/src/validation/profile.validation';
 import { ProfileFormValues } from '@/src/types/forms';
@@ -35,7 +35,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
     register,
     handleSubmit,
     reset,
-    watch,
+    control,
     setValue,
     formState: { errors }
   } = useForm<ProfileFormValues>({
@@ -54,8 +54,8 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
     }
   });
 
-  const travelInterests = watch('travelInterests') || [];
-  const visitedCountries = watch('visitedCountries') || [];
+  const travelInterests = useWatch({ control, name: 'travelInterests' }) || [];
+  const visitedCountries = useWatch({ control, name: 'visitedCountries' }) || [];
 
   useEffect(() => {
     if (user && isOpen) {

@@ -7,11 +7,8 @@ export interface IPaymentInitRequest {
 }
 
 export interface IPaymentInitResponse {
-  success: boolean;
-  data: {
-    GatewayPageURL: string;
-    tranId: string;
-  };
+  GatewayPageURL: string;
+  tranId: string;
 }
 
 export interface IPaymentHistory {

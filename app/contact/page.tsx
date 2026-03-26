@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import {
   AtSign,
-  ChevronDown,
   Compass,
   Globe,
   Headset,

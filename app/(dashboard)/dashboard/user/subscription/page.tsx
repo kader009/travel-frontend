@@ -5,7 +5,6 @@ import {
   Check,
   CreditCard,
   History,
-  Zap,
   Crown,
   ShieldCheck,
   ArrowRight,

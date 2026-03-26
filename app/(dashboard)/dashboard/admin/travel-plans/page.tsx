@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import {
   useGetAllTravelPlansAdminQuery,
   useDeleteTravelPlanAdminMutation,
@@ -233,10 +234,11 @@ const AdminTravelPlansPage = () => {
                       <div className="flex items-center gap-4">
                         <div className="size-11 rounded-xl bg-primary/10 flex items-center justify-center overflow-hidden border border-slate-100 dark:border-slate-800 group-hover:border-primary/20 transition-all shrink-0">
                           {plan.images && plan.images[0] ? (
-                            <img
+                            <Image
                               src={plan.images[0]}
                               alt={plan.destination}
-                              className="size-full object-cover"
+                              fill
+                              className="object-cover"
                             />
                           ) : (
                             <Map className="size-5 text-primary opacity-60" />

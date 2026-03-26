@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import {
   CheckCircle,
@@ -13,14 +12,12 @@ import {
 import { useGetPaymentHistoryQuery } from '@/src/redux/store/api/endApi';
 
 const PaymentSuccessPage = () => {
-  const searchParams = useSearchParams();
-  const tranId = searchParams.get('tran_id') || searchParams.get('tranId');
   const [isVerifying, setIsVerifying] = useState(true);
   const [paymentStatus, setPaymentStatus] = useState<
     'verifying' | 'paid' | 'pending' | 'failed'
   >('verifying');
 
-  const { data: historyData, refetch } = useGetPaymentHistoryQuery();
+  const { refetch } = useGetPaymentHistoryQuery();
 
   useEffect(() => {
     // Verify payment status by checking payment history
@@ -192,7 +189,7 @@ const PaymentSuccessPage = () => {
 
           <div className="bg-amber-50 dark:bg-amber-500/10 border-2 border-amber-200 dark:border-amber-500/30 rounded-3xl p-4">
             <p className="text-[11px] font-bold text-amber-800 dark:text-amber-300 uppercase tracking-widest">
-              ⚠️ Please don't close or refresh this page. Status is being
+              ⚠️ Please don&apos;t close or refresh this page. Status is being
               verified...
             </p>
           </div>
@@ -213,7 +210,7 @@ const PaymentSuccessPage = () => {
           </div>
 
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-            We'll keep checking...
+            We&apos;ll keep checking...
           </p>
         </div>
       </div>

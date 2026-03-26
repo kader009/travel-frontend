@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/src/redux/store/store';
+import Image from 'next/image';
 import { useGetAllUsersQuery, useDeleteUserMutation, useUpdateUserMutation } from '@/src/redux/store/api/endApi';
-import { Users, Mail, Shield, UserCircle, Loader2, Search, Pencil, Trash2, AlertTriangle, X, Camera, Check } from 'lucide-react';
+import { Mail, Shield, UserCircle, Loader2, Search, Pencil, Trash2, AlertTriangle, X, Camera, Check } from 'lucide-react';
 import { toast } from 'sonner';
 import { IUser, TUserRole } from '@/src/types/user';
 
@@ -174,7 +175,7 @@ const ManageUsersPage = () => {
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-4">
                         <div className="size-11 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden border border-slate-100 dark:border-slate-800 group-hover:border-primary/20 transition-all shrink-0">
-                          {user.image ? <img src={user.image} alt={user.name} className="size-full object-cover" /> : <UserCircle className="size-6 text-primary opacity-60" />}
+                          {user.image ? <Image src={user.image} alt={user.name} fill className="object-cover" /> : <UserCircle className="size-6 text-primary opacity-60" />}
                         </div>
                         <p className="font-black text-slate-900 dark:text-white text-sm tracking-tight truncate max-w-[150px]">{user.name}</p>
                       </div>
@@ -234,7 +235,7 @@ const ManageUsersPage = () => {
                 <div className="relative group">
                   <div className="size-24 rounded-full overflow-hidden border-4 border-slate-50 dark:border-slate-800 shadow-md">
                     {editForm.image ? (
-                      <img src={editForm.image} alt="Preview" className="size-full object-cover" />
+                      <Image src={editForm.image} alt="Preview" fill className="object-cover" />
                     ) : (
                       <div className="size-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
                         <UserCircle className="size-10" />

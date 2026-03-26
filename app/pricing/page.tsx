@@ -1,5 +1,4 @@
 import {
-  Activity,
   CalendarCheck,
   CheckCircle2,
   CreditCard,
