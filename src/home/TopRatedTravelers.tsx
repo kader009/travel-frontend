@@ -56,7 +56,7 @@ const TopRatedTravelers = () => {
           {topTravelers.map((traveler) => (
             <div
               key={traveler.user._id}
-              className="flex items-center gap-4 rounded-xl border border-slate-100 bg-white p-6 shadow-xs transition-shadow hover:shadow-sm dark:border-slate-800 dark:bg-background-dark"
+              className="flex items-center gap-4 rounded-2xl border border-slate-100 bg-white p-6 shadow-xs transition-shadow hover:shadow-sm dark:border-slate-800 dark:bg-background-dark"
             >
               <div className="relative h-20 w-20 shrink-0">
                 <Image

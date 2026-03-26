@@ -38,7 +38,7 @@ const PopularDestinations = () => {
         ...data,
       }))
       .sort((destA, destB) => destB.count - destA.count)
-      .slice(0, 8); // Top 8 destinations
+      .slice(0, 8);
 
     return sorted;
   }, [plansData]);
@@ -72,7 +72,7 @@ const PopularDestinations = () => {
           {destinations.map((dest, idx) => (
             <div
               key={idx}
-              className="group relative aspect-3/4 overflow-hidden rounded-xl shadow-xs"
+              className="group relative aspect-3/4 overflow-hidden rounded-2xl shadow-xs"
             >
               <Image
                 fill

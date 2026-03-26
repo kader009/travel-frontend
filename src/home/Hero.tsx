@@ -61,7 +61,7 @@ const Hero = () => {
               <p className="text-lg font-black">Patagonia Trekking</p>
             </div>
             <div className="ml-4 rounded-full bg-primary px-3 py-1 text-[10px] font-black uppercase text-background-dark">
-              4 Days Left
+              Upcoming plan
             </div>
           </div>
         </div>
