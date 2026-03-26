@@ -86,12 +86,6 @@ const Navbar = () => {
           >
             Explore Travelers
           </Link>
-          <Link
-            className="text-sm font-semibold hover:text-primary transition-colors whitespace-nowrap"
-            href="/pricing"
-          >
-            Pricing
-          </Link>
         </nav>
 
         {/* Auth Actions */}

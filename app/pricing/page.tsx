@@ -11,10 +11,63 @@ import {
   UserCheck,
   Wallet,
   Zap,
+  Crown
 } from 'lucide-react';
+import Link from 'next/link';
 import Container from '@/src/components/ui/Container';
 
 const PricingPage = () => {
+  const plans = [
+    {
+      id: 'free',
+      name: 'Free',
+      price: '0',
+      currency: 'BDT',
+      icon: UserCheck,
+      features: [
+        'Basic member profile',
+        'Join public meetups',
+        'View trip calendars',
+      ],
+      color: 'slate',
+      period: 'per month',
+      popular: false,
+    },
+    {
+      id: 'monthly',
+      name: 'Premium Monthly',
+      price: '499',
+      currency: 'BDT',
+      icon: CalendarCheck,
+      features: [
+        'Full access for 1 month',
+        'Verified traveler badge',
+        'Unlimited connections',
+        'Priority support',
+      ],
+      color: 'blue',
+      period: 'per month',
+      popular: false,
+    },
+    {
+      id: 'yearly',
+      name: 'Premium Yearly',
+      price: '4999',
+      currency: 'BDT',
+      icon: Crown,
+      features: [
+        'Full year access',
+        'Verified traveler badge',
+        'Unlimited connections',
+        'Priority support',
+        'Best value - Save 17%',
+      ],
+      color: 'primary',
+      popular: true,
+      period: 'per year',
+    },
+  ];
+
   return (
     <main className="py-12">
       <Container>
@@ -31,118 +84,72 @@ const PricingPage = () => {
           </div>
 
           {/* Pricing Cards */}
-          <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-8 items-stretch md:grid-cols-3">
-            {/* Free Plan */}
-            <div className="flex flex-col gap-8 rounded-xl border border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 hover:shadow-md transition-shadow shadow-xs">
-              <div className="flex flex-col gap-2">
-                <h3 className="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-widest">
-                  Free
-                </h3>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-slate-900 dark:text-slate-100 text-5xl font-black leading-tight tracking-tighter">
-                    $0
+          <div className="mx-auto grid w-full max-w-6xl grid-cols-1 md:grid-cols-3 gap-8 items-stretch pt-4">
+            {plans.map((plan) => (
+              <div
+                key={plan.id}
+                className={`relative group bg-white dark:bg-slate-900 rounded-[3rem] border-2 transition-all p-10 flex flex-col ${
+                  plan.popular
+                    ? 'border-primary ring-4 ring-primary/5 shadow-2xl scale-105 z-10'
+                    : 'border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm'
+                }`}
+              >
+                {plan.popular && (
+                  <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-slate-900 px-6 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl">
+                    Most Popular
                   </span>
-                  <span className="text-slate-500 text-lg font-bold">/mo</span>
-                </div>
-                <p className="text-slate-600 dark:text-slate-400 text-sm">
-                  Perfect for beginners exploring the community.
-                </p>
-              </div>
-              <button className="flex w-full cursor-pointer items-center justify-center rounded-full h-12 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-                Get Started
-              </button>
-              <div className="flex flex-col gap-4">
-                <div className="flex gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary" />
-                  Basic member profile
-                </div>
-                <div className="flex gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary" />
-                  Join public meetups
-                </div>
-                <div className="flex gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
-                  <CheckCircle2 className="w-5 h-5 text-primary" />
-                  View trip calendars
-                </div>
-              </div>
-            </div>
+                )}
 
-            {/* Premium Monthly */}
-            <div className="flex flex-col gap-8 rounded-xl border-2 border-primary bg-secondary p-8 shadow-xs relative scale-105 z-10">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full">
-                Most Popular
-              </div>
-              <div className="flex flex-col gap-2">
-                <h3 className="text-slate-800 text-sm font-bold uppercase tracking-widest">
-                  Premium Monthly
-                </h3>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-slate-900 text-5xl font-black leading-tight tracking-tighter">
-                    $14.99
-                  </span>
-                  <span className="text-slate-700 text-lg font-bold">/mo</span>
+                <div
+                  className={`size-16 rounded-4xl flex items-center justify-center mb-8 ${
+                    plan.popular
+                      ? 'bg-primary/10 text-primary'
+                      : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
+                  }`}
+                >
+                  <plan.icon className="size-8" strokeWidth={2.5} />
                 </div>
-                <p className="text-slate-800 text-sm font-medium">
-                  Unlock full power and priority networking.
-                </p>
-              </div>
-              <button className="flex w-full cursor-pointer items-center justify-center rounded-full h-12 bg-primary text-slate-900 text-sm font-bold hover:brightness-95 shadow-xs shadow-primary/20 transition-all">
-                Upgrade Now
-              </button>
-              <div className="flex flex-col gap-4">
-                <div className="flex gap-3 text-sm font-bold text-slate-900">
-                  <ShieldCheck className="w-5 h-5 text-slate-900" />
-                  Verified Member Badge
-                </div>
-                <div className="flex gap-3 text-sm font-bold text-slate-900">
-                  <MessageCircle className="w-5 h-5 text-slate-900" />
-                  Unlimited Direct Messages
-                </div>
-                <div className="flex gap-3 text-sm font-bold text-slate-900">
-                  <Zap className="w-5 h-5 text-slate-900" />
-                  Priority Matching
-                </div>
-                <div className="flex gap-3 text-sm font-bold text-slate-900">
-                  <UserCheck className="w-5 h-5 text-slate-900" />
-                  Incognito browsing
-                </div>
-              </div>
-            </div>
 
-            {/* Premium Yearly */}
-            <div className="flex flex-col gap-8 rounded-xl border border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 hover:shadow-md transition-shadow shadow-xs">
-              <div className="flex flex-col gap-2">
-                <h3 className="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-widest">
-                  Premium Yearly
+                <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2">
+                  {plan.name}
                 </h3>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-slate-900 dark:text-slate-100 text-5xl font-black leading-tight tracking-tighter">
-                    $9.99
+                <div className="flex items-baseline gap-1 mb-8">
+                  <span className="text-4xl font-black text-slate-900 dark:text-white">
+                    {plan.price === '0' ? 'Free' : `৳${plan.price}`}
                   </span>
-                  <span className="text-slate-500 text-lg font-bold">/mo</span>
+                  {plan.price !== '0' && (
+                    <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">
+                      {plan.period}
+                    </span>
+                  )}
                 </div>
-                <p className="text-slate-600 dark:text-slate-400 text-sm">
-                  Best for frequent travelers. Save 33% yearly.
-                </p>
+
+                <ul className="space-y-4 mb-10 grow">
+                  {plan.features.map((feature, i) => (
+                    <li
+                      key={i}
+                      className="flex items-center gap-3 text-sm font-bold text-slate-600 dark:text-slate-400"
+                    >
+                      <div className="size-5 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0">
+                        <CheckCircle2 className="size-3" strokeWidth={4} />
+                      </div>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  href="/login"
+                  className={`w-full py-5 rounded-3xl font-black text-[11px] uppercase tracking-[0.2em] transition-all active:scale-95 flex items-center justify-center gap-2 border-none cursor-pointer ${
+                    plan.popular
+                      ? 'bg-primary text-slate-900 shadow-xl shadow-primary/20 hover:shadow-primary/40'
+                      : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90'
+                  }`}
+                >
+                  Get Started
+                </Link>
               </div>
-              <button className="flex w-full cursor-pointer items-center justify-center rounded-full h-12 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-                Get Started
-              </button>
-              <div className="flex flex-col gap-4">
-                <div className="flex gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
-                  <Star className="w-5 h-5 text-primary" />
-                  All Premium Features
-                </div>
-                <div className="flex gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
-                  <Gift className="w-5 h-5 text-primary" />
-                  Exclusive Partner Discounts
-                </div>
-                <div className="flex gap-3 text-sm font-medium text-slate-700 dark:text-slate-300">
-                  <CalendarCheck className="w-5 h-5 text-primary" />
-                  VIP Invitations to Global Events
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
 
           {/* Feature Comparison */}
