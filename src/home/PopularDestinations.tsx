@@ -75,8 +75,7 @@ const PopularDestinations = () => {
               className="group relative aspect-3/4 overflow-hidden rounded-2xl shadow-xs"
             >
               <Image
-                width={400}
-                height={500}
+                fill
                 alt={dest.destination}
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
                 src={

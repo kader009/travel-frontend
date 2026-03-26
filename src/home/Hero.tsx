@@ -12,7 +12,7 @@ const Hero = () => {
           alt="Two diverse travelers looking at a stunning mountain lake during golden hour"
           className="object-cover"
           fill
-          src="/hero-travel.png"
+          src="/hero-travel.webp"
           loading='lazy'
         />
         {/* Desktop Gradient Overlay */}
