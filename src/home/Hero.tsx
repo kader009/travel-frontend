@@ -12,8 +12,8 @@ const Hero = () => {
           alt="Two diverse travelers looking at a stunning mountain lake during golden hour"
           className="object-cover"
           fill
-          priority
           src="/hero-travel.png"
+          loading='lazy'
         />
         {/* Desktop Gradient Overlay */}
         <div className="absolute inset-0 bg-linear-to-r from-white via-white/50 to-transparent dark:from-background-dark dark:via-background-dark/50 hidden lg:block"></div>

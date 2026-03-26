@@ -75,13 +75,15 @@ const PopularDestinations = () => {
               className="group relative aspect-3/4 overflow-hidden rounded-2xl shadow-xs"
             >
               <Image
-                fill
+                width={400}
+                height={500}
                 alt={dest.destination}
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
                 src={
                   dest.image ||
                   'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=500&h=700&fit=crop'
                 }
+                loading='lazy'
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent"></div>
               <div className="absolute bottom-0 p-6 text-white">
