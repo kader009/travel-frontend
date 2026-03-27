@@ -79,7 +79,7 @@ const PlanRequests = ({
   };
 
   return (
-    <div className="space-y-4 max-w-2xl mx-auto px-4">
+    <div className="space-y-6 w-full">
       {/* Plan Header */}
       <div className="flex items-center gap-3 px-2">
         <div className="size-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
@@ -108,12 +108,12 @@ const PlanRequests = ({
       {requests.map((req: IJoinRequest) => (
         <div
           key={req._id}
-          className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-3xl flex flex-col gap-5 group hover:border-primary/20 transition-all shadow-sm w-full"
+          className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-4xl flex flex-col md:flex-row items-start md:items-center gap-6 group hover:border-primary/20 transition-all shadow-sm w-full"
         >
-          {/* Plan Image */}
-          {planImage && (
-            <div className="flex items-center gap-4">
-              <div className="size-16 rounded-2xl bg-slate-100 dark:bg-slate-800 shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
+          {/* Plan & User Images */}
+          <div className="flex items-center gap-3 shrink-0">
+            {planImage && (
+              <div className="size-16 rounded-2xl bg-slate-50 dark:bg-slate-800 shrink-0 overflow-hidden relative border border-slate-100 dark:border-slate-800">
                 <Image
                   src={planImage}
                   alt={planName}
@@ -121,25 +121,8 @@ const PlanRequests = ({
                   className="object-cover"
                 />
               </div>
-              {/* User Avatar */}
-              <div className="size-16 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
-                {req.requester?.image ? (
-                  <Image
-                    src={req.requester.image}
-                    alt={req.requester?.name || 'User'}
-                    fill
-                    className="object-cover"
-                  />
-                ) : (
-                  <span className="text-xl font-black text-slate-300 dark:text-slate-600">
-                    {req.requester?.name?.charAt(0)?.toUpperCase() || '?'}
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
-          {!planImage && (
-            <div className="size-16 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
+            )}
+            <div className="size-16 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-100 dark:border-slate-800">
               {req.requester?.image ? (
                 <Image
                   src={req.requester.image}
@@ -153,36 +136,31 @@ const PlanRequests = ({
                 </span>
               )}
             </div>
-          )}
+          </div>
 
           {/* Info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <h4 className="font-black text-slate-900 dark:text-white tracking-tight truncate">
+              <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight truncate">
                 {req.requester?.name || 'Unknown Traveler'}
               </h4>
               <ChevronRight className="size-4 text-slate-300 shrink-0" />
             </div>
-            {req.requester?.email && (
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">
-                {req.requester.email}
-              </p>
-            )}
             {req.message && (
               <p className="text-slate-500 dark:text-slate-400 text-xs font-bold line-clamp-2 italic">
-                &quot;{req.message}
+                &quot;{req.message}&quot;
               </p>
             )}
           </div>
 
           {/* Status Badge & Actions */}
-          <div className="flex flex-col gap-3 w-full">
+          <div className="flex flex-col gap-3 w-full md:w-auto md:min-w-[200px]">
             {req.status === 'pending' ? (
               <div className="flex gap-3 w-full">
                 <button
                   onClick={() => handleAction(req._id, 'approve')}
                   disabled={processingId === req._id}
-                  className="flex-1 px-5 py-3 bg-emerald-500 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-emerald-600 active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2"
+                  className="flex-1 px-6 py-3 bg-emerald-500 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-emerald-600 active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20"
                 >
                   {processingId === req._id ? (
                     <Loader2 className="size-3.5 animate-spin" />
@@ -194,7 +172,7 @@ const PlanRequests = ({
                 <button
                   onClick={() => handleAction(req._id, 'reject')}
                   disabled={processingId === req._id}
-                  className="flex-1 px-5 py-3 bg-rose-500 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-rose-600 active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2"
+                  className="flex-1 px-6 py-3 bg-rose-500 text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-rose-600 active:scale-95 transition-all disabled:opacity-50 disabled:pointer-events-none cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-rose-500/20"
                 >
                   {processingId === req._id ? (
                     <Loader2 className="size-3.5 animate-spin" />
@@ -206,16 +184,16 @@ const PlanRequests = ({
               </div>
             ) : (
               <div
-                className={`px-4 py-2.5 rounded-full flex items-center justify-center gap-2 border ${
+                className={`px-6 py-2.5 rounded-full flex items-center justify-center gap-2 border w-full md:w-auto ${
                   req.status === 'approved'
                     ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500'
                     : 'bg-rose-500/10 border-rose-500/20 text-rose-500'
                 }`}
               >
                 {req.status === 'approved' ? (
-                  <CheckCircle2 className="size-3.5" />
+                  <CheckCircle2 className="size-3.5" strokeWidth={3} />
                 ) : (
-                  <XCircle className="size-3.5" />
+                  <XCircle className="size-3.5" strokeWidth={3} />
                 )}
                 <span className="text-[10px] font-black uppercase tracking-widest">
                   {req.status}

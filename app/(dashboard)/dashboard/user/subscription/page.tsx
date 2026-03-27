@@ -190,10 +190,9 @@ const SubscriptionPage = () => {
                 </p>
                 <p className="text-sm font-black text-slate-900 dark:text-white leading-none">
                   ৳
-                  {historyData?.data?.reduce(
-                    (acc, curr) => acc + curr.amount,
-                    0,
-                  ) || 0}
+                  {historyData?.data
+                    ?.filter((tx) => tx.status === 'paid')
+                    .reduce((acc, curr) => acc + curr.amount, 0) || 0}
                 </p>
               </div>
             </div>

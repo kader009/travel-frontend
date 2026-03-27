@@ -15,11 +15,14 @@ import {
   ArrowRight,
   Compass,
   Loader2,
+  Globe,
+  Map as MapIcon,
 } from 'lucide-react';
 import Link from 'next/link';
 import {
   useGetMyTravelPlansQuery,
   useGetMatchedTravelPlansQuery,
+  useGetAllTravelPlansQuery,
 } from '@/src/redux/store/api/endApi';
 import { ITravelPlan } from '@/src/types/travelPlan';
 import { useMemo } from 'react';
@@ -72,9 +75,9 @@ const UserOverviewPage = () => {
       // Skip if it's current user or already added
       if (userId !== user?._id && !uniqueTravelers.has(userId)) {
         // Calculate deterministic match percentage based on user ID
-        const hashCode = (userId || '').split('').reduce((a, b) => {
-          a = (a << 5) - a + b.charCodeAt(0);
-          return a & a;
+        const hashCode = (userId || '').split('').reduce((hash, char) => {
+          hash = (hash << 5) - hash + char.charCodeAt(0);
+          return hash & hash;
         }, 0);
         const matchPercentage = Math.abs(hashCode % 30) + 70;
 
@@ -91,6 +94,41 @@ const UserOverviewPage = () => {
     return Array.from(uniqueTravelers.values()).slice(0, 5);
   }, [matchesData, user?._id]);
 
+  // 3. Get All Travel Plans for Explore Destinations
+  const { data: allPlansData, isLoading: allPlansLoading } =
+    useGetAllTravelPlansQuery(undefined);
+
+  const exploreDestinations = useMemo(() => {
+    if (!allPlansData?.data) return [];
+    const plans = allPlansData.data as ITravelPlan[];
+
+    const destMap = new Map<string, number>();
+    plans.forEach((plan) => {
+      const dest = plan.destination;
+      destMap.set(dest, (destMap.get(dest) || 0) + 1);
+    });
+
+    const colors = [
+      'text-rose-500',
+      'text-emerald-500',
+      'text-amber-500',
+      'text-primary',
+      'text-indigo-500',
+      'text-violet-500',
+    ];
+    const icons = [Compass, Globe, MapIcon, Palmtree, Mountain, Utensils];
+
+    return Array.from(destMap.entries())
+      .map(([label, count]) => ({ label, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 6)
+      .map((item, idx) => ({
+        ...item,
+        icon: icons[idx % icons.length],
+        color: colors[idx % colors.length],
+      }));
+  }, [allPlansData]);
+
   return (
     <div className="flex-1 space-y-10">
       {/* Header Section */}
@@ -100,9 +138,9 @@ const UserOverviewPage = () => {
             Welcome back, {user?.name || 'Traveler'}!
           </h1>
           <p className="text-slate-500 mt-1 font-medium">
-            {plansLoading
-              ? 'Updating your agenda...'
-              : `You have ${upcomingTrips.length} upcoming adventures and 5 new traveler matches.`}
+            {plansLoading || matchesLoading || allPlansLoading
+              ? 'Synchronizing your travel dashboard...'
+              : `You have ${upcomingTrips.length} upcoming adventures and ${processedMatches.length} new traveler matches.`}
           </p>
         </div>
         <div className="flex items-center gap-4 w-full md:w-auto">
@@ -121,7 +159,7 @@ const UserOverviewPage = () => {
               </h2>
               <Link
                 className="text-primary font-black text-xs hover:underline uppercase tracking-widest"
-                href="/dashboard/user/travel-plans"
+                href="/dashboard/user/travel-plan"
               >
                 View all trips
               </Link>
@@ -148,7 +186,7 @@ const UserOverviewPage = () => {
                   return (
                     <Link
                       key={trip._id}
-                      href="/dashboard/user/travel-plans"
+                      href="/dashboard/user/travel-plan"
                       className="group bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-800 hover:border-primary/20 cursor-pointer block"
                     >
                       <div className="relative h-48 w-full overflow-hidden">
@@ -177,8 +215,8 @@ const UserOverviewPage = () => {
                                 : 'bg-primary/10 text-primary border-primary/10'
                             }`}
                           >
-                            {daysToTrip === 0
-                              ? 'Today'
+                            {daysToTrip <= 0
+                              ? 'Active'
                               : daysToTrip === 1
                                 ? 'Tomorrow'
                                 : `In ${daysToTrip} days`}
@@ -230,7 +268,7 @@ const UserOverviewPage = () => {
                   and find your buddy.
                 </p>
                 <Link
-                  href="/dashboard/user/travel-plans"
+                  href="/dashboard/user/travel-plan"
                   className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-slate-900 font-black rounded-full text-[10px] uppercase tracking-widest hover:bg-opacity-90 active:scale-95 transition-all"
                 >
                   Start Planning
@@ -242,20 +280,10 @@ const UserOverviewPage = () => {
           {/* Quick Actions */}
           <section>
             <h2 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-6 px-1">
-              Explore Destinations
+              Popular Destinations
             </h2>
             <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
-              {[
-                {
-                  label: 'Foodie Tours',
-                  icon: Utensils,
-                  color: 'text-rose-500',
-                },
-                { label: 'Hiking', icon: Mountain, color: 'text-emerald-500' },
-                { label: 'Culture', icon: History, color: 'text-amber-500' },
-                { label: 'Relaxing', icon: Palmtree, color: 'text-primary' },
-                { label: 'Nightlife', icon: Music, color: 'text-indigo-500' },
-              ].map((item) => (
+              {exploreDestinations.map((item) => (
                 <button
                   key={item.label}
                   className="shrink-0 px-8 py-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col items-center gap-3 border-2 border-transparent hover:border-primary transition-all cursor-pointer group hover:scale-105 active:scale-95 shadow-primary/5"
@@ -269,6 +297,13 @@ const UserOverviewPage = () => {
                   </span>
                 </button>
               ))}
+              {allPlansLoading && (
+                <div className="flex gap-4">
+                  {[1, 2, 3].map(i => (
+                    <div key={i} className="size-24 rounded-3xl bg-slate-100 dark:bg-slate-800 animate-pulse shrink-0" />
+                  ))}
+                </div>
+              )}
             </div>
           </section>
         </div>
