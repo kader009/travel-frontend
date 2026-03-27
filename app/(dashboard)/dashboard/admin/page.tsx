@@ -31,6 +31,7 @@ import {
 } from 'recharts';
 import { ITravelPlan } from '@/src/types/travelPlan';
 import { IUser } from '@/src/types/user';
+import { IPaymentAnalytics } from '@/src/types/payment';
 
 const AdminOverviewPage = () => {
   // Queries
@@ -38,7 +39,7 @@ const AdminOverviewPage = () => {
   const { data: plansData, isLoading: isPlansLoading } = useGetAllTravelPlansAdminQuery(undefined);
   const { data: analyticsData, isLoading: isAnalyticsLoading } = useGetPaymentAnalyticsQuery(undefined);
 
-  const analytics = analyticsData?.data;
+  const analytics = analyticsData?.data as IPaymentAnalytics | undefined;
 
   // Derive Stats
   const stats = useMemo(() => {

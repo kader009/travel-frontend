@@ -1,58 +1,64 @@
-'use client';
-
 import Image from 'next/image';
-import { useMemo } from 'react';
 import Container from '../components/ui/Container';
-import { Users, Loader2 } from 'lucide-react';
-import { useGetAllTravelPlansQuery } from '@/src/redux/store/api/endApi';
-import { ITravelPlan } from '@/src/types/travelPlan';
+import { Users } from 'lucide-react';
+import { ITravelPlan, IPopularDestination } from '@/src/types/travelPlan';
+import { IApiResponse } from '@/src/types/dashboard';
 
-const PopularDestinations = () => {
-  const { data: plansData, isLoading } = useGetAllTravelPlansQuery(undefined);
+const PopularDestinations = async () => {
+  let destinations: IPopularDestination[] = [];
 
-  const destinations = useMemo(() => {
-    if (!plansData?.data) return [];
-
-    const plans = plansData.data as ITravelPlan[];
-
-    // Group by destination and count
-    const destinationMap = new Map<string, { count: number; image?: string }>();
-
-    plans.forEach((plan) => {
-      const dest = plan.destination;
-      if (destinationMap.has(dest)) {
-        const item = destinationMap.get(dest)!;
-        item.count += 1;
-      } else {
-        destinationMap.set(dest, {
-          count: 1,
-          image: plan.images?.[0],
-        });
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/travel-plans`,
+      {
+        next: { revalidate: 3600 }, // Cache and revalidate every hour
       }
-    });
-
-    // Convert to array and sort by count
-    const sorted = Array.from(destinationMap.entries())
-      .map(([destination, data]) => ({
-        destination,
-        ...data,
-      }))
-      .sort((destA, destB) => destB.count - destA.count)
-      .slice(0, 8);
-
-    return sorted;
-  }, [plansData]);
-
-  if (isLoading) {
-    return (
-      <section className="dark:bg-background-dark py-12">
-        <Container>
-          <div className="flex items-center justify-center min-h-96">
-            <Loader2 className="w-8 h-8 animate-spin text-primary" />
-          </div>
-        </Container>
-      </section>
     );
+
+    if (res.ok) {
+      const plansData: IApiResponse<ITravelPlan[]> = await res.json();
+
+      if (plansData?.data) {
+        const plans = plansData.data;
+
+        // Group by destination and count
+        const destinationMap = new Map<string, { count: number; image?: string; id?: string }>();
+
+        plans.forEach((plan) => {
+          const dest = plan.destination;
+          if (destinationMap.has(dest)) {
+            const item = destinationMap.get(dest)!;
+            item.count += 1;
+            // Prefer images from newer plans or if missing
+            if (!item.image && plan.images?.[0]) {
+              item.image = plan.images[0];
+            }
+          } else {
+            destinationMap.set(dest, {
+              id: plan._id,
+              count: 1,
+              image: plan.images?.[0],
+            });
+          }
+        });
+
+        // Convert to array and sort by count
+        destinations = Array.from(destinationMap.entries())
+          .map(([destination, data]) => ({
+            destination,
+            ...data,
+          }))
+          .sort((destA, destB) => destB.count - destA.count)
+          .slice(0, 8);
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching popular destinations:', error);
+  }
+
+  // Fallback if no destinations (empty list or error)
+  if (destinations.length === 0) {
+    return null; // Or show placeholders
   }
 
   return (
@@ -69,9 +75,9 @@ const PopularDestinations = () => {
           </div>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {destinations.map((dest, idx) => (
+          {destinations.map((dest) => (
             <div
-              key={idx}
+              key={dest.id || dest.destination}
               className="group relative aspect-3/4 overflow-hidden rounded-2xl shadow-xs"
             >
               <Image
@@ -82,7 +88,7 @@ const PopularDestinations = () => {
                   dest.image ||
                   'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=500&h=700&fit=crop'
                 }
-                loading='lazy'
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent"></div>
               <div className="absolute bottom-0 p-6 text-white">

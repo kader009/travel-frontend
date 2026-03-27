@@ -26,3 +26,10 @@ export interface ITravelPlan {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface IPopularDestination {
+  id?: string;
+  destination: string;
+  count: number;
+  image?: string;
+}

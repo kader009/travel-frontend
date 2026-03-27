@@ -232,7 +232,7 @@ const AdminTravelPlansPage = () => {
                   >
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-4">
-                        <div className="size-11 rounded-xl bg-primary/10 flex items-center justify-center overflow-hidden border border-slate-100 dark:border-slate-800 group-hover:border-primary/20 transition-all shrink-0">
+                        <div className="size-11 rounded-xl bg-primary/10 flex items-center justify-center overflow-hidden border border-slate-100 dark:border-slate-800 group-hover:border-primary/20 transition-all shrink-0 relative">
                           {plan.images && plan.images[0] ? (
                             <Image
                               src={plan.images[0]}
