@@ -1,3 +1,11 @@
+'use client';
+
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/src/redux/store/store';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { useInitializeSubscriptionMutation } from '@/src/redux/store/api/endApi';
 import {
   CalendarCheck,
   CheckCircle2,
@@ -11,12 +19,17 @@ import {
   UserCheck,
   Wallet,
   Zap,
-  Crown
+  Crown,
+  Loader2
 } from 'lucide-react';
-import Link from 'next/link';
 import Container from '@/src/components/ui/Container';
 
 const PricingPage = () => {
+  const { user } = useSelector((state: RootState) => state.user);
+  const router = useRouter();
+  const [initializeSubscription, { isLoading }] = useInitializeSubscriptionMutation();
+  const [processingPlan, setProcessingPlan] = useState<string | null>(null);
+
   const plans = [
     {
       id: 'free',
@@ -67,6 +80,52 @@ const PricingPage = () => {
       period: 'per year',
     },
   ];
+
+  const handleGetStarted = async (planId: string) => {
+    if (!user) {
+      toast.error('Identity required', {
+        description: 'You must sign in to upgrade your access.',
+      });
+      router.push('/login');
+      return;
+    }
+
+    if (user.role === 'admin') {
+      toast.error('Access Denied', {
+        description: 'Administrators cannot purchase standard user subscriptions.',
+      });
+      return;
+    }
+
+    if (planId === 'free') {
+      router.push('/dashboard/user');
+      return;
+    }
+
+    setProcessingPlan(planId);
+    try {
+      const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+      const res = await initializeSubscription({
+        planType: planId as 'monthly' | 'yearly',
+        successUrl: `${baseUrl}/payment/success`,
+        failUrl: `${baseUrl}/payment/fail`,
+        cancelUrl: `${baseUrl}/payment/cancel`,
+      }).unwrap();
+
+      if (res.success && res.data) {
+        window.location.assign(res.data);
+      }
+    } catch (err: unknown) {
+      const error = err as { data?: { message?: string } };
+      toast.error('Payment Initialization Failed', {
+        description: error?.data?.message || 'Unable to connect to the payment gateway.'
+      });
+    } finally {
+      if (planId !== 'free') {
+        setProcessingPlan(null);
+      }
+    }
+  };
 
   return (
     <main className="py-12">
@@ -138,16 +197,20 @@ const PricingPage = () => {
                   ))}
                 </ul>
 
-                <Link
-                  href="/login"
-                  className={`w-full py-5 rounded-3xl font-black text-[11px] uppercase tracking-[0.2em] transition-all active:scale-95 flex items-center justify-center gap-2 border-none cursor-pointer ${
+                <button
+                  onClick={() => handleGetStarted(plan.id)}
+                  disabled={isLoading && processingPlan === plan.id}
+                  className={`w-full py-5 rounded-3xl font-black text-[11px] uppercase tracking-[0.2em] transition-all active:scale-95 flex items-center justify-center gap-2 border-none cursor-pointer disabled:opacity-70 disabled:pointer-events-none ${
                     plan.popular
                       ? 'bg-primary text-slate-900 shadow-xl shadow-primary/20 hover:shadow-primary/40'
                       : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90'
                   }`}
                 >
+                  {isLoading && processingPlan === plan.id ? (
+                    <Loader2 className="size-4 animate-spin shrink-0" />
+                  ) : null}
                   Get Started
-                </Link>
+                </button>
               </div>
             ))}
           </div>
