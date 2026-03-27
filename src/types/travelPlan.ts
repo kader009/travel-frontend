@@ -21,6 +21,8 @@ export interface ITravelPlan {
     lng: number;
   };
   images: string[];
+  status?: 'ongoing' | 'completed' | 'deleted' | string;
+  isDeleted?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }

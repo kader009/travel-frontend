@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useEffect, useCallback } from 'react';
 import { 
   useGetAllUsersQuery, 
   useGetAllTravelPlansAdminQuery, 
@@ -61,9 +61,23 @@ const AdminOverviewPage = () => {
     const tripsPrev30 = plans.filter(plan => plan.createdAt && new Date(plan.createdAt) > sixtyDaysAgo && new Date(plan.createdAt) <= thirtyDaysAgo).length;
     const tripGrowth = tripsPrev30 > 0 ? ((tripsLast30 - tripsPrev30) / tripsPrev30) * 100 : (tripsLast30 > 0 ? 100 : 0);
 
+    // 3. Total & Growth: Revenue
+    const payments = analytics?.recentPayments || [];
+    const revenueLast30 = payments
+      .filter(payment => payment.createdAt && new Date(payment.createdAt) > thirtyDaysAgo)
+      .reduce((acc, curr) => acc + curr.amount, 0);
+    const revenuePrev30 = payments
+      .filter(payment => payment.createdAt && new Date(payment.createdAt) > sixtyDaysAgo && new Date(payment.createdAt) <= thirtyDaysAgo)
+      .reduce((acc, curr) => acc + curr.amount, 0);
+    const revenueGrowth = revenuePrev30 > 0 ? ((revenueLast30 - revenuePrev30) / revenuePrev30) * 100 : (revenueLast30 > 0 ? 100 : 0);
+
+    // 4. Meetup Success
+    const completedPlans = plans.filter(plan => plan.status === 'ongoing').length; 
+    const meetupSuccess = totalTrips > 0 ? Math.min(100, Math.round((completedPlans / totalTrips) * 100)) : 88;
+
     const recentUsers = [...users].reverse().slice(0, 4);
     
-    // 3. Popular Destinations
+    // 5. Popular Destinations
     const destinationDataMap: Record<string, { count: number; image?: string }> = {};
     plans.forEach(plan => {
       const destinationName = plan.destination || 'Unknown';
@@ -87,7 +101,7 @@ const AdminOverviewPage = () => {
         color: 'bg-primary'
       }));
 
-    // 4. Chart Data: Trips by Month
+    // 6. Chart Data: Trips by Month
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const monthlyActivityData = monthNames.map(month => ({ month, trips: 0 }));
     plans.forEach(plan => {
@@ -105,7 +119,8 @@ const AdminOverviewPage = () => {
       recentUsers,
       popularDestinations,
       totalRevenue: analytics?.totalEarnings || 0,
-      revenueGrowth: "0.0",
+      revenueGrowth: revenueGrowth.toFixed(1),
+      meetupSuccess,
       chartData: monthlyActivityData
     };
   }, [usersData, plansData, analytics]);
@@ -171,7 +186,7 @@ const AdminOverviewPage = () => {
             </span>
           </div>
           <p className="text-slate-400 dark:text-slate-500 text-[10px] font-black uppercase tracking-widest">Meetup Success</p>
-          <h3 className="text-3xl font-black mt-1 text-slate-900 dark:text-white">88%</h3>
+          <h3 className="text-3xl font-black mt-1 text-slate-900 dark:text-white">{stats.meetupSuccess}%</h3>
         </div>
 
         {/* Revenue Stat */}

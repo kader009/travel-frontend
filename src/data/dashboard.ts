@@ -12,7 +12,7 @@ import { NavItem } from '../types/dashboard';
 export const userLinks: NavItem[] = [
   { href: '/dashboard/user', label: 'Overview', icon: LayoutDashboard },
   { href: '/dashboard/user/profile', label: 'My Profile', icon: UserCircle },
-  { href: '/dashboard/user/travel-plans', label: 'My Travel Plans', icon: Map },
+  { href: '/dashboard/user/travel-plan', label: 'My Travel Plans', icon: Map },
   { href: '/dashboard/user/reviews', label: 'My Reviews', icon: Star },
   { href: '/dashboard/user/join-requests', label: 'Join Requests', icon: Handshake },
   { href: '/dashboard/user/subscription', label: 'Subscription', icon: CreditCard },
@@ -21,7 +21,7 @@ export const userLinks: NavItem[] = [
 export const adminLinks: NavItem[] = [
   { href: '/dashboard/admin', label: 'Overview', icon: LayoutDashboard },
   { href: '/dashboard/admin/users', label: 'Manage Users', icon: Users },
-  { href: '/dashboard/admin/travel-plans', label: 'Manage Travel Plans', icon: Map },
+  { href: '/dashboard/admin/travel-plan', label: 'Manage Travel Plans', icon: Map },
   { href: '/dashboard/admin/join-requests', label: 'Join Requests', icon: Handshake },
   { href: '/dashboard/admin/reviews', label: 'Manage Reviews', icon: Star },
   { href: '/dashboard/admin/subscriptions', label: 'Subscriptions', icon: CreditCard },
