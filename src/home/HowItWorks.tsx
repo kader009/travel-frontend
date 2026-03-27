@@ -17,7 +17,7 @@ const HowItWorks = () => {
             <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform group-hover:rotate-6">
               <UserPlus className="w-8 h-8" />
             </div>
-            <h3 className="mb-3 text-2xl font-bold text-slate-900 dark:text-white">Create a Profile</h3>
+            <h2 className="mb-3 text-2xl font-bold text-slate-900 dark:text-white">Create a Profile</h2>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
               Tell us about your travel style, favorite destinations, and bucket
               list interests.
@@ -41,7 +41,7 @@ const HowItWorks = () => {
             <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform group-hover:rotate-6">
               <MessageCircle className="w-8 h-8" />
             </div>
-            <h3 className="mb-3 text-2xl font-bold text-slate-900 dark:text-white">Connect & Go</h3>
+            <h4 className="mb-3 text-2xl font-bold text-slate-900 dark:text-white">Connect & Go</h4>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
               Message potential buddies, plan the logistics, and hit the road
               safely.

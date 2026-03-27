@@ -86,7 +86,7 @@ const PopularDestinations = () => {
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent"></div>
               <div className="absolute bottom-0 p-6 text-white">
-                <h4 className="text-xl font-bold">{dest.destination}</h4>
+                <h2 className="text-xl font-bold">{dest.destination}</h2>
                 <div className="mt-2 flex items-center gap-1 text-primary">
                   <Users className="w-3 h-3" />
                   <span className="text-xs font-bold uppercase">

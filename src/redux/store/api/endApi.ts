@@ -126,6 +126,7 @@ const TravelApi = baseApi.injectEndpoints({
       query: (id) => ({
         url: `/api/v1/travel-plans/${id}`,
         method: 'GET',
+        params: { populate: 'user' },
       }),
       providesTags: (result, error, id) => [{ type: 'TravelPlan', id }],
     }),

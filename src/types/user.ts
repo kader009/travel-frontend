@@ -23,3 +23,11 @@ export interface IUser {
   isDeleted?: boolean;
   createdAt?: Date;
 }
+
+export interface IApiError {
+  data?: {
+    message?: string;
+  };
+}
+
+export type TMaybeUser = string | IUser | { $oid: string } | null | undefined;

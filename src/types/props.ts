@@ -40,3 +40,42 @@ export interface DashboardSidebarProps {
   open: boolean;
   onClose: () => void;
 }
+
+// Travel Details Components
+export interface TravelHeroProps {
+  trip: ITravelPlan;
+  durationDays: number;
+}
+
+export interface MissionIntelProps {
+  trip: ITravelPlan;
+  isPastPlan: boolean;
+}
+
+export interface RecruitmentSidebarProps {
+  trip: ITravelPlan;
+  planCreator: IUser | null;
+  currentUser: IUser | null;
+  isPastPlan: boolean;
+  hasAlreadyRequested: boolean;
+  handleOpenModal: () => void;
+}
+
+export interface ReviewSectionProps {
+  trip: ITravelPlan;
+  reviewRating: number;
+  reviewComment: string;
+  isReviewing: boolean;
+  handleSubmitReview: () => void;
+}
+
+export interface JoinRequestModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  id: string;
+  trip: ITravelPlan;
+  requestMessage: string;
+  setRequestMessage: (msg: string) => void;
+  handleSubmitRequest: () => void;
+  isJoining: boolean;
+}
