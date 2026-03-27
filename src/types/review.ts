@@ -24,3 +24,24 @@ export interface IReviewResponse {
   averageRating: number;
   totalReviews: number;
 }
+
+export interface IUserReviewStats {
+  user: IUser;
+  totalReviews: number;
+  averageRating: number;
+  ratingBreakdown: {
+    five: number;
+    four: number;
+    three: number;
+    two: number;
+    one: number;
+  };
+}
+
+export interface ITestimonial {
+  id?: string;
+  text: string;
+  author: string;
+  role: string;
+  image: string;
+}

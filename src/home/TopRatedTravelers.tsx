@@ -1,53 +1,51 @@
-'use client';
-
 import Image from 'next/image';
 import Container from '../components/ui/Container';
-import { Star, Loader2 } from 'lucide-react';
-import { useGetAllReviewStatsQuery } from '@/src/redux/store/api/endApi';
+import { Star } from 'lucide-react';
+import { IApiResponse } from '@/src/types/dashboard';
+import { IUserReviewStats } from '@/src/types/review';
 
-const TopRatedTravelers = () => {
-  const { data: reviewStatsData, isLoading } =
-    useGetAllReviewStatsQuery(undefined);
+const TopRatedTravelers = async () => {
+  let topTravelers: IUserReviewStats[] = [];
 
-  // Get top 3 rated travelers
-  const topTravelers = (reviewStatsData?.data || [])
-    .filter((stat) => stat.averageRating > 0)
-    .sort((currentTravelerStat, nextTravelerStat) => {
-      if (
-        nextTravelerStat.averageRating !== currentTravelerStat.averageRating
-      ) {
-        return (
-          nextTravelerStat.averageRating - currentTravelerStat.averageRating
-        );
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/reviews/all-stats`,
+      {
+        next: { revalidate: 3600 }, // Cache and revalidate every hour
       }
-      return nextTravelerStat.totalReviews - currentTravelerStat.totalReviews;
-    })
-    .slice(0, 3);
-
-  if (isLoading) {
-    return (
-      <section className="py-12">
-        <Container>
-          <div className="mb-12 text-center">
-            <h2 className="text-3xl font-black lg:text-5xl">
-              Top Rated Travelers
-            </h2>
-          </div>
-          <div className="flex items-center justify-center py-12">
-            <Loader2 className="size-8 animate-spin text-primary" />
-          </div>
-        </Container>
-      </section>
     );
+
+    if (res.ok) {
+      const reviewStatsData: IApiResponse<IUserReviewStats[]> = await res.json();
+      const stats = reviewStatsData?.data || [];
+
+      // Get top 3 rated travelers
+      topTravelers = stats
+        .filter((stat) => stat.averageRating > 0)
+        .sort((currentTravelerStat, nextTravelerStat) => {
+          if (nextTravelerStat.averageRating !== currentTravelerStat.averageRating) {
+            return nextTravelerStat.averageRating - currentTravelerStat.averageRating;
+          }
+          return nextTravelerStat.totalReviews - currentTravelerStat.totalReviews;
+        })
+        .slice(0, 3);
+    }
+  } catch (error) {
+    console.error('Error fetching top rated travelers:', error);
+  }
+
+  // Fallback if no travelers (empty list or error)
+  if (topTravelers.length === 0) {
+    return null;
   }
 
   return (
     <section className="py-12">
       <Container>
         <div className="mb-12 text-center">
-          <h2 className="text-3xl font-black lg:text-5xl">
+          <h1 className="text-3xl font-black lg:text-5xl">
             Top Rated Travelers
-          </h2>
+          </h1>
           <p className="mt-2 text-slate-600 dark:text-slate-400">
             Expert companions with high safety and experience ratings.
           </p>
@@ -70,8 +68,8 @@ const TopRatedTravelers = () => {
                   }
                 />
               </div>
-              <div>
-                <h4 className="text-lg font-bold">{traveler.user.name}</h4>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-lg font-bold truncate">{traveler.user.name}</h2>
                 <div className="flex items-center text-primary">
                   <Star className="w-4 h-4 fill-primary" />
                   <span className="text-sm font-bold ml-1">
@@ -79,7 +77,7 @@ const TopRatedTravelers = () => {
                     {traveler.totalReviews === 1 ? 'review' : 'reviews'})
                   </span>
                 </div>
-                <p className="text-sm text-slate-500 mt-1">
+                <p className="text-sm text-slate-500 mt-1 truncate">
                   {traveler.user.email}
                 </p>
               </div>
