@@ -16,11 +16,11 @@ import {
   Compass,
   MessageSquare,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import EditProfileModal from '@/src/components/module/dashboard/EditProfileModal';
 import {
   useGetMyTravelPlansQuery,
-  useGetReviewsForUserQuery,
+  useGetReviewsReceivedQuery,
 } from '@/src/redux/store/api/endApi';
 import { IReview } from '@/src/types/review';
 import { IUser } from '@/src/types/user';
@@ -32,16 +32,17 @@ const UserProfilePage = () => {
   const { data: plansData, isLoading: plansLoading } =
     useGetMyTravelPlansQuery();
 
-  // Fetch reviews for the current user
+  // Fetch reviews received by the current user
   const { data: reviewsData, isLoading: reviewsLoading } =
-    useGetReviewsForUserQuery(user?._id || '', {
-      skip: !user?._id,
-    });
+    useGetReviewsReceivedQuery();
 
-  const reviewInfo = reviewsData?.data;
-  const reviews = reviewInfo?.reviews || [];
-  const averageRating = reviewInfo?.averageRating || 0;
-  const totalReviews = reviewInfo?.totalReviews || 0;
+  const reviews = useMemo(() => reviewsData?.data || [], [reviewsData]);
+  const totalReviews = reviews.length;
+  const averageRating = useMemo(() => {
+    if (reviews.length === 0) return 0;
+    const sum = reviews.reduce((acc, curr) => acc + curr.rating, 0);
+    return +(sum / reviews.length).toFixed(1);
+  }, [reviews]);
 
   const myPlans = plansData?.data || [];
   const upcomingPlans = [...myPlans]
@@ -386,8 +387,8 @@ const UserProfilePage = () => {
                           ))}
                         </div>
                       </div>
-                      <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed italic font-bold">
-                        &quot;{review.comment}&quot;
+                      <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-bold">
+                        {review.comment}
                       </p>
                     </div>
                   );
