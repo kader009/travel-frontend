@@ -6,6 +6,7 @@
 
 @theme {
   --color-primary: #99e600;
+  --color-primary-text: #3f5900;
   --color-secondary: #d8f999;
   --color-accent: #ccff66;
   --color-background-light: #f7f8f5;
@@ -16,6 +17,7 @@
 
 :root {
   --primary: #99e600;
+  --primary-text: #3f5900;
   --secondary: #d8f999;
   --accent: #ccff66;
   --background-light: #f7f8f5;

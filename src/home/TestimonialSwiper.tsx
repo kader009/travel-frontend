@@ -17,7 +17,7 @@ const TestimonialSwiper = ({ testimonials }: { testimonials: ITestimonial[] }) =
       <div>
         <h1 className="text-4xl font-black lg:text-5xl">
           Voices of the <br />
-          <span className="text-primary">Community</span>
+          <span className="text-primary-text">Community</span>
         </h1>
         <p className="mt-6 text-lg text-slate-600 dark:text-slate-400">
           Hear from our travelers who found more than just a buddy—they

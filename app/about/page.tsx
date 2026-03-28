@@ -22,7 +22,7 @@ const AboutPage = () => {
             </div>
             <h1 className="text-4xl lg:text-7xl font-black leading-[1.1] tracking-tight text-slate-900 dark:text-white max-w-4xl">
               Connecting the World, One Journey at a{' '}
-              <span className="text-primary">Time</span>
+              <span className="text-primary-text">Time</span>
             </h1>
             <p className="text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
               Your global community for finding the perfect travel companion and
@@ -108,7 +108,7 @@ const AboutPage = () => {
           </div>
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
-              <span className="text-primary font-black text-5xl mb-4 block opacity-50">
+              <span className="text-primary-text font-black text-5xl mb-4 block opacity-60">
                 01
               </span>
               <h3 className="text-xl font-bold mb-3">The Spark</h3>
@@ -119,7 +119,7 @@ const AboutPage = () => {
               </p>
             </div>
             <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 mt-0 lg:mt-8">
-              <span className="text-primary font-black text-5xl mb-4 block opacity-50">
+              <span className="text-primary-text font-black text-5xl mb-4 block opacity-60">
                 02
               </span>
               <h3 className="text-xl font-bold mb-3">The Vision</h3>
@@ -130,7 +130,7 @@ const AboutPage = () => {
               </p>
             </div>
             <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 mt-0 lg:mt-16">
-              <span className="text-primary font-black text-5xl mb-4 block opacity-50">
+              <span className="text-primary-text font-black text-5xl mb-4 block opacity-60">
                 03
               </span>
               <h3 className="text-xl font-bold mb-3">Today</h3>
@@ -320,7 +320,7 @@ const AboutPage = () => {
             <p className="text-xl text-slate-600 dark:text-slate-400">
               Join our community today and never travel alone again.
             </p>
-            <button className="rounded-full bg-primary px-12 py-5 text-lg font-bold text-background-dark hover:shadow-2xl hover:shadow-primary/30 transition-all flex items-center gap-2">
+            <button className="rounded-full bg-primary px-12 py-5 text-lg font-bold text-background-dark hover:shadow-2xl hover:shadow-primary/30 transition-all flex items-center gap-2 cursor-pointer">
               Join the Journey <Rocket className="w-5 h-5" />
             </button>
           </div>

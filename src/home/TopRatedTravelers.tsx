@@ -70,9 +70,9 @@ const TopRatedTravelers = async () => {
               </div>
               <div className="flex-1 min-w-0">
                 <h2 className="text-lg font-bold truncate">{traveler.user.name}</h2>
-                <div className="flex items-center text-primary">
-                  <Star className="w-4 h-4 fill-primary" />
-                  <span className="text-sm font-bold ml-1">
+                <div className="flex items-center">
+                  <Star className="w-4 h-4 fill-primary text-primary" />
+                  <span className="text-sm font-bold ml-1 text-primary-text">
                     {traveler.averageRating.toFixed(1)} ({traveler.totalReviews}{' '}
                     {traveler.totalReviews === 1 ? 'review' : 'reviews'})
                   </span>
