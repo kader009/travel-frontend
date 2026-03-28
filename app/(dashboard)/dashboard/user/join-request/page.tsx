@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import {
   useGetMyJoinRequestsQuery,
   useApproveJoinRequestMutation,
@@ -29,22 +29,29 @@ const PlanRequests = ({
   planId,
   planName,
   planImage,
+  onHasRequests,
 }: {
   planId: string;
   planName: string;
   planImage?: string;
+  onHasRequests: (planId: string, hasReqs: boolean) => void;
 }) => {
-  const { data: requestsData, isLoading } =
+  const { data: requestsData, isLoading, isError } =
     useGetJoinRequestsForPlanQuery(planId);
   const [approveRequest] = useApproveJoinRequestMutation();
   const [rejectRequest] = useRejectJoinRequestMutation();
   const [processingId, setProcessingId] = useState<string | null>(null);
 
-  const requests = requestsData?.data || [];
+  const requests = useMemo(() => requestsData?.data || [], [requestsData]);
 
-  if (isLoading) return null; // Parent handles global loading state
+  // Notify parent if this plan has requests - using useEffect for side effects
+  useEffect(() => {
+    if (!isLoading) {
+      onHasRequests(planId, !isError && requests.length > 0);
+    }
+  }, [isLoading, isError, requests.length, planId, onHasRequests]);
 
-  if (requests.length === 0) return null;
+  if (isLoading || isError || requests.length === 0) return null;
 
   const handleAction = async (id: string, action: 'approve' | 'reject') => {
     setProcessingId(id);
@@ -104,19 +111,9 @@ const PlanRequests = ({
           key={req._id}
           className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-4xl flex flex-col md:flex-row items-start md:items-center gap-6 group hover:border-primary/20 transition-all shadow-sm w-full"
         >
-          {/* Plan & User Images */}
+          {/* User Images */}
           <div className="flex items-center gap-3 shrink-0">
-            {planImage && (
-              <div className="size-16 rounded-2xl bg-slate-50 dark:bg-slate-800 shrink-0 overflow-hidden relative border border-slate-100 dark:border-slate-800">
-                <Image
-                  src={planImage}
-                  alt={planName}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            )}
-            <div className="size-16 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-100 dark:border-slate-800">
+            <div className="size-16 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-100 dark:border-slate-800/50">
               {req.requester?.image ? (
                 <Image
                   src={req.requester.image}
@@ -203,9 +200,20 @@ const PlanRequests = ({
 
 // Component to aggregate received requests across all plans
 const ReceivedRequestsList = ({ plans }: { plans: any[] }) => {
-  // We can't easily wait for all individual PlanRequests queries here without a custom hook,
-  // but we can at least show a better fallback if we had an aggregate endpoint.
-  // For now, we render all PlanRequests.
+  const [plansWithRequests, setPlansWithRequests] = useState<Set<string>>(new Set());
+
+  const handleHasRequests = useCallback((planId: string, hasReqs: boolean) => {
+    setPlansWithRequests(prev => {
+      if (prev.has(planId) === hasReqs) return prev;
+      const next = new Set(prev);
+      if (hasReqs) next.add(planId);
+      else next.delete(planId);
+      return next;
+    });
+  }, []);
+
+  const hasAnyRequests = plansWithRequests.size > 0;
+
   return (
     <div className="space-y-12">
       {plans.map((plan) => {
@@ -216,9 +224,22 @@ const ReceivedRequestsList = ({ plans }: { plans: any[] }) => {
             planId={plan._id}
             planName={plan.destination || 'Unknown Destination'}
             planImage={plan.images?.[0]}
+            onHasRequests={handleHasRequests}
           />
         );
       })}
+
+      {!hasAnyRequests && (
+        <div className="py-24 text-center bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 animate-in fade-in duration-700">
+          <Handshake className="size-14 text-slate-200 dark:text-slate-800 mx-auto mb-6" />
+          <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+            No Active Requests
+          </h3>
+          <p className="text-slate-500 font-bold mt-2">
+            You haven&apos;t received any participation requests yet across your expeditions.
+          </p>
+        </div>
+      )}
     </div>
   );
 };

@@ -12,11 +12,11 @@ import {
   Search,
   Star,
   Users,
-  Loader2,
   Compass,
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import TravelerCardSkeleton from '@/src/components/skeleton/TravelerCardSkeleton';
 
 const ExplorePage = () => {
   const [destination, setDestination] = useState('');
@@ -179,13 +179,12 @@ const ExplorePage = () => {
           </div>
         </div>
 
-        {/* Loading State */}
+        {/* Loading Skeleton Grid */}
         {isLoading && (
-          <div className="py-24 flex flex-col items-center gap-4">
-            <Loader2 className="size-10 animate-spin text-primary" />
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 animate-pulse">
-              Syncing Traveler Directory
-            </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {[...Array(8)].map((_, i) => (
+              <TravelerCardSkeleton key={i} />
+            ))}
           </div>
         )}
 
