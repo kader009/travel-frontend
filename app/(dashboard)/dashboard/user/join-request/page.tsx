@@ -42,13 +42,7 @@ const PlanRequests = ({
 
   const requests = requestsData?.data || [];
 
-  if (isLoading) {
-    return (
-      <div className="py-8 flex justify-center">
-        <Loader2 className="size-6 animate-spin text-primary" />
-      </div>
-    );
-  }
+  if (isLoading) return null; // Parent handles global loading state
 
   if (requests.length === 0) return null;
 
@@ -207,6 +201,28 @@ const PlanRequests = ({
   );
 };
 
+// Component to aggregate received requests across all plans
+const ReceivedRequestsList = ({ plans }: { plans: any[] }) => {
+  // We can't easily wait for all individual PlanRequests queries here without a custom hook,
+  // but we can at least show a better fallback if we had an aggregate endpoint.
+  // For now, we render all PlanRequests.
+  return (
+    <div className="space-y-12">
+      {plans.map((plan) => {
+        if (!plan._id) return null;
+        return (
+          <PlanRequests
+            key={plan._id}
+            planId={plan._id}
+            planName={plan.destination || 'Unknown Destination'}
+            planImage={plan.images?.[0]}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
 const JoinRequestsPage = () => {
   const [activeTab, setActiveTab] = useState<'received' | 'sent'>('received');
 
@@ -338,7 +354,6 @@ const JoinRequestsPage = () => {
           )}
         </div>
       ) : (
-        /* ===== RECEIVED TAB ===== */
         <div className="space-y-8">
           {isPlansLoading ? (
             <div className="py-24 flex flex-col items-center gap-4">
@@ -348,17 +363,7 @@ const JoinRequestsPage = () => {
               </p>
             </div>
           ) : myPlans.length > 0 ? (
-            myPlans.map((plan) => {
-              if (!plan._id) return null;
-              return (
-                <PlanRequests
-                  key={plan._id}
-                  planId={plan._id}
-                  planName={plan.destination || 'Unknown Destination'}
-                  planImage={plan.images?.[0]}
-                />
-              );
-            })
+            <ReceivedRequestsList plans={myPlans} />
           ) : (
             <div className="py-24 text-center bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800">
               <PlaneTakeoff className="size-14 text-slate-200 dark:text-slate-800 mx-auto mb-6" />

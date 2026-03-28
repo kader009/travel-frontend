@@ -5,24 +5,16 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/src/redux/store/store';
 import {
   Calendar as CalendarIcon,
-  Utensils,
-  Mountain,
-  History,
-  Palmtree,
-  Music,
   MessageCircle,
   UserPlus,
   ArrowRight,
   Compass,
   Loader2,
-  Globe,
-  Map as MapIcon,
 } from 'lucide-react';
 import Link from 'next/link';
 import {
   useGetMyTravelPlansQuery,
   useGetMatchedTravelPlansQuery,
-  useGetAllTravelPlansQuery,
 } from '@/src/redux/store/api/endApi';
 import { ITravelPlan } from '@/src/types/travelPlan';
 import { useMemo } from 'react';
@@ -94,40 +86,7 @@ const UserOverviewPage = () => {
     return Array.from(uniqueTravelers.values()).slice(0, 5);
   }, [matchesData, user?._id]);
 
-  // 3. Get All Travel Plans for Explore Destinations
-  const { data: allPlansData, isLoading: allPlansLoading } =
-    useGetAllTravelPlansQuery(undefined);
 
-  const exploreDestinations = useMemo(() => {
-    if (!allPlansData?.data) return [];
-    const plans = allPlansData.data as ITravelPlan[];
-
-    const destMap = new Map<string, number>();
-    plans.forEach((plan) => {
-      const dest = plan.destination;
-      destMap.set(dest, (destMap.get(dest) || 0) + 1);
-    });
-
-    const colors = [
-      'text-rose-500',
-      'text-emerald-500',
-      'text-amber-500',
-      'text-primary',
-      'text-indigo-500',
-      'text-violet-500',
-    ];
-    const icons = [Compass, Globe, MapIcon, Palmtree, Mountain, Utensils];
-
-    return Array.from(destMap.entries())
-      .map(([label, count]) => ({ label, count }))
-      .sort((a, b) => b.count - a.count)
-      .slice(0, 6)
-      .map((item, idx) => ({
-        ...item,
-        icon: icons[idx % icons.length],
-        color: colors[idx % colors.length],
-      }));
-  }, [allPlansData]);
 
   return (
     <div className="flex-1 space-y-10">
@@ -138,7 +97,7 @@ const UserOverviewPage = () => {
             Welcome back, {user?.name || 'Traveler'}!
           </h1>
           <p className="text-slate-500 mt-1 font-medium">
-            {plansLoading || matchesLoading || allPlansLoading
+            {plansLoading || matchesLoading
               ? 'Synchronizing your travel dashboard...'
               : `You have ${upcomingTrips.length} upcoming adventures and ${processedMatches.length} new traveler matches.`}
           </p>
@@ -277,35 +236,7 @@ const UserOverviewPage = () => {
             )}
           </section>
 
-          {/* Quick Actions */}
-          <section>
-            <h2 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-6 px-1">
-              Popular Destinations
-            </h2>
-            <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
-              {exploreDestinations.map((item) => (
-                <button
-                  key={item.label}
-                  className="shrink-0 px-8 py-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col items-center gap-3 border-2 border-transparent hover:border-primary transition-all cursor-pointer group hover:scale-105 active:scale-95 shadow-primary/5"
-                >
-                  <item.icon
-                    className={`${item.color} size-8 group-hover:scale-110 transition-transform`}
-                    strokeWidth={2.5}
-                  />
-                  <span className="font-black text-xs uppercase tracking-tight text-slate-700 dark:text-slate-300">
-                    {item.label}
-                  </span>
-                </button>
-              ))}
-              {allPlansLoading && (
-                <div className="flex gap-4">
-                  {[1, 2, 3].map(i => (
-                    <div key={i} className="size-24 rounded-3xl bg-slate-100 dark:bg-slate-800 animate-pulse shrink-0" />
-                  ))}
-                </div>
-              )}
-            </div>
-          </section>
+
         </div>
 
         {/* Side Column: Matches & Activity */}

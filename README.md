@@ -19,7 +19,7 @@
 -   **User Profiles & Connect:** Customize your traveler profile and connect with like-minded individuals for your next journey.
 -   **Secure Authentication:** Integrated auth flows to ensure a safe and private platform for all users.
 -   **Admin & User Dashboards:** Dedicated dashboards for both travelers and administrators to manage content and users.
--   **Payment Integration:** Secure payment flows for premium features or bookings.
+-   **Payment Integration:** Secure payment flows integrated with **SSLCommerz** for premium features or bookings.
 -   **Fully Responsive:** Optimized for desktop, tablet, and mobile devices with a sleek, modern UI.
 
 ---
@@ -35,6 +35,8 @@
 -   **Notifications:** [Sonner 2.0.7](https://sonner.emilkowal.ski/)
 -   **API Handling:** [Axios 1.13.6](https://axios-http.com/)
 -   **Carousel & Sliders:** [Swiper 12.1.2](https://swiperjs.com/)
+-   **Payment Gateway:** [SSLCommerz](https://www.sslcommerz.com/)
+
 
 ---
 
