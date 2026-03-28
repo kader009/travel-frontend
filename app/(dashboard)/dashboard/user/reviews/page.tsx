@@ -311,7 +311,7 @@ const UserReviewsPage = () => {
                       <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight">
                         No Reviews Found
                       </h4>
-                      <p className="text-slate-400 text-sm font-bold max-w-xs mx-auto mt-2 italic">
+                      <p className="text-slate-400 text-sm font-bold max-w-xs mx-auto mt-2">
                         Start reviewing your travel companions to see them here.
                       </p>
                     </div>
@@ -388,8 +388,8 @@ const UserReviewsPage = () => {
                                 </button>
                               </div>
                             </div>
-                            <p className="text-sm text-slate-600 dark:text-slate-300 font-bold leading-relaxed italic ml-15">
-                              &quot;{review.comment}
+                            <p className="text-sm text-slate-600 dark:text-slate-300 font-bold leading-relaxed ml-15">
+                              {review.comment}
                             </p>
                             <p className="text-[10px] text-slate-400 mt-3 font-semibold">
                               {review.createdAt
@@ -489,7 +489,7 @@ const UserReviewsPage = () => {
                       <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight">
                         No Feedback Logs Yet
                       </h4>
-                      <p className="text-slate-400 text-sm font-bold max-w-xs mx-auto mt-2 italic">
+                      <p className="text-slate-400 text-sm font-bold max-w-xs mx-auto mt-2">
                         Finish an expedition to receive your first traveler
                         badge.
                       </p>

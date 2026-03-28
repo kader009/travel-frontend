@@ -174,7 +174,7 @@ const ManageUsersPage = () => {
                   <tr key={user._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors group">
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-4">
-                        <div className="size-11 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden border border-slate-100 dark:border-slate-800 group-hover:border-primary/20 transition-all shrink-0">
+                        <div className="size-11 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden border border-slate-100 dark:border-slate-800 group-hover:border-primary/20 transition-all shrink-0 relative">
                           {user.image ? <Image src={user.image} alt={user.name} fill className="object-cover" /> : <UserCircle className="size-6 text-primary opacity-60" />}
                         </div>
                         <p className="font-black text-slate-900 dark:text-white text-sm tracking-tight truncate max-w-[150px]">{user.name}</p>
@@ -233,7 +233,7 @@ const ManageUsersPage = () => {
               {/* Profile Image Section */}
               <div className="flex flex-col items-center gap-4 mb-8">
                 <div className="relative group">
-                  <div className="size-24 rounded-full overflow-hidden border-4 border-slate-50 dark:border-slate-800 shadow-md">
+                  <div className="size-24 rounded-full overflow-hidden border-4 border-slate-50 dark:border-slate-800 shadow-md relative">
                     {editForm.image ? (
                       <Image src={editForm.image} alt="Preview" fill className="object-cover" />
                     ) : (
