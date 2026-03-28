@@ -5,7 +5,6 @@ import Container from '@/src/components/ui/Container';
 import { useGetAllTravelPlansQuery } from '@/src/redux/store/api/endApi';
 import { ITravelPlan } from '@/src/types/travelPlan';
 import {
-  Loader2,
   Calendar,
   DollarSign,
   Edit2,
@@ -19,6 +18,7 @@ import CreateTravelPlanModal from '@/src/components/module/dashboard/CreateTrave
 import { useAppSelector } from '@/src/redux/hook';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import TravelPlanSkeleton from '@/src/components/skeleton/TravelPlanSkeleton';
 
 const TravelPlans = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,7 +49,7 @@ const TravelPlans = () => {
           {/* Header Area */}
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h1 className="text-slate-900 dark:text-slate-100 text-3xl font-black leading-tight tracking-tight uppercase">
+              <h1 className="text-slate-900 dark:text-white text-3xl font-black leading-tight tracking-tight uppercase">
                 Global Expeditions
               </h1>
               <p className="text-slate-500 dark:text-slate-400 text-sm mt-1 font-bold">
@@ -67,13 +67,12 @@ const TravelPlans = () => {
             </button>
           </div>
 
-          {/* Loading State */}
+          {/* Loading Skeleton Grid */}
           {isLoading && (
-            <div className="flex flex-col items-center justify-center py-24">
-              <Loader2 className="size-12 animate-spin text-primary mb-4" />
-              <p className="text-xs font-black text-slate-400 uppercase tracking-widest">
-                Retrieving expeditions...
-              </p>
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <TravelPlanSkeleton key={i} />
+              ))}
             </div>
           )}
 

@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/src/redux/store/store';
 import { toast } from 'sonner';
 import { resetReview } from '@/src/redux/store/features/reviewSlice';
-import { Info, Loader2 } from 'lucide-react';
+import { Info } from 'lucide-react';
 import { ITravelPlan } from '@/src/types/travelPlan';
 import { IUser, TMaybeUser, IApiError } from '@/src/types/user';
 
@@ -26,6 +26,7 @@ import { TacticalItinerary, SpatialCaptures } from '@/src/components/module/trav
 import RecruitmentSidebar from '@/src/components/module/travel-plans/details/RecruitmentSidebar';
 import ReviewSection from '@/src/components/module/travel-plans/details/ReviewSection';
 import JoinRequestModal from '@/src/components/module/travel-plans/details/JoinRequestModal';
+import TravelPlanDetailsSkeleton from '@/src/components/skeleton/TravelPlanDetailsSkeleton';
 
 const TravelPlanDetails = () => {
   const params = useParams();
@@ -138,12 +139,7 @@ const TravelPlanDetails = () => {
     }
   };
 
-  if (isLoading) return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <Loader2 className="size-16 animate-spin text-primary mb-6" />
-      <p className="text-[10px] font-black text-primary uppercase tracking-[0.5em] animate-pulse">Establishing Uplink</p>
-    </div>
-  );
+  if (isLoading) return <TravelPlanDetailsSkeleton />;
 
   if (isError || !trip) return (
     <div className="min-h-screen flex flex-col items-center justify-center p-8">
