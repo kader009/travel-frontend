@@ -9,6 +9,7 @@ import {
   useGetJoinRequestsForPlanQuery,
 } from '@/src/redux/store/api/endApi';
 import { IJoinRequest } from '@/src/types/joinRequest';
+import { ITravelPlan } from '@/src/types/travelPlan';
 import {
   Handshake,
   Clock,
@@ -36,8 +37,11 @@ const PlanRequests = ({
   planImage?: string;
   onHasRequests: (planId: string, hasReqs: boolean) => void;
 }) => {
-  const { data: requestsData, isLoading, isError } =
-    useGetJoinRequestsForPlanQuery(planId);
+  const {
+    data: requestsData,
+    isLoading,
+    isError,
+  } = useGetJoinRequestsForPlanQuery(planId);
   const [approveRequest] = useApproveJoinRequestMutation();
   const [rejectRequest] = useRejectJoinRequestMutation();
   const [processingId, setProcessingId] = useState<string | null>(null);
@@ -138,8 +142,8 @@ const PlanRequests = ({
               <ChevronRight className="size-4 text-slate-300 shrink-0" />
             </div>
             {req.message && (
-              <p className="text-slate-500 dark:text-slate-400 text-xs font-bold line-clamp-2 italic">
-                &quot;{req.message}&quot;
+              <p className="text-slate-500 dark:text-slate-400 text-xs font-bold line-clamp-2">
+                {req.message}
               </p>
             )}
           </div>
@@ -199,11 +203,13 @@ const PlanRequests = ({
 };
 
 // Component to aggregate received requests across all plans
-const ReceivedRequestsList = ({ plans }: { plans: any[] }) => {
-  const [plansWithRequests, setPlansWithRequests] = useState<Set<string>>(new Set());
+const ReceivedRequestsList = ({ plans }: { plans: ITravelPlan[] }) => {
+  const [plansWithRequests, setPlansWithRequests] = useState<Set<string>>(
+    new Set(),
+  );
 
   const handleHasRequests = useCallback((planId: string, hasReqs: boolean) => {
-    setPlansWithRequests(prev => {
+    setPlansWithRequests((prev) => {
       if (prev.has(planId) === hasReqs) return prev;
       const next = new Set(prev);
       if (hasReqs) next.add(planId);
@@ -236,7 +242,8 @@ const ReceivedRequestsList = ({ plans }: { plans: any[] }) => {
             No Active Requests
           </h3>
           <p className="text-slate-500 font-bold mt-2">
-            You haven&apos;t received any participation requests yet across your expeditions.
+            You haven&apos;t received any participation requests yet across your
+            expeditions.
           </p>
         </div>
       )}
