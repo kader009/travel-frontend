@@ -12,7 +12,7 @@ const PopularDestinations = async () => {
       `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/travel-plans`,
       {
         next: { revalidate: 3600 }, // Cache and revalidate every hour
-      }
+      },
     );
 
     if (res.ok) {
@@ -22,7 +22,10 @@ const PopularDestinations = async () => {
         const plans = plansData.data;
 
         // Group by destination and count
-        const destinationMap = new Map<string, { count: number; image?: string; id?: string }>();
+        const destinationMap = new Map<
+          string,
+          { count: number; image?: string; id?: string }
+        >();
 
         plans.forEach((plan) => {
           const dest = plan.destination;
@@ -88,6 +91,8 @@ const PopularDestinations = async () => {
                   dest.image ||
                   'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=500&h=700&fit=crop'
                 }
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                quality={70}
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent"></div>
