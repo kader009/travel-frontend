@@ -91,8 +91,8 @@ const PopularDestinations = async () => {
                   dest.image ||
                   'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=500&h=700&fit=crop'
                 }
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                quality={70}
+                sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 380px"
+                quality={80}
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent"></div>

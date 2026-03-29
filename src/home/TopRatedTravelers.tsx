@@ -66,6 +66,8 @@ const TopRatedTravelers = async () => {
                     traveler.user.image ||
                     'https://api.dicebear.com/7.x/avataaars/svg?seed=user'
                   }
+                  quality={80}
+                  sizes="80px"
                 />
               </div>
               <div className="flex-1 min-w-0">
