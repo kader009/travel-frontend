@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useEffect, useCallback } from 'react';
+import { useMemo} from 'react';
 import { 
   useGetAllUsersQuery, 
   useGetAllTravelPlansAdminQuery, 
@@ -15,7 +15,6 @@ import {
   CreditCard, 
   MoreVertical,
   UserCircle,
-  Loader2,
   Globe,
   Activity
 } from 'lucide-react';
@@ -32,6 +31,7 @@ import {
 import { ITravelPlan } from '@/src/types/travelPlan';
 import { IUser } from '@/src/types/user';
 import { IPaymentAnalytics } from '@/src/types/payment';
+import AdminOverviewSkeleton from '@/src/components/skeleton/AdminOverviewSkeleton';
 
 const AdminOverviewPage = () => {
   // Queries
@@ -129,12 +129,7 @@ const AdminOverviewPage = () => {
   const isLoading = isUsersLoading || isPlansLoading || isAnalyticsLoading;
 
   if (isLoading) {
-    return (
-      <div className="h-[70vh] flex flex-col items-center justify-center gap-4">
-        <Loader2 className="size-12 animate-spin text-primary" />
-        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">Initializing Core Systems...</p>
-      </div>
-    );
+    return <AdminOverviewSkeleton />;
   }
 
   return (

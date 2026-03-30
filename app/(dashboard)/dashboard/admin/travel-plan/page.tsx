@@ -24,6 +24,7 @@ import {
 import { toast } from 'sonner';
 import { ITravelPlan, TTravelType } from '@/src/types/travelPlan';
 import { format } from 'date-fns';
+import AdminTravelPlansSkeleton from '@/src/components/skeleton/AdminTravelPlansSkeleton';
 
 const AdminTravelPlansPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -182,12 +183,7 @@ const AdminTravelPlansPage = () => {
         </div>
 
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-24 text-slate-400">
-            <Loader2 className="size-10 animate-spin text-primary mb-4" />
-            <p className="font-black uppercase tracking-widest text-xs">
-              Fetching plans data...
-            </p>
-          </div>
+          <AdminTravelPlansSkeleton />
         ) : fetchError ? (
           <div className="text-center py-16 text-rose-500">
             <Map className="size-12 mx-auto mb-4 opacity-40" />
