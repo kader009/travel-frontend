@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { toast } from 'sonner';
+import { SentJoinRequestsSkeleton, ReceivedJoinRequestsSkeleton } from '@/src/components/skeleton/AdminJoinRequestsSkeleton';
 
 // Component to render requests for a single travel plan
 const PlanRequests = ({
@@ -51,11 +52,7 @@ const PlanRequests = ({
   }, [requests.length, onRequestsFound]);
 
   if (isLoading) {
-    return (
-      <div className="py-8 flex justify-center">
-        <Loader2 className="size-6 animate-spin text-primary" />
-      </div>
-    );
+    return <ReceivedJoinRequestsSkeleton />;
   }
 
   if (requests.length === 0) return null;
@@ -271,12 +268,7 @@ const AdminJoinRequestsPage = () => {
       {activeTab === 'sent' ? (
         <div className="space-y-4">
           {isSentLoading ? (
-            <div className="py-24 flex flex-col items-center gap-4">
-              <Loader2 className="size-10 animate-spin text-primary" />
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
-                Syncing Transmissions
-              </p>
-            </div>
+            <SentJoinRequestsSkeleton />
           ) : sentRequests.length > 0 ? (
             <div className="grid grid-cols-1 gap-4">
               {sentRequests.map((req: IJoinRequest) => {
@@ -352,12 +344,7 @@ const AdminJoinRequestsPage = () => {
         /* ===== RECEIVED TAB ===== */
         <div className="space-y-8">
           {isPlansLoading ? (
-            <div className="py-24 flex flex-col items-center gap-4">
-              <Loader2 className="size-10 animate-spin text-primary" />
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
-                Loading Your Expeditions
-              </p>
-            </div>
+            <ReceivedJoinRequestsSkeleton />
           ) : myPlans.length > 0 ? (
             <>
               <div className="space-y-8">

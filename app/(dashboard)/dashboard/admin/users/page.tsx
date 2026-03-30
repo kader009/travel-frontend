@@ -8,6 +8,7 @@ import { useGetAllUsersQuery, useDeleteUserMutation, useUpdateUserMutation } fro
 import { Mail, Shield, UserCircle, Loader2, Search, Pencil, Trash2, AlertTriangle, X, Camera, Check } from 'lucide-react';
 import { toast } from 'sonner';
 import { IUser, TUserRole } from '@/src/types/user';
+import AdminUsersSkeleton from '@/src/components/skeleton/AdminUsersSkeleton';
 
 const ManageUsersPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -149,10 +150,7 @@ const ManageUsersPage = () => {
         </div>
 
         {isLoading ? (
-          <div className="flex flex-col items-center justify-center py-24 text-slate-400">
-            <Loader2 className="size-10 animate-spin text-primary mb-4" />
-            <p className="font-black uppercase tracking-widest text-xs">Fetching users data...</p>
-          </div>
+          <AdminUsersSkeleton />
         ) : fetchError ? (
           <div className="text-center py-16 text-rose-500">
             <Shield className="size-12 mx-auto mb-4 opacity-40" />

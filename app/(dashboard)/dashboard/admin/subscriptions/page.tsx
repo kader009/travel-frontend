@@ -12,17 +12,13 @@ import {
   UserCircle
 } from 'lucide-react';
 import { useGetPaymentAnalyticsQuery } from '@/src/redux/store/api/endApi';
+import AdminSubscriptionsSkeleton from '@/src/components/skeleton/AdminSubscriptionsSkeleton';
 
 const AdminSubscriptionsPage = () => {
   const { data: analyticsData, isLoading, isError } = useGetPaymentAnalyticsQuery();
 
   if (isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20">
-        <div className="size-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-        <p className="mt-4 font-black uppercase tracking-widest text-[10px] text-slate-400">Loading Analytics...</p>
-      </div>
-    );
+    return <AdminSubscriptionsSkeleton />;
   }
 
   if (isError || !analyticsData?.data) {

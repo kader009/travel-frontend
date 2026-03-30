@@ -21,6 +21,7 @@ import Image from 'next/image';
 import { toast } from 'sonner';
 import { IReview } from '@/src/types/review';
 import { IUser } from '@/src/types/user';
+import { ReviewUsersListSkeleton, ReviewListSkeleton } from '@/src/components/skeleton/AdminReviewsSkeleton';
 
 const AdminReviewsPage = () => {
   const [selectedUserId, setSelectedUserId] = useState<string>('');
@@ -149,9 +150,7 @@ const AdminReviewsPage = () => {
 
             <div className="space-y-2 max-h-100 overflow-y-auto pr-2 custom-scrollbar">
               {isUsersLoading ? (
-                <div className="py-10 flex justify-center">
-                  <Loader2 className="size-6 animate-spin text-primary" />
-                </div>
+                <ReviewUsersListSkeleton />
               ) : (
                 filteredUsers.map((user) => (
                   <button
@@ -205,12 +204,7 @@ const AdminReviewsPage = () => {
               </p>
             </div>
           ) : isReviewsLoading ? (
-            <div className="py-32 flex flex-col items-center justify-center gap-4">
-              <Loader2 className="size-10 animate-spin text-primary" />
-              <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                Loading feedback logs...
-              </p>
-            </div>
+            <ReviewListSkeleton />
           ) : (
             <div className="space-y-8 animate-in slide-in-from-bottom-4 duration-500">
               <div className="flex items-center justify-between px-4">
