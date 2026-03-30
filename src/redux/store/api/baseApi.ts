@@ -26,11 +26,19 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-// Separate baseQuery for refresh — does NOT send expired access token
-// Only sends cookies (refreshToken cookie is HttpOnly, sent automatically)
+// Separate baseQuery for refresh — DOES NOT send the expired access token
+// Uses the refreshToken from Redux to authorize the refresh call
 const refreshBaseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_BACKENDAPI,
   credentials: 'include',
+  prepareHeaders: (headers, { getState }) => {
+    const refreshToken = (getState() as { user: { refreshToken: string | null } }).user.refreshToken;
+    if (refreshToken) {
+      headers.set('authorization', `Bearer ${refreshToken}`);
+    }
+    headers.set('Content-Type', 'application/json');
+    return headers;
+  },
 });
 
 const baseQueryWithReauth: BaseQueryFn<
@@ -50,12 +58,14 @@ const baseQueryWithReauth: BaseQueryFn<
       try {
         console.log('[Auth] Access token expired, attempting silent refresh...');
 
-        // Use refreshBaseQuery — it does NOT include the expired Authorization header
-        // The refresh token is sent automatically via HttpOnly cookie
+        const state = api.getState() as { user: { refreshToken: string | null } };
+        const refreshToken = state.user.refreshToken;
+
         const refreshResult = await refreshBaseQuery(
           {
             url: '/api/v1/auth/refresh',
             method: 'POST',
+            body: { refreshToken },
           },
           api,
           extraOptions

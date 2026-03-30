@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSignUpMutation } from '@/src/redux/store/api/endApi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setName,
   setEmail,
@@ -20,6 +20,8 @@ import {
 import { TUserRole } from '@/src/types/user';
 import { toast } from 'sonner';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { RootState } from '@/src/redux/store/store';
+import { useEffect } from 'react';
 
 import { registerSchema } from '@/src/validation/register.validation';
 import { RegisterFormValues } from '@/src/types/forms';
@@ -42,6 +44,13 @@ const RegisterView = () => {
   const [signUp, { isLoading }] = useSignUpMutation();
   const dispatch = useDispatch();
   const router = useRouter();
+  const { user } = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]);
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (data) => {
     const res = await signUp(data);

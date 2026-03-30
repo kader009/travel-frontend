@@ -19,11 +19,13 @@ import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLoginMutation } from '@/src/redux/store/api/endApi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '@/src/redux/store/features/userSlice';
 import { setEmail, setPassword } from '@/src/redux/store/features/loginSlice';
 import { toast } from 'sonner';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { RootState } from '@/src/redux/store/store';
+import { useEffect } from 'react';
 
 import { loginSchema } from '@/src/validation/login.validation';
 import { LoginFormValues } from '@/src/types/forms';
@@ -43,6 +45,13 @@ const LoginView = () => {
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
   const router = useRouter();
+  const { user } = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]);
 
   const handleLogin = async (data: LoginFormValues) => {
     const res = await login(data);
