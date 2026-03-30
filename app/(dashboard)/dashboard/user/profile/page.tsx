@@ -25,6 +25,7 @@ import {
 import { IReview } from '@/src/types/review';
 import { IUser } from '@/src/types/user';
 import Link from 'next/link';
+import { UpcomingPlansProfileSkeleton, CompletedPlansProfileSkeleton, ReviewsProfileSkeleton } from '@/src/components/skeleton/UserProfileSkeleton';
 
 const UserProfilePage = () => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -201,12 +202,7 @@ const UserProfilePage = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {plansLoading ? (
-                <div className="col-span-full py-12 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800">
-                  <Loader2 className="size-8 animate-spin text-primary" />
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                    Retrieving Journeys...
-                  </p>
-                </div>
+                <UpcomingPlansProfileSkeleton />
               ) : upcomingPlans.length > 0 ? (
                 upcomingPlans.map((plan) => (
                   <Link
@@ -270,7 +266,9 @@ const UserProfilePage = () => {
               <Globe className="size-5 text-primary" strokeWidth={3} /> Recently
               Visited
             </h3>
-            {completedPlans.length > 0 ? (
+            {plansLoading ? (
+              <CompletedPlansProfileSkeleton />
+            ) : completedPlans.length > 0 ? (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-1">
                 {completedPlans.map((plan) => (
                   <Link
@@ -337,12 +335,7 @@ const UserProfilePage = () => {
             </div>
             <div className="flex flex-col gap-5 px-1">
               {reviewsLoading ? (
-                <div className="py-12 flex flex-col items-center gap-3 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800">
-                  <Loader2 className="size-8 animate-spin text-primary" />
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                    Loading Reviews...
-                  </p>
-                </div>
+                <ReviewsProfileSkeleton />
               ) : reviews.length > 0 ? (
                 reviews.map((review: IReview) => {
                   const reviewer = getReviewer(review);
