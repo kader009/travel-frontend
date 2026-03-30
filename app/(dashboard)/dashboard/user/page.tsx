@@ -18,6 +18,10 @@ import {
 } from '@/src/redux/store/api/endApi';
 import { ITravelPlan } from '@/src/types/travelPlan';
 import { useMemo } from 'react';
+import {
+  UpcomingTripsSkeleton,
+  NewMatchesSkeleton,
+} from '@/src/components/skeleton/UserOverviewSkeleton';
 
 const UserOverviewPage = () => {
   const { user } = useSelector((state: RootState) => state.user);
@@ -86,8 +90,6 @@ const UserOverviewPage = () => {
     return Array.from(uniqueTravelers.values()).slice(0, 5);
   }, [matchesData, user?._id]);
 
-
-
   return (
     <div className="flex-1 space-y-10">
       {/* Header Section */}
@@ -125,14 +127,7 @@ const UserOverviewPage = () => {
             </div>
 
             {plansLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {[1, 2].map((i) => (
-                  <div
-                    key={i}
-                    className="h-72 bg-slate-100 dark:bg-slate-800 rounded-3xl animate-pulse"
-                  />
-                ))}
-              </div>
+              <UpcomingTripsSkeleton />
             ) : displayTrips.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {displayTrips.map((trip) => {
@@ -235,8 +230,6 @@ const UserOverviewPage = () => {
               </div>
             )}
           </section>
-
-
         </div>
 
         {/* Side Column: Matches & Activity */}
@@ -252,9 +245,7 @@ const UserOverviewPage = () => {
               </span>
             </div>
             {matchesLoading ? (
-              <div className="flex items-center justify-center py-8">
-                <Loader2 className="size-6 animate-spin text-primary" />
-              </div>
+              <NewMatchesSkeleton />
             ) : processedMatches.length > 0 ? (
               <>
                 <div className="space-y-6">
