@@ -9,10 +9,10 @@ import {
   MapPin,
   MessageCircle,
   Phone,
-  SendHorizontal,
   Youtube,
 } from 'lucide-react';
 import Container from '@/src/components/ui/Container';
+import ContactForm from '@/src/components/module/contact/ContactForm';
 
 const Contact = () => {
   return (
@@ -62,57 +62,7 @@ const Contact = () => {
                 <Mail className="text-primary w-6 h-6" />
                 Send us a message
               </h3>
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">
-                      Full Name
-                    </label>
-                    <input
-                      className="w-full h-14 rounded-xl border border-primary/10 bg-background-light dark:bg-background-dark/50 focus:ring-1 focus:ring-primary focus:border-primary px-4 outline-none transition-all"
-                      placeholder="John Doe"
-                      type="text"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">
-                      Email Address
-                    </label>
-                    <input
-                      className="w-full h-14 rounded-xl border border-primary/10 bg-background-light dark:bg-background-dark/50 focus:ring-1 focus:ring-primary focus:border-primary px-4 outline-none transition-all"
-                      placeholder="john@example.com"
-                      type="email"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">
-                    Subject
-                  </label>
-                  <input
-                    className="w-full h-14 rounded-xl border border-primary/10 bg-background-light dark:bg-background-dark/50 focus:ring-1 focus:ring-primary focus:border-primary px-4 outline-none transition-all"
-                    placeholder="How can we help?"
-                    type="text"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">
-                    Message
-                  </label>
-                  <textarea
-                    className="w-full rounded-xl border border-primary/10 bg-background-light dark:bg-background-dark/50 focus:ring-1 focus:ring-primary focus:border-primary p-4 outline-none transition-all resize-none"
-                    placeholder="Tell us more about your inquiry..."
-                    rows={5}
-                  ></textarea>
-                </div>
-                <button
-                  className="w-full md:w-auto px-10 py-4 bg-primary text-background-dark font-bold rounded-xl hover:shadow-lg hover:shadow-primary/20 transition-all flex items-center justify-center gap-2"
-                  type="submit"
-                >
-                  Send Message
-                  <SendHorizontal className="w-5 h-5" />
-                </button>
-              </form>
+              <ContactForm />
             </div>
 
             {/* Sidebar Info */}

@@ -30,7 +30,7 @@ const AboutPage = () => {
               shared.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mt-4">
-              <button className="rounded-full bg-primary px-10 py-4 text-base font-bold text-background-dark hover:scale-105 transition-transform shadow-xl shadow-primary/20">
+              <button className="rounded-full bg-primary px-10 py-4 text-base font-bold text-background-dark hover:scale-105 transition-transform shadow-xl shadow-primary/20 cursor-pointer">
                 Start Your Adventure
               </button>
             </div>
@@ -204,7 +204,7 @@ const AboutPage = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-white dark:bg-background-dark/50">
+      <section className="py-10 bg-white dark:bg-background-dark/50">
         <Container>
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
             <div className="max-w-lg">
@@ -263,7 +263,7 @@ const AboutPage = () => {
       </section>
 
       {/* Impact Section */}
-      <section className="py-20">
+      <section className="py-10">
         <Container>
           <div className="bg-primary rounded-3xl p-8 lg:p-16 flex flex-col lg:flex-row items-center gap-12 text-slate-800">
             <div className="flex-1">
