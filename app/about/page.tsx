@@ -94,7 +94,7 @@ const AboutPage = () => {
       </section>
 
       {/* The Story Section */}
-      <section className="py-20 bg-background-light dark:bg-background-dark">
+      <section className="py-10 bg-background-light dark:bg-background-dark">
         <Container>
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold tracking-tight mb-6">
@@ -144,7 +144,7 @@ const AboutPage = () => {
       </section>
 
       {/* Values Section */}
-      <section className="px-6 py-20 lg:px-20">
+      <section className="px-6 py-10">
         <Container className="bg-slate-900 text-white rounded-3xl py-20 relative overflow-hidden px-6 lg:px-20">
           <div className="relative z-10">
             <div className="text-center mb-16">
