@@ -100,7 +100,7 @@ const Navbar = () => {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-800 p-1 pr-2 sm:pr-3 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                className="flex items-center rounded-full border border-slate-200 dark:border-slate-800 p-1 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer"
               >
                 {user.image ? (
                   <Image
@@ -115,7 +115,7 @@ const Navbar = () => {
                     {user.name?.charAt(0).toUpperCase()}
                   </div>
                 )}
-                <span className="text-sm font-bold truncate max-w-20 sm:max-w-25 hidden sm:block">
+                <span className="text-sm font-bold truncate max-w-20 sm:max-w-25 hidden sm:block ml-2 mr-2 sm:mr-3">
                   {user.name}
                 </span>
               </button>

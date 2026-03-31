@@ -129,7 +129,7 @@ const LoginView = () => {
         </div>
 
         {/* Right Side: Login Form */}
-        <div className="p-8 sm:p-12 flex flex-col justify-center">
+        <div className="p-6 sm:p-12 flex flex-col justify-center">
           <div className="md:hidden flex items-center gap-2 mb-8">
             <div className="size-8 bg-primary flex items-center justify-center rounded-lg">
               <Plane className="size-5 text-background-dark" />
@@ -236,22 +236,24 @@ const LoginView = () => {
               </span>
               <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 min-[440px]:grid-cols-2 gap-3">
               <button
                 type="button"
                 disabled={isLoading}
                 onClick={() => quickLogin('user')}
-                className="py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary cursor-pointer active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
+                className="py-3 px-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary cursor-pointer active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
               >
-                <UserRound className="size-4" /> Login as User
+                <UserRound className="size-4 shrink-0 transition-transform group-hover:scale-110" /> 
+                <span className="truncate">Login as User</span>
               </button>
               <button
                 type="button"
                 disabled={isLoading}
                 onClick={() => quickLogin('admin')}
-                className="py-3 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary cursor-pointer active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
+                className="py-3 px-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary cursor-pointer active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
               >
-                <ShieldCheck className="size-4" /> Login as Admin
+                <ShieldCheck className="size-4 shrink-0 transition-transform group-hover:scale-110" /> 
+                <span className="truncate">Login as Admin</span>
               </button>
             </div>
           </div>

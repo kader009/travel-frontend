@@ -93,11 +93,11 @@ const AdminSubscriptionsPage = () => {
 
       {/* Recent Payments Table */}
       <div className="bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col">
-        <div className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
-          <div className="size-10 bg-primary/10 text-primary rounded-xl flex items-center justify-center">
-            <History className="size-5" />
+        <div className="px-6 sm:px-8 py-5 sm:py-6 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
+          <div className="size-8 sm:size-10 bg-primary/10 text-primary rounded-xl flex items-center justify-center">
+            <History className="size-4 sm:size-5" />
           </div>
-          <h2 className="text-xl font-black uppercase tracking-tighter text-slate-900 dark:text-white">Recent Transactions</h2>
+          <h2 className="text-lg sm:text-xl font-black uppercase tracking-tighter text-slate-900 dark:text-white">Recent Transactions</h2>
         </div>
         
         {recentPayments && recentPayments.length > 0 ? (
@@ -105,42 +105,42 @@ const AdminSubscriptionsPage = () => {
             <table className="w-full text-left border-collapse min-w-[800px]">
               <thead>
                 <tr className="bg-slate-50 dark:bg-slate-800/50">
-                  <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">User</th>
-                  <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Transaction ID</th>
-                  <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Plan</th>
-                  <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Amount</th>
-                  <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Date</th>
-                  <th className="px-8 py-5 text-[10px] font-black uppercase tracking-widest text-slate-400 text-right">Status</th>
+                  <th className="px-4 sm:px-8 py-4 sm:py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">User</th>
+                  <th className="px-4 sm:px-8 py-4 sm:py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Transaction ID</th>
+                  <th className="px-4 sm:px-8 py-4 sm:py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Plan</th>
+                  <th className="px-4 sm:px-8 py-4 sm:py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Amount</th>
+                  <th className="px-4 sm:px-8 py-4 sm:py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Date</th>
+                  <th className="px-4 sm:px-8 py-4 sm:py-5 text-[10px] font-black uppercase tracking-widest text-slate-400 text-right">Status</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {recentPayments.map((payment) => (
                   <tr key={payment._id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
-                    <td className="px-8 py-5">
+                    <td className="px-4 sm:px-8 py-4 sm:py-5">
                       <div className="flex items-center gap-3">
-                        <div className="size-10 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 relative shrink-0">
+                        <div className="size-9 sm:size-10 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 relative shrink-0">
                           {payment.user?.image ? (
                             <Image src={payment.user.image} alt={payment.user.name} fill className="object-cover" />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center text-slate-400">
-                              <UserCircle className="size-6" />
+                              <UserCircle className="size-5 sm:size-6" />
                             </div>
                           )}
                         </div>
                         <div>
-                          <p className="font-bold text-sm text-slate-900 dark:text-white capitalize">{payment.user?.name || 'Unknown'}</p>
-                          <p className="text-xs text-slate-500 font-medium">{payment.user?.email || 'N/A'}</p>
+                          <p className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white capitalize truncate max-w-[120px] sm:max-w-none">{payment.user?.name || 'Unknown'}</p>
+                          <p className="text-[10px] sm:text-xs text-slate-500 font-medium truncate max-w-[120px] sm:max-w-none">{payment.user?.email || 'N/A'}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="px-8 py-5">
+                    <td className="px-4 sm:px-8 py-4 sm:py-5">
                       <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
-                        <FileText className="size-3.5 text-slate-400" />
-                        <span className="text-xs font-mono font-bold">{payment.transactionId}</span>
+                        <FileText className="size-3 text-slate-400" />
+                        <span className="text-[10px] sm:text-xs font-mono font-bold">{payment.transactionId}</span>
                       </div>
                     </td>
-                    <td className="px-8 py-5">
-                      <span className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest ${
+                    <td className="px-4 sm:px-8 py-4 sm:py-5">
+                      <span className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[9px] sm:text-[10px] font-black uppercase tracking-widest ${
                         payment.planType === 'yearly' 
                           ? 'bg-primary/10 text-primary border border-primary/20' 
                           : 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
@@ -148,11 +148,11 @@ const AdminSubscriptionsPage = () => {
                         {payment.planType}
                       </span>
                     </td>
-                    <td className="px-8 py-5">
-                      <p className="font-black text-slate-900 dark:text-white">৳{payment.amount}</p>
+                    <td className="px-4 sm:px-8 py-4 sm:py-5">
+                      <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">৳{payment.amount}</p>
                     </td>
-                    <td className="px-8 py-5">
-                      <p className="text-xs font-bold text-slate-500 dark:text-slate-400">
+                    <td className="px-4 sm:px-8 py-4 sm:py-5">
+                      <p className="text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400">
                         {new Date(payment.createdAt).toLocaleDateString(undefined, {
                           year: 'numeric',
                           month: 'short',
@@ -160,9 +160,9 @@ const AdminSubscriptionsPage = () => {
                         })}
                       </p>
                     </td>
-                    <td className="px-8 py-5 text-right">
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 rounded-lg text-[10px] font-black uppercase tracking-widest">
-                        <span className="size-1.5 rounded-full bg-emerald-500"></span>
+                    <td className="px-4 sm:px-8 py-4 sm:py-5 text-right">
+                      <div className="inline-flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 rounded-lg text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-nowrap">
+                        <span className="size-1 rounded-full bg-emerald-500"></span>
                         {payment.status}
                       </div>
                     </td>

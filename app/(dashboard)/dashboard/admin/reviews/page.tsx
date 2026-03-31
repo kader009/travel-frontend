@@ -178,7 +178,7 @@ const AdminReviewsPage = () => {
                         {user.name}
                       </p>
                       <p
-                        className={`text-[9px] font-bold uppercase tracking-widest truncate ${selectedUserId === user._id ? 'text-slate-900/60' : 'text-slate-400'}`}
+                        className={`text-[9px] font-bold tracking-widest truncate ${selectedUserId === user._id ? 'text-slate-900/60' : 'text-slate-400'}`}
                       >
                         {user.email}
                       </p>
@@ -207,9 +207,9 @@ const AdminReviewsPage = () => {
             <ReviewListSkeleton />
           ) : (
             <div className="space-y-8 animate-in slide-in-from-bottom-4 duration-500">
-              <div className="flex items-center justify-between px-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-4">
                 <div className="flex items-center gap-4">
-                  <div className="px-6 py-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-4">
+                  <div className="px-5 sm:px-6 py-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-4">
                     <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                       <Star className="size-5 fill-primary" />
                     </div>
@@ -223,7 +223,7 @@ const AdminReviewsPage = () => {
                     </div>
                   </div>
                 </div>
-                <span className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">
+                <span className="text-[10px] sm:text-xs font-black text-slate-400 uppercase tracking-[0.2em]">
                   {reviews.length} total reviews found
                 </span>
               </div>
@@ -320,7 +320,7 @@ const AdminReviewsPage = () => {
               </button>
             </div>
 
-            <form onSubmit={handleUpdate} className="p-8 space-y-6">
+            <form onSubmit={handleUpdate} className="p-6 sm:p-8 space-y-6">
               <div>
                 <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 ml-1">
                   Expedition Rating
@@ -357,18 +357,11 @@ const AdminReviewsPage = () => {
                 />
               </div>
 
-              <div className="pt-4 flex gap-4">
-                <button
-                  type="button"
-                  onClick={() => setIsEditModalOpen(false)}
-                  className="flex-1 px-6 py-4 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-black rounded-2xl text-xs uppercase tracking-widest"
-                >
-                  Discard
-                </button>
+              <div className="pt-4 flex flex-col sm:flex-row gap-4">
                 <button
                   type="submit"
                   disabled={isUpdating}
-                  className="flex-1 px-6 py-4 bg-primary text-slate-900 font-black rounded-2xl shadow-lg shadow-primary/20 text-xs uppercase tracking-widest flex items-center justify-center gap-2"
+                  className="w-full sm:flex-1 order-1 sm:order-2 px-6 py-4 bg-primary text-slate-900 font-black rounded-2xl shadow-lg shadow-primary/20 text-xs uppercase tracking-widest flex items-center justify-center gap-2"
                 >
                   {isUpdating ? (
                     <Loader2 className="size-4 animate-spin" />
@@ -376,6 +369,13 @@ const AdminReviewsPage = () => {
                     <Check className="size-4" strokeWidth={3} />
                   )}{' '}
                   Save Update
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsEditModalOpen(false)}
+                  className="w-full sm:flex-1 order-2 sm:order-1 px-6 py-4 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-black rounded-2xl text-xs uppercase tracking-widest"
+                >
+                  Discard
                 </button>
               </div>
             </form>

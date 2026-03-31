@@ -1,7 +1,4 @@
-'use client';
-
 import {
-  Calendar,
   Info,
   Database,
   User,
@@ -30,10 +27,6 @@ const PrivacyPolicy = () => {
             <h1 className="text-4xl md:text-5xl font-black mb-4 tracking-tight text-slate-900 dark:text-white">
               Privacy Policy
             </h1>
-            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
-              <Calendar className="w-4 h-4" />
-              <p className="text-sm">Last Updated: October 24, 2023</p>
-            </div>
           </div>
 
           {/* Content Container */}
@@ -118,8 +111,8 @@ const PrivacyPolicy = () => {
                     alerts.
                   </li>
                   <li>
-                    Improving our platform&apos;s functionality through anonymized
-                    analytics.
+                    Improving our platform&apos;s functionality through
+                    anonymized analytics.
                   </li>
                 </ul>
               </div>

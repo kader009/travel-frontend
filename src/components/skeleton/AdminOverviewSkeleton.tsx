@@ -10,11 +10,11 @@ const AdminOverviewSkeleton = () => {
       </div>
 
       {/* Stats Grid Skeleton */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         {[1, 2, 3, 4].map((i) => (
           <div
             key={i}
-            className="bg-white dark:bg-slate-900 p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm"
+            className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm"
           >
             <div className="flex justify-between items-start mb-6">
               <div className="size-12 rounded-2xl bg-slate-200/50 dark:bg-slate-800 shrink-0" />
@@ -29,7 +29,7 @@ const AdminOverviewSkeleton = () => {
       {/* Charts Grid Skeleton */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
         {/* Main Area Chart Skeleton */}
-        <div className="lg:col-span-2 bg-white dark:bg-slate-900 p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm h-96">
+        <div className="lg:col-span-2 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm h-96">
           <div className="flex items-center justify-between mb-12">
             <div>
               <div className="h-5 w-48 bg-slate-200/50 dark:bg-slate-800 rounded-md mb-3" />
@@ -41,7 +41,7 @@ const AdminOverviewSkeleton = () => {
         </div>
 
         {/* Popular Destinations Skeleton */}
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col items-start h-96">
+        <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col items-start h-96">
           <div className="h-5 w-48 bg-slate-200/50 dark:bg-slate-800 rounded-md mb-8" />
           <div className="space-y-6 w-full mt-2">
             {[1, 2, 3, 4].map((i) => (
@@ -61,7 +61,7 @@ const AdminOverviewSkeleton = () => {
       </div>
 
       {/* New Registered Personnel Skeleton */}
-      <div className="bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm p-8 flex flex-col">
+      <div className="bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm p-6 sm:p-8 flex flex-col">
         <div className="flex items-center justify-between mb-8">
           <div className="h-5 w-56 bg-slate-200/50 dark:bg-slate-800 rounded-md" />
           <div className="flex -space-x-3">

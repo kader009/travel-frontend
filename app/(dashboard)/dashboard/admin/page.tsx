@@ -133,7 +133,7 @@ const AdminOverviewPage = () => {
   }
 
   return (
-    <div className="animate-in fade-in duration-700">
+    <div className="animate-in fade-in duration-700 max-w-[1600px] mx-auto w-full">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-10 gap-4">
         <div>
           <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase">Platform Overview</h2>
@@ -142,9 +142,9 @@ const AdminOverviewPage = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         {/* Users Stat */}
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all group">
+        <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all group">
           <div className="flex justify-between items-start mb-6">
             <div className="p-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 rounded-2xl group-hover:scale-110 transition-transform">
               <Users className="size-6" />
@@ -158,7 +158,7 @@ const AdminOverviewPage = () => {
         </div>
 
         {/* Trips Stat */}
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all group">
+        <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all group">
           <div className="flex justify-between items-start mb-6">
             <div className="p-3 bg-primary/10 text-primary rounded-2xl group-hover:scale-110 transition-transform">
               <MapIcon className="size-6" />
@@ -172,7 +172,7 @@ const AdminOverviewPage = () => {
         </div>
 
         {/* Success Stat */}
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all group">
+        <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all group">
           <div className="flex justify-between items-start mb-6">
             <div className="p-3 bg-amber-50 dark:bg-amber-900/20 text-amber-600 rounded-2xl group-hover:scale-110 transition-transform">
               <Handshake className="size-6" />
@@ -186,7 +186,7 @@ const AdminOverviewPage = () => {
         </div>
 
         {/* Revenue Stat */}
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all group">
+        <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all group">
           <div className="flex justify-between items-start mb-6">
             <div className="p-3 bg-violet-50 dark:bg-violet-900/20 text-violet-600 rounded-2xl group-hover:scale-110 transition-transform">
               <CreditCard className="size-6" />
@@ -201,7 +201,7 @@ const AdminOverviewPage = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
-        <div className="lg:col-span-2 bg-white dark:bg-slate-900 p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-xl hover:shadow-primary/5">
+        <div className="lg:col-span-2 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-xl hover:shadow-primary/5">
           <div className="flex items-center justify-between mb-12">
             <div>
                <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight flex items-center gap-2">
@@ -216,7 +216,7 @@ const AdminOverviewPage = () => {
             </div>
           </div>
           
-          <div className="h-80 w-full pr-4">
+          <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={stats.chartData}>
                 <defs>
@@ -261,7 +261,8 @@ const AdminOverviewPage = () => {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col">
+
+        <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col">
           <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight mb-8">Popular Destinations</h4>
           <div className="space-y-6 flex-1">
             {stats.popularDestinations.length > 0 ? stats.popularDestinations.map((destination, index) => (
@@ -290,7 +291,8 @@ const AdminOverviewPage = () => {
         </div>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm p-8 flex flex-col">
+
+      <div className="bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm p-6 sm:p-8 flex flex-col">
         <div className="flex items-center justify-between mb-8">
           <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight">New Registered Personnel</h4>
           <div className="flex -space-x-3">
@@ -309,8 +311,8 @@ const AdminOverviewPage = () => {
                 {userProfile.image ? <Image src={userProfile.image} alt={userProfile.name} width={48} height={48} className="size-full object-cover" /> : <UserCircle className="size-full text-slate-300" />}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="font-black text-sm text-slate-900 dark:text-white truncate tracking-tight">{userProfile.name || 'Anonymous'}</p>
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest truncate">{userProfile.email || 'Unregistered'}</p>
+                <p className="font-black text-sm text-slate-900 dark:text-white truncate tracking-tight capitalize">{userProfile.name || 'Anonymous'}</p>
+                <p className="text-[10px] font-black text-slate-400 tracking-widest truncate">{userProfile.email || 'Unregistered'}</p>
               </div>
               <button className="text-slate-300 hover:text-primary transition-colors cursor-pointer shrink-0">
                 <MoreVertical className="size-5" />
