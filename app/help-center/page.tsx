@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -12,6 +10,7 @@ import {
 import Container from '@/src/components/ui/Container';
 
 const HelpCenter = () => {
+  const currentYear = new Date().getFullYear();
   return (
     <main className="flex-1">
       {/* Hero Search Section */}
@@ -144,7 +143,7 @@ const HelpCenter = () => {
                   Planning
                 </span>
                 <h4 className="text-lg font-bold mb-2 text-slate-900 dark:text-white group-hover:text-primary transition-colors">
-                  Top 10 group destinations for 2024
+                  Top 10 group destinations for {currentYear}
                 </h4>
                 <p className="text-sm text-slate-500 line-clamp-2">
                   Discover the trending spots where solo travelers are gathering

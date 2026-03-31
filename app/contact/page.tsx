@@ -122,7 +122,7 @@ const Contact = () => {
                       <p className="font-medium text-slate-900 dark:text-slate-100">
                         +1 (555) 234-5678
                       </p>
-                      <p className="text-xs text-slate-500 italic mt-1">
+                      <p className="text-xs text-slate-500 mt-1">
                         Friendly travelers waiting to talk!
                       </p>
                     </div>
