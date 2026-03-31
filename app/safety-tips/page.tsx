@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import {
   ShieldCheck,
@@ -14,6 +12,7 @@ import {
   Siren,
   HeartPulse,
   CheckCircle2,
+  ExternalLink,
 } from 'lucide-react';
 import Container from '@/src/components/ui/Container';
 
@@ -188,10 +187,12 @@ const SafetyTips = () => {
                     </div>
                   </div>
                   <Link
-                    className="text-primary font-bold hover:underline"
-                    href="#"
+                    className="text-primary font-bold hover:underline inline-flex items-center gap-1"
+                    href="https://en.wikipedia.org/wiki/List_of_emergency_telephone_numbers"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    View List
+                    View List <ExternalLink className="w-4 h-4" />
                   </Link>
                 </div>
                 <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg border border-primary/5">
@@ -207,10 +208,12 @@ const SafetyTips = () => {
                     </div>
                   </div>
                   <Link
-                    className="text-primary font-bold hover:underline"
-                    href="#"
+                    className="text-primary font-bold hover:underline inline-flex items-center gap-1"
+                    href="https://safetywing.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    Learn More
+                    Learn More <ExternalLink className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
