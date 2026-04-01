@@ -8,7 +8,7 @@ import { ProfileFormValues } from '@/src/types/forms';
 import { 
   X, 
   User, 
-  Image as ImageIcon, 
+  Image as ImageIcon,
   MapPin, 
   Globe, 
   Compass, 

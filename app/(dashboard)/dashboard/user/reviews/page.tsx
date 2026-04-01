@@ -29,6 +29,7 @@ import {
   useDeleteReviewMutation,
   useUpdateReviewMutation,
 } from '@/src/redux/store/api/endApi';
+import { UserReviewsSkeleton } from '@/src/components/skeleton/UserReviewsSkeleton';
 
 
 const UserReviewsPage = () => {
@@ -178,6 +179,10 @@ const UserReviewsPage = () => {
     }
   };
 
+  if (isLoading) {
+    return <UserReviewsSkeleton />;
+  }
+
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       {/* Header */}
@@ -280,15 +285,15 @@ const UserReviewsPage = () => {
             <div className="flex border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20">
               <button
                 onClick={() => setActiveTab('posted')}
-                className={`flex-1 px-6 py-4 font-black text-sm uppercase tracking-tight transition-all border-b-2 ${activeTab === 'posted' ? 'border-primary text-primary bg-white dark:bg-slate-900' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
+                className={`flex-1 px-2 sm:px-6 py-3.5 sm:py-4 font-black text-[11px] sm:text-sm uppercase tracking-tight transition-all border-b-2 ${activeTab === 'posted' ? 'border-primary text-primary bg-white dark:bg-slate-900' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
               >
-                Reviews You Posted ({postedReviews.length})
+                Posted ({postedReviews.length})
               </button>
               <button
                 onClick={() => setActiveTab('received')}
-                className={`flex-1 px-6 py-4 font-black text-sm uppercase tracking-tight transition-all border-b-2 ${activeTab === 'received' ? 'border-primary text-primary bg-white dark:bg-slate-900' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
+                className={`flex-1 px-2 sm:px-6 py-3.5 sm:py-4 font-black text-[11px] sm:text-sm uppercase tracking-tight transition-all border-b-2 ${activeTab === 'received' ? 'border-primary text-primary bg-white dark:bg-slate-900' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
               >
-                Reviews You Received ({receivedReviews.length})
+                Received ({receivedReviews.length})
               </button>
             </div>
 
@@ -296,14 +301,7 @@ const UserReviewsPage = () => {
             <div className="p-8">
               {activeTab === 'posted' ? (
                 <>
-                  {isLoading ? (
-                    <div className="py-20 flex flex-col items-center justify-center gap-4 text-slate-400">
-                      <Loader2 className="size-10 animate-spin text-primary" />
-                      <p className="text-[10px] font-black uppercase tracking-widest">
-                        Loading your reviews...
-                      </p>
-                    </div>
-                  ) : postedReviews.length === 0 ? (
+                  {postedReviews.length === 0 ? (
                     <div className="py-24 text-center">
                       <div className="size-20 bg-slate-50 dark:bg-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-6">
                         <Star className="size-8 text-slate-200 dark:text-slate-700" />
@@ -334,11 +332,11 @@ const UserReviewsPage = () => {
                         return (
                           <div
                             key={review._id}
-                            className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 hover:border-primary/20 transition-all"
+                            className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-4 sm:p-6 border border-slate-100 dark:border-slate-800 hover:border-primary/20 transition-all"
                           >
                             <div className="flex justify-between items-start mb-4">
                               <div className="flex gap-3 items-start flex-1">
-                                <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black text-sm shrink-0">
+                                <div className="size-10 sm:size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black text-sm shrink-0 overflow-hidden">
                                   {reviewee?.image ? (
                                     <Image
                                       src={reviewee.image}
@@ -352,11 +350,11 @@ const UserReviewsPage = () => {
                                   )}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <h4 className="font-black text-slate-900 dark:text-white text-sm uppercase tracking-tight">
+                                  <h4 className="font-black text-slate-900 dark:text-white text-xs sm:text-sm uppercase tracking-tight truncate max-w-[140px] sm:max-w-none">
                                     {reviewee?.name || 'User'}
                                   </h4>
-                                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-tight">
-                                    {travelPlan?.title || 'Travel Plan'}
+                                  <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-tight truncate max-w-[140px] sm:max-w-none">
+                                    {travelPlan?.title || 'Expedition Name'}
                                   </p>
                                   <div className="flex gap-0.5 mt-1">
                                     {[...Array(5)].map((_, i) => (
@@ -388,7 +386,7 @@ const UserReviewsPage = () => {
                                 </button>
                               </div>
                             </div>
-                            <p className="text-sm text-slate-600 dark:text-slate-300 font-bold leading-relaxed ml-15">
+                            <p className="text-sm text-slate-600 dark:text-slate-300 font-bold leading-relaxed sm:ml-15 ml-0 mt-3 sm:mt-0">
                               {review.comment}
                             </p>
                             <p className="text-[10px] text-slate-400 mt-3 font-semibold">
@@ -406,14 +404,7 @@ const UserReviewsPage = () => {
                 </>
               ) : (
                 <>
-                  {isLoading ? (
-                    <div className="py-20 flex flex-col items-center justify-center gap-4 text-slate-400">
-                      <Loader2 className="size-10 animate-spin text-primary" />
-                      <p className="text-[10px] font-black uppercase tracking-widest">
-                        Synchronizing reviews...
-                      </p>
-                    </div>
-                  ) : receivedReviews.length > 0 ? (
+                  {receivedReviews.length > 0 ? (
                     <div className="space-y-4">
                       {receivedReviews.map((review) => {
                         const reviewerData = (
@@ -431,11 +422,11 @@ const UserReviewsPage = () => {
                         return (
                           <div
                             key={review._id}
-                            className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 hover:border-primary/20 transition-all"
+                            className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-4 sm:p-6 border border-slate-100 dark:border-slate-800 hover:border-primary/20 transition-all"
                           >
                             <div className="flex justify-between items-start mb-4">
                               <div className="flex gap-3 items-start flex-1">
-                                <div className="size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black text-sm shrink-0 overflow-hidden">
+                                <div className="size-10 sm:size-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-black text-sm shrink-0 overflow-hidden">
                                   {reviewer?.image ? (
                                     <Image
                                       src={reviewer.image}
@@ -449,11 +440,11 @@ const UserReviewsPage = () => {
                                   )}
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <h4 className="font-black text-slate-900 dark:text-white text-sm uppercase tracking-tight">
+                                  <h4 className="font-black text-slate-900 dark:text-white text-xs sm:text-sm uppercase tracking-tight truncate max-w-[200px] sm:max-w-none">
                                     {reviewer?.name || 'Traveler'}
                                   </h4>
-                                  <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-tight">
-                                    {travelPlan?.title || 'Travel Plan'}
+                                  <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-tight truncate max-w-[200px] sm:max-w-none">
+                                    {travelPlan?.title || 'Expedition Name'}
                                   </p>
                                   <div className="flex gap-0.5 mt-1">
                                     {[...Array(5)].map((_, i) => (
@@ -467,7 +458,7 @@ const UserReviewsPage = () => {
                                 </div>
                               </div>
                             </div>
-                            <p className="text-sm text-slate-600 dark:text-slate-300 font-bold leading-relaxed ml-15">
+                            <p className="text-sm text-slate-600 dark:text-slate-300 font-bold leading-relaxed sm:ml-15 ml-0 mt-3 sm:mt-0">
                               {review.comment}
                             </p>
                             <p className="text-[10px] text-slate-400 mt-3 font-semibold">
