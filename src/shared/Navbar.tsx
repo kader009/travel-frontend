@@ -60,6 +60,7 @@ const Navbar = () => {
           <button
             onClick={() => setIsMenuOpen(true)}
             className="p-1 md:hidden text-slate-600 dark:text-slate-300 transition-colors"
+            aria-label="toggle menu"
           >
             <Menu className="w-6 h-6" />
           </button>

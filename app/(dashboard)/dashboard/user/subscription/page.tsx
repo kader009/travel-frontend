@@ -102,7 +102,7 @@ const SubscriptionPage = () => {
             key={plan.id}
             className={`relative group bg-white dark:bg-slate-900 rounded-[3rem] border-2 transition-all p-10 flex flex-col ${
               plan.popular
-                ? 'border-primary ring-4 ring-primary/5 shadow-2xl scale-105 z-10'
+                ? 'border-primary ring-4 ring-primary/5 scale-105 z-10'
                 : 'border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm'
             }`}
           >
@@ -153,7 +153,7 @@ const SubscriptionPage = () => {
               disabled={isInitializing}
               className={`w-full py-5 rounded-3xl font-black text-[11px] uppercase tracking-[0.2em] transition-all active:scale-95 flex items-center justify-center gap-2 border-none cursor-pointer ${
                 plan.popular
-                  ? 'bg-primary text-slate-900 shadow-xl shadow-primary/20 hover:shadow-primary/40'
+                  ? 'bg-primary text-slate-900 shadow-primary/20 hover:shadow-primary/40'
                   : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:opacity-90'
               }`}
             >
