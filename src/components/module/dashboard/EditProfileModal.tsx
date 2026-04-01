@@ -123,10 +123,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
       />
       
       {/* Modal Content */}
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-hidden bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-slate-800 animate-in fade-in zoom-in duration-300 transition-all">
+      <div className="relative w-full max-w-2xl h-auto max-h-[95vh] sm:max-h-[90vh] overflow-hidden bg-white dark:bg-slate-900 rounded-3xl sm:rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-slate-800 animate-in fade-in zoom-in duration-300 transition-all flex flex-col">
         
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+        <div className="flex-none bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl px-5 sm:px-8 py-4 sm:py-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="size-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
               <Compass className="size-6" strokeWidth={2.5} />
@@ -147,7 +147,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
         </div>
 
         {/* Scrollable Body */}
-        <div className="overflow-y-auto p-8 custom-scrollbar max-h-[calc(90vh-180px)]">
+        <div className="flex-1 overflow-y-auto p-5 sm:p-8 custom-scrollbar">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             
             {/* Basic Info Section */}
@@ -303,25 +303,25 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
         </div>
 
         {/* Footer Actions */}
-        <div className="p-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex items-center gap-4">
+        <div className="flex-none p-5 sm:p-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 px-8 py-5 rounded-3xl border-2 border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-black text-[10px] uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-800 transition-all cursor-pointer active:scale-95"
+            className="w-full sm:flex-1 px-6 sm:px-8 py-4 sm:py-5 rounded-2xl sm:rounded-3xl border-2 border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-black text-[10px] uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-800 transition-all cursor-pointer active:scale-95"
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit(onSubmit)}
             disabled={isLoading}
-            className="flex-2 bg-primary text-slate-900 px-8 py-5 rounded-3xl font-black text-[10px] uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:pointer-events-none active:scale-95 border-none"
+            className="w-full sm:flex-2 bg-primary text-slate-900 px-6 sm:px-8 py-4 sm:py-5 rounded-2xl sm:rounded-3xl font-black text-[10px] uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-primary/40 sm:hover:-translate-y-1 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:pointer-events-none active:scale-95 border-none"
           >
             {isLoading ? (
               <Loader2 className="size-4 animate-spin" />
             ) : (
               <>
                 <Save className="size-4" strokeWidth={3} />
-                Save Exploration Data
+                Save Data
               </>
             )}
           </button>
