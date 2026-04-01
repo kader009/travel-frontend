@@ -115,10 +115,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-9999 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-9999 flex items-end sm:items-center justify-center p-0 sm:p-4">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity duration-300"
+        className="fixed inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity duration-300"
         onClick={onClose}
       />
       

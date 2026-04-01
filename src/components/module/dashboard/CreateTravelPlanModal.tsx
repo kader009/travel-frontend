@@ -18,6 +18,7 @@ import {
   Navigation,
   Search,
   DollarSign,
+  Plus,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useCreateTravelPlanMutation } from '@/src/redux/store/api/endApi';
@@ -129,7 +130,7 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-9999 flex items-center justify-center p-0 md:p-4">
+    <div className="fixed inset-0 z-9999 flex items-end sm:items-center justify-center p-0 sm:p-4">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity duration-300"
@@ -137,9 +138,20 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({
       />
 
       {/* Modal Content */}
-      <div className="relative w-full max-w-2xl h-full md:h-auto md:max-h-[90vh] overflow-hidden bg-white dark:bg-slate-900 rounded-none md:rounded-[2.5rem] shadow-2xl border-none md:border md:border-white/20 dark:md:border-slate-800 animate-in fade-in zoom-in duration-300 transition-all flex flex-col">
-        {/* Header - Just Close Button */}
-        <div className="sticky top-0 z-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl px-8 py-4 flex items-center justify-end shrink-0">
+      <div className="relative w-full max-w-2xl h-auto max-h-[95vh] sm:max-h-[90vh] overflow-hidden bg-white dark:bg-slate-900 rounded-3xl sm:rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-slate-800 animate-in fade-in zoom-in duration-300 transition-all flex flex-col">
+        {/* Header */}
+        <div className="flex-none bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl px-5 sm:px-8 py-4 sm:py-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="size-10 sm:size-12 rounded-xl sm:rounded-2xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+              <Plus className="size-5 sm:size-6" strokeWidth={2.5} />
+            </div>
+            <div>
+              <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight leading-none">New Expedition</h2>
+              <p className="text-[9px] sm:text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-1.5 flex items-center gap-1.5">
+                Plan your next adventure
+              </p>
+            </div>
+          </div>
           <button
             onClick={onClose}
             className="size-10 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center transition-all group cursor-pointer active:scale-90"
@@ -149,7 +161,7 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({
         </div>
 
         {/* Scrollable Body */}
-        <div className="overflow-y-auto p-8 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto p-5 sm:p-8 custom-scrollbar">
           <form
             id="create-plan-form"
             onSubmit={handleSubmit(onSubmit)}
@@ -370,11 +382,11 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="p-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex items-center gap-4 shrink-0 mt-auto">
+        <div className="flex-none p-5 sm:p-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 shrink-0">
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 px-8 py-5 rounded-3xl border-2 border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-black text-[10px] uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-800 transition-all cursor-pointer active:scale-95"
+            className="w-full sm:flex-1 px-6 sm:px-8 py-4 sm:py-5 rounded-2xl sm:rounded-3xl border-2 border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-black text-[10px] uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-800 transition-all cursor-pointer active:scale-95"
           >
             Cancel
           </button>
@@ -382,12 +394,15 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({
             type="button"
             onClick={handleSubmit(onSubmit)}
             disabled={isLoading}
-            className="flex-2 bg-primary text-slate-900 px-8 py-5 rounded-3xl font-black text-[10px] uppercase tracking-widest hover:shadow-primary/40 hover:-translate-y-1 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:pointer-events-none active:scale-95 border-none"
+            className="w-full sm:flex-2 bg-primary text-slate-900 px-6 sm:px-8 py-4 sm:py-5 rounded-2xl sm:rounded-3xl font-black text-[10px] uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-primary/40 sm:hover:-translate-y-1 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:pointer-events-none active:scale-95 border-none"
           >
             {isLoading ? (
               <Loader2 className="size-4 animate-spin" />
             ) : (
-              <>Create Travel Plan</>
+              <>
+                <Plus className="size-4" strokeWidth={3} />
+                Create Expedition
+              </>
             )}
           </button>
         </div>
