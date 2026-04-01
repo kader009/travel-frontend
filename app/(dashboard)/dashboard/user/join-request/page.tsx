@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { toast } from 'sonner';
+import { SentJoinRequestsSkeleton, ReceivedJoinRequestsSkeleton } from '@/src/components/skeleton/JoinRequestsSkeleton';
 
 // Component to render requests for a single travel plan
 const PlanRequests = ({
@@ -277,10 +278,10 @@ const JoinRequestsPage = () => {
             Manage personnel requests and mission status.
           </p>
         </div>
-        <div className="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl">
+        <div className="flex w-full sm:w-auto bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl">
           <button
             onClick={() => setActiveTab('received')}
-            className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
+            className={`flex-1 sm:flex-none px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
               activeTab === 'received'
                 ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
@@ -290,7 +291,7 @@ const JoinRequestsPage = () => {
           </button>
           <button
             onClick={() => setActiveTab('sent')}
-            className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
+            className={`flex-1 sm:flex-none px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
               activeTab === 'sent'
                 ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
@@ -304,12 +305,7 @@ const JoinRequestsPage = () => {
       {activeTab === 'sent' ? (
         <div className="space-y-4">
           {isSentLoading ? (
-            <div className="py-24 flex flex-col items-center gap-4">
-              <Loader2 className="size-10 animate-spin text-primary" />
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
-                Syncing Transmissions
-              </p>
-            </div>
+            <SentJoinRequestsSkeleton />
           ) : sentRequests.length > 0 ? (
             <div className="grid grid-cols-1 gap-4">
               {sentRequests.map((req: IJoinRequest) => {
@@ -384,12 +380,7 @@ const JoinRequestsPage = () => {
       ) : (
         <div className="space-y-8">
           {isPlansLoading ? (
-            <div className="py-24 flex flex-col items-center gap-4">
-              <Loader2 className="size-10 animate-spin text-primary" />
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
-                Loading Your Expeditions
-              </p>
-            </div>
+            <ReceivedJoinRequestsSkeleton />
           ) : myPlans.length > 0 ? (
             <ReceivedRequestsList plans={myPlans} />
           ) : (

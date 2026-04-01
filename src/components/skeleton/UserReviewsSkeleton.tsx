@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const UserReviewsSkeleton = () => {
   return (
     <div className="space-y-8 animate-pulse w-full">

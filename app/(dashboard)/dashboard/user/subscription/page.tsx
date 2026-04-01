@@ -16,12 +16,17 @@ import {
   useInitializeSubscriptionMutation,
   useGetPaymentHistoryQuery,
 } from '@/src/redux/store/api/endApi';
+import { UserSubscriptionSkeleton } from '@/src/components/skeleton/UserSubscriptionSkeleton';
 
 const SubscriptionPage = () => {
   const [initPayment, { isLoading: isInitializing }] =
     useInitializeSubscriptionMutation();
   const { data: historyData, isLoading: isHistoryLoading } =
     useGetPaymentHistoryQuery();
+
+  if (isHistoryLoading) {
+    return <UserSubscriptionSkeleton />;
+  }
 
   const handleSubscribe = async (planType: 'monthly' | 'yearly') => {
     try {
@@ -221,16 +226,7 @@ const SubscriptionPage = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
-              {isHistoryLoading ? (
-                <tr>
-                  <td colSpan={5} className="py-20 text-center">
-                    <Loader2 className="size-10 animate-spin text-primary mx-auto mb-4" />
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                      Retrieving ledger...
-                    </p>
-                  </td>
-                </tr>
-              ) : historyData?.data && historyData.data.length > 0 ? (
+              {historyData?.data && historyData.data.length > 0 ? (
                 historyData.data.map((tx) => (
                   <tr
                     key={tx._id}
