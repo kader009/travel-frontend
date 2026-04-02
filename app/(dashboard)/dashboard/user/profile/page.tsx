@@ -12,7 +12,6 @@ import {
   Globe,
   Star,
   UserCircle,
-  Loader2,
   Compass,
   MessageSquare,
 } from 'lucide-react';

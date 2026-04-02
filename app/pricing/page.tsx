@@ -10,15 +10,11 @@ import {
   CalendarCheck,
   CheckCircle2,
   CreditCard,
-  Gift,
   Lock,
-  MessageCircle,
   Minus,
   ShieldCheck,
-  Star,
   UserCheck,
   Wallet,
-  Zap,
   Crown,
   Loader2
 } from 'lucide-react';
