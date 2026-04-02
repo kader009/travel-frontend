@@ -73,7 +73,7 @@ const AdminOverviewPage = () => {
     const revenueGrowth = revenuePrev30 > 0 ? ((revenueLast30 - revenuePrev30) / revenuePrev30) * 100 : (revenueLast30 > 0 ? 100 : 0);
 
     // 4. Meetup Success
-    const completedPlans = plans.filter(plan => plan.status === 'ongoing').length; 
+    const completedPlans = plans.filter(plan => plan.status === 'ongoing' || plan.status === 'completed').length; 
     const meetupSuccess = totalTrips > 0 ? Math.min(100, Math.round((completedPlans / totalTrips) * 100)) : 88;
 
     const recentUsers = [...users].reverse().slice(0, 4);
