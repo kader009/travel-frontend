@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { toast } from 'sonner';
-import { SentJoinRequestsSkeleton, ReceivedJoinRequestsSkeleton } from '@/src/components/skeleton/AdminJoinRequestsSkeleton';
+import { SentJoinRequestsSkeleton, ReceivedJoinRequestsSkeleton } from '@/src/components/skeleton/JoinRequestsSkeleton';
 
 // Component to render requests for a single travel plan
 const PlanRequests = ({
