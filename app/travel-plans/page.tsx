@@ -91,7 +91,7 @@ const TravelPlans = () => {
               {plans.map((plan) => (
                 <div
                   key={plan._id}
-                  className="flex flex-col md:flex-row rounded-[2.5rem] overflow-hidden bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:shadow-2xl transition-all group animate-in fade-in slide-in-from-bottom-4 duration-500"
+                  className="flex flex-col md:flex-row rounded-[2.5rem] overflow-hidden bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:shadow-2xl transition-all group animate-in fade-in slide-in-from-bottom-4 duration-500"
                 >
                   {/* Image Container */}
                   <div className="w-full md:w-72 h-72 md:h-auto relative overflow-hidden shrink-0">
@@ -105,7 +105,7 @@ const TravelPlans = () => {
                       }
                     />
                     <div className="absolute top-6 left-6">
-                      <span className="px-4 py-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-slate-900 dark:text-white text-[10px] font-black rounded-full uppercase tracking-widest border border-slate-100/20">
+                      <span className="px-4 py-1.5 bg-white/90 dark:bg-background-dark backdrop-blur-md text-slate-900 dark:text-white text-[10px] font-black rounded-full uppercase tracking-widest border border-slate-100/20">
                         {plan.travelType}
                       </span>
                     </div>
@@ -120,7 +120,7 @@ const TravelPlans = () => {
 
                       <div className="mt-6 space-y-3">
                         <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
-                          <div className="size-8 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center">
+                          <div className="size-8 rounded-xl bg-slate-50 dark:bg-background-dark flex items-center justify-center">
                             <Calendar className="w-4 h-4 opacity-70" />
                           </div>
                           <span className="text-xs font-bold uppercase tracking-tight">
@@ -129,7 +129,7 @@ const TravelPlans = () => {
                           </span>
                         </div>
                         <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
-                          <div className="size-8 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center">
+                          <div className="size-8 rounded-xl bg-slate-50 dark:bg-background-dark flex items-center justify-center">
                             <DollarSign className="w-4 h-4 opacity-70" />
                           </div>
                           <span className="text-xs font-bold uppercase tracking-tight">

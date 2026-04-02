@@ -95,7 +95,7 @@ const ExplorePage = () => {
           </div>
 
           {/* Horizontal Search Bar */}
-          <div className="bg-white dark:bg-slate-900/80 backdrop-blur-md p-2 rounded-2xl shadow-2xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 flex flex-col lg:flex-row gap-2">
+          <div className="bg-white dark:bg-background-dark backdrop-blur-md p-2 rounded-2xl shadow-2xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 flex flex-col lg:flex-row gap-2">
             <div className="flex-1 flex items-center px-6 py-4 gap-4 border-b lg:border-b-0 lg:border-r border-slate-100 dark:border-slate-800">
               <MapPin className="text-primary w-5 h-5" />
               <div className="flex flex-col flex-1">
@@ -217,7 +217,7 @@ const ExplorePage = () => {
             {travelers.map(({ user, nextPlan }) => (
               <div
                 key={user._id}
-                className="group bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-all flex flex-col animate-in fade-in slide-in-from-bottom-6 duration-700"
+                className="group bg-white dark:bg-background-dark rounded-[2.5rem] border border-slate-100 dark:border-slate-800 overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-all flex flex-col animate-in fade-in slide-in-from-bottom-6 duration-700"
               >
                 <div className="relative h-72 overflow-hidden">
                   <Image
@@ -229,7 +229,7 @@ const ExplorePage = () => {
                       'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=1887&auto=format&fit=crop'
                     }
                   />
-                  <div className="absolute top-6 right-6 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-3 py-2 rounded-2xl flex items-center gap-2 shadow-2xl border border-white/20">
+                  <div className="absolute top-6 right-6 bg-white/90 dark:bg-background-dark backdrop-blur-md px-3 py-2 rounded-2xl flex items-center gap-2 shadow-2xl border border-white/20">
                     <Star className="text-primary w-4 h-4 fill-primary" />
                     <span className="text-[10px] font-black text-slate-900 dark:text-white">
                       4.9
@@ -253,7 +253,7 @@ const ExplorePage = () => {
                       .map((interestTag, interestIndex) => (
                         <span
                           key={interestIndex}
-                          className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-[9px] font-black rounded-full uppercase tracking-widest border border-slate-100 dark:border-slate-800"
+                          className="px-4 py-1.5 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white text-[9px] font-black rounded-full uppercase tracking-widest border border-slate-100 dark:border-slate-800"
                         >
                           {interestTag}
                         </span>
@@ -262,7 +262,7 @@ const ExplorePage = () => {
                         (interestTag, interestIndex) => (
                           <span
                             key={interestIndex}
-                            className="px-4 py-1.5 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white text-[9px] font-black rounded-full uppercase tracking-widest border border-slate-100 dark:border-slate-800"
+                            className="px-4 py-1.5 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white text-[9px] font-black rounded-full uppercase tracking-widest border border-slate-100 dark:border-slate-800"
                           >
                             {interestTag}
                           </span>
@@ -305,7 +305,7 @@ const ExplorePage = () => {
         {/* Pagination Section */}
         {!isLoading && !isError && travelers.length > 4 && (
           <div className="mt-20 flex flex-col items-center">
-            <button className="px-12 py-5 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-full font-black text-[10px] uppercase tracking-[0.3em] text-slate-900 dark:text-white hover:border-primary hover:text-primary hover:scale-105 transition-all flex items-center gap-4 cursor-pointer active:scale-95 shadow-2xl">
+            <button className="px-12 py-5 bg-white dark:bg-background-dark border-2 border-slate-100 dark:border-slate-800 rounded-full font-black text-[10px] uppercase tracking-[0.3em] text-slate-900 dark:text-white hover:border-primary hover:text-primary hover:scale-105 transition-all flex items-center gap-4 cursor-pointer active:scale-95 shadow-2xl">
               Load More Explorers
               <ChevronDown className="w-4 h-4" />
             </button>
