@@ -94,7 +94,6 @@ const AdminOverviewPage = () => {
     
     const popularDestinations = Object.entries(destinationDataMap)
       .sort((itemA, itemB) => itemB[1].count - itemA[1].count)
-      .slice(0, 4)
       .map(([name, data]) => ({
         name,
         image: data.image,
@@ -262,9 +261,9 @@ const AdminOverviewPage = () => {
         </div>
 
 
-        <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col">
+        <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm flex flex-col h-112">
           <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight mb-8">Popular Destinations</h4>
-          <div className="space-y-6 flex-1">
+          <div className="space-y-6 flex-1 overflow-y-auto pr-2 custom-scrollbar">
             {stats.popularDestinations.length > 0 ? stats.popularDestinations.map((destination, index) => (
               <div key={index} className="flex items-center gap-4">
                 <div className="size-12 rounded-xl bg-slate-100 dark:bg-slate-800 shrink-0 overflow-hidden border border-slate-100 dark:border-slate-700 flex items-center justify-center relative">
