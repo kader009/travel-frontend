@@ -144,7 +144,7 @@ const ManageUsersPage = () => {
               placeholder="Search by name or email..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-11 pr-5 py-2.5 text-sm border border-slate-100 dark:border-slate-800 rounded-2xl bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all font-bold shadow-sm" 
+              className="w-full pl-11 pr-5 py-2.5 text-sm border border-slate-100 dark:border-slate-800 rounded-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all font-bold" 
             />
           </div>
         </div>
