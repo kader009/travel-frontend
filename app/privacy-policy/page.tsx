@@ -30,7 +30,7 @@ const PrivacyPolicy = () => {
           </div>
 
           {/* Content Container */}
-          <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 p-8 md:p-12 space-y-12">
+          <div className="bg-white dark:bg-background-dark rounded-xl border border-slate-100 dark:border-slate-800 p-8 md:p-12 space-y-12">
             {/* Introduction */}
             <section>
               <h3 className="text-2xl font-bold mb-4 flex items-center gap-3 text-slate-900 dark:text-white">
@@ -59,25 +59,25 @@ const PrivacyPolicy = () => {
                 other users:
               </p>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <li className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+                <li className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700">
                   <User className="text-primary w-5 h-5 shrink-0" />
                   <span className="text-sm text-slate-600 dark:text-slate-300">
                     Account details (name, email, password)
                   </span>
                 </li>
-                <li className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+                <li className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700">
                   <MapPin className="text-primary w-5 h-5 shrink-0" />
                   <span className="text-sm text-slate-600 dark:text-slate-300">
                     Location data and travel preferences
                   </span>
                 </li>
-                <li className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+                <li className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700">
                   <ImageIcon className="text-primary w-5 h-5 shrink-0" />
                   <span className="text-sm text-slate-600 dark:text-slate-300">
                     Profile photos and trip media
                   </span>
                 </li>
-                <li className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700">
+                <li className="flex items-start gap-3 p-4 rounded-lg bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700">
                   <MessageSquare className="text-primary w-5 h-5 shrink-0" />
                   <span className="text-sm text-slate-600 dark:text-slate-300">
                     Messages and community interactions

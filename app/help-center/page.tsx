@@ -48,7 +48,7 @@ const HelpCenter = () => {
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="group p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all cursor-pointer shadow-sm hover:shadow-md">
+            <div className="group p-6 bg-white dark:bg-background-dark rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all cursor-pointer shadow-sm hover:shadow-md">
               <div className="size-12 bg-primary/20 rounded-lg flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-background-dark transition-colors">
                 <Rocket className="w-6 h-6" />
               </div>
@@ -59,7 +59,7 @@ const HelpCenter = () => {
                 New to Travel Buddy? Learn the basics and set up your profile.
               </p>
             </div>
-            <div className="group p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all cursor-pointer shadow-sm hover:shadow-md">
+            <div className="group p-6 bg-white dark:bg-background-dark rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all cursor-pointer shadow-sm hover:shadow-md">
               <div className="size-12 bg-primary/20 rounded-lg flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-background-dark transition-colors">
                 <ShieldCheck className="w-6 h-6" />
               </div>
@@ -70,7 +70,7 @@ const HelpCenter = () => {
                 Manage your privacy settings and keep your account secure.
               </p>
             </div>
-            <div className="group p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all cursor-pointer shadow-sm hover:shadow-md">
+            <div className="group p-6 bg-white dark:bg-background-dark rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all cursor-pointer shadow-sm hover:shadow-md">
               <div className="size-12 bg-primary/20 rounded-lg flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-background-dark transition-colors">
                 <CalendarDays className="w-6 h-6" />
               </div>
@@ -82,7 +82,7 @@ const HelpCenter = () => {
                 management.
               </p>
             </div>
-            <div className="group p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all cursor-pointer shadow-sm hover:shadow-md">
+            <div className="group p-6 bg-white dark:bg-background-dark rounded-xl border border-slate-200 dark:border-slate-800 hover:border-primary/50 transition-all cursor-pointer shadow-sm hover:shadow-md">
               <div className="size-12 bg-primary/20 rounded-lg flex items-center justify-center text-primary mb-4 group-hover:bg-primary group-hover:text-background-dark transition-colors">
                 <Users className="w-6 h-6" />
               </div>
@@ -98,14 +98,14 @@ const HelpCenter = () => {
       </section>
 
       {/* Featured Articles */}
-      <section className="bg-slate-50 dark:bg-slate-900/50 py-16">
+      <section className="bg-slate-50 dark:bg-background-dark py-16">
         <Container>
           <h2 className="text-2xl font-bold mb-8 text-slate-900 dark:text-white">
             Featured Articles
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
             {/* Article 1 */}
-            <div className="flex flex-col md:flex-row gap-6 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-md cursor-pointer group">
+            <div className="flex flex-col md:flex-row gap-6 bg-white dark:bg-background-dark p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-md cursor-pointer group">
               <div className="w-full md:w-40 h-32 rounded-lg overflow-hidden shrink-0 relative">
                 <Image
                   fill
@@ -129,7 +129,7 @@ const HelpCenter = () => {
             </div>
 
             {/* Article 2 */}
-            <div className="flex flex-col md:flex-row gap-6 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-md cursor-pointer group">
+            <div className="flex flex-col md:flex-row gap-6 bg-white dark:bg-background-dark p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-md cursor-pointer group">
               <div className="w-full md:w-40 h-32 rounded-lg overflow-hidden shrink-0 relative">
                 <Image
                   fill
@@ -153,7 +153,7 @@ const HelpCenter = () => {
             </div>
 
             {/* Article 3 */}
-            <div className="flex flex-col md:flex-row gap-6 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-md cursor-pointer group">
+            <div className="flex flex-col md:flex-row gap-6 bg-white dark:bg-background-dark p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-md cursor-pointer group">
               <div className="w-full md:w-40 h-32 rounded-lg overflow-hidden shrink-0 relative">
                 <Image
                   fill
@@ -177,7 +177,7 @@ const HelpCenter = () => {
             </div>
 
             {/* Article 4 */}
-            <div className="flex flex-col md:flex-row gap-6 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-md cursor-pointer group">
+            <div className="flex flex-col md:flex-row gap-6 bg-white dark:bg-background-dark p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm transition-all hover:shadow-md cursor-pointer group">
               <div className="w-full md:w-40 h-32 rounded-lg overflow-hidden shrink-0 relative">
                 <Image
                   fill
@@ -205,7 +205,7 @@ const HelpCenter = () => {
       {/* Still need help */}
       <section className="py-20 lg:py-24">
         <Container>
-          <div className="bg-slate-900 dark:bg-slate-800 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden">
+          <div className="bg-slate-900 dark:bg-background-dark rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
             <div className="relative z-10">
               <h2 className="text-3xl font-bold mb-4">Still need help?</h2>

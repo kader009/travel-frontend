@@ -55,7 +55,7 @@ const SafetyTips = () => {
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-primary/5 hover:border-primary/30 transition-all group">
+            <div className="bg-white dark:bg-background-dark p-6 rounded-xl shadow-sm border border-primary/5 hover:border-primary/30 transition-all group">
               <div className="size-12 rounded-full bg-accent/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <BadgeCheck className="text-primary w-6 h-6" />
               </div>
@@ -67,7 +67,7 @@ const SafetyTips = () => {
                 reviews from previous travel companions before committing.
               </p>
             </div>
-            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-primary/5 hover:border-primary/30 transition-all group">
+            <div className="bg-white dark:bg-background-dark p-6 rounded-xl shadow-sm border border-primary/5 hover:border-primary/30 transition-all group">
               <div className="size-12 rounded-full bg-accent/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <MapPin className="text-primary w-6 h-6" />
               </div>
@@ -79,7 +79,7 @@ const SafetyTips = () => {
                 profiles to a trusted friend or family member at home.
               </p>
             </div>
-            <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-primary/5 hover:border-primary/30 transition-all group">
+            <div className="bg-white dark:bg-background-dark p-6 rounded-xl shadow-sm border border-primary/5 hover:border-primary/30 transition-all group">
               <div className="size-12 rounded-full bg-accent/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                 <MessageSquare className="text-primary w-6 h-6" />
               </div>
@@ -107,7 +107,7 @@ const SafetyTips = () => {
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex gap-6 p-6 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary/5">
+            <div className="flex gap-6 p-6 bg-white dark:bg-background-dark rounded-xl shadow-sm border border-primary/5">
               <div className="shrink-0 size-14 bg-accent/30 rounded-xl flex items-center justify-center">
                 <Globe className="text-primary w-8 h-8" />
               </div>
@@ -122,7 +122,7 @@ const SafetyTips = () => {
                 </p>
               </div>
             </div>
-            <div className="flex gap-6 p-6 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-primary/5">
+            <div className="flex gap-6 p-6 bg-white dark:bg-background-dark rounded-xl shadow-sm border border-primary/5">
               <div className="shrink-0 size-14 bg-accent/30 rounded-xl flex items-center justify-center">
                 <Brain className="text-primary w-8 h-8" />
               </div>
@@ -144,7 +144,7 @@ const SafetyTips = () => {
       {/* Call to Action: Report */}
       <section className="mb-16">
         <Container>
-          <div className="bg-slate-900 dark:bg-slate-900 rounded-xl p-8 md:p-12 text-center text-white relative overflow-hidden">
+          <div className="bg-slate-900 dark:bg-background-dark rounded-xl p-8 md:p-12 text-center text-white relative overflow-hidden">
             <div className="relative z-10">
               <h2 className="text-3xl font-bold mb-4">
                 See something? Say something.
@@ -174,7 +174,7 @@ const SafetyTips = () => {
                 Emergency Resources
               </h3>
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg border border-primary/5">
+                <div className="flex items-center justify-between p-4 bg-white dark:bg-background-dark rounded-lg border border-primary/5">
                   <div className="flex items-center gap-4">
                     <Siren className="text-red-500 w-6 h-6" />
                     <div>
@@ -195,7 +195,7 @@ const SafetyTips = () => {
                     View List <ExternalLink className="w-4 h-4" />
                   </Link>
                 </div>
-                <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg border border-primary/5">
+                <div className="flex items-center justify-between p-4 bg-white dark:bg-background-dark rounded-lg border border-primary/5">
                   <div className="flex items-center gap-4">
                     <HeartPulse className="text-primary w-6 h-6" />
                     <div>

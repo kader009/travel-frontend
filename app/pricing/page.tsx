@@ -143,7 +143,7 @@ const PricingPage = () => {
             {plans.map((plan) => (
               <div
                 key={plan.id}
-                className={`relative group bg-white dark:bg-slate-900 rounded-[3rem] border-2 transition-all p-10 flex flex-col ${
+                className={`relative group bg-white dark:bg-background-dark rounded-[3rem] border-2 transition-all p-10 flex flex-col ${
                   plan.popular
                     ? 'border-primary ring-4 ring-primary/5 shadow-2xl scale-105 z-10'
                     : 'border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm'
@@ -159,7 +159,7 @@ const PricingPage = () => {
                   className={`size-16 rounded-4xl flex items-center justify-center mb-8 ${
                     plan.popular
                       ? 'bg-primary/10 text-primary'
-                      : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
+                      : 'bg-slate-100 dark:bg-background-dark text-slate-400'
                   }`}
                 >
                   <plan.icon className="size-8" strokeWidth={2.5} />
@@ -216,10 +216,10 @@ const PricingPage = () => {
             <h2 className="text-slate-900 dark:text-slate-100 text-2xl font-bold leading-tight tracking-tight mb-8 text-center">
               Compare our plans
             </h2>
-            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xs">
+            <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark shadow-xs">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="bg-slate-50 dark:bg-slate-800/50">
+                  <tr className="bg-slate-50 dark:bg-background-dark">
                     <th className="px-6 py-5 text-sm font-bold text-slate-900 dark:text-slate-100">
                       Features
                     </th>

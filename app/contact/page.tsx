@@ -57,7 +57,7 @@ const Contact = () => {
         <Container>
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Contact Form */}
-            <div className="lg:col-span-2 bg-white dark:bg-slate-900/50 p-8 rounded-xl shadow-sm border border-primary/5">
+            <div className="lg:col-span-2 bg-white dark:bg-background-dark p-8 rounded-xl shadow-sm border border-primary/5">
               <h3 className="text-2xl font-bold mb-8 flex items-center gap-3 text-slate-900 dark:text-white">
                 <Mail className="text-primary w-6 h-6" />
                 Send us a message
@@ -68,7 +68,7 @@ const Contact = () => {
             {/* Sidebar Info */}
             <div className="space-y-6">
               {/* Map/Address Card */}
-              <div className="bg-white dark:bg-slate-900/50 p-6 rounded-xl shadow-sm border border-primary/5">
+              <div className="bg-white dark:bg-background-dark p-6 rounded-xl shadow-sm border border-primary/5">
                 <div className="h-32 rounded-lg bg-primary/10 mb-4 overflow-hidden relative">
                   <div className="absolute inset-0 grayscale opacity-50">
                     <Image
@@ -131,7 +131,7 @@ const Contact = () => {
               </div>
 
               {/* Social Card */}
-              <div className="bg-white dark:bg-slate-900/50 p-6 rounded-xl shadow-sm border border-primary/5 text-center">
+              <div className="bg-white dark:bg-background-dark p-6 rounded-xl shadow-sm border border-primary/5 text-center">
                 <h4 className="font-bold mb-4 text-slate-900 dark:text-white">
                   Follow Our Journey
                 </h4>

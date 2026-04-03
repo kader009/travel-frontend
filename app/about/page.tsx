@@ -107,7 +107,7 @@ const AboutPage = () => {
             </p>
           </div>
           <div className="grid lg:grid-cols-3 gap-8">
-            <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+            <div className="bg-white dark:bg-background-dark p-8 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
               <span className="text-primary-text font-black text-5xl mb-4 block opacity-60">
                 01
               </span>
@@ -118,7 +118,7 @@ const AboutPage = () => {
                 with others.
               </p>
             </div>
-            <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 mt-0 lg:mt-8">
+            <div className="bg-white dark:bg-background-dark p-8 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 mt-0 lg:mt-8">
               <span className="text-primary-text font-black text-5xl mb-4 block opacity-60">
                 02
               </span>
@@ -129,7 +129,7 @@ const AboutPage = () => {
                 minutes.
               </p>
             </div>
-            <div className="bg-white dark:bg-slate-800 p-8 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 mt-0 lg:mt-16">
+            <div className="bg-white dark:bg-background-dark p-8 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 mt-0 lg:mt-16">
               <span className="text-primary-text font-black text-5xl mb-4 block opacity-60">
                 03
               </span>
