@@ -91,7 +91,7 @@ const TravelPlans = () => {
               {plans.map((plan) => (
                 <div
                   key={plan._id}
-                  className="flex flex-col md:flex-row rounded-[2.5rem] overflow-hidden bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:shadow-2xl transition-all group animate-in fade-in slide-in-from-bottom-4 duration-500"
+                  className="flex flex-col md:flex-row rounded-3xl overflow-hidden bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:shadow-2xl transition-all group animate-in fade-in slide-in-from-bottom-4 duration-500"
                 >
                   {/* Image Container */}
                   <div className="w-full md:w-72 h-72 md:h-auto relative overflow-hidden shrink-0">
