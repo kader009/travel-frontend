@@ -123,7 +123,7 @@ const Navbar = () => {
 
               {/* Desktop Dropdown Menu */}
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl py-2 z-50">
+                <div className="absolute right-0 mt-2 w-48 rounded-xl bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 shadow-xl py-2 z-50">
                   <div className="px-4 py-2 border-b border-slate-100 dark:border-slate-800 mb-1">
                     <p className="text-xs text-slate-500 font-semibold">
                       Signed in as
@@ -225,7 +225,7 @@ const Navbar = () => {
                   <Link
                     href="/login"
                     onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center justify-center rounded bg-slate-100 dark:bg-slate-800 px-4 py-3.5 text-sm font-bold text-slate-900 dark:text-white transition-all"
+                    className="flex items-center justify-center rounded bg-slate-100 dark:bg-background-dark px-4 py-3.5 text-sm font-bold text-slate-900 dark:text-white transition-all"
                   >
                     Login
                   </Link>

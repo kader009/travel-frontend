@@ -111,7 +111,7 @@ const CreateReviewModal: React.FC<
         onClick={onClose}
       />
 
-      <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl overflow-hidden border border-white/20 dark:border-slate-800 animate-in zoom-in-95 duration-300">
+      <div className="relative w-full max-w-lg bg-white dark:bg-background-dark rounded-[2.5rem] shadow-2xl overflow-hidden border border-white/20 dark:border-slate-800 animate-in zoom-in-95 duration-300">
         {/* Header */}
         <div className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -138,7 +138,7 @@ const CreateReviewModal: React.FC<
             </label>
             <select
               {...register('reviewee', { required: 'Traveler is required' })}
-              className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
+              className="w-full bg-slate-50 dark:bg-background-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
             >
               <option value="">Choose a traveler...</option>
               {users.map((user) => (
@@ -163,7 +163,7 @@ const CreateReviewModal: React.FC<
               {...register('travelPlan', {
                 required: 'Expedition is required',
               })}
-              className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
+              className="w-full bg-slate-50 dark:bg-background-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
             >
               <option value="">Choose an expedition...</option>
               {plans.map((plan) => (
@@ -225,7 +225,7 @@ const CreateReviewModal: React.FC<
               })}
               rows={4}
               placeholder="How was your trip with this traveler? Be detailed..."
-              className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-4xl px-6 py-5 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white resize-none"
+              className="w-full bg-slate-50 dark:bg-background-dark border-2 border-slate-100 dark:border-slate-800 rounded-4xl px-6 py-5 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white resize-none"
             />
             {errors.comment && (
               <p className="text-[10px] font-black text-rose-500 uppercase tracking-tight pl-2">

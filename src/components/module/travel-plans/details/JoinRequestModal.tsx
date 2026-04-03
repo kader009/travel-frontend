@@ -21,10 +21,10 @@ const JoinRequestModal = ({
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300" />
 
       <div
-        className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl animate-in zoom-in-95 fade-in duration-300 overflow-hidden"
+        className="relative w-full max-w-lg bg-white dark:bg-background-dark rounded-[2.5rem] shadow-2xl animate-in zoom-in-95 fade-in duration-300 overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="bg-slate-900 dark:bg-slate-800 p-8 pb-10 text-center relative">
+        <div className="bg-slate-900 dark:bg-background-dark p-8 pb-10 text-center relative">
           <button
             onClick={onClose}
             className="absolute top-5 right-5 size-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors cursor-pointer"
@@ -47,7 +47,7 @@ const JoinRequestModal = ({
             <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">
               Expedition ID
             </label>
-            <div className="w-full px-5 py-4 bg-slate-100 dark:bg-slate-800 rounded-2xl text-sm font-bold text-slate-500 dark:text-slate-400 tracking-wide select-all cursor-default border border-slate-200 dark:border-slate-700">
+            <div className="w-full px-5 py-4 bg-slate-100 dark:bg-background-dark rounded-2xl text-sm font-bold text-slate-500 dark:text-slate-400 tracking-wide select-all cursor-default border border-slate-200 dark:border-slate-700">
               {id}
             </div>
           </div>
@@ -61,7 +61,7 @@ const JoinRequestModal = ({
               onChange={(e) => setRequestMessage(e.target.value)}
               placeholder={`Hi! I'd love to join your trip to ${trip?.destination}. Let me know if there's room!`}
               rows={4}
-              className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-300 dark:placeholder:text-slate-600 border border-slate-200 dark:border-slate-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all"
+              className="w-full px-5 py-4 bg-slate-50 dark:bg-background-dark rounded-2xl text-sm font-medium text-slate-900 dark:text-white placeholder:text-slate-300 dark:placeholder:text-slate-600 border border-slate-200 dark:border-slate-700 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none resize-none transition-all"
             />
           </div>
         </div>
@@ -69,7 +69,7 @@ const JoinRequestModal = ({
         <div className="px-8 pb-8 flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 py-4 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-95 transition-all cursor-pointer"
+            className="flex-1 py-4 bg-slate-100 dark:bg-background-dark text-slate-600 dark:text-slate-400 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-95 transition-all cursor-pointer"
           >
             Cancel
           </button>

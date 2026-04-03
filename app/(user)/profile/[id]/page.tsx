@@ -20,7 +20,7 @@ const ProfileDetailPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Sidebar / Left Column */}
           <aside className="lg:col-span-4 flex flex-col gap-8">
-            <div className="bg-white dark:bg-slate-900 rounded-2xl p-10 flex flex-col items-center text-center shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 animate-in fade-in slide-in-from-left-4 duration-500">
+            <div className="bg-white dark:bg-background-dark rounded-2xl p-10 flex flex-col items-center text-center shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 animate-in fade-in slide-in-from-left-4 duration-500">
               <div className="relative mb-8">
                 <div className="size-40 rounded-full overflow-hidden border-4 border-primary shadow-2xl">
                   <Image
@@ -76,7 +76,7 @@ const ProfileDetailPage = () => {
               </button>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 animate-in fade-in slide-in-from-left-6 duration-700">
+            <div className="bg-white dark:bg-background-dark rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-800 animate-in fade-in slide-in-from-left-6 duration-700">
               <h3 className="text-xl font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-white">
                 <Compass className="text-primary w-6 h-6" /> Travel Interests
               </h3>
@@ -113,7 +113,7 @@ const ProfileDetailPage = () => {
                 </button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 flex gap-5 border border-slate-100 dark:border-slate-800 hover:shadow-2xl hover:shadow-primary/5 transition-all group cursor-pointer active:scale-[0.98]">
+                <div className="bg-white dark:bg-background-dark rounded-2xl p-5 flex gap-5 border border-slate-100 dark:border-slate-800 hover:shadow-2xl hover:shadow-primary/5 transition-all group cursor-pointer active:scale-[0.98]">
                   <div className="size-20 rounded-xl bg-slate-200 overflow-hidden shrink-0 relative shadow-md">
                     <Image
                       alt="Italy"
@@ -149,7 +149,7 @@ const ProfileDetailPage = () => {
                     </div>
                   </div>
                 </div>
-                <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 flex gap-5 border border-slate-100 dark:border-slate-800 hover:shadow-2xl hover:shadow-primary/5 transition-all group cursor-pointer active:scale-[0.98]">
+                <div className="bg-white dark:bg-background-dark rounded-2xl p-5 flex gap-5 border border-slate-100 dark:border-slate-800 hover:shadow-2xl hover:shadow-primary/5 transition-all group cursor-pointer active:scale-[0.98]">
                   <div className="size-20 rounded-xl bg-slate-200 overflow-hidden shrink-0 relative shadow-md">
                     <Image
                       alt="Japan"
@@ -264,7 +264,7 @@ const ProfileDetailPage = () => {
                 ].map((testimonial, i) => (
                   <div
                     key={i}
-                    className="bg-white dark:bg-slate-900 p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 group"
+                    className="bg-white dark:bg-background-dark p-8 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 group"
                   >
                     <div className="flex items-center gap-4 mb-5">
                       <div className="size-12 rounded-full overflow-hidden bg-slate-200 relative shadow-sm">

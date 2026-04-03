@@ -3,7 +3,7 @@ import { ITravelPlan } from '@/src/types/travelPlan';
 import { MissionIntelProps } from '@/src/types/props';
 
 export const MissionIntel = ({ trip, isPastPlan }: MissionIntelProps) => (
-  <section className="bg-white dark:bg-slate-900 rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-10 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all h-full">
+  <section className="bg-white dark:bg-background-dark rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-10 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-2xl transition-all h-full">
     <div className="size-12 sm:size-14 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 sm:mb-8">
       <Info className="size-5 sm:size-6 text-primary" strokeWidth={3} />
     </div>

@@ -88,7 +88,7 @@ const PlanRequests = ({
     <div className="space-y-6 w-full">
       {/* Plan Header */}
       <div className="flex items-center gap-3 px-2">
-        <div className="size-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
+        <div className="size-10 rounded-xl bg-slate-100 dark:bg-background-dark flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
           {planImage ? (
             <Image
               src={planImage}
@@ -114,11 +114,11 @@ const PlanRequests = ({
       {requests.map((req: IJoinRequest) => (
         <div
           key={req._id}
-          className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-4xl flex flex-col md:flex-row items-start md:items-center gap-6 group hover:border-primary/20 transition-all shadow-sm w-full"
+          className="bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 p-6 rounded-4xl flex flex-col md:flex-row items-start md:items-center gap-6 group hover:border-primary/20 transition-all shadow-sm w-full"
         >
           {/* User Images */}
           <div className="flex items-center gap-3 shrink-0">
-            <div className="size-16 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-100 dark:border-slate-800/50">
+            <div className="size-16 rounded-2xl bg-slate-50 dark:bg-background-dark flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-100 dark:border-slate-800/50">
               {req.requester?.image ? (
                 <Image
                   src={req.requester.image}
@@ -237,7 +237,7 @@ const ReceivedRequestsList = ({ plans }: { plans: ITravelPlan[] }) => {
       })}
 
       {!hasAnyRequests && (
-        <div className="py-24 text-center bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 animate-in fade-in duration-700">
+        <div className="py-24 text-center bg-white dark:bg-background-dark rounded-[3rem] border border-slate-100 dark:border-slate-800 animate-in fade-in duration-700">
           <Handshake className="size-14 text-slate-200 dark:text-slate-800 mx-auto mb-6" />
           <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
             No Active Requests
@@ -278,12 +278,12 @@ const JoinRequestsPage = () => {
             Manage personnel requests and mission status.
           </p>
         </div>
-        <div className="flex w-full sm:w-auto bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl">
+        <div className="flex w-full sm:w-auto bg-slate-100 dark:bg-background-dark p-1.5 rounded-2xl">
           <button
             onClick={() => setActiveTab('received')}
             className={`flex-1 sm:flex-none px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
               activeTab === 'received'
-                ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
+                ? 'bg-white dark:bg-background-dark text-slate-900 dark:text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
             }`}
           >
@@ -293,7 +293,7 @@ const JoinRequestsPage = () => {
             onClick={() => setActiveTab('sent')}
             className={`flex-1 sm:flex-none px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
               activeTab === 'sent'
-                ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
+                ? 'bg-white dark:bg-background-dark text-slate-900 dark:text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
             }`}
           >
@@ -314,9 +314,9 @@ const JoinRequestsPage = () => {
                 return (
                   <div
                     key={req._id}
-                    className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-4xl flex flex-col md:flex-row items-start md:items-center gap-6 group hover:border-primary/20 transition-all shadow-sm"
+                    className="bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 p-6 rounded-4xl flex flex-col md:flex-row items-start md:items-center gap-6 group hover:border-primary/20 transition-all shadow-sm"
                   >
-                    <div className="size-16 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-100 dark:border-slate-800">
+                    <div className="size-16 rounded-2xl bg-slate-50 dark:bg-background-dark flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-100 dark:border-slate-800">
                       {plan?.images?.[0] ? (
                         <Image
                           src={plan.images[0]}
@@ -366,7 +366,7 @@ const JoinRequestsPage = () => {
               })}
             </div>
           ) : (
-            <div className="py-24 text-center bg-slate-50 dark:bg-slate-900/50 rounded-[3rem] border border-dashed border-slate-200 dark:border-slate-800">
+            <div className="py-24 text-center bg-slate-50 dark:bg-background-dark rounded-[3rem] border border-dashed border-slate-200 dark:border-slate-800">
               <Handshake className="size-14 text-slate-200 dark:text-slate-800 mx-auto mb-6" />
               <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
                 No Active Requests
@@ -384,7 +384,7 @@ const JoinRequestsPage = () => {
           ) : myPlans.length > 0 ? (
             <ReceivedRequestsList plans={myPlans} />
           ) : (
-            <div className="py-24 text-center bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800">
+            <div className="py-24 text-center bg-white dark:bg-background-dark rounded-[3rem] border border-slate-100 dark:border-slate-800">
               <PlaneTakeoff className="size-14 text-slate-200 dark:text-slate-800 mx-auto mb-6" />
               <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
                 No Expeditions Yet

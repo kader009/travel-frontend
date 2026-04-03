@@ -100,7 +100,7 @@ const SubscriptionPage = () => {
         {plans.map((plan) => (
           <div
             key={plan.id}
-            className={`relative group bg-white dark:bg-slate-900 rounded-[3rem] border-2 transition-all p-10 flex flex-col ${
+            className={`relative group bg-white dark:bg-background-dark rounded-[3rem] border-2 transition-all p-10 flex flex-col ${
               plan.popular
                 ? 'border-primary ring-4 ring-primary/5 scale-105 z-10'
                 : 'border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm'
@@ -116,7 +116,7 @@ const SubscriptionPage = () => {
               className={`size-16 rounded-4xl flex items-center justify-center mb-8 ${
                 plan.id === 'yearly'
                   ? 'bg-primary/10 text-primary'
-                  : 'bg-slate-100 dark:bg-slate-800 text-slate-400'
+                  : 'bg-slate-100 dark:bg-background-dark text-slate-400'
               }`}
             >
               <plan.icon className="size-8" strokeWidth={2.5} />
@@ -170,10 +170,10 @@ const SubscriptionPage = () => {
       </div>
 
       {/* Payment History Table */}
-      <section className="bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-md overflow-hidden">
+      <section className="bg-white dark:bg-background-dark rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-md overflow-hidden">
         <div className="px-10 py-8 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="size-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+            <div className="size-12 rounded-2xl bg-slate-100 dark:bg-background-dark flex items-center justify-center text-slate-400">
               <History className="size-6" />
             </div>
             <div>
@@ -187,7 +187,7 @@ const SubscriptionPage = () => {
           </div>
 
           <div className="flex gap-4">
-            <div className="px-5 py-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 flex items-center gap-4">
+            <div className="px-5 py-3 rounded-2xl bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-800 flex items-center gap-4">
               <DollarSign className="size-4 text-emerald-500" />
               <div>
                 <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-0.5">
@@ -207,7 +207,7 @@ const SubscriptionPage = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50/50 dark:bg-slate-800/20">
+              <tr className="bg-slate-50/50 dark:bg-background-dark">
                 <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">
                   Transaction ID
                 </th>
@@ -236,7 +236,7 @@ const SubscriptionPage = () => {
                       {tx.transactionId}
                     </td>
                     <td className="px-10 py-6">
-                      <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest">
+                      <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-background-dark text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest">
                         {tx.planType}
                       </span>
                     </td>
@@ -292,7 +292,7 @@ const SubscriptionPage = () => {
           </table>
         </div>
 
-        <div className="p-10 bg-slate-50/50 dark:bg-slate-800/20 text-center">
+        <div className="p-10 bg-slate-50/50 dark:bg-background-dark text-center">
           <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 flex items-center justify-center gap-4">
             <ShieldCheck className="size-4 text-primary" />
             Secured & Encrypted Payments via SSLCommerz

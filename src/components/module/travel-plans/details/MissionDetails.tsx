@@ -6,7 +6,7 @@ export const TacticalItinerary = ({ itinerary }: { itinerary: string }) => (
     <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight uppercase px-4">
       Tactical Itinerary
     </h2>
-    <div className="bg-white dark:bg-slate-900 rounded-[4rem] p-12 lg:p-16 border border-slate-100 dark:border-slate-800 shadow-sm relative group overflow-hidden">
+    <div className="bg-white dark:bg-background-dark rounded-[4rem] p-12 lg:p-16 border border-slate-100 dark:border-slate-800 shadow-sm relative group overflow-hidden">
       <div className="absolute top-0 right-0 p-12 opacity-[0.02] group-hover:rotate-12 transition-transform duration-1000">
         <Navigation className="size-80" />
       </div>

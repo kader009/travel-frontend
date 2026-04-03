@@ -92,7 +92,7 @@ const RecruitmentSidebar = ({
       </section>
 
       {/* Coordinates Log */}
-      <section className="bg-white dark:bg-slate-900 rounded-[3rem] p-10 border border-slate-100 dark:border-slate-800 text-center">
+      <section className="bg-white dark:bg-background-dark rounded-[3rem] p-10 border border-slate-100 dark:border-slate-800 text-center">
         <div className="flex items-center justify-center gap-3 mb-8">
           <Globe className="size-4 text-primary" strokeWidth={3} />
           <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
@@ -100,7 +100,7 @@ const RecruitmentSidebar = ({
           </span>
         </div>
         <div className="space-y-4">
-          <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-3xl">
+          <div className="p-6 bg-slate-50 dark:bg-background-dark rounded-3xl">
             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
               Latitude
             </p>
@@ -108,7 +108,7 @@ const RecruitmentSidebar = ({
               {trip.coordinates?.lat?.toFixed(6) || '0.000000'}
             </p>
           </div>
-          <div className="p-6 bg-slate-50 dark:bg-slate-800/50 rounded-3xl">
+          <div className="p-6 bg-slate-50 dark:bg-background-dark rounded-3xl">
             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">
               Longitude
             </p>

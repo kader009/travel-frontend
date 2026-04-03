@@ -140,7 +140,7 @@ const UserOverviewPage = () => {
                     <Link
                       key={trip._id}
                       href="/dashboard/user/travel-plan"
-                      className="group bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-800 hover:border-primary/20 cursor-pointer block"
+                      className="group bg-white dark:bg-background-dark rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-800 hover:border-primary/20 cursor-pointer block"
                     >
                       <div className="relative h-48 w-full overflow-hidden">
                         <Image
@@ -152,7 +152,7 @@ const UserOverviewPage = () => {
                           alt={trip.destination}
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
-                        <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-[10px] font-black rounded-full uppercase tracking-widest text-slate-900 dark:text-white border border-white/20">
+                        <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 dark:bg-background-dark backdrop-blur-md text-[10px] font-black rounded-full uppercase tracking-widest text-slate-900 dark:text-white border border-white/20">
                           {trip.travelType}
                         </div>
                       </div>
@@ -195,7 +195,7 @@ const UserOverviewPage = () => {
                             {[1, 2].map((i) => (
                               <div
                                 key={i}
-                                className="size-8 rounded-full border-2 border-white dark:border-slate-900 bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-[10px] font-black text-slate-400"
+                                className="size-8 rounded-full border-2 border-white dark:border-slate-900 bg-slate-100 dark:bg-background-darkex items-center justify-center text-[10px] font-black text-slate-400"
                               >
                                 <UserPlus className="size-3" />
                               </div>
@@ -209,8 +209,8 @@ const UserOverviewPage = () => {
                 })}
               </div>
             ) : (
-              <div className="bg-slate-50 dark:bg-slate-800/20 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-[2.5rem] p-12 text-center group hover:border-primary/30 transition-all">
-                <div className="size-16 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+              <div className="bg-slate-50 dark:bg-background-dark border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-[2.5rem] p-12 text-center group hover:border-primary/30 transition-all">
+                <div className="size-16 bg-white dark:bg-background-dark rounded-3xl shadow-sm flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                   <Compass className="size-8 text-slate-300 dark:text-slate-600" />
                 </div>
                 <h3 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-tight">
@@ -234,7 +234,7 @@ const UserOverviewPage = () => {
         {/* Side Column: Matches & Activity */}
         <div className="xl:col-span-4 space-y-8">
           {/* Traveler Matches */}
-          <section className="bg-white dark:bg-slate-900 rounded-3xl p-7 shadow-sm border border-slate-100 dark:border-slate-800">
+          <section className="bg-white dark:bg-background-dark rounded-3xl p-7 shadow-sm border border-slate-100 dark:border-slate-800">
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
                 New Matches

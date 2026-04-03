@@ -168,9 +168,9 @@ const TravelPlanDetails = () => {
 
             <section className="space-y-8 px-4">
               <div className="flex items-center gap-4">
-                <div className="h-px bg-slate-200 dark:bg-slate-800 grow"></div>
+                <div className="h-px bg-slate-200 dark:bg-background-dark grow"></div>
                 <h2 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-[0.2em] shrink-0">Mission Briefing</h2>
-                <div className="h-px bg-slate-200 dark:bg-slate-800 grow"></div>
+                <div className="h-px bg-slate-200 dark:bg-background-dark grow"></div>
               </div>
               <p className="text-3xl font-black text-slate-900 dark:text-white leading-[1.1] tracking-tight text-center max-w-3xl mx-auto opacity-90 underline decoration-primary decoration-4 underline-offset-8">
                 &quot;{trip.description}&quot;

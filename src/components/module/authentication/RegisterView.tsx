@@ -70,9 +70,9 @@ const RegisterView = () => {
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-200px)] p-4 py-12">
-      <div className="w-full max-w-[1000px] grid grid-cols-1 md:grid-cols-2 bg-white dark:bg-slate-900 rounded-xl overflow-hidden relative z-10 border border-slate-200 dark:border-slate-800">
+      <div className="w-full max-w-[1000px] grid grid-cols-1 md:grid-cols-2 bg-white dark:bg-background-dark rounded-xl overflow-hidden relative z-10 border border-slate-200 dark:border-slate-800">
         {/* Left Side: Visual/Branding (Hidden on mobile) */}
-        <div className="hidden md:block relative overflow-hidden bg-slate-100 dark:bg-slate-800">
+        <div className="hidden md:block relative overflow-hidden bg-slate-100 dark:bg-background-dark">
           <div className="absolute inset-0">
             <Image
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3j_cB_9ioHVEiIeihyOjSrjiB43k3VL_1sWaZQsuCikVgY7rbq1DzkJ-Nf1N_HjV0LLlo2JlqXQ8Qh7oUCB8Lc0--dB7J04xCvGgxzwVNDQiWQI_6HlZGfTeW2Vzo3yppGQ9uQ21YYRIgeEoJkC-uQ4_Z3PzbJXlcHwNz012KJ4xT1YeJog1iSdAP92NrazeNY3IzL39uzk2rAZAsRkIsjclojwRKU1e0s9F9qEPQjQ1i1WxazZ6Fs5YfI5DzvrzqJQ2L4Mz8Ww"

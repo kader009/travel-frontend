@@ -87,7 +87,7 @@ const PlanRequests = ({
     <div className="space-y-4 max-w-2xl mx-auto px-4">
       {/* Plan Header */}
       <div className="flex items-center gap-3 px-2">
-        <div className="size-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
+        <div className="size-10 rounded-xl bg-slate-100 dark:bg-background-dark flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
           {planImage ? (
             <Image
               src={planImage}
@@ -116,10 +116,10 @@ const PlanRequests = ({
           return (
             <div
               key={req._id}
-              className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-3xl flex flex-col gap-5 group hover:border-primary/20 transition-all shadow-sm w-full"
+              className="bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 p-6 rounded-3xl flex flex-col gap-5 group hover:border-primary/20 transition-all shadow-sm w-full"
             >
               <div className="flex items-center gap-4">
-                <div className="size-16 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
+                <div className="size-16 rounded-2xl bg-slate-100 dark:bg-background-dark flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-200 dark:border-slate-700">
                   {traveler?.image ? (
                     <Image
                       src={traveler.image}
@@ -241,12 +241,12 @@ const AdminJoinRequestsPage = () => {
             Manage personnel requests and mission status.
           </p>
         </div>
-        <div className="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl">
+        <div className="flex bg-slate-100 dark:bg-background-dark p-1.5 rounded-2xl">
           <button
             onClick={() => setActiveTab('received')}
             className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
               activeTab === 'received'
-                ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
+                ? 'bg-white dark:bg-background-dark text-slate-900 dark:text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
             }`}
           >
@@ -256,7 +256,7 @@ const AdminJoinRequestsPage = () => {
             onClick={() => setActiveTab('sent')}
             className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
               activeTab === 'sent'
-                ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm'
+                ? 'bg-white dark:bg-background-dark text-slate-900 dark:text-white shadow-sm'
                 : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
             }`}
           >
@@ -277,9 +277,9 @@ const AdminJoinRequestsPage = () => {
                 return (
                   <div
                     key={req._id}
-                    className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-4xl flex flex-col md:flex-row items-start md:items-center gap-6 group hover:border-primary/20 transition-all shadow-sm"
+                    className="bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 p-6 rounded-4xl flex flex-col md:flex-row items-start md:items-center gap-6 group hover:border-primary/20 transition-all shadow-sm"
                   >
-                    <div className="size-16 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-100 dark:border-slate-800">
+                    <div className="size-16 rounded-2xl bg-slate-50 dark:bg-background-dark flex items-center justify-center shrink-0 overflow-hidden relative border border-slate-100 dark:border-slate-800">
                       {plan?.images?.[0] ? (
                         <Image
                           src={plan.images[0]}
@@ -329,7 +329,7 @@ const AdminJoinRequestsPage = () => {
               })}
             </div>
           ) : (
-            <div className="py-24 text-center bg-slate-50 dark:bg-slate-900/50 rounded-[3rem] border border-dashed border-slate-200 dark:border-slate-800">
+            <div className="py-24 text-center bg-slate-50 dark:bg-background-dark rounded-[3rem] border border-dashed border-slate-200 dark:border-slate-800">
               <Handshake className="size-14 text-slate-200 dark:text-slate-800 mx-auto mb-6" />
               <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
                 No Active Requests
@@ -362,7 +362,7 @@ const AdminJoinRequestsPage = () => {
                 })}
               </div>
               {!hasAnyReceivedRequests && (
-                <div className="py-24 text-center bg-slate-50 dark:bg-slate-900/50 rounded-[3rem] border border-dashed border-slate-200 dark:border-slate-800 animate-in fade-in zoom-in-95 duration-500">
+                <div className="py-24 text-center bg-slate-50 dark:bg-background-dark rounded-[3rem] border border-dashed border-slate-200 dark:border-slate-800 animate-in fade-in zoom-in-95 duration-500">
                   <Handshake className="size-14 text-slate-200 dark:text-slate-800 mx-auto mb-6" />
                   <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
                     No Requests Received
@@ -374,7 +374,7 @@ const AdminJoinRequestsPage = () => {
               )}
             </>
           ) : (
-            <div className="py-24 text-center bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800">
+            <div className="py-24 text-center bg-white dark:bg-background-dark rounded-[3rem] border border-slate-100 dark:border-slate-800">
               <PlaneTakeoff className="size-14 text-slate-200 dark:text-slate-800 mx-auto mb-6" />
               <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
                 No Expeditions Yet

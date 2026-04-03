@@ -120,7 +120,7 @@ const PaymentSuccessPage = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl">
+            <div className="p-4 bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-800 rounded-3xl">
               <Zap
                 className="size-5 text-primary mb-2 mx-auto"
                 strokeWidth={3}
@@ -132,7 +132,7 @@ const PaymentSuccessPage = () => {
                 Premium
               </p>
             </div>
-            <div className="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl">
+            <div className="p-4 bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-800 rounded-3xl">
               <ShieldCheck
                 className="size-5 text-emerald-500 mb-2 mx-auto"
                 strokeWidth={2.5}

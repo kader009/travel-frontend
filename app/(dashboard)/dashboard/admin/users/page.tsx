@@ -129,7 +129,7 @@ const ManageUsersPage = () => {
         </div>
       </header>
 
-      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
+      <div className="bg-white dark:bg-background-dark rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
         <div className="px-8 py-6 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <p className="font-black text-slate-900 dark:text-white uppercase tracking-tighter">Registered Users</p>
@@ -144,7 +144,7 @@ const ManageUsersPage = () => {
               placeholder="Search by name or email..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-11 pr-5 py-2.5 text-sm border border-slate-100 dark:border-slate-800 rounded-full bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all font-bold" 
+              className="w-full pl-11 pr-5 py-2.5 text-sm border border-slate-100 dark:border-slate-800 rounded-full bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all font-bold" 
             />
           </div>
         </div>
@@ -160,7 +160,7 @@ const ManageUsersPage = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-50/50 dark:bg-slate-800/50">
+                <tr className="bg-slate-50/50 dark:bg-background-dark">
                   <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800">User</th>
                   <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800">Email</th>
                   <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800">Role</th>
@@ -211,8 +211,8 @@ const ManageUsersPage = () => {
       {isEditModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4 animate-in fade-in duration-300">
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => !isUpdating && setIsEditModalOpen(false)}></div>
-          <div className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300">
-            <div className="bg-slate-50 dark:bg-slate-800/50 px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
+          <div className="bg-white dark:bg-background-dark w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300">
+            <div className="bg-slate-50 dark:bg-background-dark px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-primary/10 rounded-xl text-primary">
                   <Pencil className="size-5" />
@@ -235,7 +235,7 @@ const ManageUsersPage = () => {
                     {editForm.image ? (
                       <Image src={editForm.image} alt="Preview" fill className="object-cover" />
                     ) : (
-                      <div className="size-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+                      <div className="size-full bg-slate-100 dark:bg-background-dark flex items-center justify-center text-slate-400">
                         <UserCircle className="size-10" />
                       </div>
                     )}
@@ -251,7 +251,7 @@ const ManageUsersPage = () => {
                     value={editForm.image}
                     onChange={(e) => setEditForm({...editForm, image: e.target.value})}
                     placeholder="https://example.com/image.jpg"
-                    className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all"
+                    className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all"
                   />
                 </div>
               </div>
@@ -264,7 +264,7 @@ const ManageUsersPage = () => {
                     required
                     value={editForm.name}
                     onChange={(e) => setEditForm({...editForm, name: e.target.value})}
-                    className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all"
+                    className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all"
                   />
                 </div>
 
@@ -273,7 +273,7 @@ const ManageUsersPage = () => {
                   <select 
                     value={editForm.role}
                     onChange={(e) => setEditForm({...editForm, role: e.target.value as TUserRole})}
-                    className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-300 appearance-none cursor-pointer"
+                    className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-300 appearance-none cursor-pointer"
                   >
                     <option value="user">Traveler (User)</option>
                     <option value="admin">Administrator (Admin)</option>
@@ -286,7 +286,7 @@ const ManageUsersPage = () => {
                   type="button" 
                   onClick={() => setIsEditModalOpen(false)}
                   disabled={isUpdating}
-                  className="flex-1 px-6 py-4 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-black rounded-2xl hover:bg-slate-100 transition-all cursor-pointer uppercase tracking-widest text-xs"
+                  className="flex-1 px-6 py-4 bg-slate-50 dark:bg-background-dark text-slate-600 dark:text-slate-400 font-black rounded-2xl hover:bg-slate-100 transition-all cursor-pointer uppercase tracking-widest text-xs"
                 >
                   Discard
                 </button>
@@ -308,7 +308,7 @@ const ManageUsersPage = () => {
       {isDeleteModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4 animate-in fade-in duration-300">
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => !isDeleting && setIsDeleteModalOpen(false)}></div>
-          <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-3xl p-8 shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300 text-center">
+          <div className="bg-white dark:bg-background-dark w-full max-w-md rounded-3xl p-8 shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300 text-center">
             <div className="size-20 rounded-full bg-rose-50 dark:bg-rose-900/20 flex items-center justify-center text-rose-500 mx-auto mb-6">
               <AlertTriangle className="size-10" />
             </div>
@@ -317,7 +317,7 @@ const ManageUsersPage = () => {
               Are you sure you want to permanently delete <span className="text-rose-500 font-black underline">{userToDelete?.name}</span>?
             </p>
             <div className="grid grid-cols-2 gap-4 mt-10">
-              <button onClick={() => setIsDeleteModalOpen(false)} disabled={isDeleting} className="px-6 py-4 bg-slate-50 dark:bg-slate-800 text-slate-500 font-black rounded-2xl hover:bg-slate-100 text-xs uppercase cursor-pointer">Cancel</button>
+              <button onClick={() => setIsDeleteModalOpen(false)} disabled={isDeleting} className="px-6 py-4 bg-slate-50 dark:bg-background-dark text-slate-500 font-black rounded-2xl hover:bg-slate-100 text-xs uppercase cursor-pointer">Cancel</button>
               <button onClick={confirmDelete} disabled={isDeleting} className="px-6 py-4 bg-rose-500 text-white font-black rounded-2xl hover:bg-rose-600 shadow-lg shadow-rose-500/20 text-xs uppercase flex items-center justify-center gap-2 cursor-pointer">
                 {isDeleting ? <Loader2 className="size-4 animate-spin" /> : <Trash2 className="size-4" />} Delete
               </button>

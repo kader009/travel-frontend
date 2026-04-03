@@ -99,9 +99,9 @@ const LoginView = () => {
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-200px)] p-4 py-12">
-      <div className="w-full max-w-250 grid grid-cols-1 md:grid-cols-2 bg-white dark:bg-slate-900 rounded-xl overflow-hidden relative z-10 border border-slate-200 dark:border-slate-800">
+      <div className="w-full max-w-250 grid grid-cols-1 md:grid-cols-2 bg-white dark:bg-background-dark rounded-xl overflow-hidden relative z-10 border border-slate-200 dark:border-slate-800">
         {/* Left Side: Visual/Branding (Hidden on mobile) */}
-        <div className="hidden md:block relative overflow-hidden bg-slate-100 dark:bg-slate-800">
+        <div className="hidden md:block relative overflow-hidden bg-slate-100 dark:bg-background-dark">
           <div className="absolute inset-0">
             <Image
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHhJ1tqN-J3cvlca2PyPn7Tiso_YovURXpni7Z1IAycVfeDmISpbcYGJA9o2f7yNYfWpcLlZVNDZ24ZAA6dD0y-XRiH7UUaeAMzMV4iIzhavKzqNPoBVwCjz5EBKzVgYn4nErBlpKt_pjGsmTXXz1WT1bj0JYVm-USJ3YpNgKKbMeyDPELLStzVg4hciPIQb2S5nOVKDZ2u9h5qnKEiL9dQ549XmcTwelJaHkCdJZNncCGDlaRJxr-LgichBg2WO_RAVdwIpDp2A"
@@ -230,11 +230,11 @@ const LoginView = () => {
           {/* Quick Login Buttons */}
           <div className="mt-6">
             <div className="relative flex items-center gap-3 mb-4">
-              <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700" />
+              <div className="flex-1 h-px bg-slate-200 dark:bg-background-dark" />
               <span className="text-xs font-bold text-slate-400 uppercase tracking-widest whitespace-nowrap">
                 Quick Demo Login
               </span>
-              <div className="flex-1 h-px bg-slate-200 dark:bg-slate-700" />
+              <div className="flex-1 h-px bg-slate-200 dark:bg-background-dark" />
             </div>
             <div className="grid grid-cols-1 min-[440px]:grid-cols-2 gap-3">
               <button

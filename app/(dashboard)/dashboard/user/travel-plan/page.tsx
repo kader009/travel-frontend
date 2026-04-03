@@ -70,7 +70,7 @@ const UserTravelPlansPage = () => {
           <button 
             onClick={() => refetch()}
             disabled={isFetching || isLoading}
-            className="flex items-center justify-center p-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-slate-400 hover:text-primary rounded-full transition-all cursor-pointer active:scale-95 disabled:opacity-50 group"
+            className="flex items-center justify-center p-3 bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 text-slate-400 hover:text-primary rounded-full transition-all cursor-pointer active:scale-95 disabled:opacity-50 group"
             title="Refresh logs"
           >
             <RefreshCcw className={`size-4 ${isFetching ? 'animate-spin text-primary' : ''}`} strokeWidth={3} />
@@ -128,8 +128,8 @@ const UserTravelPlansPage = () => {
           ))}
         </div>
       ) : (
-        <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-16 text-center shadow-sm">
-          <div className="size-20 bg-slate-50 dark:bg-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-6">
+        <div className="bg-white dark:bg-background-dark rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-16 text-center shadow-sm">
+          <div className="size-20 bg-slate-50 dark:bg-background-dark rounded-3xl flex items-center justify-center mx-auto mb-6">
             <Map className="size-8 text-slate-300 dark:text-slate-600" />
           </div>
           <h2 className="font-black text-slate-900 dark:text-white text-xl uppercase tracking-tight">No Expeditions Found</h2>

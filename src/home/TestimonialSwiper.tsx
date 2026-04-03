@@ -28,7 +28,7 @@ const TestimonialSwiper = ({ testimonials }: { testimonials: ITestimonial[] }) =
           {testimonials.map((_, index) => (
             <div
               key={index}
-              className={`h-1 w-8! sm:w-12! rounded transition-colors duration-300 ${activeIndex === index ? 'bg-primary' : 'bg-slate-200 dark:bg-slate-800'}`}
+              className={`h-1 w-8! sm:w-12! rounded transition-colors duration-300 ${activeIndex === index ? 'bg-primary' : 'bg-slate-200 dark:bg-background-dark'}`}
             ></div>
           ))}
         </div>

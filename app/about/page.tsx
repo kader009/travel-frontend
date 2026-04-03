@@ -145,7 +145,7 @@ const AboutPage = () => {
 
       {/* Values Section */}
       <section className="px-6 py-10">
-        <Container className="bg-slate-900 text-white rounded-3xl py-20 relative overflow-hidden px-6 lg:px-20">
+        <Container className="bg-slate-900 text-white rounded-3xl py-20 relative overflow-hidden px-6 lg:px-20 dark:bg-background-dark">
           <div className="relative z-10">
             <div className="text-center mb-16">
               <h2 className="text-3xl lg:text-4xl font-bold tracking-tight">

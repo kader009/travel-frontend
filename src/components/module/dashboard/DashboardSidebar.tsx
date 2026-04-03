@@ -42,7 +42,7 @@ const DashboardSidebar = ({ open, onClose }: DashboardSidebarProps) => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 z-40 flex flex-col bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 transition-transform duration-300 md:translate-x-0 ${
+        className={`fixed top-0 left-0 h-full w-64 z-40 flex flex-col bg-white dark:bg-background-dark border-r border-slate-100 dark:border-slate-800 transition-transform duration-300 md:translate-x-0 ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
@@ -91,7 +91,7 @@ const DashboardSidebar = ({ open, onClose }: DashboardSidebarProps) => {
         {/* User Info + Logout */}
         <div className="px-3 pb-6 pt-3 border-t border-slate-100 dark:border-slate-800 mt-auto">
           {user && (
-            <div className="flex items-center gap-3 px-4 py-3 mb-2 rounded-xl bg-slate-50 dark:bg-slate-800">
+            <div className="flex items-center gap-3 px-4 py-3 mb-2 rounded-xl bg-slate-50 dark:bg-background-dark">
               <div className="size-9 rounded-full bg-primary/20 flex items-center justify-center shrink-0 overflow-hidden">
                 {user.image ? (
                   <Image
@@ -113,7 +113,7 @@ const DashboardSidebar = ({ open, onClose }: DashboardSidebarProps) => {
                   <p className="text-[10px] text-slate-400 truncate max-w-25">
                     {user.email}
                   </p>
-                  <span className="text-[9px] font-black uppercase tracking-tighter bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded leading-none shrink-0 border border-slate-300 dark:border-slate-600">
+                  <span className="text-[9px] font-black uppercase tracking-tighter bg-slate-200 dark:bg-background-dark text-slate-500 dark:text-slate-400 px-1.5 py-0.5 rounded leading-none shrink-0 border border-slate-300 dark:border-slate-600">
                     {user.role}
                   </span>
                 </div>

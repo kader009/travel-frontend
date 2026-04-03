@@ -131,7 +131,7 @@ const AdminReviewsPage = () => {
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
         {/* User Selection Sidebar */}
         <div className="space-y-6">
-          <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-8 shadow-sm flex flex-col h-fit sticky top-8">
+          <div className="bg-white dark:bg-background-dark rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-8 shadow-sm flex flex-col h-fit sticky top-8">
             <h3 className="font-black text-slate-900 dark:text-white uppercase tracking-tight flex items-center gap-3 mb-6">
               <User className="size-4 text-primary" strokeWidth={3} /> Select
               Traveler
@@ -144,7 +144,7 @@ const AdminReviewsPage = () => {
                 placeholder="Search travelers..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-11 pr-5 py-3 text-sm border border-slate-100 dark:border-slate-800 rounded-2xl bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all font-bold"
+                className="w-full pl-11 pr-5 py-3 text-sm border border-slate-100 dark:border-slate-800 rounded-2xl bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all font-bold"
               />
             </div>
 
@@ -193,7 +193,7 @@ const AdminReviewsPage = () => {
         {/* Reviews List */}
         <div className="xl:col-span-2">
           {!selectedUserId ? (
-            <div className="bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 p-20 text-center flex flex-col items-center justify-center">
+            <div className="bg-white dark:bg-background-dark rounded-[3rem] border border-slate-100 dark:border-slate-800 p-20 text-center flex flex-col items-center justify-center">
               <Star className="size-16 text-slate-100 dark:text-slate-800 mb-6" />
               <h3 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
                 Start Moderating
@@ -209,7 +209,7 @@ const AdminReviewsPage = () => {
             <div className="space-y-8 animate-in slide-in-from-bottom-4 duration-500">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-4">
                 <div className="flex items-center gap-4">
-                  <div className="px-5 sm:px-6 py-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-4">
+                  <div className="px-5 sm:px-6 py-3 bg-white dark:bg-background-dark rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-4">
                     <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                       <Star className="size-5 fill-primary" />
                     </div>
@@ -233,7 +233,7 @@ const AdminReviewsPage = () => {
                   reviews.map((review) => (
                     <div
                       key={review._id}
-                      className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-6 rounded-4xl hover:border-primary/20 transition-all shadow-sm group"
+                      className="bg-white dark:bg-background-dark border border-slate-100 dark:border-slate-800 p-6 rounded-4xl hover:border-primary/20 transition-all shadow-sm group"
                     >
                       <div className="flex justify-between items-start mb-4">
                         <div className="flex gap-3 items-center">
@@ -302,8 +302,8 @@ const AdminReviewsPage = () => {
             className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
             onClick={() => !isUpdating && setIsEditModalOpen(false)}
           ></div>
-          <div className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300">
-            <div className="bg-slate-50 dark:bg-slate-800/50 px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
+          <div className="bg-white dark:bg-background-dark w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300">
+            <div className="bg-slate-50 dark:bg-background-dark px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-primary/10 rounded-xl text-primary">
                   <Pencil className="size-5" />
@@ -331,7 +331,7 @@ const AdminReviewsPage = () => {
                       key={num}
                       type="button"
                       onClick={() => setEditForm({ ...editForm, rating: num })}
-                      className={`size-10 rounded-xl transition-all flex items-center justify-center cursor-pointer ${editForm.rating >= num ? 'bg-primary text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'}`}
+                      className={`size-10 rounded-xl transition-all flex items-center justify-center cursor-pointer ${editForm.rating >= num ? 'bg-primary text-slate-900' : 'bg-slate-100 dark:bg-background-dark text-slate-400'}`}
                     >
                       <Star
                         className={`size-5 ${editForm.rating >= num ? 'fill-current' : ''}`}
@@ -352,7 +352,7 @@ const AdminReviewsPage = () => {
                   onChange={(e) =>
                     setEditForm({ ...editForm, comment: e.target.value })
                   }
-                  className="w-full px-5 py-4 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all resize-none"
+                  className="w-full px-5 py-4 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all resize-none"
                   placeholder="Enter the updated review content..."
                 />
               </div>
@@ -373,7 +373,7 @@ const AdminReviewsPage = () => {
                 <button
                   type="button"
                   onClick={() => setIsEditModalOpen(false)}
-                  className="w-full sm:flex-1 order-2 sm:order-1 px-6 py-4 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-black rounded-2xl text-xs uppercase tracking-widest"
+                  className="w-full sm:flex-1 order-2 sm:order-1 px-6 py-4 bg-slate-50 dark:bg-background-dark text-slate-600 dark:text-slate-400 font-black rounded-2xl text-xs uppercase tracking-widest"
                 >
                   Discard
                 </button>

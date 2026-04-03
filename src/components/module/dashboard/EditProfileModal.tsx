@@ -123,10 +123,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
       />
       
       {/* Modal Content */}
-      <div className="relative w-full max-w-2xl h-auto max-h-[95vh] sm:max-h-[90vh] overflow-hidden bg-white dark:bg-slate-900 rounded-3xl sm:rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-slate-800 animate-in fade-in zoom-in duration-300 transition-all flex flex-col">
+      <div className="relative w-full max-w-2xl h-auto max-h-[95vh] sm:max-h-[90vh] overflow-hidden bg-white dark:bg-background-dark rounded-3xl sm:rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-slate-800 animate-in fade-in zoom-in duration-300 transition-all flex flex-col">
         
         {/* Header */}
-        <div className="flex-none bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl px-5 sm:px-8 py-4 sm:py-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+        <div className="flex-none bg-white/80 dark:bg-background-dark backdrop-blur-xl px-5 sm:px-8 py-4 sm:py-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="size-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
               <Compass className="size-6" strokeWidth={2.5} />
@@ -159,7 +159,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
                 <input
                   {...register('name')}
                   placeholder="John Doe"
-                  className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white"
+                  className="w-full bg-slate-50 dark:bg-sbackground-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white"
                 />
                 {errors.name && <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">{errors.name.message}</p>}
               </div>
@@ -171,7 +171,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
                 <input
                   {...register('image')}
                   placeholder="https://example.com/avatar.jpg"
-                  className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white"
+                  className="w-full bg-slate-50 dark:bg-sbackground-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white"
                 />
                 {errors.image && <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">{errors.image.message}</p>}
               </div>
@@ -186,7 +186,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
                 {...register('bio')}
                 placeholder="Share your travel experiences and what kind of buddy you are..."
                 rows={3}
-                className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white resize-none"
+                className="w-full bg-slate-50 dark:bg-sbackground-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white resize-none"
               />
             </div>
 
@@ -199,7 +199,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
                 <input
                   {...register('currentLocation')}
                   placeholder="Dhaka, Bangladesh"
-                  className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white"
+                  className="w-full bg-slate-50 dark:bg-sbackground-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white"
                 />
               </div>
 
@@ -213,14 +213,14 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
                     step="any"
                     {...register('coordinates.lat', { valueAsNumber: true })}
                     placeholder="Lat"
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
+                    className="w-full bg-slate-50 dark:bg-sbackground-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
                   />
                   <input
                     type="number"
                     step="any"
                     {...register('coordinates.lng', { valueAsNumber: true })}
                     placeholder="Lng"
-                    className="w-full bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
+                    className="w-full bg-slate-50 dark:bg-sbackground-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white"
                   />
                 </div>
               </div>
@@ -251,7 +251,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
                   onChange={(e) => setNewInterest(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addInterest(); } }}
                   placeholder="e.g. Scuba Diving"
-                  className="flex-1 bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-3 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white font-mono"
+                  className="flex-1 bg-slate-50 dark:bg-sbackground-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-3 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white font-mono"
                 />
                 <button
                   type="button"
@@ -270,7 +270,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
               </label>
               <div className="flex flex-wrap gap-2 mb-3">
                 {visitedCountries.map((country) => (
-                  <div key={country} className="group/tag flex items-center gap-2 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white px-3.5 py-1.5 rounded-full text-[11px] font-black uppercase tracking-tight transition-all hover:border-primary/50">
+                  <div key={country} className="group/tag flex items-center gap-2 bg-slate-100 dark:bg-background-dark border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white px-3.5 py-1.5 rounded-full text-[11px] font-black uppercase tracking-tight transition-all hover:border-primary/50">
                     {country}
                     <button 
                       type="button" 
@@ -288,7 +288,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
                   onChange={(e) => setNewCountry(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addCountry(); } }}
                   placeholder="e.g. Iceland"
-                  className="flex-1 bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-3 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white font-mono"
+                  className="flex-1 bg-slate-50 dark:bg-sbackground-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-3 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white font-mono"
                 />
                 <button
                   type="button"
@@ -303,7 +303,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
         </div>
 
         {/* Footer Actions */}
-        <div className="flex-none p-5 sm:p-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+        <div className="flex-none p-5 sm:p-8 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-background-dark flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
           <button
             type="button"
             onClick={onClose}

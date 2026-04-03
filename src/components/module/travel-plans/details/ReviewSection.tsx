@@ -14,7 +14,7 @@ const ReviewSection = ({
 
   return (
     <section className="mt-20 max-w-4xl mx-auto w-full px-4 sm:px-0">
-      <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] sm:rounded-[3rem] border border-slate-100 dark:border-slate-800 p-6 sm:p-10 lg:p-16 shadow-sm hover:shadow-2xl transition-all">
+      <div className="bg-white dark:bg-background-dark rounded-[2.5rem] sm:rounded-[3rem] border border-slate-100 dark:border-slate-800 p-6 sm:p-10 lg:p-16 shadow-sm hover:shadow-2xl transition-all">
         <h1 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-8 sm:mb-10">
           Review Evaluation
         </h1>
@@ -52,7 +52,7 @@ const ReviewSection = ({
             <textarea
               value={reviewComment}
               onChange={(e) => dispatch(setComment(e.target.value))}
-              className="w-full rounded-[1.5rem] sm:rounded-3xl border-2 border-slate-50 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 p-5 sm:p-6 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-base sm:text-lg font-bold placeholder:text-slate-400 dark:placeholder:text-slate-600 resize-none min-h-40 sm:min-h-50"
+              className="w-full rounded-[1.5rem] sm:rounded-3xl border-2 border-slate-50 dark:border-slate-800 bg-slate-50 dark:bg-background-dark p-5 sm:p-6 text-slate-700 dark:text-slate-300 focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-base sm:text-lg font-bold placeholder:text-slate-400 dark:placeholder:text-slate-600 resize-none min-h-40 sm:min-h-50"
               placeholder={`Tell others about your mission experience with ${trip?.user?.name || 'this traveler'}...`}
             />
           </div>

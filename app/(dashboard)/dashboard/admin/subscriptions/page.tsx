@@ -41,7 +41,7 @@ const AdminSubscriptionsPage = () => {
           <h1 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tight">Subscriptions Overview</h1>
           <p className="text-slate-500 dark:text-slate-400 font-bold mt-1">Monitor revenue and active premium members.</p>
         </div>
-        <div className="bg-white dark:bg-slate-900 px-6 py-3 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4">
+        <div className="bg-white dark:bg-background-dark px-6 py-3 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4">
           <div className="size-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500">
             <TrendingUp className="size-5" />
           </div>
@@ -54,7 +54,7 @@ const AdminSubscriptionsPage = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-5">
+        <div className="bg-white dark:bg-background-dark p-6 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-5">
           <div className="size-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0">
             <Calendar className="size-7" />
           </div>
@@ -66,7 +66,7 @@ const AdminSubscriptionsPage = () => {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-5">
+        <div className="bg-white dark:bg-background-dark p-6 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-5">
           <div className="size-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
             <Crown className="size-7" />
           </div>
@@ -78,7 +78,7 @@ const AdminSubscriptionsPage = () => {
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-5">
+        <div className="bg-white dark:bg-background-dark p-6 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-5">
           <div className="size-14 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-500 shrink-0">
             <Users className="size-7" />
           </div>
@@ -92,7 +92,7 @@ const AdminSubscriptionsPage = () => {
       </div>
 
       {/* Recent Payments Table */}
-      <div className="bg-white dark:bg-slate-900 rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col">
+      <div className="bg-white dark:bg-background-dark rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col">
         <div className="px-6 sm:px-8 py-5 sm:py-6 border-b border-slate-100 dark:border-slate-800 flex items-center gap-3">
           <div className="size-8 sm:size-10 bg-primary/10 text-primary rounded-xl flex items-center justify-center">
             <History className="size-4 sm:size-5" />
@@ -104,7 +104,7 @@ const AdminSubscriptionsPage = () => {
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-[800px]">
               <thead>
-                <tr className="bg-slate-50 dark:bg-slate-800/50">
+                <tr className="bg-slate-50 dark:bg-background-dark">
                   <th className="px-4 sm:px-8 py-4 sm:py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">User</th>
                   <th className="px-4 sm:px-8 py-4 sm:py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Transaction ID</th>
                   <th className="px-4 sm:px-8 py-4 sm:py-5 text-[10px] font-black uppercase tracking-widest text-slate-400">Plan</th>
@@ -118,7 +118,7 @@ const AdminSubscriptionsPage = () => {
                   <tr key={payment._id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
                     <td className="px-4 sm:px-8 py-4 sm:py-5">
                       <div className="flex items-center gap-3">
-                        <div className="size-9 sm:size-10 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 relative shrink-0">
+                        <div className="size-9 sm:size-10 rounded-full overflow-hidden bg-slate-100 dark:bg-background-dark border-2 border-slate-200 dark:border-slate-700 relative shrink-0">
                           {payment.user?.image ? (
                             <Image src={payment.user.image} alt={payment.user.name} fill className="object-cover" />
                           ) : (

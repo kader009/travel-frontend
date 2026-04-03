@@ -28,7 +28,7 @@ export default function NotFound() {
             </Link>
             <button
               onClick={() => window.history.back()}
-              className="flex items-center gap-2 rounded-full bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 px-8 py-4 text-lg font-bold transition-all hover:bg-slate-50 dark:hover:bg-slate-700 active:scale-95 text-slate-900 dark:text-white cursor-pointer"
+              className="flex items-center gap-2 rounded-full bg-white dark:bg-background-dark border-2 border-slate-200 dark:border-slate-700 px-8 py-4 text-lg font-bold transition-all hover:bg-slate-50 dark:hover:bg-slate-700 active:scale-95 text-slate-900 dark:text-white cursor-pointer"
             >
               <MoveLeft className="w-5 h-5" />
               Go Back

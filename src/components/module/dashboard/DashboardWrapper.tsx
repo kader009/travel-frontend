@@ -46,7 +46,7 @@ const DashboardWrapper = ({ children }: DashboardWrapperProps) => {
         {/* Mobile Toggle Button (Visible only on mobile since header is removed) */}
         <button
           onClick={() => setSidebarOpen(true)}
-          className="md:hidden fixed top-4 left-4 z-30 p-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-lg cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95"
+          className="md:hidden fixed top-4 left-4 z-30 p-2.5 bg-white dark:bg-background-dark border border-slate-200 dark:border-slate-800 rounded-xl shadow-lg cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95"
         >
           <Menu className="size-5 text-slate-600 dark:text-slate-300" />
         </button>

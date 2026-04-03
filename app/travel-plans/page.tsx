@@ -149,7 +149,7 @@ const TravelPlans = () => {
                       </Link>
                       <Link
                         href={`/dashboard/user/travel-plan`}
-                        className="flex-1 flex items-center justify-center gap-2 py-4 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-slate-700 transition-all cursor-pointer active:scale-95"
+                        className="flex-1 flex items-center justify-center gap-2 py-4 bg-slate-50 dark:bg-background-dark text-slate-900 dark:text-white border border-slate-100 dark:border-slate-800 rounded-full text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-slate-700 transition-all cursor-pointer active:scale-95"
                       >
                         <Edit2 className="w-4 h-4" />
                         Manage

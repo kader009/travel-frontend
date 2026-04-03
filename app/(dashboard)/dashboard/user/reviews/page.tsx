@@ -198,7 +198,7 @@ const UserReviewsPage = () => {
 
         {stats && (
           <div className="flex gap-4">
-            <div className="px-6 py-3 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-4 group hover:border-primary/30 transition-all">
+            <div className="px-6 py-3 bg-white dark:bg-background-dark rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm flex items-center gap-4 group hover:border-primary/30 transition-all">
               <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
                 <Star className="size-5 fill-primary" />
               </div>
@@ -240,7 +240,7 @@ const UserReviewsPage = () => {
             </p>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-8 space-y-6 shadow-sm">
+          <div className="bg-white dark:bg-background-dark rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-8 space-y-6 shadow-sm">
             <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight flex items-center gap-3">
               <TrendingUp className="size-4 text-primary" strokeWidth={3} />{' '}
               Trusted Stats
@@ -261,7 +261,7 @@ const UserReviewsPage = () => {
               ].map((item, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl group hover:bg-primary/5 transition-all"
+                  className="flex items-center justify-between p-4 bg-slate-50 dark:bg-background-dark rounded-2xl group hover:bg-primary/5 transition-all"
                 >
                   <div className="flex items-center gap-3">
                     <item.icon className="size-4 text-slate-400 group-hover:text-primary transition-colors" />
@@ -280,18 +280,18 @@ const UserReviewsPage = () => {
 
         {/* Reviews List Column */}
         <div className="xl:col-span-2 space-y-6">
-          <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col">
+          <div className="bg-white dark:bg-background-dark rounded-[2.5rem] border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col">
             {/* Tabs */}
-            <div className="flex border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20">
+            <div className="flex border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-background-dark">
               <button
                 onClick={() => setActiveTab('posted')}
-                className={`flex-1 px-2 sm:px-6 py-3.5 sm:py-4 font-black text-[11px] sm:text-sm uppercase tracking-tight transition-all border-b-2 ${activeTab === 'posted' ? 'border-primary text-primary bg-white dark:bg-slate-900' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
+                className={`flex-1 px-2 sm:px-6 py-3.5 sm:py-4 font-black text-[11px] sm:text-sm uppercase tracking-tight transition-all border-b-2 ${activeTab === 'posted' ? 'border-primary text-primary bg-white dark:bg-background-dark' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
               >
                 Posted ({postedReviews.length})
               </button>
               <button
                 onClick={() => setActiveTab('received')}
-                className={`flex-1 px-2 sm:px-6 py-3.5 sm:py-4 font-black text-[11px] sm:text-sm uppercase tracking-tight transition-all border-b-2 ${activeTab === 'received' ? 'border-primary text-primary bg-white dark:bg-slate-900' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
+                className={`flex-1 px-2 sm:px-6 py-3.5 sm:py-4 font-black text-[11px] sm:text-sm uppercase tracking-tight transition-all border-b-2 ${activeTab === 'received' ? 'border-primary text-primary bg-white dark:bg-background-dark' : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
               >
                 Received ({receivedReviews.length})
               </button>
@@ -303,7 +303,7 @@ const UserReviewsPage = () => {
                 <>
                   {postedReviews.length === 0 ? (
                     <div className="py-24 text-center">
-                      <div className="size-20 bg-slate-50 dark:bg-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                      <div className="size-20 bg-slate-50 dark:bg-background-dark rounded-3xl flex items-center justify-center mx-auto mb-6">
                         <Star className="size-8 text-slate-200 dark:text-slate-700" />
                       </div>
                       <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight">
@@ -332,7 +332,7 @@ const UserReviewsPage = () => {
                         return (
                           <div
                             key={review._id}
-                            className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-4 sm:p-6 border border-slate-100 dark:border-slate-800 hover:border-primary/20 transition-all"
+                            className="bg-slate-50 dark:bg-background-dark rounded-2xl p-4 sm:p-6 border border-slate-100 dark:border-slate-800 hover:border-primary/20 transition-all"
                           >
                             <div className="flex justify-between items-start mb-4">
                               <div className="flex gap-3 items-start flex-1">
@@ -422,7 +422,7 @@ const UserReviewsPage = () => {
                         return (
                           <div
                             key={review._id}
-                            className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-4 sm:p-6 border border-slate-100 dark:border-slate-800 hover:border-primary/20 transition-all"
+                            className="bg-slate-50 dark:bg-background-dark rounded-2xl p-4 sm:p-6 border border-slate-100 dark:border-slate-800 hover:border-primary/20 transition-all"
                           >
                             <div className="flex justify-between items-start mb-4">
                               <div className="flex gap-3 items-start flex-1">
@@ -474,7 +474,7 @@ const UserReviewsPage = () => {
                     </div>
                   ) : (
                     <div className="py-24 text-center">
-                      <div className="size-20 bg-slate-50 dark:bg-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                      <div className="size-20 bg-slate-50 dark:bg-background-dark rounded-3xl flex items-center justify-center mx-auto mb-6">
                         <Star className="size-8 text-slate-200 dark:text-slate-700" />
                       </div>
                       <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight">
@@ -490,7 +490,7 @@ const UserReviewsPage = () => {
               )}
             </div>
 
-            <div className="p-8 bg-slate-50/50 dark:bg-slate-800/20 border-t border-slate-100 dark:border-slate-800 text-center">
+            <div className="p-8 bg-slate-50/50 dark:bg-background-dark border-t border-slate-100 dark:border-slate-800 text-center">
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
                 Trusted by the worldwide traveler community
               </p>
@@ -506,8 +506,8 @@ const UserReviewsPage = () => {
             className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
             onClick={() => !isUpdating && setIsEditModalOpen(false)}
           ></div>
-          <div className="bg-white dark:bg-slate-900 w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300">
-            <div className="bg-slate-50 dark:bg-slate-800/50 px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
+          <div className="bg-white dark:bg-background-dark w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300">
+            <div className="bg-slate-50 dark:bg-background-dark px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-primary/10 rounded-xl text-primary">
                   <Pencil className="size-5" />
@@ -535,7 +535,7 @@ const UserReviewsPage = () => {
                       key={num}
                       type="button"
                       onClick={() => setEditForm({ ...editForm, rating: num })}
-                      className={`size-10 rounded-xl transition-all flex items-center justify-center cursor-pointer ${editForm.rating >= num ? 'bg-primary text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-400'}`}
+                      className={`size-10 rounded-xl transition-all flex items-center justify-center cursor-pointer ${editForm.rating >= num ? 'bg-primary text-slate-900' : 'bg-slate-100 dark:bg-background-dark text-slate-400'}`}
                     >
                       <Star
                         className={`size-5 ${editForm.rating >= num ? 'fill-current' : ''}`}
@@ -556,7 +556,7 @@ const UserReviewsPage = () => {
                   onChange={(e) =>
                     setEditForm({ ...editForm, comment: e.target.value })
                   }
-                  className="w-full px-5 py-4 text-sm bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all resize-none"
+                  className="w-full px-5 py-4 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all resize-none"
                   placeholder="Enter the updated review content..."
                 />
               </div>
@@ -565,7 +565,7 @@ const UserReviewsPage = () => {
                 <button
                   type="button"
                   onClick={() => setIsEditModalOpen(false)}
-                  className="flex-1 px-6 py-4 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-black rounded-2xl text-xs uppercase tracking-widest"
+                  className="flex-1 px-6 py-4 bg-slate-50 dark:bg-background-dark text-slate-600 dark:text-slate-400 font-black rounded-2xl text-xs uppercase tracking-widest"
                 >
                   Discard
                 </button>

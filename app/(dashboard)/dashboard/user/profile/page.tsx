@@ -93,7 +93,7 @@ const UserProfilePage = () => {
       <main className="max-w-7xl mx-auto w-full px-0 sm:px-4 py-4 grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Sidebar Section */}
         <aside className="lg:col-span-4 flex flex-col gap-6">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 flex flex-col items-center text-center shadow-sm border border-slate-100 dark:border-slate-800">
+          <div className="bg-white dark:bg-background-dark rounded-2xl p-8 flex flex-col items-center text-center shadow-sm border border-slate-100 dark:border-slate-800">
             <div className="relative mb-6">
               <div className="size-32 rounded-full overflow-hidden border-4 border-primary bg-primary/10 flex items-center justify-center relative">
                 {user?.image ? (
@@ -162,7 +162,7 @@ const UserProfilePage = () => {
             </button>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800">
+          <div className="bg-white dark:bg-background-dark rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800">
             <h3 className="text-lg font-black mb-4 flex items-center gap-2 text-slate-900 dark:text-white uppercase tracking-tight">
               <Target className="size-5 text-primary" strokeWidth={3} /> Travel
               Interests
@@ -207,7 +207,7 @@ const UserProfilePage = () => {
                   <Link
                     key={plan._id}
                     href={`/travel-plans/${plan._id}`}
-                    className="bg-white dark:bg-slate-900 rounded-2xl p-5 flex gap-5 border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-primary/5 transition-all cursor-pointer group"
+                    className="bg-white dark:bg-background-dark rounded-2xl p-5 flex gap-5 border border-slate-100 dark:border-slate-800 hover:shadow-xl hover:shadow-primary/5 transition-all cursor-pointer group"
                   >
                     <div className="size-16 rounded-xl bg-slate-200 overflow-hidden shrink-0 border border-slate-100 dark:border-slate-800 relative">
                       <Image
@@ -243,7 +243,7 @@ const UserProfilePage = () => {
                   </Link>
                 ))
               ) : (
-                <div className="col-span-full py-16 flex flex-col items-center text-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 border-dashed">
+                <div className="col-span-full py-16 flex flex-col items-center text-center bg-white dark:bg-background-dark rounded-3xl border border-slate-100 dark:border-slate-800 border-dashed">
                   <Compass className="size-12 text-slate-200 dark:text-slate-800 mb-4" />
                   <p className="text-slate-500 font-bold max-w-xs px-4">
                     No upcoming adventures planned yet. Start your next journey
@@ -294,7 +294,7 @@ const UserProfilePage = () => {
                 ))}
               </div>
             ) : (
-              <div className="py-16 flex flex-col items-center text-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 border-dashed px-1">
+              <div className="py-16 flex flex-col items-center text-center bg-white dark:bg-background-dark rounded-3xl border border-slate-100 dark:border-slate-800 border-dashed px-1">
                 <Compass className="size-12 text-slate-200 dark:text-slate-800 mb-4" />
                 <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight">
                   No Completed Trips Yet
@@ -341,7 +341,7 @@ const UserProfilePage = () => {
                   return (
                     <div
                       key={review._id}
-                      className="bg-white dark:bg-slate-900 rounded-3xl p-7 border border-slate-100 dark:border-slate-800 shadow-sm hover:border-primary/20 transition-all"
+                      className="bg-white dark:bg-background-dark rounded-3xl p-7 border border-slate-100 dark:border-slate-800 shadow-sm hover:border-primary/20 transition-all"
                     >
                       <div className="flex items-center gap-3 mb-5">
                         <div className="size-11 rounded-full overflow-hidden bg-slate-200 border-2 border-primary/10 relative flex items-center justify-center">
@@ -386,7 +386,7 @@ const UserProfilePage = () => {
                   );
                 })
               ) : (
-                <div className="py-16 flex flex-col items-center text-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 border-dashed">
+                <div className="py-16 flex flex-col items-center text-center bg-white dark:bg-background-dark rounded-3xl border border-slate-100 dark:border-slate-800 border-dashed">
                   <MessageSquare className="size-12 text-slate-200 dark:text-slate-800 mb-4" />
                   <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight">
                     No Reviews Yet
