@@ -4,14 +4,7 @@ import { useState } from 'react';
 import Container from '@/src/components/ui/Container';
 import { useGetAllTravelPlansQuery } from '@/src/redux/store/api/endApi';
 import { ITravelPlan } from '@/src/types/travelPlan';
-import {
-  Calendar,
-  DollarSign,
-  Edit2,
-  Eye,
-  Plus,
-  Compass,
-} from 'lucide-react';
+import { Calendar, DollarSign, Edit2, Eye, Plus, Compass } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import CreateTravelPlanModal from '@/src/components/module/dashboard/CreateTravelPlanModal';
@@ -24,7 +17,7 @@ const TravelPlans = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: plansData, isLoading, isError } = useGetAllTravelPlansQuery();
   const plans = (plansData?.data as ITravelPlan[]) || [];
-  
+
   const user = useAppSelector((state) => state.user.user);
   const router = useRouter();
 
@@ -124,7 +117,10 @@ const TravelPlans = () => {
                             <Calendar className="w-4 h-4 opacity-70" />
                           </div>
                           <span className="text-xs font-bold uppercase tracking-tight">
-                            {new Date(plan.startDate).toLocaleDateString('en-US')} -{' '}
+                            {new Date(plan.startDate).toLocaleDateString(
+                              'en-US',
+                            )}{' '}
+                            -{' '}
                             {new Date(plan.endDate).toLocaleDateString('en-US')}
                           </span>
                         </div>
@@ -180,9 +176,9 @@ const TravelPlans = () => {
       </Container>
 
       {/* Create Plan Modal */}
-      <CreateTravelPlanModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <CreateTravelPlanModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
     </main>
   );

@@ -97,7 +97,7 @@ const RegisterView = () => {
         </div>
 
         {/* Right Side: Registration Form */}
-        <div className="p-8 sm:p-12 flex flex-col justify-center">
+        <div className="p-8 sm:p-12 flex flex-col justify-center dark:bg-background-dark">
           {/* Header/Logo (Mobile) */}
           <div className="md:hidden flex items-center gap-3 mb-8">
             <div className="size-10 bg-primary rounded-lg flex items-center justify-center text-background-dark">

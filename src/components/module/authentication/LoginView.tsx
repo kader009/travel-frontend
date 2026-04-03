@@ -129,7 +129,7 @@ const LoginView = () => {
         </div>
 
         {/* Right Side: Login Form */}
-        <div className="p-6 sm:p-12 flex flex-col justify-center">
+        <div className="p-6 sm:p-12 flex flex-col justify-center dark:bg-background-dark">
           <div className="md:hidden flex items-center gap-2 mb-8">
             <div className="size-8 bg-primary flex items-center justify-center rounded-lg">
               <Plane className="size-5 text-background-dark" />
