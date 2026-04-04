@@ -203,19 +203,19 @@ const AdminTravelPlansPage = () => {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-slate-50/50 dark:bg-background-dark">
-                  <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800">
+                  <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 whitespace-nowrap">
                     Destination
                   </th>
-                  <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800">
+                  <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 whitespace-nowrap">
                     Creator
                   </th>
-                  <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800">
+                  <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 whitespace-nowrap">
                     Date Range
                   </th>
-                  <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800">
+                  <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 whitespace-nowrap">
                     Budget
                   </th>
-                  <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 text-right">
+                  <th className="px-8 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-800 text-right whitespace-nowrap">
                     Actions
                   </th>
                 </tr>
@@ -267,10 +267,10 @@ const AdminTravelPlansPage = () => {
                         </span>
                       </div>
                     </td>
-                    <td className="px-8 py-5">
-                      <div className="flex items-center gap-1.5 text-slate-900 dark:text-slate-100">
+                    <td className="px-8 py-5 whitespace-nowrap">
+                      <div className="flex items-center gap-1.5 text-slate-900 dark:text-slate-100 whitespace-nowrap">
                         <DollarSign className="size-3.5 text-emerald-500" />
-                        <span className="text-sm font-black tracking-tight">
+                        <span className="text-sm font-black tracking-tight whitespace-nowrap">
                           ${plan.budget.min} - ${plan.budget.max}
                         </span>
                       </div>
@@ -303,13 +303,13 @@ const AdminTravelPlansPage = () => {
 
       {/* Edit Travel Plan Modal */}
       {isEditModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-300">
           <div
             className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
             onClick={() => !isUpdating && setIsEditModalOpen(false)}
           ></div>
-          <div className="bg-white dark:bg-background-dark w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300">
-            <div className="bg-slate-50 dark:bg-background-dark px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
+          <div className="bg-white dark:bg-background-dark w-full max-w-lg max-h-[88vh] flex flex-col rounded-3xl overflow-hidden shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300">
+            <div className="flex-none bg-slate-50 dark:bg-background-dark px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-primary/10 rounded-xl text-primary">
                   <Pencil className="size-5" />
@@ -326,143 +326,148 @@ const AdminTravelPlansPage = () => {
               </button>
             </div>
 
-            <form onSubmit={handleUpdate} className="p-8 space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="md:col-span-2">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">
-                    Destination
-                  </label>
-                  <div className="relative">
-                    <Map className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-slate-400" />
+            <div className="flex-1 overflow-y-auto custom-scrollbar">
+              <form onSubmit={handleUpdate} className="p-8 space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="md:col-span-2">
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">
+                      Destination
+                    </label>
+                    <div className="relative">
+                      <Map className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-slate-400" />
+                      <input
+                        type="text"
+                        required
+                        value={editForm.destination}
+                        onChange={(event) =>
+                          setEditForm({
+                            ...editForm,
+                            destination: event.target.value,
+                          })
+                        }
+                        className="w-full pl-11 pr-5 py-3 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">
+                      Travel Type
+                    </label>
+                    <div className="relative">
+                      <Plane className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-slate-400" />
+                      <select
+                        value={editForm.travelType}
+                        onChange={(event) =>
+                          setEditForm({
+                            ...editForm,
+                            travelType: event.target.value as TTravelType,
+                          })
+                        }
+                        className="w-full pl-11 pr-10 py-3 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-300 appearance-none cursor-pointer"
+                      >
+                        <option value="Solo">Solo Traveler</option>
+                        <option value="Friends">Friends Group</option>
+                        <option value="Family">Family Trip</option>
+                        <option value="Couple">Couple Trip</option>
+                        <option value="Group">Mixed Group</option>
+                        <option value="Business">Business Trip</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">
+                      Min Budget ($)
+                    </label>
                     <input
-                      type="text"
+                      type="number"
                       required
-                      value={editForm.destination}
+                      value={editForm.budget.min}
                       onChange={(event) =>
                         setEditForm({
                           ...editForm,
-                          destination: event.target.value,
+                          budget: {
+                            ...editForm.budget,
+                            min: Number(event.target.value),
+                          },
                         })
                       }
-                      className="w-full pl-11 pr-5 py-3 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all"
+                      className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">
+                      Max Budget ($)
+                    </label>
+                    <input
+                      type="number"
+                      required
+                      value={editForm.budget.max}
+                      onChange={(event) =>
+                        setEditForm({
+                          ...editForm,
+                          budget: {
+                            ...editForm.budget,
+                            max: Number(event.target.value),
+                          },
+                        })
+                      }
+                      className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">
+                      Plan Description
+                    </label>
+                    <textarea
+                      rows={4}
+                      value={editForm.description}
+                      onChange={(event) =>
+                        setEditForm({
+                          ...editForm,
+                          description: event.target.value,
+                        })
+                      }
+                      className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all resize-none"
+                      placeholder="Short description of the trip..."
                     />
                   </div>
                 </div>
 
-                <div className="md:col-span-2">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">
-                    Travel Type
-                  </label>
-                  <div className="relative">
-                    <Plane className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-slate-400" />
-                    <select
-                      value={editForm.travelType}
-                      onChange={(event) =>
-                        setEditForm({
-                          ...editForm,
-                          travelType: event.target.value as TTravelType,
-                        })
-                      }
-                      className="w-full pl-11 pr-10 py-3 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-300 appearance-none cursor-pointer"
-                    >
-                      <option value="Solo">Solo Traveler</option>
-                      <option value="Friends">Friends Group</option>
-                      <option value="Family">Family Trip</option>
-                      <option value="Couple">Couple Trip</option>
-                      <option value="Group">Mixed Group</option>
-                      <option value="Business">Business Trip</option>
-                    </select>
-                  </div>
+                <div className="pt-4 flex flex-col sm:flex-row gap-4 pb-4">
+                  <button
+                    type="button"
+                    onClick={() => setIsEditModalOpen(false)}
+                    disabled={isUpdating}
+                    className="flex-1 px-6 py-4 bg-slate-50 dark:bg-background-dark text-slate-600 dark:text-slate-400 font-black rounded-2xl hover:bg-slate-100 transition-all cursor-pointer uppercase tracking-widest text-xs"
+                  >
+                    Discard
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isUpdating}
+                    className="flex-1 px-6 py-4 bg-primary text-slate-900 font-black rounded-2xl hover:bg-opacity-90 shadow-lg shadow-primary/20 transition-all cursor-pointer uppercase tracking-widest text-xs flex items-center justify-center gap-2 group"
+                  >
+                    {isUpdating ? (
+                      <Loader2 className="size-4 animate-spin" />
+                    ) : (
+                      <Check className="size-4" strokeWidth={3} />
+                    )}
+                    Save Changes
+                  </button>
                 </div>
-
-                <div>
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">
-                    Min Budget ($)
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    value={editForm.budget.min}
-                    onChange={(event) =>
-                      setEditForm({
-                        ...editForm,
-                        budget: {
-                          ...editForm.budget,
-                          min: Number(event.target.value),
-                        },
-                      })
-                    }
-                    className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">
-                    Max Budget ($)
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    value={editForm.budget.max}
-                    onChange={(event) =>
-                      setEditForm({
-                        ...editForm,
-                        budget: {
-                          ...editForm.budget,
-                          max: Number(event.target.value),
-                        },
-                      })
-                    }
-                    className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">
-                    Plan Description
-                  </label>
-                  <textarea
-                    rows={4}
-                    value={editForm.description}
-                    onChange={(event) =>
-                      setEditForm({ ...editForm, description: event.target.value })
-                    }
-                    className="w-full px-5 py-3 text-sm bg-slate-50 dark:bg-background-dark border border-slate-100 dark:border-slate-700/50 rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none font-bold text-slate-700 dark:text-slate-200 transition-all resize-none"
-                    placeholder="Short description of the trip..."
-                  />
-                </div>
-              </div>
-
-              <div className="pt-4 flex gap-4">
-                <button
-                  type="button"
-                  onClick={() => setIsEditModalOpen(false)}
-                  disabled={isUpdating}
-                  className="flex-1 px-6 py-4 bg-slate-50 dark:bg-background-dark text-slate-600 dark:text-slate-400 font-black rounded-2xl hover:bg-slate-100 transition-all cursor-pointer uppercase tracking-widest text-xs"
-                >
-                  Discard
-                </button>
-                <button
-                  type="submit"
-                  disabled={isUpdating}
-                  className="flex-1 px-6 py-4 bg-primary text-slate-900 font-black rounded-2xl hover:bg-opacity-90 shadow-lg shadow-primary/20 transition-all cursor-pointer uppercase tracking-widest text-xs flex items-center justify-center gap-2 group"
-                >
-                  {isUpdating ? (
-                    <Loader2 className="size-4 animate-spin" />
-                  ) : (
-                    <Check className="size-4" strokeWidth={3} />
-                  )}
-                  Save Changes
-                </button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
       )}
 
       {/* Delete Confirmation Modal */}
       {isDeleteModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-300">
           <div
             className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"
             onClick={() => !isDeleting && setIsDeleteModalOpen(false)}
@@ -481,7 +486,7 @@ const AdminTravelPlansPage = () => {
               </span>
               ?
             </p>
-            <div className="grid grid-cols-2 gap-4 mt-10">
+            <div className="flex flex-col sm:grid sm:grid-cols-2 gap-4 mt-10">
               <button
                 onClick={() => setIsDeleteModalOpen(false)}
                 disabled={isDeleting}
