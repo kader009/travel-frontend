@@ -86,7 +86,7 @@ const SubscriptionPage = () => {
     <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Header */}
       <section className="text-center space-y-4 max-w-2xl mx-auto">
-        <h1 className="text-4xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">
+        <h1 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">
           Choose Your Journey
         </h1>
         <p className="text-slate-500 dark:text-slate-400 font-semibold">
@@ -100,14 +100,14 @@ const SubscriptionPage = () => {
         {plans.map((plan) => (
           <div
             key={plan.id}
-            className={`relative group bg-white dark:bg-background-dark rounded-[3rem] border-2 transition-all p-10 flex flex-col ${
+            className={`relative group bg-white dark:bg-background-dark rounded-[2.5rem] sm:rounded-[3rem] border-2 transition-all p-6 sm:p-10 flex flex-col ${
               plan.popular
                 ? 'border-primary ring-4 ring-primary/5 scale-105 z-10'
                 : 'border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm'
             }`}
           >
             {plan.popular && (
-              <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-slate-900 px-6 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl">
+              <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-slate-900 px-6 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest whitespace-nowrap">
                 Most Popular
               </span>
             )}
@@ -127,7 +127,7 @@ const SubscriptionPage = () => {
             </h3>
             <div className="flex items-baseline gap-1 mb-8">
               <span className="text-4xl font-black text-slate-900 dark:text-white">
-                ৳{plan.price}
+                ${plan.price}
               </span>
               <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">
                 {plan.period}
@@ -170,14 +170,14 @@ const SubscriptionPage = () => {
       </div>
 
       {/* Payment History Table */}
-      <section className="bg-white dark:bg-background-dark rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-md overflow-hidden">
-        <div className="px-10 py-8 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <section className="bg-white dark:bg-background-dark rounded-[2.5rem] sm:rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-md overflow-hidden">
+        <div className="px-5 sm:px-10 py-6 sm:py-8 border-b border-slate-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="size-12 rounded-2xl bg-slate-100 dark:bg-background-dark flex items-center justify-center text-slate-400">
               <History className="size-6" />
             </div>
             <div>
-              <h2 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight leading-none mb-1">
+              <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight leading-none mb-1 whitespace-nowrap">
                 Billing Legend
               </h2>
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">
@@ -194,7 +194,7 @@ const SubscriptionPage = () => {
                   Total Spent
                 </p>
                 <p className="text-sm font-black text-slate-900 dark:text-white leading-none">
-                  ৳
+                  $
                   {historyData?.data
                     ?.filter((tx) => tx.status === 'paid')
                     .reduce((acc, curr) => acc + curr.amount, 0) || 0}
@@ -208,19 +208,19 @@ const SubscriptionPage = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-slate-50/50 dark:bg-background-dark">
-                <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <th className="px-5 sm:px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">
                   Transaction ID
                 </th>
-                <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <th className="px-5 sm:px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">
                   Plan Details
                 </th>
-                <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">
+                <th className="px-5 sm:px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center whitespace-nowrap">
                   Amount
                 </th>
-                <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">
+                <th className="px-5 sm:px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center whitespace-nowrap">
                   Executed At
                 </th>
-                <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">
+                <th className="px-5 sm:px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right whitespace-nowrap">
                   Status
                 </th>
               </tr>
@@ -232,22 +232,22 @@ const SubscriptionPage = () => {
                     key={tx._id}
                     className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors"
                   >
-                    <td className="px-10 py-6 font-mono text-[11px] text-slate-500 font-bold">
+                    <td className="px-5 sm:px-10 py-6 font-mono text-[11px] text-slate-500 font-bold whitespace-nowrap">
                       {tx.transactionId}
                     </td>
-                    <td className="px-10 py-6">
-                      <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-background-dark text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest">
+                    <td className="px-5 sm:px-10 py-6">
+                      <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-background-dark text-[10px] font-black text-slate-600 dark:text-slate-400 uppercase tracking-widest whitespace-nowrap">
                         {tx.planType}
                       </span>
                     </td>
-                    <td className="px-10 py-6 text-center text-sm font-black text-slate-900 dark:text-white">
-                      ৳{tx.amount}
+                    <td className="px-5 sm:px-10 py-6 text-center text-sm font-black text-slate-900 dark:text-white whitespace-nowrap">
+                      ${tx.amount}
                     </td>
-                    <td className="px-10 py-6 text-center font-bold text-slate-400 text-xs flex items-center justify-center gap-2">
+                    <td className="px-5 sm:px-10 py-6 text-center font-bold text-slate-400 text-xs flex items-center justify-center gap-2 whitespace-nowrap">
                       <Calendar className="size-3.5" />
                       {new Date(tx.createdAt).toLocaleDateString()}
                     </td>
-                    <td className="px-10 py-6 text-right">
+                    <td className="px-5 sm:px-10 py-6 text-right whitespace-nowrap">
                       <span
                         className={`px-4 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest inline-flex items-center gap-1.5 ${
                           tx.status === 'paid'

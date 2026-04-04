@@ -170,7 +170,7 @@ const PricingPage = () => {
                 </h3>
                 <div className="flex items-baseline gap-1 mb-8">
                   <span className="text-4xl font-black text-slate-900 dark:text-white">
-                    {plan.price === '0' ? 'Free' : `৳${plan.price}`}
+                    {plan.price === '0' ? 'Free' : `$${plan.price}`}
                   </span>
                   {plan.price !== '0' && (
                     <span className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">
