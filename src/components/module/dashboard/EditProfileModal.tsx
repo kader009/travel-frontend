@@ -5,17 +5,17 @@ import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { profileSchema } from '@/src/validation/profile.validation';
 import { ProfileFormValues } from '@/src/types/forms';
-import { 
-  X, 
-  User, 
+import {
+  X,
+  User,
   Image as ImageIcon,
-  MapPin, 
-  Globe, 
-  Compass, 
+  MapPin,
+  Globe,
+  Compass,
   Trash2,
   Loader2,
   Save,
-  Navigation
+  Navigation,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useDispatch } from 'react-redux';
@@ -25,7 +25,11 @@ import { IUser } from '@/src/types/user';
 
 import { EditProfileModalProps } from '@/src/types/props';
 
-const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClose }) => {
+const EditProfileModal: React.FC<EditProfileModalProps> = ({
+  user,
+  isOpen,
+  onClose,
+}) => {
   const dispatch = useDispatch();
   const [updateProfile, { isLoading }] = useUpdateProfileMutation();
   const [newInterest, setNewInterest] = useState('');
@@ -37,7 +41,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
     reset,
     control,
     setValue,
-    formState: { errors }
+    formState: { errors },
   } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
@@ -49,13 +53,14 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
       visitedCountries: user?.visitedCountries || [],
       coordinates: {
         lat: user?.coordinates?.lat || 0,
-        lng: user?.coordinates?.lng || 0
-      }
-    }
+        lng: user?.coordinates?.lng || 0,
+      },
+    },
   });
 
   const travelInterests = useWatch({ control, name: 'travelInterests' }) || [];
-  const visitedCountries = useWatch({ control, name: 'visitedCountries' }) || [];
+  const visitedCountries =
+    useWatch({ control, name: 'visitedCountries' }) || [];
 
   useEffect(() => {
     if (user && isOpen) {
@@ -68,8 +73,8 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
         visitedCountries: user.visitedCountries || [],
         coordinates: {
           lat: user.coordinates?.lat || 0,
-          lng: user.coordinates?.lng || 0
-        }
+          lng: user.coordinates?.lng || 0,
+        },
       });
     }
   }, [user, isOpen, reset]);
@@ -83,7 +88,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
   };
 
   const removeInterest = (interest: string) => {
-    setValue('travelInterests', travelInterests.filter(i => i !== interest));
+    setValue(
+      'travelInterests',
+      travelInterests.filter((i) => i !== interest),
+    );
   };
 
   const addCountry = () => {
@@ -95,7 +103,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
   };
 
   const removeCountry = (country: string) => {
-    setValue('visitedCountries', visitedCountries.filter(c => c !== country));
+    setValue(
+      'visitedCountries',
+      visitedCountries.filter((c) => c !== country),
+    );
   };
 
   const onSubmit = async (data: ProfileFormValues) => {
@@ -107,7 +118,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
         onClose();
       }
     } catch (error: unknown) {
-      const errorMessage = (error as { data?: { message?: string } })?.data?.message || 'Failed to update profile';
+      const errorMessage =
+        (error as { data?: { message?: string } })?.data?.message ||
+        'Failed to update profile';
       toast.error(errorMessage);
     }
   };
@@ -117,14 +130,13 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
   return (
     <div className="fixed inset-0 z-9999 flex items-center justify-center p-4 sm:p-6">
       {/* Backdrop */}
-      <div 
+      <div
         className="fixed inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity duration-300"
         onClick={onClose}
       />
-      
+
       {/* Modal Content */}
-      <div className="relative w-full max-w-2xl h-auto max-h-[95vh] sm:max-h-[90vh] overflow-hidden bg-white dark:bg-background-dark rounded-3xl sm:rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-slate-800 animate-in fade-in zoom-in duration-300 transition-all flex flex-col">
-        
+      <div className="relative w-full max-w-2xl h-auto max-h-[88vh] sm:max-h-[90vh] overflow-hidden bg-white dark:bg-background-dark rounded-3xl sm:rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-slate-800 animate-in fade-in zoom-in duration-300 transition-all flex flex-col">
         {/* Header */}
         <div className="flex-none bg-white/80 dark:bg-background-dark backdrop-blur-xl px-5 sm:px-8 py-4 sm:py-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -132,13 +144,16 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
               <Compass className="size-6" strokeWidth={2.5} />
             </div>
             <div>
-              <h2 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight leading-none">Edit Profile</h2>
+              <h2 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight leading-none">
+                Edit Profile
+              </h2>
               <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-1.5 flex items-center gap-1.5">
-                <span className="size-1 bg-primary rounded-full animate-pulse" /> Customize your travel identity
+                <span className="size-1 bg-primary rounded-full animate-pulse" />{' '}
+                Customize your travel identity
               </p>
             </div>
           </div>
-          <button 
+          <button
             onClick={onClose}
             className="size-10 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center transition-all group cursor-pointer active:scale-90"
           >
@@ -149,7 +164,6 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
         {/* Scrollable Body */}
         <div className="flex-1 overflow-y-auto p-5 sm:p-8 custom-scrollbar">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-            
             {/* Basic Info Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2 group">
@@ -161,7 +175,11 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
                   placeholder="John Doe"
                   className="w-full bg-slate-50 dark:bg-sbackground-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white"
                 />
-                {errors.name && <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">{errors.name.message}</p>}
+                {errors.name && (
+                  <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">
+                    {errors.name.message}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2 group">
@@ -173,7 +191,11 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
                   placeholder="https://example.com/avatar.jpg"
                   className="w-full bg-slate-50 dark:bg-sbackground-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none focus:border-primary/50 focus:bg-white dark:focus:bg-slate-800 transition-all text-slate-900 dark:text-white"
                 />
-                {errors.image && <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">{errors.image.message}</p>}
+                {errors.image && (
+                  <p className="text-[10px] font-black text-red-500 uppercase tracking-tight pl-2">
+                    {errors.image.message}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -194,7 +216,8 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2 group">
                 <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 group-focus-within:text-primary transition-colors flex items-center gap-2">
-                  <MapPin className="size-3.5" strokeWidth={3} /> Current Location
+                  <MapPin className="size-3.5" strokeWidth={3} /> Current
+                  Location
                 </label>
                 <input
                   {...register('currentLocation')}
@@ -205,7 +228,8 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
 
               <div className="space-y-2">
                 <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
-                  <Navigation className="size-3.5" strokeWidth={3} /> Coordinates
+                  <Navigation className="size-3.5" strokeWidth={3} />{' '}
+                  Coordinates
                 </label>
                 <div className="grid grid-cols-2 gap-3">
                   <input
@@ -229,14 +253,18 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
             {/* Interests Section */}
             <div className="space-y-4">
               <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
-                <Compass className="size-3.5" strokeWidth={3} /> Travel Interests
+                <Compass className="size-3.5" strokeWidth={3} /> Travel
+                Interests
               </label>
               <div className="flex flex-wrap gap-2 mb-3">
                 {travelInterests.map((interest) => (
-                  <div key={interest} className="group/tag flex items-center gap-2 bg-primary/10 border border-primary/20 text-slate-900 dark:text-white px-3.5 py-1.5 rounded-full text-[11px] font-black uppercase tracking-tight transition-all hover:bg-primary/20">
+                  <div
+                    key={interest}
+                    className="group/tag flex items-center gap-2 bg-primary/10 border border-primary/20 text-slate-900 dark:text-white px-3.5 py-1.5 rounded-full text-[11px] font-black uppercase tracking-tight transition-all hover:bg-primary/20"
+                  >
                     {interest}
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       onClick={() => removeInterest(interest)}
                       className="transition-colors cursor-pointer text-slate-400 hover:text-red-500"
                     >
@@ -249,7 +277,12 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
                 <input
                   value={newInterest}
                   onChange={(e) => setNewInterest(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addInterest(); } }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      addInterest();
+                    }
+                  }}
                   placeholder="e.g. Scuba Diving"
                   className="flex-1 bg-slate-50 dark:bg-sbackground-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-3 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white font-mono"
                 />
@@ -266,14 +299,18 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
             {/* Visited Countries Section */}
             <div className="space-y-4">
               <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
-                <Globe className="size-3.5" strokeWidth={3} /> Countries Explored
+                <Globe className="size-3.5" strokeWidth={3} /> Countries
+                Explored
               </label>
               <div className="flex flex-wrap gap-2 mb-3">
                 {visitedCountries.map((country) => (
-                  <div key={country} className="group/tag flex items-center gap-2 bg-slate-100 dark:bg-background-dark border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white px-3.5 py-1.5 rounded-full text-[11px] font-black uppercase tracking-tight transition-all hover:border-primary/50">
+                  <div
+                    key={country}
+                    className="group/tag flex items-center gap-2 bg-slate-100 dark:bg-background-dark border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white px-3.5 py-1.5 rounded-full text-[11px] font-black uppercase tracking-tight transition-all hover:border-primary/50"
+                  >
                     {country}
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       onClick={() => removeCountry(country)}
                       className="transition-colors cursor-pointer text-slate-400 hover:text-red-500"
                     >
@@ -286,7 +323,12 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
                 <input
                   value={newCountry}
                   onChange={(e) => setNewCountry(e.target.value)}
-                  onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addCountry(); } }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      addCountry();
+                    }
+                  }}
                   placeholder="e.g. Iceland"
                   className="flex-1 bg-slate-50 dark:bg-sbackground-dark border-2 border-slate-100 dark:border-slate-800 rounded-2xl px-5 py-3 text-sm font-bold focus:outline-none focus:border-primary/50 transition-all text-slate-900 dark:text-white font-mono"
                 />

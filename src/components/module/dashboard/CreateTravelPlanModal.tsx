@@ -130,7 +130,7 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-9999 flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div className="fixed inset-0 z-9999 flex items-center justify-center p-4 sm:p-6">
       {/* Backdrop */}
       <div
         className="fixed inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity duration-300"
@@ -138,7 +138,7 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({
       />
 
       {/* Modal Content */}
-      <div className="relative w-full max-w-2xl h-auto max-h-[95vh] sm:max-h-[90vh] overflow-hidden bg-white dark:bg-background-dark rounded-3xl sm:rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-slate-800 animate-in fade-in zoom-in duration-300 transition-all flex flex-col">
+      <div className="relative w-full max-w-2xl h-auto max-h-[88vh] sm:max-h-[90vh] overflow-hidden bg-white dark:bg-background-dark rounded-3xl sm:rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-slate-800 animate-in fade-in zoom-in duration-300 transition-all flex flex-col">
         {/* Header */}
         <div className="flex-none bg-white/80 dark:bg-background-dark backdrop-blur-xl px-5 sm:px-8 py-4 sm:py-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -146,7 +146,9 @@ const CreateTravelPlanModal: React.FC<CreateTravelPlanModalProps> = ({
               <Plus className="size-5 sm:size-6" strokeWidth={2.5} />
             </div>
             <div>
-              <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight leading-none">New Expedition</h2>
+              <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight leading-none">
+                New Expedition
+              </h2>
               <p className="text-[9px] sm:text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-1.5 flex items-center gap-1.5">
                 Plan your next adventure
               </p>
