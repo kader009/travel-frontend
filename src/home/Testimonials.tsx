@@ -11,7 +11,7 @@ const Testimonials = async () => {
       `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/reviews/latest?limit=3`,
       {
         next: { revalidate: 3600 }, // Cache and revalidate every hour
-      }
+      },
     );
 
     if (res.ok) {
@@ -50,7 +50,7 @@ const Testimonials = async () => {
   }
 
   return (
-    <section className="py-12">
+    <section className="pt-12">
       <Container>
         <TestimonialSwiper testimonials={testimonials} />
       </Container>

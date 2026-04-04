@@ -38,7 +38,7 @@ const TestimonialSwiper = ({ testimonials }: { testimonials: ITestimonial[] }) =
           modules={[Autoplay, Pagination]}
           spaceBetween={20}
           slidesPerView={1}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          autoplay={{ delay: 6000, disableOnInteraction: false }}
           onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
           className="testimonial-swiper pb-12! px-1! sm:px-0!"
         >

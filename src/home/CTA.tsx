@@ -15,10 +15,16 @@ const CTA = () => {
             destination today.
           </p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Link href="/explore" className="rounded-full bg-primary px-8 py-4 text-lg font-bold text-background-dark shadow-lg shadow-primary/20 transition-transform hover:scale-105">
+            <Link
+              href="/explore"
+              className="rounded-full bg-primary px-8 py-4 text-lg font-bold text-background-dark shadow-lg shadow-primary/20 transition-transform hover:scale-105"
+            >
               Find Travel Buddies
             </Link>
-            <Link href="/travel-plans" className="rounded-full border border-slate-700 bg-slate-800/50 px-8 py-4 text-lg font-bold backdrop-blur transition-colors hover:bg-slate-800 dark:bg-background-dark">
+            <Link
+              href="/travel-plans"
+              className="rounded-full border border-slate-700 bg-slate-800/50 px-8 py-4 text-lg font-bold backdrop-blur transition-colors hover:bg-slate-800 dark:bg-background-dark"
+            >
               Explore Expeditions
             </Link>
           </div>
