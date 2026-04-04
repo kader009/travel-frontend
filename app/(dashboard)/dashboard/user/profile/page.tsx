@@ -24,7 +24,11 @@ import {
 import { IReview } from '@/src/types/review';
 import { IUser } from '@/src/types/user';
 import Link from 'next/link';
-import { UpcomingPlansProfileSkeleton, CompletedPlansProfileSkeleton, ReviewsProfileSkeleton } from '@/src/components/skeleton/UserProfileSkeleton';
+import {
+  UpcomingPlansProfileSkeleton,
+  CompletedPlansProfileSkeleton,
+  ReviewsProfileSkeleton,
+} from '@/src/components/skeleton/UserProfileSkeleton';
 
 const UserProfilePage = () => {
   const { user } = useSelector((state: RootState) => state.user);

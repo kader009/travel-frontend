@@ -115,7 +115,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-9999 flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div className="fixed inset-0 z-9999 flex items-center justify-center p-4 sm:p-6">
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity duration-300"
@@ -132,9 +132,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({ user, isOpen, onClo
               <Compass className="size-6" strokeWidth={2.5} />
             </div>
             <div>
-              <h2 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight leading-none">Edit Exploration Profile</h2>
+              <h2 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight leading-none">Edit Profile</h2>
               <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-1.5 flex items-center gap-1.5">
-                <span className="size-1 bg-primary rounded-full animate-pulse" /> Customize your travel buddy identity
+                <span className="size-1 bg-primary rounded-full animate-pulse" /> Customize your travel identity
               </p>
             </div>
           </div>
