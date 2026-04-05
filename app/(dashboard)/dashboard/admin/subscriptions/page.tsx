@@ -47,7 +47,7 @@ const AdminSubscriptionsPage = () => {
           </div>
           <div>
             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Total Earnings</p>
-            <p className="text-xl font-black text-slate-900 dark:text-white leading-none">৳{totalEarnings.toLocaleString()}</p>
+            <p className="text-xl font-black text-slate-900 dark:text-white leading-none">${totalEarnings.toLocaleString()}</p>
           </div>
         </div>
       </div>
@@ -149,7 +149,7 @@ const AdminSubscriptionsPage = () => {
                       </span>
                     </td>
                     <td className="px-4 sm:px-8 py-4 sm:py-5">
-                      <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">৳{payment.amount}</p>
+                      <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">${payment.amount}</p>
                     </td>
                     <td className="px-4 sm:px-8 py-4 sm:py-5">
                       <p className="text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400">

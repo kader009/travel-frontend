@@ -89,7 +89,7 @@ const TravelPlanCard: React.FC<TravelPlanCardProps> = ({
                 Budget Range
               </span>
               <span className="text-xs font-black text-slate-900 dark:text-white mt-0.5">
-                ৳{plan.budget.min.toLocaleString()} - ৳
+                ${plan.budget.min.toLocaleString()} - $
                 {plan.budget.max.toLocaleString()}
               </span>
             </div>
