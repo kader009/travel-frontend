@@ -207,12 +207,11 @@ const ManageUsersPage = () => {
         )}
       </div>
 
-      {/* Edit User Modal */}
       {isEditModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6 animate-in fade-in duration-300">
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => !isUpdating && setIsEditModalOpen(false)}></div>
-          <div className="bg-white dark:bg-background-dark w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300">
-            <div className="bg-slate-50 dark:bg-background-dark px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
+          <div className="bg-white dark:bg-background-dark w-full max-w-lg max-h-full overflow-y-auto rounded-3xl shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300">
+            <div className="sticky top-0 z-20 bg-slate-50 dark:bg-background-dark px-6 md:px-8 py-6 flex justify-between items-center border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-primary/10 rounded-xl text-primary">
                   <Pencil className="size-5" />
@@ -227,7 +226,7 @@ const ManageUsersPage = () => {
               </button>
             </div>
 
-            <form onSubmit={handleUpdate} className="p-8 space-y-6">
+            <form onSubmit={handleUpdate} className="p-6 md:p-8 space-y-6">
               {/* Profile Image Section */}
               <div className="flex flex-col items-center gap-4 mb-8">
                 <div className="relative group">
@@ -281,19 +280,19 @@ const ManageUsersPage = () => {
                 </div>
               </div>
 
-              <div className="pt-4 flex gap-4">
+              <div className="pt-4 flex flex-col sm:flex-row gap-4">
                 <button 
                   type="button" 
                   onClick={() => setIsEditModalOpen(false)}
                   disabled={isUpdating}
-                  className="flex-1 px-6 py-4 bg-slate-50 dark:bg-background-dark text-slate-600 dark:text-slate-400 font-black rounded-2xl hover:bg-slate-100 transition-all cursor-pointer uppercase tracking-widest text-xs"
+                  className="w-full sm:flex-1 px-6 py-4 bg-slate-50 dark:bg-background-dark text-slate-600 dark:text-slate-400 font-black rounded-2xl hover:bg-slate-100 transition-all cursor-pointer uppercase tracking-widest text-xs whitespace-nowrap"
                 >
                   Discard
                 </button>
                 <button 
                   type="submit" 
                   disabled={isUpdating}
-                  className="flex-1 px-6 py-4 bg-primary text-slate-900 font-black rounded-2xl hover:bg-opacity-90 shadow-lg shadow-primary/20 transition-all cursor-pointer uppercase tracking-widest text-xs flex items-center justify-center gap-2 group"
+                  className="w-full sm:flex-1 px-6 py-4 bg-primary text-slate-900 font-black rounded-2xl hover:bg-opacity-90 shadow-lg shadow-primary/20 transition-all cursor-pointer uppercase tracking-widest text-xs flex items-center justify-center gap-2 group whitespace-nowrap order-first sm:order-last"
                 >
                   {isUpdating ? <Loader2 className="size-4 animate-spin" /> : <Check className="size-4" strokeWidth={3} />}
                   Save Changes
@@ -306,9 +305,9 @@ const ManageUsersPage = () => {
 
       {/* Delete Confirmation Modal */}
       {isDeleteModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-8 animate-in fade-in duration-300">
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => !isDeleting && setIsDeleteModalOpen(false)}></div>
-          <div className="bg-white dark:bg-background-dark w-full max-w-md rounded-3xl p-8 shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300 text-center">
+          <div className="bg-white dark:bg-background-dark w-full max-w-md max-h-full overflow-y-auto rounded-3xl p-6 md:p-8 shadow-2xl relative z-10 border border-slate-100 dark:border-slate-800 animate-in zoom-in-95 duration-300 text-center">
             <div className="size-20 rounded-full bg-rose-50 dark:bg-rose-900/20 flex items-center justify-center text-rose-500 mx-auto mb-6">
               <AlertTriangle className="size-10" />
             </div>
@@ -316,10 +315,21 @@ const ManageUsersPage = () => {
             <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
               Are you sure you want to permanently delete <span className="text-rose-500 font-black underline">{userToDelete?.name}</span>?
             </p>
-            <div className="grid grid-cols-2 gap-4 mt-10">
-              <button onClick={() => setIsDeleteModalOpen(false)} disabled={isDeleting} className="px-6 py-4 bg-slate-50 dark:bg-background-dark text-slate-500 font-black rounded-2xl hover:bg-slate-100 text-xs uppercase cursor-pointer">Cancel</button>
-              <button onClick={confirmDelete} disabled={isDeleting} className="px-6 py-4 bg-rose-500 text-white font-black rounded-2xl hover:bg-rose-600 shadow-lg shadow-rose-500/20 text-xs uppercase flex items-center justify-center gap-2 cursor-pointer">
-                {isDeleting ? <Loader2 className="size-4 animate-spin" /> : <Trash2 className="size-4" />} Delete
+            <div className="flex flex-col sm:flex-row gap-4 mt-10">
+              <button 
+                onClick={() => setIsDeleteModalOpen(false)} 
+                disabled={isDeleting} 
+                className="w-full sm:flex-1 px-6 py-4 bg-slate-50 dark:bg-background-dark text-slate-500 font-black rounded-2xl hover:bg-slate-100 text-xs uppercase cursor-pointer whitespace-nowrap"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={confirmDelete} 
+                disabled={isDeleting} 
+                className="w-full sm:flex-1 px-6 py-4 bg-rose-500 text-white font-black rounded-2xl hover:bg-rose-600 shadow-lg shadow-rose-500/20 text-xs uppercase flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap order-first sm:order-last"
+              >
+                {isDeleting ? <Loader2 className="size-4 animate-spin" /> : <Trash2 className="size-4" />} 
+                Delete
               </button>
             </div>
           </div>

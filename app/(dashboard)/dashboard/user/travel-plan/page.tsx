@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Map, Plus, Loader2, RefreshCcw, AlertCircle, Trash2 } from 'lucide-react';
 import { useGetMyTravelPlansQuery, useDeleteTravelPlanMutation } from '@/src/redux/store/api/endApi';
 import CreateTravelPlanModal from '@/src/components/module/dashboard/CreateTravelPlanModal';
