@@ -9,7 +9,11 @@ import { ITestimonial } from '@/src/types/review';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const TestimonialSwiper = ({ testimonials }: { testimonials: ITestimonial[] }) => {
+const TestimonialSwiper = ({
+  testimonials,
+}: {
+  testimonials: ITestimonial[];
+}) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -17,11 +21,13 @@ const TestimonialSwiper = ({ testimonials }: { testimonials: ITestimonial[] }) =
       <div className="text-center lg:text-left">
         <h1 className="text-3xl font-black sm:text-4xl lg:text-5xl">
           Voices of the <br />
-          <span className="text-primary-text uppercase tracking-tight">Community</span>
+          <span className="text-primary-text uppercase tracking-tight">
+            Community
+          </span>
         </h1>
         <p className="mt-4 sm:mt-6 text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto lg:mx-0">
-          Hear from our travelers who found more than just a buddy—they
-          found life-long friendships and unforgettable memories.
+          Hear from our travelers who found more than just a buddy—they found
+          life-long friendships and unforgettable memories.
         </p>
         {/* Custom Indicators */}
         <div className="mt-8 sm:mt-10 flex justify-center lg:justify-start gap-3 sm:gap-4">
@@ -50,19 +56,23 @@ const TestimonialSwiper = ({ testimonials }: { testimonials: ITestimonial[] }) =
                   {item.text}
                 </p>
                 <div className="mt-6 sm:mt-8 flex items-center gap-4">
-                  <div className="relative h-10 w-10 sm:h-12 sm:w-12 shrink-0 overflow-hidden rounded-full border border-slate-100 dark:border-slate-800">
+                  <div className="relative h-16 w-16 sm:h-12 sm:w-12 shrink-0 overflow-hidden rounded-full border border-slate-100 dark:border-slate-800">
                     <Image
                       alt={`Portrait of ${item.author}`}
                       fill
                       className="object-cover"
                       src={item.image}
-                      sizes="48px"
+                      sizes="52px"
                       quality={80}
                     />
                   </div>
                   <div className="min-w-0 flex-1 text-left">
-                    <p className="font-bold text-sm sm:text-base truncate">{item.author}</p>
-                    <p className="text-xs sm:text-sm text-slate-500 truncate">{item.role}</p>
+                    <p className="font-bold text-sm sm:text-base truncate">
+                      {item.author}
+                    </p>
+                    <p className="text-xs sm:text-sm text-slate-500 truncate">
+                      {item.role}
+                    </p>
                   </div>
                 </div>
               </div>
