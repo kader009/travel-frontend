@@ -253,7 +253,7 @@ const AdminTravelPlansPage = () => {
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
                         <User className="size-3.5" />
-                        <span className="text-sm font-bold truncate max-w-[150px]">
+                        <span className="text-sm font-bold truncate max-w-[150px] dark:text-white">
                           {plan.user?.name || 'Unknown'}
                         </span>
                       </div>
@@ -261,7 +261,7 @@ const AdminTravelPlansPage = () => {
                     <td className="px-8 py-5 text-slate-500 dark:text-slate-400">
                       <div className="flex items-center gap-2">
                         <Calendar className="size-3.5" />
-                        <span className="text-sm font-bold truncate">
+                        <span className="text-sm font-bold truncate dark:text-white">
                           {format(new Date(plan.startDate), 'MMM d')} -{' '}
                           {format(new Date(plan.endDate), 'MMM d, yyyy')}
                         </span>
