@@ -224,7 +224,7 @@ const AdminOverviewPage = () => {
               <Users className="size-6" />
             </div>
             <span
-              className={`${Number(stats.userGrowth) >= 0 ? 'text-emerald-500 bg-emerald-50' : 'text-rose-500 bg-rose-50'} text-[10px] font-black flex items-center gap-1 dark:bg-opacity-10 px-2 py-1 rounded-lg uppercase tracking-widest`}
+              className={`${Number(stats.userGrowth) >= 0 ? 'text-emerald-500 bg-emerald-50' : 'text-rose-500 bg-rose-50'} text-[10px] font-black flex items-center gap-1 dark:bg-emerald-900/20 px-2 py-1 rounded-lg uppercase tracking-widest`}
             >
               {stats.userGrowth}%{' '}
               {Number(stats.userGrowth) >= 0 ? (
@@ -249,7 +249,7 @@ const AdminOverviewPage = () => {
               <MapIcon className="size-6" />
             </div>
             <span
-              className={`${Number(stats.tripGrowth) >= 0 ? 'text-emerald-500 bg-emerald-50' : 'text-rose-500 bg-rose-50'} text-[10px] font-black flex items-center gap-1 dark:bg-opacity-10 px-2 py-1 rounded-lg uppercase tracking-widest`}
+              className={`${Number(stats.tripGrowth) >= 0 ? 'text-emerald-500 bg-emerald-50' : 'text-rose-500 bg-rose-50'} text-[10px] font-black flex items-center gap-1 dark:bg-bg-emerald-900/20 px-2 py-1 rounded-lg uppercase tracking-widest`}
             >
               {stats.tripGrowth}%{' '}
               {Number(stats.tripGrowth) >= 0 ? (
@@ -292,7 +292,7 @@ const AdminOverviewPage = () => {
               <CreditCard className="size-6" />
             </div>
             <span
-              className={`${Number(stats.revenueGrowth) >= 0 ? 'text-emerald-500 bg-emerald-50' : 'text-rose-500 bg-rose-50'} text-[10px] font-black flex items-center gap-1 dark:bg-opacity-10 px-2 py-1 rounded-lg uppercase tracking-widest`}
+              className={`${Number(stats.revenueGrowth) >= 0 ? 'text-emerald-500 bg-emerald-50' : 'text-rose-500 bg-rose-50'} text-[10px] font-black flex items-center gap-1 dark:bg-emerald-900/20 px-2 py-1 rounded-lg uppercase tracking-widest`}
             >
               {stats.revenueGrowth}%{' '}
               {Number(stats.revenueGrowth) >= 0 ? (

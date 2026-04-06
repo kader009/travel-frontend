@@ -181,11 +181,11 @@ const ManageUsersPage = () => {
                     <td className="px-8 py-5">
                       <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
                         <Mail className="size-3.5" />
-                        <span className="text-sm font-bold truncate max-w-[200px]">{user.email}</span>
+                        <span className="text-sm font-bold truncate max-w-[200px] text-slate-900 dark:text-white">{user.email}</span>
                       </div>
                     </td>
                     <td className="px-8 py-5">
-                      <span className={`w-fit px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest rounded border ${user.role === 'admin' ? 'bg-amber-50 text-amber-600 border-amber-200/50' : 'bg-blue-50 text-blue-600 border-blue-200/50'}`}>
+                      <span className={`w-fit px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest rounded-full border ${user.role === 'admin' ? 'bg-amber-50 text-amber-600 border-amber-200/50' : 'bg-blue-50 text-blue-600 border-blue-200/50'}`}>
                         {user.role}
                       </span>
                     </td>
