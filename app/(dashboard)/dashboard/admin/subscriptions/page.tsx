@@ -129,14 +129,14 @@ const AdminSubscriptionsPage = () => {
                         </div>
                         <div>
                           <p className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white capitalize truncate max-w-[120px] sm:max-w-none">{payment.user?.name || 'Unknown'}</p>
-                          <p className="text-[10px] sm:text-xs text-slate-500 font-medium truncate max-w-[120px] sm:max-w-none">{payment.user?.email || 'N/A'}</p>
+                          <p className="text-[10px] sm:text-xs text-slate-500 font-medium truncate max-w-[120px] sm:max-w-none dark:text-white">{payment.user?.email || 'N/A'}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-4 sm:px-8 py-4 sm:py-5">
                       <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
                         <FileText className="size-3 text-slate-400" />
-                        <span className="text-[10px] sm:text-xs font-mono font-bold">{payment.transactionId}</span>
+                        <span className="text-[10px] sm:text-xs font-mono font-bold dark:text-white">{payment.transactionId}</span>
                       </div>
                     </td>
                     <td className="px-4 sm:px-8 py-4 sm:py-5">
@@ -152,7 +152,7 @@ const AdminSubscriptionsPage = () => {
                       <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-white">${payment.amount}</p>
                     </td>
                     <td className="px-4 sm:px-8 py-4 sm:py-5">
-                      <p className="text-[10px] sm:text-xs font-bold text-slate-500 dark:text-slate-400">
+                      <p className="text-[10px] sm:text-xs font-bold text-slate-500 dark:text-white">
                         {new Date(payment.createdAt).toLocaleDateString(undefined, {
                           year: 'numeric',
                           month: 'short',
