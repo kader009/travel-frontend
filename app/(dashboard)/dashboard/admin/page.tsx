@@ -249,7 +249,7 @@ const AdminOverviewPage = () => {
               <MapIcon className="size-6" />
             </div>
             <span
-              className={`${Number(stats.tripGrowth) >= 0 ? 'text-emerald-500 bg-emerald-50' : 'text-rose-500 bg-rose-50'} text-[10px] font-black flex items-center gap-1 dark:bg-bg-emerald-900/20 px-2 py-1 rounded-lg uppercase tracking-widest`}
+              className={`${Number(stats.tripGrowth) >= 0 ? 'text-emerald-500 bg-emerald-50' : 'text-rose-500 bg-rose-50'} text-[10px] font-black flex items-center gap-1 dark:bg-emerald-900/20 px-2 py-1 rounded-lg uppercase tracking-widest`}
             >
               {stats.tripGrowth}%{' '}
               {Number(stats.tripGrowth) >= 0 ? (
@@ -435,7 +435,7 @@ const AdminOverviewPage = () => {
       <div className="bg-white dark:bg-background-dark rounded-4xl border border-slate-100 dark:border-slate-800 shadow-sm p-6 sm:p-8 flex flex-col">
         <div className="flex items-center justify-between mb-8">
           <h4 className="font-black text-slate-900 dark:text-white uppercase tracking-tight">
-            New Registered Personnel
+             Registered Personnel
           </h4>
           <div className="flex -space-x-3">
             {stats.recentUsers.map((recentUser, index) => (
@@ -486,7 +486,7 @@ const AdminOverviewPage = () => {
                 <p className="font-black text-sm text-slate-900 dark:text-white truncate tracking-tight capitalize">
                   {userProfile.name || 'Anonymous'}
                 </p>
-                <p className="text-[10px] font-black text-slate-400 tracking-widest truncate">
+                <p className="text-[10px] font-black text-slate-400 tracking-widest truncate dark:text-white">
                   {userProfile.email || 'Unregistered'}
                 </p>
               </div>
