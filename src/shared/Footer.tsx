@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import Container from '../components/ui/Container';
 import {
@@ -8,9 +10,27 @@ import {
   SendHorizontal,
   Twitter,
 } from 'lucide-react';
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { newsletterValidationSchema } from '../validation/newsletter.validation';
 
 const Footer = () => {
   const year = new Date().getFullYear();
+  const [email, setEmail] = useState('');
+
+  const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const result = newsletterValidationSchema.safeParse(email);
+
+    if (!result.success) {
+      toast.error(result.error.issues[0].message);
+      return;
+    }
+
+    toast.success('Successfully subscribed to newsletter!');
+    setEmail('');
+  };
 
   return (
     <footer className="border-t border-slate-200 bg-white py-12 dark:border-slate-800 dark:bg-background-dark">
@@ -133,16 +153,26 @@ const Footer = () => {
             <p className="mb-4 text-sm text-slate-500 dark:text-slate-400">
               Get weekly travel tips and new trip alerts.
             </p>
-            <div className="flex overflow-hidden rounded-full border border-slate-200 dark:border-slate-700">
+            <form
+              onSubmit={handleSubscribe}
+              className="flex overflow-hidden rounded-full border border-slate-200 dark:border-slate-700"
+            >
               <input
                 className="w-full bg-transparent px-4 py-2 text-sm focus:outline-none"
                 placeholder="Your email"
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                // required
               />
-              <button className="bg-primary px-5 py-2 text-sm font-bold text-background-dark hover:opacity-90 transition-opacity" aria-label="Submit form">
+              <button
+                className="bg-primary px-5 py-2 text-sm font-bold text-background-dark hover:opacity-90 transition-opacity"
+                aria-label="Submit form"
+                type="submit"
+              >
                 <SendHorizontal className="w-5 h-5" />
               </button>
-            </div>
+            </form>
           </div>
         </div>
         <div className="mt-12 border-t border-slate-100 pt-8 text-center text-sm text-slate-500 dark:border-slate-800">
