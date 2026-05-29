@@ -214,12 +214,18 @@ const HelpCenter = () => {
                 and community are here to support your journey.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button className="w-full sm:w-auto bg-primary text-background-dark font-bold py-4 px-10 rounded-full hover:bg-secondary transition-colors">
+                <Link
+                  href="/contact"
+                  className="w-full sm:w-auto bg-primary text-background-dark font-bold py-4 px-10 rounded-full hover:bg-secondary text-center transition-colors cursor-pointer"
+                >
                   Contact Support
-                </button>
-                <button className="w-full sm:w-auto bg-white/10 text-white border border-white/20 font-bold py-4 px-10 rounded-full hover:bg-white/20 transition-colors">
+                </Link>
+                <Link
+                  href="/explore"
+                  className="w-full sm:w-auto bg-white/10 text-white border border-white/20 font-bold py-4 px-10 rounded-full hover:bg-white/20 text-center transition-colors cursor-pointer"
+                >
                   Join Community
-                </button>
+                </Link>
               </div>
             </div>
           </div>
