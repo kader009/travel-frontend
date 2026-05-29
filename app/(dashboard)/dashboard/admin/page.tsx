@@ -203,7 +203,7 @@ const AdminOverviewPage = () => {
   }
 
   return (
-    <div className="animate-in fade-in duration-700 max-w-[1600px] mx-auto w-full">
+    <div className="animate-in fade-in duration-700 max-w-400 mx-auto w-full">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-10 gap-4">
         <div>
           <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight uppercase">
