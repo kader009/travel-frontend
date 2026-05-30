@@ -3,7 +3,7 @@ import Link from 'next/link';
 import {
   AtSign,
   Compass,
-  Globe,
+  Facebook,
   Headset,
   Instagram,
   Mail,
@@ -144,7 +144,7 @@ const Contact = () => {
                     rel="noopener noreferrer"
                     className="size-10 rounded-full bg-background-light dark:bg-background-dark flex items-center justify-center text-slate-600 hover:bg-primary hover:text-background-dark transition-all"
                   >
-                    <Globe className="w-5 h-5" />
+                    <Facebook className="w-5 h-5" />
                   </Link>
                   <Link
                     href="https://www.instagram.com/"
