@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   AtSign,
   Compass,
@@ -27,7 +28,8 @@ const Contact = () => {
                 Connect With Us
               </div>
               <h1 className="text-5xl lg:text-6xl font-black leading-tight tracking-tight text-slate-900 dark:text-white">
-                We&apos;d Love to <span className="text-primary">Hear From You</span>
+                We&apos;d Love to{' '}
+                <span className="text-primary">Hear From You</span>
               </h1>
               <p className="text-lg text-slate-600 dark:text-slate-400 max-w-lg">
                 Have questions about finding your next travel companion? Our
@@ -136,24 +138,30 @@ const Contact = () => {
                   Follow Our Journey
                 </h4>
                 <div className="flex justify-center gap-4">
-                  <a
+                  <Link
+                    href="https://www.facebook.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="size-10 rounded-full bg-background-light dark:bg-background-dark flex items-center justify-center text-slate-600 hover:bg-primary hover:text-background-dark transition-all"
-                    href="#"
                   >
                     <Globe className="w-5 h-5" />
-                  </a>
-                  <a
+                  </Link>
+                  <Link
+                    href="https://www.instagram.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="size-10 rounded-full bg-background-light dark:bg-background-dark flex items-center justify-center text-slate-600 hover:bg-primary hover:text-background-dark transition-all"
-                    href="#"
                   >
                     <Instagram className="w-5 h-5" />
-                  </a>
-                  <a
+                  </Link>
+                  <Link
+                    href="https://www.youtube.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="size-10 rounded-full bg-background-light dark:bg-background-dark flex items-center justify-center text-slate-600 hover:bg-primary hover:text-background-dark transition-all"
-                    href="#"
                   >
                     <Youtube className="w-5 h-5" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
